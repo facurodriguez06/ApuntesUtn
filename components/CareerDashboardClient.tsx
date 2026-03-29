@@ -36,6 +36,7 @@ export function CareerDashboardClient({
 }) {
   const [activeYear, setActiveYear] = useState(1);
   const [realNoteCounts, setRealNoteCounts] = useState<Record<string, number>>(initialNoteCounts);
+  const [hasSynced, setHasSynced] = useState(false);
 
   const yc = yearConfig[activeYear];
   const filteredSubjects = getSubjectsByCareerAndYear(careerId, activeYear);
@@ -43,7 +44,7 @@ export function CareerDashboardClient({
   useEffect(() => {
     const notesQuery = query(
       collection(db, "notes"),
-      where("careerId", "==", careerId),
+      where("careerId", "in", careerId === "basicas" ? ["basicas"] : [careerId, "basicas"]),
       where("status", "==", "approved")
     );
 
@@ -55,16 +56,21 @@ export function CareerDashboardClient({
         querySnapshot.forEach((docSnap) => {
           const data = docSnap.data();
           const subjectId = typeof data.subjectId === "string" ? data.subjectId : "";
-
           if (subjectId) {
             counts[subjectId] = (counts[subjectId] || 0) + 1;
           }
         });
 
-        setRealNoteCounts(counts);
+        // Only update if we actually got data or if it's a real server update
+        // this avoids the '0' flicker if the local cache is empty initially
+        if (!querySnapshot.empty || querySnapshot.metadata.fromCache === false) {
+          setRealNoteCounts(counts);
+        }
+        setHasSynced(true);
       },
       (error) => {
         console.error("Error syncing note counts:", error);
+        setHasSynced(true);
       }
     );
 
@@ -120,7 +126,7 @@ export function CareerDashboardClient({
 
           <div className={cn("inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-500", yc.bg, yc.text)}>
             <FileText className="w-3 h-3" />
-            {totalNotesThisYear} apuntes disponibles
+            {!hasSynced ? "Cargando..." : `${totalNotesThisYear} apuntes disponibles`}
           </div>
         </div>
 

@@ -10,7 +10,7 @@ async function getInitialNoteCounts(careerId: string) {
   try {
     const notesQuery = query(
       collection(db, "notes"),
-      where("careerId", "==", careerId),
+      where("careerId", "in", careerId === "basicas" ? ["basicas"] : [careerId, "basicas"]),
       where("status", "==", "approved")
     );
     const querySnapshot = await getDocs(notesQuery);
