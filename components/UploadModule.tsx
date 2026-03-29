@@ -150,7 +150,7 @@ export function UploadModule() {
     }
   };
 
-  const isValid = file && sanitize(title) && carrera && anio && materia && tipo;
+  const isValid = file && sanitize(title) && carrera && (carrera === "basicas" ? true : anio) && materia && tipo;
 
   const selectedCareer = careersData.find((career) => career.id === carrera);
   const availableYears = selectedCareer
@@ -160,7 +160,11 @@ export function UploadModule() {
 
   const handleCarreraChange = (value: string) => {
     setCarrera(value);
-    setAnio("");
+    if (value === "basicas") {
+      setAnio("1");
+    } else {
+      setAnio("");
+    }
     setMateria("");
   };
 
@@ -307,24 +311,26 @@ export function UploadModule() {
               </select>
             </div>
 
-            <div>
-              <label className="flex items-center gap-1.5 text-sm font-bold text-[#3D3229] mb-1.5">
-                <BookOpen className="w-3.5 h-3.5 text-[#A89F95]" /> AÑO
-              </label>
-              <select
-                value={anio}
-                onChange={(event) => handleAnioChange(event.target.value)}
-                disabled={!carrera}
-                className="w-full rounded-xl border border-[#EDE6DD] px-3.5 py-2.5 text-sm text-[#3D3229] focus:border-[#8BAA91] focus:outline-none focus:ring-2 focus:ring-[#8BAA91]/20 bg-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <option value="">Seleccionar...</option>
-                {availableYears.map((year) => (
-                  <option key={year} value={year}>
-                    {yearConfig[year]?.label || `Año ${year}`}
-                  </option>
-                ))}
-              </select>
-            </div>
+            {carrera !== "basicas" && (
+              <div>
+                <label className="flex items-center gap-1.5 text-sm font-bold text-[#3D3229] mb-1.5">
+                  <BookOpen className="w-3.5 h-3.5 text-[#A89F95]" /> Año
+                </label>
+                <select
+                  value={anio}
+                  onChange={(event) => handleAnioChange(event.target.value)}
+                  disabled={!carrera}
+                  className="w-full rounded-xl border border-[#EDE6DD] px-3.5 py-2.5 text-sm text-[#3D3229] focus:border-[#8BAA91] focus:outline-none focus:ring-2 focus:ring-[#8BAA91]/20 bg-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <option value="">Seleccionar...</option>
+                  {availableYears.map((year) => (
+                    <option key={year} value={year}>
+                      {yearConfig[year]?.label || `Año ${year}`}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
