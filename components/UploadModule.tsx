@@ -309,7 +309,7 @@ export function UploadModule() {
 
             <div>
               <label className="flex items-center gap-1.5 text-sm font-bold text-[#3D3229] mb-1.5">
-                <BookOpen className="w-3.5 h-3.5 text-[#A89F95]" /> Ano
+                <BookOpen className="w-3.5 h-3.5 text-[#A89F95]" /> AÑO
               </label>
               <select
                 value={anio}
@@ -320,7 +320,7 @@ export function UploadModule() {
                 <option value="">Seleccionar...</option>
                 {availableYears.map((year) => (
                   <option key={year} value={year}>
-                    {yearConfig[year]?.label || `Ano ${year}`}
+                    {yearConfig[year]?.label || `Año ${year}`}
                   </option>
                 ))}
               </select>
@@ -359,7 +359,7 @@ export function UploadModule() {
                 <option value="">Seleccionar...</option>
                 <option value="resumen">Resumen</option>
                 <option value="examen">Examen Resuelto</option>
-                <option value="tp">Trabajo Practico</option>
+                <option value="tp">Trabajo Práctico</option>
                 <option value="guia">Guia de Ejercicios</option>
               </select>
             </div>

@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Note } from "@/lib/data";
+import { careersData, subjectsData, yearConfig } from "@/lib/data";
 import { useAuth } from "@/context/AuthContext";
 import { signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { auth, app as primaryApp, db } from "@/lib/firebase/config";
@@ -75,6 +76,18 @@ function NoteCard({
               <span className="w-1 h-1 rounded-full bg-[#D5CAC0]"></span>
               <span>
                 {note.fileType} ({note.fileSize})
+              </span>
+              <span className="w-1 h-1 rounded-full bg-[#D5CAC0]"></span>
+              <span className="font-bold text-[#4A7A52] bg-[#E8F0EA] px-2 py-0.5 rounded-lg text-xs">
+                {careersData.find(c => c.id === note.careerId)?.shortName || note.careerId}
+              </span>
+              <span className="w-1 h-1 rounded-full bg-[#D5CAC0]"></span>
+              <span className="font-bold text-[#8B7355] bg-[#F5EFE5] px-2 py-0.5 rounded-lg text-xs">
+                {subjectsData.find(s => s.id === note.subjectId)?.name || note.subjectId}
+              </span>
+              <span className="w-1 h-1 rounded-full bg-[#D5CAC0]"></span>
+              <span className="font-bold text-[#4A6E82] bg-[#E5EFF5] px-2 py-0.5 rounded-lg text-xs">
+                {yearConfig[note.year || 0]?.label || `Año ${note.year}`}
               </span>
               {folderLabel && (
                 <>
