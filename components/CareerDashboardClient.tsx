@@ -44,7 +44,7 @@ export function CareerDashboardClient({
   useEffect(() => {
     const notesQuery = query(
       collection(db, "notes"),
-      where("careerId", "in", careerId === "basicas" ? ["basicas"] : [careerId, "basicas"]),
+      where("careerId", "==", careerId),
       where("status", "==", "approved")
     );
 

@@ -331,16 +331,8 @@ export const getSubjectsByCareer = (careerId: string): Subject[] =>
   subjectsData.filter(s => s.careerId === careerId);
 
 // Helper to get subjects by career and year
-export const getSubjectsByCareerAndYear = (careerId: string, year: number): Subject[] => {
-  // If we are in the 'basicas' career, only show basicas.
-  // If we are in a specific career, show its own subjects PLUS the basicas for that year.
-  if (careerId === 'basicas') {
-    return subjectsData.filter(s => s.careerId === 'basicas' && s.year === year);
-  }
-  return subjectsData.filter(s => 
-    (s.careerId === careerId || s.careerId === 'basicas') && s.year === year
-  );
-};
+export const getSubjectsByCareerAndYear = (careerId: string, year: number): Subject[] =>
+  subjectsData.filter(s => s.careerId === careerId && s.year === year);
 
 // Year config with pastel accent colors and lucide icon names
 export const yearConfig: Record<number, { label: string; icon: string; bg: string; text: string; border: string; accent: string }> = {
