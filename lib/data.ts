@@ -46,7 +46,7 @@ export const careersData: Career[] = [
     id: 'basicas', name: 'Ciclo Común (Básicas)', shortName: 'Básicas',
     description: 'Materias comunes a todas las ingenierías: Matemática, Física, Química y más.',
     icon: 'BookMarked', pastelBg: 'bg-[#F5EFE5]', pastelText: 'text-[#8B7355]', pastelBorder: 'border-[#E2D6C2]', pastelAccent: 'bg-gradient-to-r from-[#C4A87D] to-[#B8976A]',
-    implemented: true, maxYears: 2,
+    implemented: true, maxYears: 1,
   },
   {
     id: 'sistemas', name: 'Ingeniería en Sistemas de Información', shortName: 'Sistemas',
@@ -307,11 +307,11 @@ const basicasSubs: Subject[] = [
   sub('bas-isgg', 'Introducción a los Sistemas de Gestión Gerencial', 1, 'basicas'),
   
   // 2do Año Básicas
-  sub('bas-am2', 'Análisis Matemático II', 2, 'basicas'),
-  sub('bas-fis3', 'Física III', 2, 'basicas'),
-  sub('bas-pye', 'Probabilidad y Estadística', 2, 'basicas'),
-  sub('bas-eco', 'Economía', 2, 'basicas'),
-  sub('bas-leg', 'Legislación', 2, 'basicas'),
+  sub('bas-am2', 'Análisis Matemático II', 1, 'basicas'),
+  sub('bas-fis3', 'Física III', 1, 'basicas'),
+  sub('bas-pye', 'Probabilidad y Estadística', 1, 'basicas'),
+  sub('bas-eco', 'Economía', 1, 'basicas'),
+  sub('bas-leg', 'Legislación', 1, 'basicas'),
 ];
 
 // ============================================================
