@@ -10,6 +10,7 @@ export function DonationSection() {
   const [selectedPreset, setSelectedPreset] = useState<number | null>(1000);
   const [customAmount, setCustomAmount] = useState<string>("");
   const [isHovered, setIsHovered] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handlePresetClick = (amount: number) => {
     setSelectedPreset(amount);
@@ -24,15 +25,33 @@ export function DonationSection() {
 
   const currentAmount = selectedPreset || parseInt(customAmount) || 0;
 
-  const handleDonate = () => {
-    if (currentAmount <= 0) return;
-    
-    // Ing. Rodriguez: Aquí podés integrar tu link de Mercado Pago.
-    // Para montos dinámicos, normalmente se usa una integración de checkout pro
-    // o simplemente redirigir a tu link de perfil si es un monto fijo.
-    // Por ahora, redirigimos a un placeholder.
-    console.log(`Redirigiendo a Mercado Pago por: $${currentAmount}`);
-    window.open(`https://link-de-mercado-pago.com?amount=${currentAmount}`, "_blank");
+  const handleDonate = async () => {
+    if (currentAmount <= 0 || isLoading) return;
+    setIsLoading(true);
+
+    try {
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ amount: currentAmount }),
+      });
+
+      const data = await response.json();
+
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        console.error("Error al generar el link:", data.error);
+        alert(`Error al generar el pago: ${data.error}`);
+      }
+    } catch (error) {
+      console.error("Error de conexión:", error);
+      alert("Error de conexión con el servidor.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -120,17 +139,26 @@ export function DonationSection() {
 
             <button
               onClick={handleDonate}
-              disabled={currentAmount <= 0}
+              disabled={currentAmount <= 0 || isLoading}
               className={cn(
                 "group w-full flex items-center justify-center gap-3 py-4 rounded-2xl font-black text-sm transition-all duration-500",
-                currentAmount > 0
+                currentAmount > 0 && !isLoading
                   ? "bg-gradient-to-r from-[#8BAA91] to-[#7CC2A8] text-white shadow-xl shadow-[#8BAA91]/30 hover:scale-[1.02] active:scale-95"
                   : "bg-[#EDE6DD] text-[#A89F95] cursor-not-allowed"
               )}
             >
-              <Wallet className="w-4 h-4" />
-              Donar con Mercado Pago
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              {isLoading ? (
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <span>Procesando...</span>
+                </div>
+              ) : (
+                <>
+                  <Wallet className="w-4 h-4" />
+                  Donar con Mercado Pago
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </>
+              )}
             </button>
             
             <p className="mt-4 text-[10px] text-center text-[#A89F95] font-medium uppercase tracking-widest flex items-center justify-center gap-1.5">
