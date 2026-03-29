@@ -1,6 +1,7 @@
 import { GlobalSearchBar } from "@/components/GlobalSearchBar";
 import { CareerCard } from "@/components/CareerCard";
 import { LiveNotesCount } from "@/components/LiveNotesCount";
+import { DonationSection } from "@/components/DonationSection";
 import { careersData, subjectsData } from "@/lib/data";
 import { BookOpen, Layers, School } from "lucide-react";
 
@@ -62,6 +63,8 @@ export default function Home() {
             ))}
           </div>
         </section>
+
+        <DonationSection />
 
       </div>
     </div>

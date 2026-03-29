@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Upload, Menu, X, ChevronRight } from "lucide-react";
+import { Upload, Menu, X, ChevronRight, Heart } from "lucide-react";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
@@ -55,6 +55,15 @@ export function Header() {
             >
               Explorar
             </Link>
+            <a 
+              href="https://link-de-donacion.com" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 text-[12px] font-bold text-[#8B7355] hover:text-[#3D3229] px-3 py-2 rounded-xl hover:bg-[#F5EFE5] transition-all duration-300"
+            >
+              <Heart className="w-3.5 h-3.5 opacity-70" />
+              Apoyar
+            </a>
             <Link 
               href="/upload" 
               className="group relative flex items-center gap-2 text-[13px] font-bold text-white bg-gradient-to-b from-[#8BAA91] to-[#6A8F70] shadow-[0_2px_15px_-3px_rgba(106,143,112,0.4)] border border-[#597A5E] px-5 py-2 rounded-xl overflow-hidden active:scale-[0.97] transition-all duration-300"
@@ -96,6 +105,18 @@ export function Header() {
                 </div>
                 <ChevronRight className="w-4 h-4 opacity-50" />
               </Link>
+              <a 
+                href="https://link-de-donacion.com" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between text-sm font-bold text-[#8B7355] bg-[#F5EFE5]/50 px-4 py-3 rounded-xl transition-all"
+                onClick={() => setMenuOpen(false)}
+              >
+                <div className="flex items-center gap-2">
+                  <Heart className="w-4 h-4" /> Apoyar proyecto
+                </div>
+                <ChevronRight className="w-4 h-4 opacity-30" />
+              </a>
             </div>
           </div>
         )}
