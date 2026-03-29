@@ -12,6 +12,13 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "exact-center.js",
+    "fix-gentle.js",
+    "fix.js",
+    "manual-crop.js",
+    "pixel-perfect.js",
+    "test.js",
+    "true-center.js",
   ]),
 ]);
 
