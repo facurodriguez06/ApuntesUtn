@@ -43,10 +43,10 @@ export interface Career {
 
 export const careersData: Career[] = [
   {
-    id: 'basicas', name: 'Materias Básicas', shortName: 'Básicas',
+    id: 'basicas', name: 'Ciclo Común (Básicas)', shortName: 'Básicas',
     description: 'Materias comunes a todas las ingenierías: Matemática, Física, Química y más.',
     icon: 'BookMarked', pastelBg: 'bg-[#F5EFE5]', pastelText: 'text-[#8B7355]', pastelBorder: 'border-[#E2D6C2]', pastelAccent: 'bg-gradient-to-r from-[#C4A87D] to-[#B8976A]',
-    implemented: true, maxYears: 1,
+    implemented: true, maxYears: 2,
   },
   {
     id: 'sistemas', name: 'Ingeniería en Sistemas de Información', shortName: 'Sistemas',
@@ -97,7 +97,7 @@ const sub = (id: string, name: string, year: number, careerId: string): Subject 
 const sistemasSubs: Subject[] = [
   // 1er Año
   sub('sis-led', 'Lógica y Estructuras Discretas', 1, 'sistemas'),
-  sub('sis-aed', 'Algoritmo y Estructura de Datos', 1, 'sistemas'),
+  sub('sis-aed', 'Algoritmos y Estructuras de Datos', 1, 'sistemas'),
   sub('sis-arq', 'Arquitectura de Computadoras', 1, 'sistemas'),
   sub('sis-spn', 'Sistemas y Procesos de Negocio', 1, 'sistemas'),
   // 2do Año
@@ -107,14 +107,14 @@ const sistemasSubs: Subject[] = [
   sub('sis-so', 'Sistemas Operativos', 2, 'sistemas'),
   // 3er Año
   sub('sis-dsi', 'Diseño de Sistemas de Información', 3, 'sistemas'),
-  sub('sis-bd', 'Base de Datos', 3, 'sistemas'),
+  sub('sis-bd', 'Bases de Datos', 3, 'sistemas'),
   sub('sis-cdd', 'Comunicación de Datos', 3, 'sistemas'),
-  sub('sis-dds', 'Desarrollo de Software', 3, 'sistemas'),
+  sub('sis-ds', 'Desarrollo de Software', 3, 'sistemas'),
   sub('sis-an', 'Análisis Numérico', 3, 'sistemas'),
   sub('sis-el3', 'Electivas 3º nivel', 3, 'sistemas'),
   // 4to Año
   sub('sis-si', 'Seminario Integrador', 4, 'sistemas'),
-  sub('sis-adm', 'Administración de Sistemas de Información', 4, 'sistemas'),
+  sub('sis-asi4', 'Administración de Sistemas de Información', 4, 'sistemas'),
   sub('sis-ics', 'Ingeniería y Calidad de Software', 4, 'sistemas'),
   sub('sis-io', 'Investigación Operativa', 4, 'sistemas'),
   sub('sis-sim', 'Simulación', 4, 'sistemas'),
@@ -124,7 +124,6 @@ const sistemasSubs: Subject[] = [
   // 5to Año
   sub('sis-pf', 'Proyecto Final', 5, 'sistemas'),
   sub('sis-sdg', 'Sistemas de Gestión', 5, 'sistemas'),
-  sub('sis-gg', 'Gestión Gerencial', 5, 'sistemas'),
   sub('sis-ssi', 'Seguridad en los Sistemas de Información', 5, 'sistemas'),
   sub('sis-ia', 'Inteligencia Artificial', 5, 'sistemas'),
   sub('sis-cd', 'Ciencia de Datos', 5, 'sistemas'),
@@ -137,6 +136,8 @@ const sistemasSubs: Subject[] = [
 const civilSubs: Subject[] = [
   // 1er Año
   sub('civ-ic1', 'Ingeniería Civil I', 1, 'civil'),
+  sub('civ-sr', 'Sistemas de Representación', 1, 'civil'),
+  sub('civ-fi', 'Fundamentos de Informática', 1, 'civil'),
   // 2do Año
   sub('civ-ic2', 'Ingeniería Civil II', 2, 'civil'),
   sub('civ-tm', 'Tecnología de los Materiales', 2, 'civil'),
@@ -148,7 +149,7 @@ const civilSubs: Subject[] = [
   sub('civ-th', 'Tecnología del Hormigón', 3, 'civil'),
   sub('civ-iea', 'Instalaciones Eléctricas Acústicas', 3, 'civil'),
   sub('civ-itm', 'Instalaciones Termomecánicas', 3, 'civil'),
-  sub('civ-geo', 'Geotopografía', 3, 'civil'),
+  sub('civ-gtp', 'Geotopografía', 3, 'civil'),
   sub('civ-ca', 'Cálculo Avanzado', 3, 'civil'),
   // 4to Año
   sub('civ-dapu', 'Diseño Arquitectónico, Planeamiento y Urbanismo', 4, 'civil'),
@@ -178,11 +179,12 @@ const civilSubs: Subject[] = [
 const quimicaSubs: Subject[] = [
   // 1er Año
   sub('qui-iiq', 'Introducción a la Ingeniería Química', 1, 'quimica'),
-  sub('qui-q', 'Química', 1, 'quimica'),
+  sub('qui-sr', 'Sistemas de representación', 1, 'quimica'),
   // 2do Año
   sub('qui-iep', 'Introducción a Equipos y Procesos', 2, 'quimica'),
   sub('qui-qo', 'Química Orgánica', 2, 'quimica'),
   sub('qui-qi', 'Química Inorgánica', 2, 'quimica'),
+  sub('qui-fi', 'Fundamentos de Informática', 2, 'quimica'),
   // 3er Año
   sub('qui-bme', 'Balances de Masa y Energía', 3, 'quimica'),
   sub('qui-td', 'Termodinámica', 3, 'quimica'),
@@ -194,7 +196,7 @@ const quimicaSubs: Subject[] = [
   sub('qui-ft', 'Fenómenos de Transporte', 3, 'quimica'),
   sub('qui-qaa', 'Química Analítica Aplicada', 3, 'quimica'),
   // 4to Año
-  sub('qui-dsop', 'Diseño, Simulación, Optimización y Seguridad de Procesos', 4, 'quimica'),
+  sub('qui-dsop', 'Diseño, simulación, optimización y seguridad de procesos', 4, 'quimica'),
   sub('qui-ou1', 'Operaciones Unitarias I', 4, 'quimica'),
   sub('qui-irq', 'Ingeniería de las Reacciones Químicas', 4, 'quimica'),
   sub('qui-tet', 'Tecnología de la Energía Térmica', 4, 'quimica'),
@@ -218,7 +220,7 @@ const quimicaSubs: Subject[] = [
 const electronicaSubs: Subject[] = [
   // 1er Año
   sub('ele-inf1', 'Informática I', 1, 'electronica'),
-  sub('ele-dac', 'Diseño Asistido por Computadora', 1, 'electronica'),
+  sub('ele-dac', 'Diseño asistido por computadora', 1, 'electronica'),
   // 2do Año
   sub('ele-inf2', 'Informática II', 2, 'electronica'),
   sub('ele-ass', 'Análisis de Señales y Sistemas', 2, 'electronica'),
@@ -256,6 +258,7 @@ const electronicaSubs: Subject[] = [
 const electromecanicaSubs: Subject[] = [
   // 1er Año
   sub('elm-ie1', 'Ingeniería Electromecánica I', 1, 'electromecanica'),
+  sub('elm-sr', 'Sistemas de Representación', 1, 'electromecanica'),
   sub('elm-rg', 'Representación Gráfica', 1, 'electromecanica'),
   // 2do Año
   sub('elm-ie2', 'Ingeniería Electromecánica II', 2, 'electromecanica'),
@@ -264,11 +267,11 @@ const electromecanicaSubs: Subject[] = [
   sub('elm-pc', 'Programación en Computación', 2, 'electromecanica'),
   // 3er Año
   sub('elm-ie3', 'Ingeniería Electromecánica III', 3, 'electromecanica'),
-  sub('elm-mm', 'Mecánica y Mecanismos', 3, 'electromecanica'),
+  sub('elm-mm', 'Mecánica y Mecanísmos', 3, 'electromecanica'),
   sub('elm-et', 'Electrotecnia', 3, 'electromecanica'),
   sub('elm-tme', 'Tecnología Mecánica', 3, 'electromecanica'),
   sub('elm-tt', 'Termodinámica Técnica', 3, 'electromecanica'),
-  sub('elm-mie', 'Matemática para Ing. Electromecánica', 3, 'electromecanica'),
+  sub('elm-mpe', 'Matemática para Ing. Electromecánica', 3, 'electromecanica'),
   sub('elm-hsi', 'Higiene y Seguridad Industrial', 3, 'electromecanica'),
   // 4to Año
   sub('elm-em', 'Elementos de Máquinas', 4, 'electromecanica'),
@@ -294,20 +297,21 @@ const electromecanicaSubs: Subject[] = [
 // MATERIAS BÁSICAS (comunes a todas las ingenierías)
 // ============================================================
 const basicasSubs: Subject[] = [
+  // 1er Año Básicas
   sub('bas-aga', 'Álgebra y Geometría Analítica', 1, 'basicas'),
-  sub('bas-ami', 'Análisis Matemático I', 1, 'basicas'),
-  sub('bas-amii', 'Análisis Matemático II', 1, 'basicas'),
-  sub('bas-cl', 'Comunicación Lingüística (Electiva)', 1, 'basicas'),
-  sub('bas-eco', 'Economía', 1, 'basicas'),
+  sub('bas-am1', 'Análisis Matemático I', 1, 'basicas'),
   sub('bas-fis1', 'Física I', 1, 'basicas'),
-  sub('bas-fis2', 'Física II', 1, 'basicas'),
-  sub('bas-fe', 'Formación de Emprendedores (Electiva)', 1, 'basicas'),
+  sub('bas-qg', 'Química General', 1, 'basicas'),
   sub('bas-iys', 'Ingeniería y Sociedad', 1, 'basicas'),
   sub('bas-ing', 'Inglés', 1, 'basicas'),
   sub('bas-isgg', 'Introducción a los Sistemas de Gestión Gerencial', 1, 'basicas'),
-  sub('bas-leg', 'Legislación', 1, 'basicas'),
-  sub('bas-pye', 'Probabilidad y Estadística', 1, 'basicas'),
-  sub('bas-qg', 'Química General', 1, 'basicas'),
+  
+  // 2do Año Básicas
+  sub('bas-am2', 'Análisis Matemático II', 2, 'basicas'),
+  sub('bas-fis3', 'Física III', 2, 'basicas'),
+  sub('bas-pye', 'Probabilidad y Estadística', 2, 'basicas'),
+  sub('bas-eco', 'Economía', 2, 'basicas'),
+  sub('bas-leg', 'Legislación', 2, 'basicas'),
 ];
 
 // ============================================================
