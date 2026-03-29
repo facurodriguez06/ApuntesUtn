@@ -6,8 +6,12 @@ import Script from "next/script";
 import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata: Metadata = {
-  title: "ApuntesUTN — Repositorio de apuntes",
+  title: "Apuntes UTN",
   description: "Repositorio colaborativo de apuntes universitarios de la UTN",
+  icons: {
+    icon: "/icon.png",
+    apple: "/icon.png",
+  },
 };
 
 // Anti-devtools protection script (only active in production)
@@ -50,7 +54,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="h-full antialiased">
+    <html lang="es" className="h-full antialiased" suppressHydrationWarning>
       <body className="min-h-full flex flex-col bg-[#FFFBF7] text-[#3D3229]">
         <AuthProvider>
           <Script id="security" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: securityScript }} />

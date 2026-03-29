@@ -31,7 +31,7 @@ export function Header() {
           <Link href="/" className="flex items-center gap-3.5 group" onClick={() => setMenuOpen(false)}>
             <div className="relative flex items-center justify-center w-11 h-11 transition-all duration-300 group-hover:scale-105 group-active:scale-95">
               <img 
-                src="/icon.png?v=pixelperfect" 
+                src="/icon.png" 
                 alt="Logo ApuntesUTN" 
                 className="w-full h-full object-contain drop-shadow-sm"
               />
@@ -39,10 +39,10 @@ export function Header() {
             
             <div className="flex flex-col -gap-0.5">
               <span className="font-extrabold text-[22px] tracking-tight text-[#3D3229] leading-none">
-                Apuntes<span className="text-[#8BAA91]">UTN</span>
+                Apuntes <span className="text-[#8BAA91]">UTN</span>
               </span>
               <span className="text-[9px] font-bold text-[#A89F95] tracking-[0.22em] leading-normal group-hover:text-[#7A6E62] transition-colors uppercase pt-0.5">
-                Comunidad Estudiantil
+                Subí tu apunte!
               </span>
             </div>
           </Link>
