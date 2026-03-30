@@ -21,8 +21,8 @@ export function Preloader() {
     <div className={`fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[#FFFBF7] transition-all duration-700 ease-in-out ${loading ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
       <div className="relative flex flex-col items-center justify-center animate-fade-in-up">
         
-        <div className="relative flex items-center justify-center w-20 h-20 mb-6 bg-white shadow-xl rounded-2xl border border-[#EDE6DD] overflow-hidden">
-           <img src="/icon.png" alt="UTNHub Logo" className="w-10 h-10 object-contain" />
+        <div className="relative flex items-center justify-center mb-6">
+           <img src="/icon.png" alt="UTNHub Logo" className="w-20 h-20 object-contain drop-shadow-md" />
         </div>
         
         <div className="flex flex-col items-center gap-4">
@@ -31,7 +31,7 @@ export function Preloader() {
           </span>
           
           <div className="relative w-40 h-1 bg-[#EDE6DD] rounded-full overflow-hidden">
-            <div className="absolute top-0 left-0 h-full bg-[#8BAA91] rounded-full animate-[progress_1.5s_ease-in-out_infinite]"></div>
+            <div className="absolute top-0 left-0 w-full h-full bg-[#8BAA91] rounded-full origin-left animate-[progress_1.5s_ease-in-out_forwards]"></div>
           </div>
         </div>
       </div>
