@@ -235,8 +235,8 @@ const isValid = files.length > 0 && (files.length > 1 ? true : sanitize(title) !
       <div className="blob w-52 h-52 bg-[#C5DBC9] -top-16 -left-16 animate-blob" />
       <div className="blob w-40 h-40 bg-[#D5CCE5] -bottom-16 -right-16 animate-blob" style={{ animationDelay: "3s" }} />
 
-      <div className="relative bg-white rounded-2xl border border-[#EDE6DD] overflow-hidden shadow-sm z-10">
-        <div className="h-1.5 bg-gradient-to-r from-[#8BAA91] via-[#7CC2A8] to-[#7BA7C2]" />
+      <div className="relative bg-white border-2 border-[#3D3229] shadow-[5px_5px_0px_#8BAA91] overflow-hidden z-10 p-1">
+        <div className="h-1.5 bg-[#8BAA91]" />
 
         <div className="p-5 border-b border-[#EDE6DD]">
           <div className="flex items-center gap-2.5">
@@ -253,10 +253,10 @@ const isValid = files.length > 0 && (files.length > 1 ? true : sanitize(title) !
         <div className="p-5 space-y-5">
           {files.length === 0 ? (
             <div
-              className={`relative flex flex-col items-center justify-center w-full py-10 px-4 border-2 border-dashed rounded-2xl transition-all duration-300 cursor-pointer group ${
+              className={`relative flex flex-col items-center justify-center w-full py-10 px-4 border-2 border-dashed transition-all duration-300 cursor-pointer group ${
                 isDragging
-                  ? "border-[#8BAA91] bg-[#E8F0EA] scale-[1.01]"
-                  : "border-[#EDE6DD] bg-[#FFFBF7] hover:bg-[#F5F0EA] hover:border-[#C5DBC9]"
+                  ? "border-[#3D3229] bg-[#E8F0EA] scale-[1.01]"
+                  : "border-[#3D3229] bg-[#FFFBF7] hover:bg-[#F5F0EA] shadow-[3px_3px_0px_#EDE6DD] hover:shadow-[1px_1px_0px_#EDE6DD] hover:translate-x-[2px] hover:translate-y-[2px]"
               }`}
               onDragOver={(event) => {
                 event.preventDefault();
@@ -305,7 +305,7 @@ const isValid = files.length > 0 && (files.length > 1 ? true : sanitize(title) !
               
               <div className="max-h-[160px] overflow-y-auto pr-1 flex flex-col gap-2 no-scrollbar">
                 {files.map((selectedFile, index) => (
-                  <div key={`${selectedFile.name}-${index}`} className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#E8F0EA] border border-[#C5DBC9] animate-fade-in-scale shrink-0">
+                  <div key={`${selectedFile.name}-${index}`} className="flex items-center gap-3 px-4 py-3 bg-[#E8F0EA] border-2 border-[#3D3229] animate-fade-in-scale shrink-0 shadow-[2px_2px_0px_#3D3229]">
                     <FileText className="w-5 h-5 text-[#4A7A52]" />
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-bold text-[#3D3229] truncate">{selectedFile.name}</p>
@@ -336,7 +336,7 @@ const isValid = files.length > 0 && (files.length > 1 ? true : sanitize(title) !
                   value={title}
                   onChange={(event) => setTitle(event.target.value)}
                   placeholder="Ej. Resumen completo primer parcial"
-                  className="w-full rounded-xl border border-[#EDE6DD] px-3.5 py-2.5 text-sm text-[#3D3229] placeholder:text-[#A89F95] focus:border-[#8BAA91] focus:outline-none focus:ring-2 focus:ring-[#8BAA91]/20 bg-white transition-all"
+                  className="w-full border-2 border-[#3D3229] px-3.5 py-2.5 text-sm text-[#3D3229] placeholder:text-[#A89F95] focus:outline-none focus:shadow-[4px_4px_0px_#8BAA91] focus:bg-[#FDFBF7] bg-white transition-all"
                 />
                 {files.length > 1 && (
                   <p className="mt-1.5 text-xs text-[#7A6E62]">
@@ -355,7 +355,7 @@ const isValid = files.length > 0 && (files.length > 1 ? true : sanitize(title) !
                 onChange={(event) => setAuthor(event.target.value)}
                 placeholder="Ej. Juan Perez"
                 maxLength={50}
-                className="w-full rounded-xl border border-[#EDE6DD] px-3.5 py-2.5 text-sm text-[#3D3229] placeholder:text-[#A89F95] focus:border-[#8BAA91] focus:outline-none focus:ring-2 focus:ring-[#8BAA91]/20 bg-white transition-all"
+                className="w-full border-2 border-[#3D3229] px-3.5 py-2.5 text-sm text-[#3D3229] placeholder:text-[#A89F95] focus:outline-none focus:shadow-[4px_4px_0px_#8BAA91] focus:bg-[#FDFBF7] bg-white transition-all"
               />
             </div>
           </div>
@@ -466,17 +466,17 @@ const isValid = files.length > 0 && (files.length > 1 ? true : sanitize(title) !
             <button
               onClick={resetForm}
               disabled={isUploading}
-              className="px-4 py-2 text-sm font-semibold text-[#7A6E62] hover:text-[#3D3229] rounded-xl hover:bg-[#F5F0EA] transition-all active:scale-95 disabled:opacity-50"
+              className="px-4 py-2 text-sm font-bold border-2 border-transparent text-[#7A6E62] hover:text-[#3D3229] hover:border-[#3D3229] hover:shadow-[2px_2px_0px_#3D3229] hover:-translate-y-[2px] hover:-translate-x-[2px] transition-all active:scale-95 disabled:opacity-50"
             >
               Limpiar
             </button>
             <button
               onClick={handleSubmit}
               disabled={!isValid || isUploading}
-              className={`inline-flex items-center gap-1.5 px-6 py-2.5 text-sm font-bold rounded-xl transition-all duration-300 active:scale-95 ${
+              className={`inline-flex items-center gap-1.5 px-6 py-2.5 text-sm font-bold border-2 border-[#3D3229] transition-all duration-300 active:scale-95 ${
                 isValid && !isUploading
-                  ? "bg-gradient-to-r from-[#8BAA91] to-[#7CC2A8] text-white shadow-md hover:shadow-lg hover:shadow-[#8BAA91]/25 hover:scale-[1.02]"
-                  : "bg-[#EDE6DD] text-[#A89F95] cursor-not-allowed"
+                  ? "bg-[#8BAA91] text-[#3D3229] shadow-[3px_3px_0px_#3D3229] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px]"
+                  : "bg-[#EDE6DD] text-[#A89F95] cursor-not-allowed shadow-[3px_3px_0px_#A89F95]"
               }`}
             >
               {isUploading ? "Cargando..." : "Subir apunte"} <Send className="w-3.5 h-3.5" />

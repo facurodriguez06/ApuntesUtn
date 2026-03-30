@@ -23,13 +23,13 @@ const normalizeAuthorName = (value: string) =>
     .toLowerCase();
 
 const getBgClass = (type: string, isCreator: boolean) => {
-  if (isCreator) return "bg-gradient-to-r from-[#FFF8E1] to-[#FFF2C2] border-[#E2C15F] hover:border-[#CFA63F] hover:shadow-md hover:shadow-[#E2C15F]/20";
+  if (isCreator) return "bg-[#FFF2C2] border-2 border-[#3D3229] shadow-[4px_4px_0px_#3D3229] hover:shadow-[2px_2px_0px_#3D3229] hover:translate-x-[2px] hover:translate-y-[2px]";
   switch (type) {
-    case "Resumen": return "bg-[#F4FAF6] border-[#C5DBC9] hover:border-[#8BAA91] hover:shadow-md hover:shadow-[#8BAA91]/10";
-    case "Examen Resuelto": return "bg-[#FFF5F2] border-[#F2C9BB] hover:border-[#D4856A] hover:shadow-md hover:shadow-[#D4856A]/10";
-    case "Trabajo Práctico": return "bg-[#F9F6FC] border-[#D8CEEB] hover:border-[#9B8BBF] hover:shadow-md hover:shadow-[#9B8BBF]/10";
-    case "Guía de Ejercicios": return "bg-[#F2F8FB] border-[#C2DBEB] hover:border-[#7BA7C2] hover:shadow-md hover:shadow-[#7BA7C2]/10";
-    default: return "bg-white border-[#EDE6DD] hover:border-[#C5DBC9] hover:shadow-md hover:shadow-[#8BAA91]/8";
+    case "Resumen": return "bg-[#F4FAF6] border-2 border-[#3D3229] shadow-[4px_4px_0px_#3D3229] hover:shadow-[2px_2px_0px_#3D3229] hover:translate-x-[2px] hover:translate-y-[2px]";
+    case "Examen Resuelto": return "bg-[#FFF5F2] border-2 border-[#3D3229] shadow-[4px_4px_0px_#3D3229] hover:shadow-[2px_2px_0px_#3D3229] hover:translate-x-[2px] hover:translate-y-[2px]";
+    case "Trabajo Práctico": return "bg-[#F9F6FC] border-2 border-[#3D3229] shadow-[4px_4px_0px_#3D3229] hover:shadow-[2px_2px_0px_#3D3229] hover:translate-x-[2px] hover:translate-y-[2px]";
+    case "Guía de Ejercicios": return "bg-[#F2F8FB] border-2 border-[#3D3229] shadow-[4px_4px_0px_#3D3229] hover:shadow-[2px_2px_0px_#3D3229] hover:translate-x-[2px] hover:translate-y-[2px]";
+    default: return "bg-white border-2 border-[#3D3229] shadow-[4px_4px_0px_#3D3229] hover:shadow-[2px_2px_0px_#3D3229] hover:translate-x-[2px] hover:translate-y-[2px]";
   }
 };
 
@@ -86,7 +86,7 @@ export function DocumentListItem({ note, index = 0 }: { note: Note; index?: numb
 
   return (
     <div
-      className={`group flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 border rounded-2xl transition-all duration-300 animate-fade-in-up ${getBgClass(note.type, isCreatorNote)}`}
+      className={`group flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 transition-all duration-300 animate-fade-in-up ${getBgClass(note.type, isCreatorNote)}`}
       style={{ animationDelay: `${index * 80}ms` }}
     >
       <div className="flex items-start gap-3 flex-1 mb-3 sm:mb-0 min-w-0">
@@ -131,10 +131,10 @@ export function DocumentListItem({ note, index = 0 }: { note: Note; index?: numb
       <div className={`flex items-center justify-end w-full sm:w-auto gap-2 border-t sm:border-t-0 pt-3 sm:pt-0 ${isCreatorNote ? "border-[#E7D39A]" : "border-[#EDE6DD]"}`}>
         <button
           onClick={handleVisualizar}
-          className={`inline-flex items-center justify-center rounded-xl px-3 py-2 text-sm font-bold border transition-all duration-300 active:scale-95 ${
+          className={`inline-flex items-center justify-center rounded-none px-3 py-2 text-sm font-bold border-2 transition-all duration-300 active:scale-95 ${
             isCreatorNote
-              ? "bg-[#FFF4CC] text-[#7A5A0A] border-[#E2C15F] hover:bg-[#FFE9A3] hover:text-[#5E4608]"
-              : "bg-[#F5F0EA] text-[#7A6E62] border-[#EDE6DD] hover:bg-[#EDE6DD] hover:text-[#3D3229]"
+              ? "bg-[#FFF4CC] text-[#7A5A0A] border-[#3D3229] shadow-[2px_2px_0px_#3D3229] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]"
+              : "bg-[#F5F0EA] text-[#3D3229] border-[#3D3229] shadow-[2px_2px_0px_#3D3229] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]"
           }`}
           title="Previsualizar"
         >
@@ -143,12 +143,12 @@ export function DocumentListItem({ note, index = 0 }: { note: Note; index?: numb
 
         <button
           onClick={handleDownload}
-          className={`inline-flex items-center justify-center rounded-xl px-3.5 py-2 text-sm font-bold transition-all duration-300 active:scale-95 ${
+          className={`inline-flex items-center justify-center rounded-none px-3.5 py-2 text-sm font-bold border-2 border-[#3D3229] transition-all duration-300 active:scale-95 ${
             downloaded
-              ? "bg-[#E8F0EA] text-[#4A7A52] border border-[#C5DBC9] shadow-sm"
+              ? "bg-[#E8F0EA] text-[#4A7A52] translate-x-[2px] translate-y-[2px] shadow-none"
               : isCreatorNote
-                ? "bg-gradient-to-r from-[#D4AF37] to-[#C89B2E] text-white shadow-sm hover:shadow-md hover:shadow-[#D4AF37]/25 hover:scale-[1.03]"
-                : "bg-gradient-to-r from-[#8BAA91] to-[#7CC2A8] text-white shadow-sm hover:shadow-md hover:shadow-[#8BAA91]/25 hover:scale-[1.03]"
+                ? "bg-[#D4AF37] text-[#3D3229] shadow-[3px_3px_0px_#3D3229] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px]"
+                : "bg-[#8BAA91] text-[#3D3229] shadow-[3px_3px_0px_#3D3229] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px]"
           }`}
         >
           {downloaded ? (
