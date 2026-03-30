@@ -24,7 +24,7 @@ type UploadApiResponse = {
 
 export function UploadModule() {
   const [isDragging, setIsDragging] = useState(false);
-  const [file, setFile] = useState<File | null>(null);
+  const [files, setFiles] = useState<File[]>([]);
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [carrera, setCarrera] = useState("");
@@ -43,28 +43,47 @@ export function UploadModule() {
   const ALLOWED_TYPES = [".pdf", ".doc", ".docx", ".xlsx", ".zip"];
   const MAX_SIZE_MB = 50;
 
-  const handleFileSelect = (files: FileList | null) => {
+  const handleFileSelect = (selectedFiles: FileList | null) => {
     setError("");
-    if (!files || files.length === 0) return;
+    if (!selectedFiles || selectedFiles.length === 0) return;
 
-    const selectedFile = files[0];
-    const ext = `.${selectedFile.name.split(".").pop()?.toLowerCase()}`;
+    const validFiles: File[] = [];
+    
+    Array.from(selectedFiles).forEach(selectedFile => {
+      const ext = `.${selectedFile.name.split(".").pop()?.toLowerCase()}`;
 
-    if (!ALLOWED_TYPES.includes(ext)) {
-      setError(`Tipo de archivo no permitido. Solo: ${ALLOWED_TYPES.join(", ")}`);
-      return;
+      if (!ALLOWED_TYPES.includes(ext)) {
+        setError(`"${selectedFile.name}" no es válido. Solo: ${ALLOWED_TYPES.join(", ")}`);
+        return;
+      }
+
+      if (selectedFile.size > MAX_SIZE_MB * 1024 * 1024) {
+        setError(`"${selectedFile.name}" excede los ${MAX_SIZE_MB}MB permitidos.`);
+        return;
+      }
+      
+      validFiles.push(selectedFile);
+    });
+
+    if (validFiles.length > 0) {
+      setFiles((prev) => [...prev, ...validFiles]);
+      // Si suben múltiples archivos y no había título, usar el nombre genérico
+      if (!title && validFiles.length > 0) {
+        if (validFiles.length === 1) {
+          setTitle(validFiles[0].name.split(".")[0]);
+        } else {
+          setTitle(`Lote de Apuntes de ${materia || 'Materia'}`);
+        }
+      }
     }
+  };
 
-    if (selectedFile.size > MAX_SIZE_MB * 1024 * 1024) {
-      setError(`El archivo excede los ${MAX_SIZE_MB}MB permitidos.`);
-      return;
-    }
-
-    setFile(selectedFile);
+  const removeFile = (index: number) => {
+    setFiles(prev => prev.filter((_, i) => i !== index));
   };
 
   const resetForm = () => {
-    setFile(null);
+    setFiles([]);
     setTitle("");
     setAuthor("");
     setCarrera("");
@@ -80,7 +99,7 @@ export function UploadModule() {
     const cleanTitle = sanitize(title);
     const cleanAuthor = sanitize(author) || "Anonimo";
 
-    if (!file || !cleanTitle || !carrera || !anio || !materia || !tipo) {
+    if (files.length === 0 || !cleanTitle || !carrera || !anio || !materia || !tipo) {
       setError("Completa todos los campos antes de subir.");
       return;
     }
@@ -89,50 +108,55 @@ export function UploadModule() {
     setUploadProgress(5);
 
     try {
-      const uploadFormData = new FormData();
-      uploadFormData.append("file", file);
-      uploadFormData.append("title", cleanTitle);
+      const today = new Date().toISOString().split("T")[0];
+      const progressStep = 90 / files.length;
+      
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const uploadFormData = new FormData();
+        uploadFormData.append("file", file);
+        // Add indicator if batch upload
+        const fileTitle = files.length > 1 ? `${cleanTitle} (Parte ${i + 1})` : cleanTitle;
+        uploadFormData.append("title", fileTitle);
 
-      setUploadProgress(20);
+        const uploadResponse = await fetch("/api/upload", {
+          method: "POST",
+          body: uploadFormData,
+        });
 
-      const uploadResponse = await fetch("/api/upload", {
-        method: "POST",
-        body: uploadFormData,
-      });
+        const uploadResult = (await uploadResponse.json().catch(() => null)) as UploadApiResponse | null;
+        
+        if (!uploadResponse.ok || !uploadResult?.url) {
+          throw new Error(uploadResult?.error || `No se pudo subir "${file.name}".`);
+        }
 
-      const uploadResult = (await uploadResponse.json().catch(() => null)) as UploadApiResponse | null;
+        const fileExt = file.name.split(".").pop()?.toUpperCase() || "PDF";
+        
+        const newNote = {
+          title: fileTitle,
+          author: cleanAuthor,
+          uploadDate: today,
+          type:
+            tipo === "resumen"
+              ? "Resumen"
+              : tipo === "examen"
+                ? "Examen Resuelto"
+                : tipo === "tp"
+                  ? "Trabajo Práctico"
+                  : "Guía de Ejercicios",
+          fileSize: `${(file.size / 1024 / 1024).toFixed(1)} MB`,
+          fileType: fileExt === "DOC" ? "DOCX" : fileExt,
+          fileUrl: uploadResult.url,
+          status: "pending",
+          careerId: carrera,
+          subjectId: materia,
+          year: parseInt(anio, 10),
+        };
 
-      if (!uploadResponse.ok || !uploadResult?.url) {
-        throw new Error(uploadResult?.error || "No se pudo subir el archivo.");
+        await addDoc(collection(db, "notes"), newNote);
+        setUploadProgress(5 + progressStep * (i + 1));
       }
 
-      setUploadProgress(85);
-
-      const today = new Date().toISOString().split("T")[0];
-      const fileExt = file.name.split(".").pop()?.toUpperCase() || "PDF";
-
-      const newNote = {
-        title: cleanTitle,
-        author: cleanAuthor,
-        uploadDate: today,
-        type:
-          tipo === "resumen"
-            ? "Resumen"
-            : tipo === "examen"
-              ? "Examen Resuelto"
-              : tipo === "tp"
-                ? "Trabajo Práctico"
-                : "Guía de Ejercicios",
-        fileSize: `${(file.size / 1024 / 1024).toFixed(1)} MB`,
-        fileType: fileExt === "DOC" ? "DOCX" : fileExt,
-        fileUrl: uploadResult.url,
-        status: "pending",
-        careerId: carrera,
-        subjectId: materia,
-        year: parseInt(anio, 10),
-      };
-
-      await addDoc(collection(db, "notes"), newNote);
       setUploadProgress(100);
       setSubmitted(true);
 
@@ -150,7 +174,7 @@ export function UploadModule() {
     }
   };
 
-  const isValid = file && sanitize(title) && carrera && (carrera === "basicas" ? true : anio) && materia && tipo;
+  const isValid = files.length > 0 && sanitize(title) && carrera && (carrera === "basicas" ? true : anio) && materia && tipo;
 
   const selectedCareer = careersData.find((career) => career.id === carrera);
   const availableYears = selectedCareer
@@ -213,7 +237,7 @@ export function UploadModule() {
         </div>
 
         <div className="p-5 space-y-5">
-          {!file ? (
+          {files.length === 0 ? (
             <div
               className={`relative flex flex-col items-center justify-center w-full py-10 px-4 border-2 border-dashed rounded-2xl transition-all duration-300 cursor-pointer group ${
                 isDragging
@@ -233,32 +257,58 @@ export function UploadModule() {
               onClick={() => fileInputRef.current?.click()}
             >
               <UploadCloud className="w-10 h-10 text-[#A89F95] mb-3 group-hover:text-[#8BAA91] transition-colors" />
-              <p className="text-sm text-[#7A6E62] font-semibold mb-1">Arrastra un archivo o hace click</p>
-              <p className="text-xs text-[#A89F95]">PDF, DOCX, XLSX o ZIP (Max. 50MB)</p>
+              <p className="text-sm text-[#7A6E62] font-semibold mb-1">Arrastra archivos o hace click</p>
+              <p className="text-xs text-[#A89F95] mb-2">PDF, DOCX, XLSX o ZIP (Max. 50MB)</p>
+              <p className="text-[10px] text-[#4A7A52] font-bold bg-[#E8F0EA] px-2 py-1 rounded-md">¡Podés seleccionar varios a la vez!</p>
               <input
                 ref={fileInputRef}
                 type="file"
                 className="hidden"
+                multiple
                 accept=".pdf,.doc,.docx,.xlsx,.zip"
                 onChange={(event) => handleFileSelect(event.target.files)}
               />
             </div>
           ) : (
-            <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#E8F0EA] border border-[#C5DBC9] animate-fade-in-scale">
-              <FileText className="w-5 h-5 text-[#4A7A52]" />
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-bold text-[#3D3229] truncate">{file.name}</p>
-                <p className="text-xs text-[#4A7A52]">{(file.size / 1024 / 1024).toFixed(1)} MB</p>
+            <div className="flex flex-col gap-2">
+              <div className="flex justify-between items-center px-1 mb-1">
+                 <span className="text-sm font-bold text-[#3D3229]">{files.length} archivo{files.length > 1 ? 's' : ''} seleccionado{files.length > 1 ? 's' : ''}</span>
+                 <button 
+                  onClick={() => fileInputRef.current?.click()}
+                  className="text-xs font-bold text-[#8BAA91] hover:text-[#4A7A52] hover:underline"
+                 >
+                   + Agregar más
+                 </button>
+                 <input
+                    ref={fileInputRef}
+                    type="file"
+                    className="hidden"
+                    multiple
+                    accept=".pdf,.doc,.docx,.xlsx,.zip"
+                    onChange={(event) => handleFileSelect(event.target.files)}
+                  />
               </div>
-              <button
-                onClick={(event) => {
-                  event.stopPropagation();
-                  setFile(null);
-                }}
-                className="p-1.5 rounded-lg hover:bg-[#C5DBC9] text-[#4A7A52] transition-all active:scale-90"
-              >
-                <X className="w-4 h-4" />
-              </button>
+              
+              <div className="max-h-[160px] overflow-y-auto pr-1 flex flex-col gap-2 no-scrollbar">
+                {files.map((selectedFile, index) => (
+                  <div key={`${selectedFile.name}-${index}`} className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#E8F0EA] border border-[#C5DBC9] animate-fade-in-scale shrink-0">
+                    <FileText className="w-5 h-5 text-[#4A7A52]" />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-bold text-[#3D3229] truncate">{selectedFile.name}</p>
+                      <p className="text-xs text-[#4A7A52]">{(selectedFile.size / 1024 / 1024).toFixed(1)} MB</p>
+                    </div>
+                    <button
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        removeFile(index);
+                      }}
+                      className="p-1.5 rounded-lg hover:bg-[#C5DBC9] text-[#4A7A52] transition-all active:scale-90"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
 
