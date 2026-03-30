@@ -130,7 +130,7 @@ export function UploadModule() {
         const publicId = `${Date.now()}-${fileTitle.replace(/\s+/g, "-").toLowerCase()}`;
         uploadFormData.append("public_id", publicId);
 
-        const uploadResponse = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`, {
+        const uploadResponse = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/raw/upload`, {
           method: "POST",
           body: uploadFormData,
         });
