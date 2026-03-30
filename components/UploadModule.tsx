@@ -111,23 +111,34 @@ export function UploadModule() {
       const today = new Date().toISOString().split("T")[0];
       const progressStep = 90 / files.length;
       
+      const CLOUDINARY_CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+      const CLOUDINARY_UPLOAD_PRESET = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
+
+      if (!CLOUDINARY_CLOUD_NAME || !CLOUDINARY_UPLOAD_PRESET) {
+        throw new Error("No hay configuración de Cloudinary en el cliente disponible.");
+      }
+      
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
         const uploadFormData = new FormData();
         uploadFormData.append("file", file);
+        uploadFormData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+        uploadFormData.append("folder", "notes");
+        
         // Add indicator if batch upload
         const fileTitle = files.length > 1 ? `${cleanTitle} (Parte ${i + 1})` : cleanTitle;
-        uploadFormData.append("title", fileTitle);
+        const publicId = `${Date.now()}-${fileTitle.replace(/\s+/g, "-").toLowerCase()}`;
+        uploadFormData.append("public_id", publicId);
 
-        const uploadResponse = await fetch("/api/upload", {
+        const uploadResponse = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`, {
           method: "POST",
           body: uploadFormData,
         });
 
-        const uploadResult = (await uploadResponse.json().catch(() => null)) as UploadApiResponse | null;
+        const uploadResult = await uploadResponse.json().catch(() => null);
         
-        if (!uploadResponse.ok || !uploadResult?.url) {
-          throw new Error(uploadResult?.error || `No se pudo subir "${file.name}".`);
+        if (!uploadResponse.ok || !uploadResult?.secure_url) {
+          throw new Error(uploadResult?.error?.message || `No se pudo subir "${file.name}".`);
         }
 
         const fileExt = file.name.split(".").pop()?.toUpperCase() || "PDF";
@@ -146,7 +157,7 @@ export function UploadModule() {
                   : "Guía de Ejercicios",
           fileSize: `${(file.size / 1024 / 1024).toFixed(1)} MB`,
           fileType: fileExt === "DOC" ? "DOCX" : fileExt,
-          fileUrl: uploadResult.url,
+          fileUrl: uploadResult.secure_url,
           status: "pending",
           careerId: carrera,
           subjectId: materia,
