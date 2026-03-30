@@ -366,7 +366,7 @@ export default function AdminPage() {
       return;
     }
 
-    window.open(note.fileUrl, "_blank");
+    window.open(resolveStorageUrl(note.fileUrl), "_blank");
   };
 
   const toggleDonation = async (type: 'section' | 'popup') => {

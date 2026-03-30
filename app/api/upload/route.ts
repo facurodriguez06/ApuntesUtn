@@ -1,79 +1,40 @@
-export const runtime = "nodejs";
+import { NextResponse } from 'next/server';
+import { getStorageAdapter } from '@/lib/storage';
 
-const CLOUDINARY_CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
-const CLOUDINARY_UPLOAD_PRESET = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
-
-type CloudinaryUploadResponse = {
-  secure_url?: string;
-  error?: {
-    message?: string;
-  };
-};
+export const runtime = 'nodejs';
 
 export async function POST(request: Request) {
   try {
-    if (!CLOUDINARY_CLOUD_NAME || !CLOUDINARY_UPLOAD_PRESET) {
-      return Response.json(
-        { error: "Cloudinary no está configurado en el servidor." },
-        { status: 500 }
-      );
-    }
+    const data = await request.formData();
+    const file = data.get('file');
+    const folder = data.get('folder')?.toString() || 'notes';
+    let title = data.get('title')?.toString();
 
-    const incomingFormData = await request.formData();
-    const file = incomingFormData.get("file");
-    const title = incomingFormData.get("title");
-
-    if (!(file instanceof File)) {
-      return Response.json(
-        { error: "No se recibió ningún archivo válido." },
+    if (!file || !(file instanceof File)) {
+      return NextResponse.json(
+        { error: 'No se recibió ningún archivo.' },
         { status: 400 }
       );
     }
-
-    const safeTitle =
-      typeof title === "string" && title.trim().length > 0
-        ? title.trim()
-        : file.name.replace(/\.[^/.]+$/, "");
-
-    const publicId = `${Date.now()}-${safeTitle.replace(/\s+/g, "-").toLowerCase()}`;
-    const cloudinaryFormData = new FormData();
-    cloudinaryFormData.append(
-      "file",
-      new Blob([await file.arrayBuffer()], { type: file.type || "application/octet-stream" }),
-      file.name
-    );
-    cloudinaryFormData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
-    cloudinaryFormData.append("folder", "notes");
-    cloudinaryFormData.append("public_id", publicId);
-
-    const response = await fetch(
-      `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/raw/upload`,
-      {
-        method: "POST",
-        body: cloudinaryFormData,
-      }
-    );
-
-    const result = (await response.json().catch(() => null)) as CloudinaryUploadResponse | null;
-
-    if (!response.ok) {
-      return Response.json(
-        { error: result?.error?.message || "No se pudo subir el archivo a Cloudinary." },
-        { status: 502 }
-      );
+    
+    if (!title || title.trim() === '') {
+       title = file.name.replace(/\.[^/.]+$/, '');
     }
 
-    if (!result?.secure_url) {
-      return Response.json(
-        { error: "Cloudinary no devolvió una URL para el archivo." },
-        { status: 502 }
-      );
-    }
+    const adapter = getStorageAdapter();
+    const result = await adapter.upload(file, folder, title);
 
-    return Response.json({ url: result.secure_url });
+    return NextResponse.json({
+      url: result.url,
+      path: result.path,
+      provider: result.provider
+    });
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Error inesperado al subir el archivo.";
-    return Response.json({ error: message }, { status: 500 });
+    console.error('Error in upload route:', error);
+    const message = error instanceof Error ? error.message : 'Error al subir el archivo.';
+    return NextResponse.json(
+      { error: message },
+      { status: 500 }
+    );
   }
 }
-

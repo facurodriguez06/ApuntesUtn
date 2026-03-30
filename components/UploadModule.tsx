@@ -160,7 +160,7 @@ export function UploadModule() {
                   : "Guía de Ejercicios",
           fileSize: `${(file.size / 1024 / 1024).toFixed(1)} MB`,
           fileType: fileExt === "DOC" ? "DOCX" : fileExt,
-          fileUrl: uploadResult.url || uploadResult.secure_url,
+          fileUrl: uploadResult.path || uploadResult.url || uploadResult.secure_url,
           status: "pending",
             careerId: availableSubjects.find((s) => s.id === materia)?.careerId || carrera,
           subjectId: materia,

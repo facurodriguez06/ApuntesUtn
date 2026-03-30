@@ -4,6 +4,7 @@ import { Note } from "@/lib/data";
 import { FileText, File, FileArchive, Download, Check, User, Eye, Crown } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/context/ToastContext";
+import { resolveStorageUrl } from "@/lib/storage";
 
 const tagClass: Record<string, string> = {
   Resumen: "tag-resumen",
@@ -50,7 +51,7 @@ export function DocumentListItem({ note, index = 0 }: { note: Note; index?: numb
 
   const handleVisualizar = () => {
     if (note.fileUrl) {
-      window.open(note.fileUrl, "_blank");
+      window.open(resolveStorageUrl(note.fileUrl), "_blank");
     } else {
       showToast("Este apunte no tiene una URL válida.", "info");
     }
@@ -61,7 +62,7 @@ export function DocumentListItem({ note, index = 0 }: { note: Note; index?: numb
       setDownloaded(true);
 
       const link = document.createElement("a");
-      link.href = note.fileUrl;
+      link.href = resolveStorageUrl(note.fileUrl);
       link.download = note.title;
       link.target = "_blank";
       document.body.appendChild(link);
