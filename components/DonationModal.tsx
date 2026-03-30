@@ -108,7 +108,7 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
             
             <div className="relative z-10">
               <div className="inline-flex items-center justify-center w-20 h-20 rounded-[2rem] bg-white shadow-xl border border-white/50 mb-6 animate-bounce-slow">
-                <Heart className="w-10 h-10 text-[#D84545] fill-[#FFE5E5]" />
+                <img src="/utn-logo.png" alt="UTN Logo" className="w-12 h-12 object-contain" />
                 <div className="absolute -top-1 -right-1 bg-[#2C2825] p-2 rounded-xl shadow-lg">
                   <Zap className="w-3 h-3 text-amber-400 fill-amber-400" />
                 </div>
@@ -126,13 +126,13 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
               <p className="text-[#6B5A50] text-lg lg:text-xl font-bold leading-tight">
                 Apoya el crecimiento de la plataforma
               </p>
-              <div className="flex items-center gap-1.5 text-[#A89F95] mt-4">
-                <div className="h-px w-6 bg-[#D5CAC0]" />
+              <div className="flex items-center justify-center gap-1.5 text-[#A89F95] mt-4">
+                <div className="h-px w-8 bg-[#D5CAC0]" />
                 <div className="flex items-center gap-2">
-                  <Coffee className="w-5 h-5" />
-                  <span className="text-[10px] font-black uppercase tracking-widest">Invita un cafe</span>
+                  <Star className="w-4 h-4" />
+                  <span className="text-[10px] font-black uppercase tracking-widest">Impulsá el proyecto</span>
                 </div>
-                <div className="h-px w-6 bg-[#D5CAC0]" />
+                <div className="h-px w-8 bg-[#D5CAC0]" />
               </div>
             </div>
           </div>
