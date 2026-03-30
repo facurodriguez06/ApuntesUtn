@@ -18,24 +18,20 @@ export function Preloader() {
   if (!loading) return null;
 
   return (
-    <div className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[#FFFBF7] transition-opacity duration-500">
-      <div className="relative flex flex-col items-center justify-center animate-fade-in-scale">
-        <div className="relative flex items-center justify-center w-24 h-24 mb-6">
-          <div className="absolute inset-0 bg-[#8BAA91] rounded-full opacity-20 animate-ping"></div>
-          <div className="absolute inset-2 bg-[#8BAA91] rounded-full opacity-40 animate-pulse"></div>
-          <div className="relative z-10 w-16 h-16 bg-white shadow-xl rounded-[2rem] flex items-center justify-center border-2 border-[#E8F0EA]">
-             <img src="/icon.png" alt="UTNHub Logo" className="w-10 h-10 object-contain drop-shadow-sm animate-float" />
-          </div>
+    <div className={`fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[#FFFBF7] transition-all duration-700 ease-in-out ${loading ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+      <div className="relative flex flex-col items-center justify-center animate-fade-in-up">
+        
+        <div className="relative flex items-center justify-center w-20 h-20 mb-6 bg-white shadow-xl rounded-2xl border border-[#EDE6DD] overflow-hidden">
+           <img src="/icon.png" alt="UTNHub Logo" className="w-10 h-10 object-contain" />
         </div>
         
-        <div className="flex flex-col items-center gap-1">
-          <span className="font-extrabold text-3xl tracking-tight text-[#3D3229] leading-none flex items-center">
+        <div className="flex flex-col items-center gap-4">
+          <span className="font-extrabold text-3xl tracking-tight text-[#3D3229] leading-none">
             UTN<span className="text-[#8BAA91]">Hub</span>
           </span>
-          <div className="flex items-center gap-2 mt-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#8BAA91] animate-bounce" style={{ animationDelay: "0ms" }}></div>
-            <div className="w-1.5 h-1.5 rounded-full bg-[#8BAA91] animate-bounce" style={{ animationDelay: "150ms" }}></div>
-            <div className="w-1.5 h-1.5 rounded-full bg-[#8BAA91] animate-bounce" style={{ animationDelay: "300ms" }}></div>
+          
+          <div className="relative w-40 h-1 bg-[#EDE6DD] rounded-full overflow-hidden">
+            <div className="absolute top-0 left-0 h-full bg-[#8BAA91] rounded-full animate-[progress_1.5s_ease-in-out_infinite]"></div>
           </div>
         </div>
       </div>
