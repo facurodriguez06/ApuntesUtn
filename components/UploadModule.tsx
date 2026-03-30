@@ -67,12 +67,12 @@ export function UploadModule() {
 
     if (validFiles.length > 0) {
       setFiles((prev) => [...prev, ...validFiles]);
-      // Si suben múltiples archivos y no había título, usar el nombre genérico
+      // Si suben múltiples archivos y no había título
       if (!title && validFiles.length > 0) {
         if (validFiles.length === 1) {
-          setTitle(validFiles[0].name.split(".")[0]);
+          setTitle(validFiles[0].name.split(".").slice(0, -1).join("."));
         } else {
-          setTitle(`Lote de Apuntes de ${materia || 'Materia'}`);
+          setTitle(""); // Dejarlo vacío para que se usen los nombres originales de los archivos en la subida
         }
       }
     }
@@ -99,14 +99,12 @@ export function UploadModule() {
     const cleanTitle = sanitize(title);
     const cleanAuthor = sanitize(author) || "Anonimo";
 
-    if (files.length === 0 || !cleanTitle || !carrera || !anio || !materia || !tipo) {
-      setError("Completa todos los campos antes de subir.");
-      return;
-    }
+      // Si sube un solo archivo y el titulo limpiado queda vacío, es error.
+      // Si sube varios archivos, el título es opcional.
+      const isTitleInvalid = files.length === 1 && !cleanTitle;
 
-    setIsUploading(true);
-    setUploadProgress(5);
-
+      if (files.length === 0 || isTitleInvalid || !carrera || !anio || !materia || !tipo) {
+        setError("Completa todos los campos obligatorios antes de subir.");
     try {
       const today = new Date().toISOString().split("T")[0];
       const progressStep = 90 / files.length;
@@ -115,12 +113,14 @@ export function UploadModule() {
         const file = files[i];
         const uploadFormData = new FormData();
         uploadFormData.append("file", file);
-        // Add indicator if batch upload
-        const fileTitle = files.length > 1 ? `${cleanTitle} (Parte ${i + 1})` : cleanTitle;
-        uploadFormData.append("title", fileTitle);
-
-        const uploadResponse = await fetch("/api/upload", {
-          method: "POST",
+          
+          // Si el usuario introdujo un título manual general, le agregamos "Parte X". 
+          // Si no, o si prefiere el nombre original, cae a usar el nombre del archivo sin extensión.
+          let fileTitle = file.name.split(".").slice(0, -1).join(".");
+          if (cleanTitle && cleanTitle !== "Lote de Apuntes de Materia" && cleanTitle !== fileTitle) {
+            fileTitle = files.length > 1 ? `${cleanTitle} (Parte ${i + 1})` : cleanTitle;
+          }
+          
           body: uploadFormData,
         });
 
@@ -320,15 +320,13 @@ export function UploadModule() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="flex items-center gap-1.5 text-sm font-bold text-[#3D3229] mb-1.5">
-                <Pencil className="w-3.5 h-3.5 text-[#A89F95]" /> Titulo
-              </label>
-              <input
-                type="text"
-                value={title}
-                onChange={(event) => setTitle(event.target.value)}
-                placeholder="Ej. Resumen completo primer parcial"
-                maxLength={120}
-                className="w-full rounded-xl border border-[#EDE6DD] px-3.5 py-2.5 text-sm text-[#3D3229] placeholder:text-[#A89F95] focus:border-[#8BAA91] focus:outline-none focus:ring-2 focus:ring-[#8BAA91]/20 bg-white transition-all"
+                  <Pencil className="w-3.5 h-3.5 text-[#A89F95]" /> Título {files.length > 1 ? "(Opcional, agrupa los apuntes)" : ""}
+                </label>
+                <input
+                  type="text"
+                  value={title}
+                  onChange={(event) => setTitle(event.target.value)}
+                  placeholder={files.length > 1 ? "Dejar vacío para usar los nombres originales" : "Ej. Resumen completo primer parcial"}
               />
             </div>
 
