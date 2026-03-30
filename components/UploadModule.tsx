@@ -103,8 +103,13 @@ export function UploadModule() {
       // Si sube varios archivos, el título es opcional.
       const isTitleInvalid = files.length === 1 && !cleanTitle;
 
-      if (files.length === 0 || isTitleInvalid || !carrera || !anio || !materia || !tipo) {
+      if (files.length === 0 || isTitleInvalid || !carrera || (carrera !== "basicas" && !anio) || !materia || !tipo) {
         setError("Completa todos los campos obligatorios antes de subir.");
+        return;
+      }
+
+    setIsUploading(true);
+
     try {
       const today = new Date().toISOString().split("T")[0];
       const progressStep = 90 / files.length;
@@ -183,7 +188,7 @@ export function UploadModule() {
     }
   };
 
-  const isValid = files.length > 0 && sanitize(title) && carrera && (carrera === "basicas" ? true : anio) && materia && tipo;
+const isValid = files.length > 0 && (files.length > 1 ? true : sanitize(title) !== "") && carrera && (carrera === "basicas" ? true : anio) && materia && tipo;
 
   const selectedCareer = careersData.find((career) => career.id === carrera);
   const availableYears = selectedCareer
@@ -324,14 +329,20 @@ export function UploadModule() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="flex items-center gap-1.5 text-sm font-bold text-[#3D3229] mb-1.5">
-                  <Pencil className="w-3.5 h-3.5 text-[#A89F95]" /> Título {files.length > 1 ? "(Opcional, agrupa los apuntes)" : ""}
+                  <Pencil className="w-3.5 h-3.5 text-[#A89F95]" /> Título {files.length > 1 ? "(Opcional)" : ""}
                 </label>
                 <input
                   type="text"
                   value={title}
                   onChange={(event) => setTitle(event.target.value)}
-                  placeholder={files.length > 1 ? "Dejar vacío para usar los nombres originales" : "Ej. Resumen completo primer parcial"}
-              />
+                  placeholder="Ej. Resumen completo primer parcial"
+                  className="w-full rounded-xl border border-[#EDE6DD] px-3.5 py-2.5 text-sm text-[#3D3229] placeholder:text-[#A89F95] focus:border-[#8BAA91] focus:outline-none focus:ring-2 focus:ring-[#8BAA91]/20 bg-white transition-all"
+                />
+                {files.length > 1 && (
+                  <p className="mt-1.5 text-xs text-[#7A6E62]">
+                    Dejalo vacío para mantener el nombre original de cada archivo.
+                  </p>
+                )}
             </div>
 
             <div>
