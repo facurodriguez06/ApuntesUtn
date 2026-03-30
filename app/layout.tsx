@@ -42,17 +42,6 @@ const securityScript = `
       return false;
     }
   });
-
-  // 3. Detección por tamaño (si abren el panel lateral/inferior)
-  function detect() {
-    var threshold = 160;
-    if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
-      document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#FFFBF7;color:#3D3229;text-align:center;padding:2rem;font-family:sans-serif"><div><h1 style="font-size:2rem">Acceso Restringido</h1><p>Las herramientas de desarrollo no están permitidas.</p><button onclick="window.location.reload()" style="margin-top:2rem;padding:0.8rem 1.5rem;background:#2C2825;color:white;border:none;border-radius:0.8rem;cursor:pointer">Reintentar</button></div></div>';
-    }
-  }
-  window.addEventListener('resize', detect);
-  setInterval(detect, 2000);
-  detect();
 })();
 `;
 
