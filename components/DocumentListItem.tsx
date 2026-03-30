@@ -3,6 +3,7 @@
 import { Note } from "@/lib/data";
 import { FileText, File, FileArchive, Download, Check, User, Eye, Crown } from "lucide-react";
 import { useState } from "react";
+import { useToast } from "@/context/ToastContext";
 
 const tagClass: Record<string, string> = {
   Resumen: "tag-resumen",
@@ -22,6 +23,7 @@ const normalizeAuthorName = (value: string) =>
     .toLowerCase();
 
 export function DocumentListItem({ note, index = 0 }: { note: Note; index?: number }) {
+  const { showToast } = useToast();
   const [downloaded, setDownloaded] = useState(false);
   const isCreatorNote = normalizeAuthorName(note.author ?? "") === CREATOR_AUTHOR;
 
@@ -29,7 +31,7 @@ export function DocumentListItem({ note, index = 0 }: { note: Note; index?: numb
     if (note.fileUrl) {
       window.open(note.fileUrl, "_blank");
     } else {
-      alert("Este apunte no tiene una URL valida.");
+      showToast("Este apunte no tiene una URL válida.", "info");
     }
   };
 

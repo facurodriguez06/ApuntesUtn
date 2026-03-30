@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { useToast } from "@/context/ToastContext";
 import { Heart, DollarSign, ArrowRight, Wallet, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const PRESET_AMOUNTS = [500, 1000, 5000];
 
 export function DonationSection() {
+  const { showToast } = useToast();
   const [selectedPreset, setSelectedPreset] = useState<number | null>(1000);
   const [customAmount, setCustomAmount] = useState<string>("");
   const [isHovered, setIsHovered] = useState(false);
@@ -44,11 +46,11 @@ export function DonationSection() {
         window.location.href = data.url;
       } else {
         console.error("Error al generar el link:", data.error);
-        alert(`Error al generar el pago: ${data.error}`);
+        showToast(`Error al generar el pago: ${data.error}`, "error");
       }
     } catch (error) {
       console.error("Error de conexión:", error);
-      alert("Error de conexión con el servidor.");
+      showToast("Error de conexión con el servidor.", "error");
     } finally {
       setIsLoading(false);
     }

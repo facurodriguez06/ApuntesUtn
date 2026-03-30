@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
+import { useToast } from "@/context/ToastContext";
 import { Heart, DollarSign, ArrowRight, Wallet, X, Star, Coffee, Zap, ShieldCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -13,6 +14,7 @@ interface DonationModalProps {
 }
 
 export function DonationModal({ isOpen, onClose }: DonationModalProps) {
+  const { showToast } = useToast();
   const [selectedPreset, setSelectedPreset] = useState<number | null>(1000);
   const [customAmount, setCustomAmount] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
@@ -64,7 +66,7 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
         window.location.href = data.url;
       }
     } catch (error) {
-      alert("Error al conectar con Mercado Pago");
+      showToast("Error al conectar con Mercado Pago", "error");
     } finally {
       setIsLoading(false);
     }

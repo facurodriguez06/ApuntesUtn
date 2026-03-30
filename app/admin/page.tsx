@@ -23,6 +23,7 @@ import { cn } from "@/lib/utils";
 import type { Note } from "@/lib/data";
 import { careersData, subjectsData, yearConfig } from "@/lib/data";
 import { useAuth } from "@/context/AuthContext";
+import { useToast } from "@/context/ToastContext";
 import { signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { auth, app as primaryApp, db } from "@/lib/firebase/config";
 import { initializeApp, getApps } from "firebase/app";
@@ -156,8 +157,15 @@ export default function AdminPage() {
   const [newAdminPassword, setNewAdminPassword] = useState("");
   const [createAdminMsg, setCreateAdminMsg] = useState({ text: "", type: "" });
   const [isCreatingAdmin, setIsCreatingAdmin] = useState(false);
+  const { showToast } = useToast();
   const [adminList, setAdminList] = useState<any[]>([]);
   const [adminError, setAdminError] = useState("");
+
+  // Custom confirmation state
+  const [confirmDeleteAdmin, setConfirmDeleteAdmin] = useState<{ isOpen: boolean; adminMail: string }>({
+    isOpen: false,
+    adminMail: "",
+  });
 
   useEffect(() => {
     if (!user) {
@@ -381,12 +389,20 @@ export default function AdminPage() {
     }
   };
 
-  const handleDeleteAdmin = async (adminMail: string) => {
-    if (!confirm(`¿Estás seguro de quitar a ${adminMail} de la lista de administradores? (Nota: Esto NO borra la cuenta de Firebase Auth)`)) return;
+  const handleDeleteAdmin = (adminMail: string) => {
+    setConfirmDeleteAdmin({ isOpen: true, adminMail });
+  };
+
+  const confirmDeleteAdminAction = async () => {
+    const adminMail = confirmDeleteAdmin.adminMail;
     try {
       await deleteDoc(doc(db, "admins", adminMail));
+      showToast("Moderador eliminado correctamente", "success");
     } catch (err) {
       console.error("Error deleting admin:", err);
+      showToast("Error al eliminar administrador", "error");
+    } finally {
+      setConfirmDeleteAdmin({ isOpen: false, adminMail: "" });
     }
   };
 
@@ -394,10 +410,10 @@ export default function AdminPage() {
     const { sendPasswordResetEmail } = await import("firebase/auth");
     try {
       await sendPasswordResetEmail(auth, email);
-      alert(`Se ha enviado un correo a ${email} para restablecer la contraseña.`);
+      showToast(`Correo de restablecimiento enviado a ${email}`, "success");
     } catch (err) {
       console.error("Error resetting password:", err);
-      alert("Error al enviar el correo de restablecimiento.");
+      showToast("Error al enviar el correo de restablecimiento.", "error");
     }
   };
 
@@ -832,6 +848,35 @@ export default function AdminPage() {
           )}
         </div>
       </section>
+
+      {/* CUSTOM CONFIRMATION MODAL */}
+      {confirmDeleteAdmin.isOpen && (
+        <div className="fixed inset-0 z-[10002] flex items-center justify-center p-4 bg-[#2C2825]/40 backdrop-blur-sm animate-fade-in">
+          <div className="bg-white w-full max-w-sm rounded-[2rem] border-2 border-[#EDE6DD] p-8 shadow-2xl animate-fade-in-up">
+            <div className="w-16 h-16 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6 border border-red-100">
+              <ShieldAlert className="w-8 h-8" />
+            </div>
+            <h3 className="text-xl font-black text-[#2C2825] text-center mb-3">¿Confirmar eliminación?</h3>
+            <p className="text-[#7A6E62] text-center text-sm mb-8 leading-relaxed">
+              Estás por quitar a <strong className="text-[#3D3229]">{confirmDeleteAdmin.adminMail}</strong> de la lista de moderadores.
+            </p>
+            <div className="flex flex-col gap-3">
+              <button
+                onClick={confirmDeleteAdminAction}
+                className="w-full py-3.5 bg-red-500 hover:bg-red-600 text-white font-black rounded-2xl transition-all shadow-lg shadow-red-500/20 active:scale-95"
+              >
+                Eliminar Moderador
+              </button>
+              <button
+                onClick={() => setConfirmDeleteAdmin({ isOpen: false, adminMail: "" })}
+                className="w-full py-3.5 bg-[#F9F7F4] text-[#7A6E62] font-bold rounded-2xl border border-[#EDE6DD] hover:bg-[#EDE6DD] transition-all active:scale-95"
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
