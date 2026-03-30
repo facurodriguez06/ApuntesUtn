@@ -121,9 +121,9 @@ export default function Home() {
         <section>
           <h2 className="text-xl font-extrabold text-[#3D3229] mb-6">Elegí tu carrera</h2>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 stagger-children">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 stagger-children items-stretch">
             {careersData.map((career) => (
-              <div key={career.id} className="animate-fade-in-up">
+              <div key={career.id} className="animate-fade-in-up flex">
                 <CareerCard career={career} />
               </div>
             ))}

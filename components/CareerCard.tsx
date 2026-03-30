@@ -10,14 +10,14 @@ export function CareerCard({ career }: { career: Career }) {
 
   const content = (
     <div className={cn(
-      "relative group rounded-xl border overflow-hidden transition-all duration-400 bg-white",
+      "relative group rounded-xl border overflow-hidden transition-all duration-400 bg-white flex flex-col h-full w-full",
       career.implemented
         ? `${career.pastelBorder} hover:-translate-y-1 hover:shadow-[0_12px_28px_rgba(139,170,145,0.15)] cursor-pointer`
         : "border-[#EDE6DD] opacity-60 cursor-not-allowed"
     )}>
-      <div className={cn("h-1.5 w-full", career.pastelAccent)} />
-      
-      <div className="p-5 bg-white">
+      <div className={cn("h-1.5 w-full shrink-0", career.pastelAccent)} />
+
+      <div className="p-5 bg-white flex-1 flex flex-col">
         {!career.implemented && (
           <div className="absolute top-5 right-4">
             <span className="inline-flex items-center rounded-full bg-[#F5F0EA] px-2 py-0.5 text-[10px] font-medium text-[#A89F95] border border-[#EDE6DD]">
@@ -40,12 +40,12 @@ export function CareerCard({ career }: { career: Career }) {
         )}>
           {career.shortName}
         </h3>
-        <p className="text-[13px] text-[#A89F95] leading-relaxed">
+        <p className="text-[13px] text-[#A89F95] leading-relaxed flex-1">
           {career.description}
         </p>
-        
+
         {career.implemented && (
-          <div className="mt-4 flex items-center">
+          <div className="mt-4 flex items-center shrink-0">
             <span className={cn("text-xs font-bold px-2.5 py-1 rounded-full", career.pastelBg, career.pastelText)}>
               Explorar →
             </span>
