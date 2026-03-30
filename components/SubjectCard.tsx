@@ -7,9 +7,9 @@ export function SubjectCard({ subject, careerId }: { subject: Subject; careerId?
   const yc = yearConfig[subject.year];
 
   return (
-    <Link 
+    <Link
       href={`/carreras/${subject.careerId}/materias/${subject.id}`}
-      className="group flex flex-col justify-between rounded-2xl border border-[#EDE6DD] bg-white p-4 hover-lift hover:border-[#C5DBC9] transition-all duration-300 relative overflow-hidden"
+      className="group flex flex-col justify-between rounded-xl border border-[#E3DCD2] bg-white p-4 hover:-translate-y-1 hover:border-[#B2C7B6] hover:shadow-[0_8px_24px_rgba(139,170,145,0.12)] transition-all duration-400 relative overflow-hidden"
     >
       <div 
         className="absolute top-0 right-0 w-16 h-16 rounded-bl-[40px] opacity-[0.12] transition-opacity duration-300 group-hover:opacity-[0.25]" 

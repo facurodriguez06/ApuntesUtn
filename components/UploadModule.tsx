@@ -235,7 +235,7 @@ const isValid = files.length > 0 && (files.length > 1 ? true : sanitize(title) !
       <div className="blob w-52 h-52 bg-[#C5DBC9] -top-16 -left-16 animate-blob" />
       <div className="blob w-40 h-40 bg-[#D5CCE5] -bottom-16 -right-16 animate-blob" style={{ animationDelay: "3s" }} />
 
-      <div className="relative bg-white rounded-2xl border border-[#EDE6DD] overflow-hidden shadow-sm z-10">
+      <div className="relative bg-white/95 backdrop-blur-sm rounded-2xl border border-[#E3DCD2] overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] z-10">
         <div className="h-1.5 bg-gradient-to-r from-[#8BAA91] via-[#7CC2A8] to-[#7BA7C2]" />
 
         <div className="p-5 border-b border-[#EDE6DD]">

@@ -10,9 +10,9 @@ export function CareerCard({ career }: { career: Career }) {
 
   const content = (
     <div className={cn(
-      "relative group rounded-2xl border overflow-hidden transition-all duration-300",
-      career.implemented 
-        ? `${career.pastelBorder} hover-lift cursor-pointer`
+      "relative group rounded-xl border overflow-hidden transition-all duration-400 bg-white",
+      career.implemented
+        ? `${career.pastelBorder} hover:-translate-y-1 hover:shadow-[0_12px_28px_rgba(139,170,145,0.15)] cursor-pointer`
         : "border-[#EDE6DD] opacity-60 cursor-not-allowed"
     )}>
       <div className={cn("h-1.5 w-full", career.pastelAccent)} />
