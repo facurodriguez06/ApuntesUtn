@@ -88,7 +88,7 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
 
       {/* Modal Container */}
       <div className={cn(
-        "relative w-full max-w-4xl overflow-hidden rounded-[3rem] bg-white border-[6px] border-[#8BAA91]/10 shadow-[0_45px_100px_-20px_rgba(0,0,0,0.5)] transition-all duration-700 transform",
+        "relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-[2rem] sm:rounded-[3rem] bg-white border-[4px] sm:border-[6px] border-[#8BAA91]/10 shadow-[0_45px_100px_-20px_rgba(0,0,0,0.5)] transition-all duration-700 transform",
         isClosing ? "scale-90 opacity-0 translate-y-12" : "scale-100 opacity-100 translate-y-0"
       )}>
         
@@ -100,10 +100,10 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
           <X className="w-5 h-5 group-hover:rotate-90 transition-transform" />
         </button>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch min-h-[400px]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-12 items-stretch min-h-[300px]">
           
           {/* LEFT COLUMN: Message & Branding */}
-          <div className="lg:col-span-12 xl:col-span-5 relative bg-gradient-to-br from-[#8BAA91] via-[#D5E8DB] to-[#F5EFE5] p-8 lg:p-12 flex flex-col justify-center items-center text-center overflow-hidden">
+          <div className="lg:col-span-1 xl:col-span-5 relative bg-gradient-to-br from-[#8BAA91] via-[#D5E8DB] to-[#F5EFE5] p-6 lg:p-10 flex flex-col justify-center items-center text-center overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
             
             <div className="relative z-10">
@@ -118,12 +118,12 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
                 Sumate a la plataforma
               </div>
 
-              <h2 className="text-4xl md:text-5xl font-black text-[#3D3229] tracking-tighter leading-[0.85] mb-4 uppercase">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-[#3D3229] tracking-tighter leading-none mb-4 uppercase">
                 HOLA,<br />
-                <span className="bg-gradient-to-r from-[#D84545] to-[#4A7A52] bg-clip-text text-transparent italic text-shadow-sm">ESTUDIANTE</span>
+                <span className="bg-gradient-to-r from-[#D84545] to-[#4A7A52] bg-clip-text text-transparent italic">ESTUDIANTE</span>
               </h2>
               
-              <p className="text-[#6B5A50] text-xl font-bold leading-tight">
+              <p className="text-[#6B5A50] text-lg lg:text-xl font-bold leading-tight">
                 Apoya el crecimiento de la plataforma
               </p>
               <div className="flex items-center gap-1.5 text-[#A89F95] mt-4">
@@ -138,7 +138,7 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
           </div>
 
           {/* RIGHT COLUMN: Donation Form */}
-          <div className="lg:col-span-12 xl:col-span-7 bg-white p-8 lg:p-12 flex flex-col justify-center">
+          <div className="lg:col-span-1 xl:col-span-7 bg-white p-6 lg:p-10 flex flex-col justify-center">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-xl bg-[#F9F7F4] border border-[#EDE6DD] flex items-center justify-center">
                 <DollarSign className="w-5 h-5 text-[#8BAA91]" />
