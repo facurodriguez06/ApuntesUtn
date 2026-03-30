@@ -94,7 +94,7 @@ export default function Home() {
             Resúmenes, finales y guías compartidos por estudiantes de la UTN. Buscá o subí los tuyos.
           </p>
           
-          <div className="animate-fade-in-up">
+          <div className="w-full">
             <GlobalSearchBar />
           </div>
 

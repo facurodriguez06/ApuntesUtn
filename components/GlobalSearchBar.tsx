@@ -1,7 +1,8 @@
 "use client";
 
 import { Search, X, ChevronRight, FileText, BookMarked } from "lucide-react";
-import { useEffect, useState, useMemo, useRef } from "react";
+import { useEffect, useState, useMemo, useRef, ReactNode } from "react";
+import { createPortal } from "react-dom";
 import { subjectsData, careersData, yearConfig } from "@/lib/data";
 import { Sprout, BookOpen, Microscope, Rocket, GraduationCap, Award } from "lucide-react";
 import Link from "next/link";
@@ -53,7 +54,7 @@ export function GlobalSearchBar() {
 
   return (
     <>
-      <div className="w-full max-w-lg mx-auto">
+      <div className="w-full max-w-lg mx-auto animate-fade-in-up">
         <button 
           onClick={() => setIsOpen(true)}
           className="relative flex items-center w-full h-12 rounded-2xl border border-[#EDE6DD] bg-white/80 backdrop-blur-sm overflow-hidden hover:border-[#C5DBC9] hover:shadow-md hover:shadow-[#8BAA91]/10 transition-all duration-300 cursor-text group"
@@ -70,7 +71,7 @@ export function GlobalSearchBar() {
         </button>
       </div>
       
-      {isOpen && (
+      {isOpen && typeof document !== "undefined" && createPortal(
         <div 
           className="fixed inset-0 z-50 flex items-start justify-center pt-[10vh] sm:pt-[15vh] bg-black/20 backdrop-blur-sm px-4" 
           onClick={() => { setIsOpen(false); setQuery(""); }}
@@ -147,7 +148,8 @@ export function GlobalSearchBar() {
               )}
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );

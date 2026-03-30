@@ -20,6 +20,11 @@ export function SubjectCard({ subject, careerId }: { subject: Subject; careerId?
         <h3 className="font-bold text-[#3D3229] text-[15px] leading-snug group-hover:text-[#4A7A52] transition-colors duration-200 mb-3 pr-6">
           {subject.name}
         </h3>
+          {subject.isElective && (
+            <span className="inline-block mt-0 mb-3 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-purple-700 bg-purple-100 rounded-md border border-purple-200">
+              Electiva
+            </span>
+          )}
         <div className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-bold ${
           hasNotes 
             ? `${yc.bg} ${yc.text}` 

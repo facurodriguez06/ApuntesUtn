@@ -25,6 +25,9 @@ export interface Subject {
   careerId: string;
   notesCount: number;
   notes: Note[];
+  isElective?: boolean;
+  excludedCareers?: string[];
+  careerPaths?: { careerId: string; year: number }[];
 }
 
 export interface Career {
@@ -46,7 +49,7 @@ export const careersData: Career[] = [
     id: 'basicas', name: 'Ciclo Común (Básicas)', shortName: 'Básicas',
     description: 'Materias comunes a todas las ingenierías: Matemática, Física, Química y más.',
     icon: 'BookMarked', pastelBg: 'bg-[#F5EFE5]', pastelText: 'text-[#8B7355]', pastelBorder: 'border-[#E2D6C2]', pastelAccent: 'bg-gradient-to-r from-[#C4A87D] to-[#B8976A]',
-    implemented: true, maxYears: 1,
+    implemented: true, maxYears: 2,
   },
   {
     id: 'sistemas', name: 'Ingeniería en Sistemas de Información', shortName: 'Sistemas',
@@ -82,14 +85,36 @@ export const careersData: Career[] = [
     id: 'telecomunicaciones', name: 'Ingeniería en Telecomunicaciones', shortName: 'Telecomunicaciones',
     description: 'Redes convergentes, transmisión y sistemas de comunicación.',
     icon: 'Radio', pastelBg: 'bg-[#E5EFF5]', pastelText: 'text-[#4A6E82]', pastelBorder: 'border-[#C5D6E2]', pastelAccent: 'bg-gradient-to-r from-[#7BA7C2] to-[#5A8EAA]',
-    implemented: false, maxYears: 5,
+    implemented: true, maxYears: 5,
   },
 ];
 
-const sub = (id: string, name: string, year: number, careerId: string): Subject => {
-  // Solo devolvemos la estructura de la materia. Los apuntes se cargan dinámicamente desde Firestore.
-  return { id, name, year, careerId, notesCount: 0, notes: [] };
-};
+const sub = (id: string, name: string, year: number, careerId: string): Subject => ({
+  id, name, year, careerId, notesCount: 0, notes: []
+});
+
+const ele = (id: string, name: string, year: number, careerId: string, careerPaths?: { careerId: string; year: number }[]): Subject => ({
+  id, name, year, careerId, notesCount: 0, notes: [], isElective: true, careerPaths
+});
+
+// ============================================================
+// MATERIAS ELECTIVAS COMPARTIDAS
+// ============================================================
+const sharedElectives: Subject[] = [
+  ele('ele-fe', 'Formación de Emprendedores', 99, 'basicas', [
+    { careerId: 'electronica', year: 99 },
+    { careerId: 'sistemas', year: 99 },
+    { careerId: 'quimica', year: 99 }
+  ]),
+  ele('ele-iop', 'Interoperabilidad', 99, 'basicas', [
+    { careerId: 'electronica', year: 99 },
+    { careerId: 'sistemas', year: 99 }
+  ]),
+  ele('ele-cts', 'Evaluación e Innovación de Tecnología desde la perspectiva CTS', 99, 'basicas', [
+    { careerId: 'electronica', year: 99 },
+    { careerId: 'sistemas', year: 99 }
+  ])
+];
 
 // ============================================================
 // INGENIERÍA EN SISTEMAS DE INFORMACIÓN
@@ -111,7 +136,7 @@ const sistemasSubs: Subject[] = [
   sub('sis-cdd', 'Comunicación de Datos', 3, 'sistemas'),
   sub('sis-ds', 'Desarrollo de Software', 3, 'sistemas'),
   sub('sis-an', 'Análisis Numérico', 3, 'sistemas'),
-  sub('sis-el3', 'Electivas 3º nivel', 3, 'sistemas'),
+  
   // 4to Año
   sub('sis-si', 'Seminario Integrador', 4, 'sistemas'),
   sub('sis-asi4', 'Administración de Sistemas de Información', 4, 'sistemas'),
@@ -120,15 +145,30 @@ const sistemasSubs: Subject[] = [
   sub('sis-sim', 'Simulación', 4, 'sistemas'),
   sub('sis-red', 'Redes de Datos', 4, 'sistemas'),
   sub('sis-tpa', 'Tecnología para la Automatización', 4, 'sistemas'),
-  sub('sis-el4', 'Electivas 4º nivel', 4, 'sistemas'),
+  
   // 5to Año
   sub('sis-pf', 'Proyecto Final', 5, 'sistemas'),
   sub('sis-sdg', 'Sistemas de Gestión', 5, 'sistemas'),
   sub('sis-ssi', 'Seguridad en los Sistemas de Información', 5, 'sistemas'),
   sub('sis-ia', 'Inteligencia Artificial', 5, 'sistemas'),
   sub('sis-cd', 'Ciencia de Datos', 5, 'sistemas'),
-  sub('sis-el5', 'Electivas 5º nivel', 5, 'sistemas'),
-];
+  
+
+    // Materias Electivas (Sistemas)
+    ele('sis-e-adm', 'Aprendizaje de Máquinas', 99, 'sistemas', [{careerId: 'sistemas', year: 99}]),
+    ele('sis-e-pra', 'Programación Avanzada', 99, 'sistemas', [{careerId: 'sistemas', year: 99}]),
+    ele('sis-e-sre', 'Seguridad en Redes', 99, 'sistemas', [{careerId: 'sistemas', year: 99}]),
+    ele('sis-e-tpa', 'Taller de Programación Avanzada', 99, 'sistemas', [{careerId: 'sistemas', year: 99}]),
+    ele('sis-e-iin', 'Informática Industrial', 99, 'sistemas', [{careerId: 'sistemas', year: 99}]),
+    ele('sis-e-adp', 'Administración de Proyectos', 99, 'sistemas', [{careerId: 'sistemas', year: 99}]),
+    ele('sis-e-bda', 'Base de Datos Avanzadas', 99, 'sistemas', [{careerId: 'sistemas', year: 99}]),
+    ele('sis-e-dsd', 'Desarrollo de software dirigido por modelos', 99, 'sistemas', [{careerId: 'sistemas', year: 99}]),
+    ele('sis-e-gdi', 'Gobierno digital e Innovación', 99, 'sistemas', [{careerId: 'sistemas', year: 99}]),
+    ele('sis-e-ami', 'Arquitectura de Microservicios', 99, 'sistemas', [{careerId: 'sistemas', year: 99}]),
+    ele('sis-e-rnp', 'Redes neuronales profundas', 99, 'sistemas', [{careerId: 'sistemas', year: 99}]),
+    ele('sis-e-asl', 'Administración de servicios en Linux', 99, 'sistemas', [{careerId: 'sistemas', year: 99}]),
+    ele('sis-e-cpa', 'Computación Paralela', 99, 'sistemas', [{careerId: 'sistemas', year: 99}]),
+  ];
 
 // ============================================================
 // INGENIERÍA CIVIL
@@ -170,8 +210,26 @@ const civilSubs: Subject[] = [
   sub('civ-vc2', 'Vías de Comunicación II', 5, 'civil'),
   // 6to Año
   sub('civ-pf', 'Proyecto Final', 6, 'civil'),
-  sub('civ-el', 'Electivas', 6, 'civil'),
-];
+  
+
+    // Materias Electivas (Civil)
+    ele('civ-e-geo', 'Geología Aplicada', 99, 'civil', [{careerId: 'civil', year: 99}]),
+    ele('civ-e-srh', 'Sustentabilidad del Recurso Hídrico', 99, 'civil', [{careerId: 'civil', year: 99}]),
+    ele('civ-e-fer', 'Ferrocarriles', 99, 'civil', [{careerId: 'civil', year: 99}]),
+    ele('civ-e-tyt', 'Tránsito y Transporte', 99, 'civil', [{careerId: 'civil', year: 99}]),
+    ele('civ-e-pre', 'Prefabricación', 99, 'civil', [{careerId: 'civil', year: 99}]),
+    ele('civ-e-des', 'Diseño Estructural', 99, 'civil', [{careerId: 'civil', year: 99}]),
+    ele('civ-e-gin', 'Gestión Ingenieril', 99, 'civil', [{careerId: 'civil', year: 99}]),
+    ele('civ-e-din', 'Dinámica de Estructuras', 99, 'civil', [{careerId: 'civil', year: 99}]),
+    ele('civ-e-ae3', 'Análisis Estructural III', 99, 'civil', [{careerId: 'civil', year: 99}]),
+    ele('civ-e-sym', 'Saneamiento y Medio Ambiente', 99, 'civil', [{careerId: 'civil', year: 99}]),
+    ele('civ-e-vie', 'Vialidad Especial', 99, 'civil', [{careerId: 'civil', year: 99}]),
+    ele('civ-e-cyt', 'Caminos y Túneles de Montañas', 99, 'civil', [{careerId: 'civil', year: 99}]),
+    ele('civ-e-ofc', 'Obras Fluviales y Costeras', 99, 'civil', [{careerId: 'civil', year: 99}]),
+    ele('civ-e-cmh', 'Centrales y Máquinas Hidráulicas', 99, 'civil', [{careerId: 'civil', year: 99}]),
+    ele('civ-e-pue', 'Puentes', 99, 'civil', [{careerId: 'civil', year: 99}]),
+    ele('civ-e-dse', 'Diseño Sustentable de Edificios', 99, 'civil', [{careerId: 'civil', year: 99}]),
+  ];
 
 // ============================================================
 // INGENIERÍA QUÍMICA
@@ -211,8 +269,24 @@ const quimicaSubs: Subject[] = [
   sub('qui-pb', 'Procesos Biotecnológicos', 5, 'quimica'),
   sub('qui-hst', 'Higiene y Seguridad en el Trabajo', 5, 'quimica'),
   sub('qui-mie', 'Máquinas e Instalaciones Eléctricas', 5, 'quimica'),
-  sub('qui-el', 'Electivas', 5, 'quimica'),
-];
+  
+
+    // Materias Electivas (Química)
+    ele('qui-e-epi', 'Epistemología', 99, 'quimica', [{careerId: 'quimica', year: 99}]),
+    ele('qui-e-mdi', 'Metodología de la Investigación', 99, 'quimica', [{careerId: 'quimica', year: 99}]),
+    ele('qui-e-udc', 'Utilitarios de Computación', 99, 'quimica', [{careerId: 'quimica', year: 99}]),
+    ele('qui-e-grh', 'Gestión de RRHH', 99, 'quimica', [{careerId: 'quimica', year: 99}]),
+    ele('qui-e-acv', 'Análisis del Ciclo de Vida (ACV)', 99, 'quimica', [{careerId: 'quimica', year: 99}]),
+    ele('qui-e-imf', 'Instalaciones de Máquinas térmicas y fluidodinámicas', 99, 'quimica', [{careerId: 'quimica', year: 99}]),
+    ele('qui-e-idh', 'Industrialización de Hidrocarburos', 99, 'quimica', [{careerId: 'quimica', year: 99}]),
+    ele('qui-e-ge1', 'Gestión Empresarial I', 99, 'quimica', [{careerId: 'quimica', year: 99}]),
+    ele('qui-e-bda', 'Bioquímica de los Alimentos', 99, 'quimica', [{careerId: 'quimica', year: 99}]),
+    ele('qui-e-ial', 'Industrias Alimentarias', 99, 'quimica', [{careerId: 'quimica', year: 99}]),
+    ele('qui-e-ibe', 'Industria de Base Extractiva - Extracción, Fraccionamiento, Refinación', 99, 'quimica', [{careerId: 'quimica', year: 99}]),
+    ele('qui-e-eia', 'Evaluación de Impacto Ambiental', 99, 'quimica', [{careerId: 'quimica', year: 99}]),
+    ele('qui-e-ge2', 'Gestión Empresarial II', 99, 'quimica', [{careerId: 'quimica', year: 99}]),
+    ele('qui-e-iir', 'Ingeniería Industrial de Recursos Naturales Regionales', 99, 'quimica', [{careerId: 'quimica', year: 99}]),
+  ];
 
 // ============================================================
 // INGENIERÍA ELECTRÓNICA
@@ -249,8 +323,26 @@ const electronicaSubs: Subject[] = [
   sub('ele-oi', 'Organización Industrial', 5, 'electronica'),
   // 6to Año
   sub('ele-pf', 'Proyecto Final', 6, 'electronica'),
-  sub('ele-el', 'Electivas', 6, 'electronica'),
-];
+  
+
+    // Materias Electivas (Electrónica)
+    ele('ele-e-rdd', 'Redes de Datos', 99, 'electronica', [{careerId: 'electronica', year: 99}]),
+    ele('ele-e-ein', 'Electrónica Industrial', 99, 'electronica', [{careerId: 'electronica', year: 99}]),
+    ele('ele-e-sc2', 'Sistemas de Comunicaciones II', 99, 'electronica', [{careerId: 'electronica', year: 99}]),
+    ele('ele-e-bio', 'Bioelectrónica', 99, 'electronica', [{careerId: 'electronica', year: 99}]),
+    ele('ele-e-isg', 'Introducción a los Sist. de Gestión Gerencial', 99, 'electronica', [{careerId: 'electronica', year: 99}]),
+    ele('ele-e-stv', 'Sistemas de TV', 99, 'electronica', [{careerId: 'electronica', year: 99}]),
+    ele('ele-e-ape', 'Antenas y Propagación Electromagnética', 99, 'electronica', [{careerId: 'electronica', year: 99}]),
+    ele('ele-e-cda', 'Centro de Datos: Diseño y Administración', 99, 'electronica', [{careerId: 'electronica', year: 99}]),
+    ele('ele-e-sc3', 'Sistemas de Comunicaciones III', 99, 'electronica', [{careerId: 'electronica', year: 99}]),
+    ele('ele-e-pdt', 'Protecciones Digitales y Telecontrol', 99, 'electronica', [{careerId: 'electronica', year: 99}]),
+    ele('ele-e-rcm', 'Redes de Comunicaciones Móviles', 99, 'electronica', [{careerId: 'electronica', year: 99}]),
+    ele('ele-e-sso', 'Sistemas de Sonido', 99, 'electronica', [{careerId: 'electronica', year: 99}]),
+    ele('ele-e-rob', 'Robótica', 99, 'electronica', [{careerId: 'electronica', year: 99}]),
+    ele('ele-e-eau', 'Electrónica Automotriz', 99, 'electronica', [{careerId: 'electronica', year: 99}]),
+    ele('ele-e-cdp', 'Control de Procesos', 99, 'electronica', [{careerId: 'electronica', year: 99}]),
+    ele('ele-e-tiot', 'Teleinformática en IoT', 99, 'electronica', [{careerId: 'electronica', year: 99}]),
+  ];
 
 // ============================================================
 // INGENIERÍA ELECTROMECÁNICA
@@ -290,8 +382,14 @@ const electromecanicaSubs: Subject[] = [
   sub('elm-oi', 'Organización Industrial', 5, 'electromecanica'),
   sub('elm-on', 'Oleohidráulica y Neumática', 5, 'electromecanica'),
   sub('elm-pf', 'Proyecto Final', 5, 'electromecanica'),
-  sub('elm-el', 'Electivas', 5, 'electromecanica'),
-];
+  
+
+    // Materias Electivas (Electromecánica)
+    ele('elm-e-hyn', 'Hidrodinámica y Neumática', 99, 'electromecanica', [{careerId: 'electromecanica', year: 99}]),
+    ele('elm-e-mel', 'Mantenimiento Electromecánico', 99, 'electromecanica', [{careerId: 'electromecanica', year: 99}]),
+    ele('elm-e-ccm', 'Cálculo y Control de Maq. Eléctrica', 99, 'electromecanica', [{careerId: 'electromecanica', year: 99}]),
+    ele('elm-e-mei', 'Máquinas y Equipos Industriales', 99, 'electromecanica', [{careerId: 'electromecanica', year: 99}]),
+  ];
 
 // ============================================================
 // MATERIAS BÁSICAS (comunes a todas las ingenierías)
@@ -301,18 +399,46 @@ const basicasSubs: Subject[] = [
   sub('bas-aga', 'Álgebra y Geometría Analítica', 1, 'basicas'),
   sub('bas-am1', 'Análisis Matemático I', 1, 'basicas'),
   sub('bas-fis1', 'Física I', 1, 'basicas'),
-  sub('bas-qg', 'Química General', 1, 'basicas'),
+  {...sub('bas-qg', 'Química General', 1, 'basicas'), excludedCareers: ['sistemas']},
   sub('bas-iys', 'Ingeniería y Sociedad', 1, 'basicas'),
   sub('bas-ing1', 'Inglés I', 1, 'basicas'),
   sub('bas-ing2', 'Inglés II', 1, 'basicas'),
-  sub('bas-isgg', 'Introducción a los Sistemas de Gestión Gerencial', 1, 'basicas'),
   
   // 2do Año Básicas
-  sub('bas-am2', 'Análisis Matemático II', 1, 'basicas'),
-  sub('bas-fis3', 'Física III', 1, 'basicas'),
-  sub('bas-pye', 'Probabilidad y Estadística', 1, 'basicas'),
-  sub('bas-eco', 'Economía', 1, 'basicas'),
-  sub('bas-leg', 'Legislación', 1, 'basicas'),
+  sub('bas-am2', 'Análisis Matemático II', 2, 'basicas'),
+  {...sub('bas-fis3', 'Física III', 2, 'basicas'), excludedCareers: ['sistemas']},
+  sub('bas-pye', 'Probabilidad y Estadística', 2, 'basicas'),
+  sub('bas-eco', 'Economía', 2, 'basicas'),
+  sub('bas-leg', 'Legislación', 2, 'basicas'),
+];
+
+// ============================================================
+// INGENIERÍA EN TELECOMUNICACIONES
+// ============================================================
+const telecomunicacionesSubs: Subject[] = [
+  // 1er Año
+  sub('tel-ie', 'Introducción a la Ingeniería Electrónica', 1, 'telecomunicaciones'),
+  sub('tel-inf1', 'Informática I', 1, 'telecomunicaciones'),
+  // 2do Año
+  sub('tel-inf2', 'Informática II', 2, 'telecomunicaciones'),
+  sub('tel-tc1', 'Teoría de Circuitos I', 2, 'telecomunicaciones'),
+  sub('tel-ts', 'Transmitología', 2, 'telecomunicaciones'),
+  sub('tel-ea1', 'Electrónica Aplicada I', 2, 'telecomunicaciones'),
+  // 3er Año
+  sub('tel-ea2', 'Electrónica Aplicada II', 3, 'telecomunicaciones'),
+  sub('tel-tc2', 'Teoría de Circuitos II', 3, 'telecomunicaciones'),
+  sub('tel-em1', 'Electromagnetismo I', 3, 'telecomunicaciones'),
+  sub('tel-sd1', 'Sistemas Digitales I', 3, 'telecomunicaciones'),
+  // 4to Año
+  sub('tel-sc1', 'Sistemas de Comunicaciones', 4, 'telecomunicaciones'),
+  sub('tel-pds', 'Procesamiento Digital de Señales', 4, 'telecomunicaciones'),
+  sub('tel-rdatos', 'Redes de Datos', 4, 'telecomunicaciones'),
+  sub('tel-mo', 'Microondas y Optoelectrónica', 4, 'telecomunicaciones'),
+  // 5to Año
+  sub('tel-sc2', 'Sistemas de Comunicaciones Avanzados', 5, 'telecomunicaciones'),
+  sub('tel-tel', 'Telefonía y Conmutación', 5, 'telecomunicaciones'),
+  sub('tel-pf', 'Proyecto Final', 5, 'telecomunicaciones'),
+  sub('tel-opt', 'Materias Optativas', 5, 'telecomunicaciones'),
 ];
 
 // ============================================================
@@ -325,17 +451,26 @@ export const subjectsData: Subject[] = [
   ...quimicaSubs,
   ...electronicaSubs,
   ...electromecanicaSubs,
+  ...telecomunicacionesSubs,
+  ...sharedElectives,
 ];
 
 // Helper to get subjects by career
 export const getSubjectsByCareer = (careerId: string): Subject[] =>
-  subjectsData.filter(s => s.careerId === careerId);
+  subjectsData.filter(s => {
+    if (s.excludedCareers && s.excludedCareers.includes(careerId)) return false;
+    return (s.careerId === careerId || (s.careerPaths && s.careerPaths.some(p => p.careerId === careerId)));
+  });
 
 // Helper to get subjects by career and year
 export const getSubjectsByCareerAndYear = (careerId: string, year: number): Subject[] =>
-  subjectsData.filter(s => s.careerId === careerId && s.year === year);
+  subjectsData.filter(s => {
+    if (s.excludedCareers && s.excludedCareers.includes(careerId)) return false;
+    if (s.careerPaths && s.careerPaths.some(p => p.careerId === careerId && p.year === year)) return true;
+    if (s.careerId === careerId && s.year === year) return true;
+    return false;
+  });
 
-// Year config with pastel accent colors and lucide icon names
 export const yearConfig: Record<number, { label: string; icon: string; bg: string; text: string; border: string; accent: string }> = {
   1: { label: '1er Año', icon: 'Sprout', bg: 'bg-[#E8F0EA]', text: 'text-[#4A7A52]', border: 'border-[#C5DBC9]', accent: '#8BAA91' },
   2: { label: '2do Año', icon: 'BookOpen', bg: 'bg-[#E5EFF5]', text: 'text-[#4A6E82]', border: 'border-[#C5D6E2]', accent: '#7BA7C2' },
@@ -343,4 +478,5 @@ export const yearConfig: Record<number, { label: string; icon: string; bg: strin
   4: { label: '4to Año', icon: 'Rocket', bg: 'bg-[#FFF0E5]', text: 'text-[#9B6B3D]', border: 'border-[#E8D4BF]', accent: '#E8A87C' },
   5: { label: '5to Año', icon: 'GraduationCap', bg: 'bg-[#FAEAE4]', text: 'text-[#9B5D44]', border: 'border-[#E8CFC3]', accent: '#D4856A' },
   6: { label: '6to Año', icon: 'Award', bg: 'bg-[#F5E8E8]', text: 'text-[#8E5A5A]', border: 'border-[#E2CECE]', accent: '#C28B8B' },
+  99: { label: 'Electivas', icon: 'Award', bg: 'bg-[#F2EDF7]', text: 'text-[#6A4E8A]', border: 'border-[#D9CFE5]', accent: '#A080C0' },
 };

@@ -162,7 +162,7 @@ export function UploadModule() {
           fileType: fileExt === "DOC" ? "DOCX" : fileExt,
           fileUrl: uploadResult.url || uploadResult.secure_url,
           status: "pending",
-          careerId: carrera,
+            careerId: availableSubjects.find((s) => s.id === materia)?.careerId || carrera,
           subjectId: materia,
           year: parseInt(anio, 10),
         };

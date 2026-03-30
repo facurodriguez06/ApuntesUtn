@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { careersData, yearConfig, getSubjectsByCareerAndYear } from "@/lib/data";
+import { careersData, yearConfig, getSubjectsByCareerAndYear, getSubjectsByCareer } from "@/lib/data";
 import { db } from "@/lib/firebase/config";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { SubjectCard } from "@/components/SubjectCard";
@@ -39,13 +39,14 @@ export function CareerDashboardClient({
   const [hasSynced, setHasSynced] = useState(false);
 
   const yc = yearConfig[activeYear];
-  const filteredSubjects = getSubjectsByCareerAndYear(careerId, activeYear);
+  const isBasicas = careerId === "basicas";
+  const filteredSubjects = isBasicas ? getSubjectsByCareer(careerId) : getSubjectsByCareerAndYear(careerId, activeYear);
 
   useEffect(() => {
     const notesQuery = query(
-      collection(db, "notes"),
-      where("careerId", "==", careerId),
-      where("status", "==", "approved")
+      collection(db, 'notes'),
+      where('careerId', 'in', careerId === 'basicas' ? ['basicas'] : [careerId, 'basicas']),
+      where('status', '==', 'approved')
     );
 
     const unsubscribe = onSnapshot(
@@ -87,9 +88,9 @@ export function CareerDashboardClient({
     return accumulator + (realNoteCounts[subject.id] || 0);
   }, 0);
 
-  const years = Array.from({ length: career.maxYears }, (_, index) => index + 1);
+  const years = isBasicas ? [] : Array.from({ length: career.maxYears }, (_, index) => index + 1);
+  if (!isBasicas) years.push(99);
   const CareerIcon = careerIcons[career.icon] || Monitor;
-  const isBasicas = careerId === "basicas";
 
   const yearLabel = (year: number) => {
     if (isBasicas) return `Nivel ${year}`;
@@ -119,8 +120,7 @@ export function CareerDashboardClient({
               <h1 className="text-2xl md:text-3xl font-extrabold text-[#3D3229] tracking-tight">{career.shortName}</h1>
             </div>
             <p className="text-sm text-[#7A6E62]">
-              {isBasicas ? "Materias comunes a todas las ingenierías" : "Plan 2023"} · {filteredSubjects.length} materias en{" "}
-              {yearLabel(activeYear).toLowerCase()}
+              {isBasicas ? "Materias comunes a todas las ingenierías" : "Plan 2023"} · {filteredSubjects.length} materias {isBasicas ? "" : `en ${yearLabel(activeYear).toLowerCase()}`}
             </p>
           </div>
 
