@@ -120,9 +120,13 @@ export function UploadModule() {
           if (cleanTitle && cleanTitle !== "Lote de Apuntes de Materia" && cleanTitle !== fileTitle) {
             fileTitle = files.length > 1 ? `${cleanTitle} (Parte ${i + 1})` : cleanTitle;
           }
-          
-          body: uploadFormData,
-        });
+
+          uploadFormData.append("title", fileTitle);
+
+          const uploadResponse = await fetch("/api/upload", {
+            method: "POST",
+            body: uploadFormData,
+          });
 
         if (!uploadResponse.ok) {
            const errText = await uploadResponse.text();
