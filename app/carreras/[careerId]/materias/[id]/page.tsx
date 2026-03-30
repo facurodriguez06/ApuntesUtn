@@ -87,7 +87,13 @@ export default async function SubjectProfile({ params }: { params: Promise<{ car
       ...docSnap.data(),
     })) as Note[];
 
-    realNotes.sort((a, b) => getNoteScore(b) - getNoteScore(a));
+    // Ordenar primero por tipo de archivo, luego por popularidad
+    realNotes.sort((a, b) => {
+      if (a.type !== b.type) {
+        return (a.type || "").localeCompare(b.type || "");
+      }
+      return getNoteScore(b) - getNoteScore(a);
+    });
   } catch (err) {
     console.error("Error fetching real notes:", err);
   }

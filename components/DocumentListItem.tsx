@@ -22,6 +22,27 @@ const normalizeAuthorName = (value: string) =>
     .trim()
     .toLowerCase();
 
+const getBgClass = (type: string, isCreator: boolean) => {
+  if (isCreator) return "bg-gradient-to-r from-[#FFF8E1] to-[#FFF2C2] border-[#E2C15F] hover:border-[#CFA63F] hover:shadow-md hover:shadow-[#E2C15F]/20";
+  switch (type) {
+    case "Resumen": return "bg-[#F4FAF6] border-[#C5DBC9] hover:border-[#8BAA91] hover:shadow-md hover:shadow-[#8BAA91]/10";
+    case "Examen Resuelto": return "bg-[#FFF5F2] border-[#F2C9BB] hover:border-[#D4856A] hover:shadow-md hover:shadow-[#D4856A]/10";
+    case "Trabajo Práctico": return "bg-[#F9F6FC] border-[#D8CEEB] hover:border-[#9B8BBF] hover:shadow-md hover:shadow-[#9B8BBF]/10";
+    case "Guía de Ejercicios": return "bg-[#F2F8FB] border-[#C2DBEB] hover:border-[#7BA7C2] hover:shadow-md hover:shadow-[#7BA7C2]/10";
+    default: return "bg-white border-[#EDE6DD] hover:border-[#C5DBC9] hover:shadow-md hover:shadow-[#8BAA91]/8";
+  }
+};
+
+const getCreatorTagClass = (type: string) => {
+  switch (type) {
+    case "Resumen": return "bg-[#4A7A52] text-white border border-[#3A6040]";
+    case "Examen Resuelto": return "bg-[#D4856A] text-white border border-[#B36850]";
+    case "Trabajo Práctico": return "bg-[#9B8BBF] text-white border border-[#7A6BA3]";
+    case "Guía de Ejercicios": return "bg-[#7BA7C2] text-white border border-[#5A87A2]";
+    default: return "bg-[#3D3229] text-white";
+  }
+};
+
 export function DocumentListItem({ note, index = 0 }: { note: Note; index?: number }) {
   const { showToast } = useToast();
   const [downloaded, setDownloaded] = useState(false);
@@ -65,11 +86,7 @@ export function DocumentListItem({ note, index = 0 }: { note: Note; index?: numb
 
   return (
     <div
-      className={`group flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 border rounded-2xl transition-all duration-300 animate-fade-in-up ${
-        isCreatorNote
-          ? "bg-gradient-to-r from-[#FFF8E1] to-[#FFF2C2] border-[#E2C15F] hover:border-[#CFA63F] hover:shadow-md hover:shadow-[#E2C15F]/20"
-          : "bg-white border-[#EDE6DD] hover:border-[#C5DBC9] hover:shadow-md hover:shadow-[#8BAA91]/8"
-      }`}
+      className={`group flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 border rounded-2xl transition-all duration-300 animate-fade-in-up ${getBgClass(note.type, isCreatorNote)}`}
       style={{ animationDelay: `${index * 80}ms` }}
     >
       <div className="flex items-start gap-3 flex-1 mb-3 sm:mb-0 min-w-0">
@@ -103,7 +120,7 @@ export function DocumentListItem({ note, index = 0 }: { note: Note; index?: numb
               </span>
             )}
             <span className="text-[11px] text-[#A89F95]">{new Date(note.uploadDate).toLocaleDateString("es-AR")}</span>
-            <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${tagClass[note.type] || "tag-resumen"}`}>
+            <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${isCreatorNote ? getCreatorTagClass(note.type) : (tagClass[note.type] || "tag-resumen")}`}>
               {note.type}
             </span>
             {note.fileSize && <span className="text-[11px] text-[#A89F95] font-medium">{note.fileSize}</span>}
