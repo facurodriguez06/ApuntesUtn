@@ -22,17 +22,17 @@ export async function POST(request: Request) {
       body: JSON.stringify({
         items: [
           {
-            title: "Donación Apuntes UTN",
+            title: "Donacion UTNHub",
             quantity: 1,
             unit_price: Number(amount),
             currency_id: "ARS",
           },
         ],
         back_urls: {
-        success: `${new URL(request.url).origin}`,
-        failure: `${new URL(request.url).origin}`,
-        pending: `${new URL(request.url).origin}`,
-      },
+          success: `${process.env.NEXT_PUBLIC_BASE_URL || new URL(request.url).origin}`,
+          failure: `${process.env.NEXT_PUBLIC_BASE_URL || new URL(request.url).origin}`,
+          pending: `${process.env.NEXT_PUBLIC_BASE_URL || new URL(request.url).origin}`,
+        },
 
       }),
     });

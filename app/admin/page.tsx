@@ -14,6 +14,10 @@ import {
   Loader2,
   Trash2,
   FolderOpen,
+  DollarSign,
+  Mail,
+  UserCheck,
+  Calendar,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Note } from "@/lib/data";
@@ -145,10 +149,14 @@ export default function AdminPage() {
   const [folderInputs, setFolderInputs] = useState<Record<string, string>>({});
 
   const [showCreateAdmin, setShowCreateAdmin] = useState(false);
+  const [isDonationActive, setIsDonationActive] = useState(true);
+  const [isDonationPopupActive, setIsDonationPopupActive] = useState(true);
+  const [isUpdatingSettings, setIsUpdatingSettings] = useState(false);
   const [newAdminEmail, setNewAdminEmail] = useState("");
   const [newAdminPassword, setNewAdminPassword] = useState("");
   const [createAdminMsg, setCreateAdminMsg] = useState({ text: "", type: "" });
   const [isCreatingAdmin, setIsCreatingAdmin] = useState(false);
+  const [adminList, setAdminList] = useState<any[]>([]);
   const [adminError, setAdminError] = useState("");
 
   useEffect(() => {
@@ -181,9 +189,30 @@ export default function AdminPage() {
       }
     );
 
+    // Listen for global settings
+    const unsubscribeSettings = onSnapshot(
+      doc(db, "settings", "global"),
+      (docSnap) => {
+        if (docSnap.exists()) {
+          setIsDonationActive(docSnap.data().isDonationActive ?? true);
+          setIsDonationPopupActive(docSnap.data().isDonationPopupActive ?? true);
+        }
+      }
+    );
+
+    // Listen for admin list
+    const unsubscribeAdmins = onSnapshot(
+      collection(db, "admins"),
+      (snapshot) => {
+        setAdminList(snapshot.docs.map(d => ({ id: d.id, ...d.data() })));
+      }
+    );
+
     return () => {
       unsubscribePending();
       unsubscribeApproved();
+      unsubscribeSettings();
+      unsubscribeAdmins();
     };
   }, [user]);
 
@@ -233,7 +262,14 @@ export default function AdminPage() {
       await createUserWithEmailAndPassword(secondaryAuth, newAdminEmail, newAdminPassword);
       await secondaryAuth.signOut();
 
-      setCreateAdminMsg({ text: "Administrador creado con éxito.", type: "success" });
+      // Guardar en Firestore para poder listarlo
+      const { setDoc } = await import("firebase/firestore");
+      await setDoc(doc(db, "admins", newAdminEmail.toLowerCase()), {
+        email: newAdminEmail.toLowerCase(),
+        createdAt: new Date().toISOString(),
+      });
+
+      setCreateAdminMsg({ text: "Administrador creado y registrado.", type: "success" });
       setNewAdminEmail("");
       setNewAdminPassword("");
 
@@ -323,6 +359,46 @@ export default function AdminPage() {
     }
 
     window.open(note.fileUrl, "_blank");
+  };
+
+  const toggleDonation = async (type: 'section' | 'popup') => {
+    setIsUpdatingSettings(true);
+    try {
+      const field = type === 'section' ? 'isDonationActive' : 'isDonationPopupActive';
+      const currentVal = type === 'section' ? isDonationActive : isDonationPopupActive;
+      
+      await updateDoc(doc(db, "settings", "global"), {
+        [field]: !currentVal,
+      });
+    } catch (err) {
+      console.error("Error updating settings:", err);
+      const { setDoc } = await import("firebase/firestore");
+      await setDoc(doc(db, "settings", "global"), {
+        [type === 'section' ? 'isDonationActive' : 'isDonationPopupActive']: type === 'section' ? !isDonationActive : !isDonationPopupActive,
+      }, { merge: true });
+    } finally {
+      setIsUpdatingSettings(false);
+    }
+  };
+
+  const handleDeleteAdmin = async (adminMail: string) => {
+    if (!confirm(`¿Estás seguro de quitar a ${adminMail} de la lista de administradores? (Nota: Esto NO borra la cuenta de Firebase Auth)`)) return;
+    try {
+      await deleteDoc(doc(db, "admins", adminMail));
+    } catch (err) {
+      console.error("Error deleting admin:", err);
+    }
+  };
+
+  const handleResetPassword = async (email: string) => {
+    const { sendPasswordResetEmail } = await import("firebase/auth");
+    try {
+      await sendPasswordResetEmail(auth, email);
+      alert(`Se ha enviado un correo a ${email} para restablecer la contraseña.`);
+    } catch (err) {
+      console.error("Error resetting password:", err);
+      alert("Error al enviar el correo de restablecimiento.");
+    }
   };
 
   if (loading) {
@@ -477,6 +553,48 @@ export default function AdminPage() {
               {createAdminMsg.text}
             </p>
           )}
+
+          {/* List of admins */}
+          <div className="mt-8 border-t border-[#EDE6DD] pt-6">
+            <h3 className="text-sm font-black text-[#3D3229] uppercase tracking-widest mb-4 flex items-center gap-2">
+              <UserCheck className="w-4 h-4" /> Moderadores Registrados
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {adminList.map((adm) => (
+                <div key={adm.id} className="bg-white p-4 rounded-2xl border border-[#EDE6DD] shadow-sm flex flex-col gap-3 group transition-all hover:border-[#C4A87D]">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-xl bg-[#F5EFE5] text-[#8B7355]">
+                      <Mail className="w-4 h-4" />
+                    </div>
+                    <div className="flex flex-col overflow-hidden">
+                      <span className="text-sm font-bold text-[#3D3229] truncate">{adm.email}</span>
+                      <span className="text-[10px] text-[#A89F95] flex items-center gap-1">
+                        <Calendar className="w-3 h-3" /> {new Date(adm.createdAt).toLocaleDateString()}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex gap-2 mt-auto">
+                    <button 
+                      onClick={() => handleResetPassword(adm.email)}
+                      className="flex-1 py-1.5 px-3 rounded-lg border border-[#EDE6DD] text-[10px] font-black uppercase tracking-wider text-[#7A6E62] hover:bg-[#F9F7F4] transition-all"
+                    >
+                      Reset Clave
+                    </button>
+                    <button 
+                      onClick={() => handleDeleteAdmin(adm.id)}
+                      className="p-1.5 rounded-lg border border-[#FFDCDC] text-[#D84545] hover:bg-[#FFF0F0] transition-all"
+                      title="Eliminar de la lista"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+              {adminList.length === 0 && (
+                <p className="text-xs text-[#A89F95] italic">No hay otros administradores registrados en Firestore.</p>
+              )}
+            </div>
+          </div>
         </div>
       )}
 
@@ -485,6 +603,86 @@ export default function AdminPage() {
           {adminError}
         </div>
       )}
+
+      {/* Global Settings Section */}
+      <section className="mb-10 animate-fade-in-up">
+        <div className="bg-white rounded-[2.5rem] border border-[#EDE6DD] p-6 md:p-8 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)]">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div className="max-w-xl">
+              <h2 className="text-xl font-black text-[#3D3229] mb-2 flex items-center gap-2">
+                <span className="p-2 rounded-lg bg-[#F5EFE5] text-[#8B7355]">
+                  <DollarSign className="w-5 h-5" />
+                </span>
+                Configuración General
+              </h2>
+              <p className="text-[#7A6E62] text-sm leading-relaxed">
+                Controlá la visibilidad de elementos globales del sitio. Activá o desactivá la sección de donaciones según lo necesites.
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-6 w-full md:w-auto">
+              {/* Toggle Sección */}
+              <div className="flex items-center gap-4 bg-[#F9F7F4] p-4 rounded-2xl border border-[#EDE6DD] flex-1">
+                <div className="flex flex-col">
+                  <span className="text-sm font-bold text-[#3D3229]">Donación (Sección)</span>
+                  <span className={cn(
+                    "text-[10px] font-black uppercase tracking-wider",
+                    isDonationActive ? "text-[#4A7A52]" : "text-[#D84545]"
+                  )}>
+                    {isDonationActive ? "Visible" : "Oculto"}
+                  </span>
+                </div>
+                
+                <button
+                  onClick={() => toggleDonation('section')}
+                  disabled={isUpdatingSettings}
+                  className={cn(
+                    "relative inline-flex h-7 w-12 shrink-0 cursor-pointer items-center rounded-full transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8BAA91] focus-visible:ring-offset-2 disabled:opacity-50",
+                    isDonationActive ? "bg-[#8BAA91]" : "bg-[#D5CAC0]"
+                  )}
+                >
+                  <span
+                    className={cn(
+                      "pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-lg ring-0 transition-transform duration-300",
+                      isDonationActive ? "translate-x-6" : "translate-x-1"
+                    )}
+                  />
+                </button>
+              </div>
+
+              {/* Toggle Popup */}
+              <div className="flex items-center gap-4 bg-[#F9F7F4] p-4 rounded-2xl border border-[#EDE6DD] flex-1">
+                <div className="flex flex-col">
+                  <span className="text-sm font-bold text-[#3D3229]">Donación (Popup)</span>
+                  <span className={cn(
+                    "text-[10px] font-black uppercase tracking-wider",
+                    isDonationPopupActive ? "text-[#4A7A52]" : "text-[#D84545]"
+                  )}>
+                    {isDonationPopupActive ? "Activo" : "Inactivo"}
+                  </span>
+                </div>
+                
+                <button
+                  onClick={() => toggleDonation('popup')}
+                  disabled={isUpdatingSettings}
+                  className={cn(
+                    "relative inline-flex h-7 w-12 shrink-0 cursor-pointer items-center rounded-full transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8BAA91] focus-visible:ring-offset-2 disabled:opacity-50",
+                    isDonationPopupActive ? "bg-[#4A6E82]" : "bg-[#D5CAC0]"
+                  )}
+                >
+                  <span
+                    className={cn(
+                      "pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-lg ring-0 transition-transform duration-300",
+                      isDonationPopupActive ? "translate-x-6" : "translate-x-1"
+                    )}
+                  />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
 
       <section className="mb-8">
         <h2 className="text-xl font-bold text-[#4A433C] mb-4 ml-1 flex items-center gap-2">

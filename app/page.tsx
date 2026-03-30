@@ -1,12 +1,62 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { doc, onSnapshot } from "firebase/firestore";
+import { db } from "@/lib/firebase/config";
 import { GlobalSearchBar } from "@/components/GlobalSearchBar";
 import { CareerCard } from "@/components/CareerCard";
 import { LiveNotesCount } from "@/components/LiveNotesCount";
 import { DonationSection } from "@/components/DonationSection";
+import { DonationModal } from "@/components/DonationModal";
 import { careersData, subjectsData } from "@/lib/data";
 import { BookOpen, Layers, School } from "lucide-react";
 
 export default function Home() {
+  const [isDonationActive, setIsDonationActive] = useState(true);
+  const [showDonationModal, setShowDonationModal] = useState(false);
   const totalSubjects = subjectsData.length;
+
+  useEffect(() => {
+    // Escuchar cambios globales en Firestore
+    const unsubscribe = onSnapshot(
+      doc(db, "settings", "global"),
+      (docSnap) => {
+        const data = docSnap.exists() ? docSnap.data() : { isDonationActive: true, isDonationPopupActive: true };
+        const isSectionActive = data.isDonationActive ?? true;
+        const isPopupActive = data.isDonationPopupActive ?? true;
+        
+        console.log("Configuración de donaciones:", { section: isSectionActive, popup: isPopupActive });
+        setIsDonationActive(isSectionActive);
+
+        if (isPopupActive) {
+          const today = new Date().toISOString().split("T")[0];
+          const storedData = localStorage.getItem("donation_modal_stats");
+          let stats = storedData ? JSON.parse(storedData) : { count: 0, date: "" };
+
+          if (stats.date !== today) {
+            stats = { count: 0, date: today };
+          }
+
+          console.log("Contador de popup hoy:", stats.count);
+
+          if (stats.count < 2) {
+            console.log("Programando aparición de popup en 2s...");
+            const timer = setTimeout(() => {
+              setShowDonationModal(true);
+              stats.count += 1;
+              localStorage.setItem("donation_modal_stats", JSON.stringify(stats));
+              console.log("Popup mostrado y contador actualizado.");
+            }, 2000);
+            
+            return () => clearTimeout(timer);
+          } else {
+            console.log("Límite de 2 popups diarios alcanzado para este usuario.");
+          }
+        }
+      }
+    );
+    return () => unsubscribe();
+  }, []);
 
   return (
     <div className="relative flex-1 flex flex-col">
@@ -64,8 +114,14 @@ export default function Home() {
           </div>
         </section>
 
-        <DonationSection />
+        {isDonationActive && <DonationSection />}
 
+        {isDonationActive && (
+          <DonationModal 
+            isOpen={showDonationModal} 
+            onClose={() => setShowDonationModal(false)} 
+          />
+        )}
       </div>
     </div>
   );

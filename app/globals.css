@@ -194,3 +194,13 @@ a, button, [role="button"], input[type="submit"], select, label[for] {
 .tag-examen { background: #FAEAE4; color: #9B5D44; }
 .tag-tp { background: #EFEBF5; color: #6B5A8E; }
 .tag-guia { background: #E5EFF5; color: #4A6E82; }
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
