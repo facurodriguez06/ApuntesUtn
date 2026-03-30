@@ -303,7 +303,8 @@ const basicasSubs: Subject[] = [
   sub('bas-fis1', 'Física I', 1, 'basicas'),
   sub('bas-qg', 'Química General', 1, 'basicas'),
   sub('bas-iys', 'Ingeniería y Sociedad', 1, 'basicas'),
-  sub('bas-ing', 'Inglés', 1, 'basicas'),
+  sub('bas-ing1', 'Inglés I', 1, 'basicas'),
+  sub('bas-ing2', 'Inglés II', 1, 'basicas'),
   sub('bas-isgg', 'Introducción a los Sistemas de Gestión Gerencial', 1, 'basicas'),
   
   // 2do Año Básicas
