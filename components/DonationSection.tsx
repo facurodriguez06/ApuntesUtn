@@ -94,7 +94,7 @@ export function DonationSection() {
                   <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-[#EDE6DD]" />
                 ))}
               </div>
-              <span>Más de 500 estudiantes ya colaboraron</span>
+              <span>Tu colaboración nos permite seguir creciendo juntos</span>
             </div>
           </div>
 

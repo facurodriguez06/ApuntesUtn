@@ -21,31 +21,30 @@ const securityScript = `
   var isProd = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
   if (!isProd) return;
 
-  // Disable right-click context menu
+  // 1. Silenciar consola
+  var noop = function() {};
+  var methods = ['log', 'debug', 'info', 'warn', 'error', 'table', 'dir'];
+  methods.forEach(function(m) { console[m] = noop; });
+
+  // 2. Bloqueo de teclado e inspección
   document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
-  
-  // Detect DevTools via debugger timing
-  setInterval(function() {
-    var start = performance.now();
-    debugger;
-    var end = performance.now();
-    if (end - start > 160) {
-      document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;background:#FFFBF7;color:#3D3229;text-align:center;padding:2rem"><div><h1 style="font-size:2rem;margin-bottom:1rem">Acceso no autorizado</h1><p style="color:#7A6E62">Por favor cerrá las herramientas de desarrollador para continuar usando UTNHub.</p></div></div>';
-    }
-  }, 1000);
-  
-  // Disable common keyboard shortcuts for DevTools
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'F12') { e.preventDefault(); return false; }
-    if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) { e.preventDefault(); return false; }
-    if (e.ctrlKey && e.key === 'u') { e.preventDefault(); return false; }
+    if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || (e.ctrlKey && e.key === 'u')) {
+      e.preventDefault();
+      return false;
+    }
   });
-  
-  // Override console methods
-  var noop = function() { return undefined; };
-  ['log', 'debug', 'info', 'warn', 'error', 'table', 'dir', 'trace'].forEach(function(method) {
-    console[method] = noop;
-  });
+
+  // 3. Detección por tamaño (si abren el panel lateral/inferior)
+  function detect() {
+    var threshold = 160;
+    if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
+      document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#FFFBF7;color:#3D3229;text-align:center;padding:2rem;font-family:sans-serif"><div><h1 style="font-size:2rem">Acceso Restringido</h1><p>Las herramientas de desarrollo no están permitidas.</p><button onclick="window.location.reload()" style="margin-top:2rem;padding:0.8rem 1.5rem;background:#2C2825;color:white;border:none;border-radius:0.8rem;cursor:pointer">Reintentar</button></div></div>';
+    }
+  }
+  window.addEventListener('resize', detect);
+  setInterval(detect, 2000);
+  detect();
 })();
 `;
 
