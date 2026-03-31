@@ -1,5 +1,6 @@
 "use client";
 
+import { useScrollLock } from "@/hooks/useScrollLock";
 import { useState, useEffect } from "react";
 import { Note } from "@/lib/data";
 import { X, Check } from "lucide-react";
@@ -34,19 +35,7 @@ export function EditNoteModal({ isOpen, onClose, note, onSave }: EditNoteModalPr
   }, [note]);
 
   // Bloquear scroll de fondo cuando el modal está abierto
-  useEffect(() => {
-    if (isOpen) {
-      document.documentElement.classList.add("lock-scroll");
-      document.body.classList.add("lock-scroll");
-    } else {
-      document.documentElement.classList.remove("lock-scroll");
-      document.body.classList.remove("lock-scroll");
-    }
-    return () => {
-      document.documentElement.classList.remove("lock-scroll");
-      document.body.classList.remove("lock-scroll");
-    };
-  }, [isOpen]);
+  useScrollLock(isOpen);
 
   if (!isOpen || !note) return null;
 

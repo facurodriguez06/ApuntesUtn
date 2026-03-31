@@ -1,5 +1,6 @@
 "use client";
 
+import { useScrollLock } from "@/hooks/useScrollLock";
 import { useEffect, useState } from "react";
 import { onSnapshot, doc } from "firebase/firestore";
 import { db } from "@/lib/firebase/config";
@@ -36,19 +37,7 @@ export function ImagePopupModal() {
     return () => unsub();
   }, []);
 
-  useEffect(() => {
-    if (isOpen) {
-      document.documentElement.classList.add("lock-scroll");
-      document.body.classList.add("lock-scroll");
-    } else {
-      document.documentElement.classList.remove("lock-scroll");
-      document.body.classList.remove("lock-scroll");
-    }
-    return () => {
-      document.documentElement.classList.remove("lock-scroll");
-      document.body.classList.remove("lock-scroll");
-    };
-  }, [isOpen]);
+  useScrollLock(isOpen);
 
   const handleClose = () => {
     setIsOpen(false);
