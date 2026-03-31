@@ -95,6 +95,8 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
       <div className={cn(
         "relative w-full max-w-[calc(100vw-1rem)] sm:max-w-4xl max-h-[90vh] overflow-y-auto overflow-x-hidden rounded-[2rem] sm:rounded-[3rem] bg-white border-[4px] sm:border-[6px] border-[#8BAA91]/10 shadow-[0_45px_100px_-20px_rgba(0,0,0,0.5)] transition-all duration-700 transform",
         
+        isClosing ? 'scale-90 opacity-0 translate-y-12' : 'scale-100 opacity-100 translate-y-0'
+      )}>
         {/* Close Button */}
         <button 
           onClick={handleClose}
