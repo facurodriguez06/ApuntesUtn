@@ -127,26 +127,49 @@ export function UploadModule() {
             fileTitle = files.length > 1 ? `${cleanTitle} (Parte ${i + 1})` : cleanTitle;
           }
 
-          uploadFormData.append("title", fileTitle);
-
-          const uploadResponse = await fetch("/api/upload", {
-            method: "POST",
-            body: uploadFormData,
+          // 1. Solicitar URL firmada al servidor
+          const presignRes = await fetch('/api/upload/presign', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              folder: 'notes',
+              title: fileTitle,
+              fileName: file.name,
+              contentType: file.type || 'application/octet-stream'
+            })
           });
 
-        if (!uploadResponse.ok) {
-           const errText = await uploadResponse.text();
-           throw new Error(`Error del servidor al subir "${file.name}": ${errText}`);
-        }
+          if (!presignRes.ok) {
+            const errText = await presignRes.text();
+            throw new Error(`Error obteniendo permisos de subida: ${errText}`);
+          }
 
-        const uploadResult = await uploadResponse.json().catch(() => null);
-        
-        if (!uploadResult?.url && !uploadResult?.secure_url) {
-          throw new Error(uploadResult?.error || `No se pudo subir "${file.name}".`);
-        }
+          const presignData = await presignRes.json();
+          if (!presignData?.url) {
+            throw new Error('El servidor no devolvió una URL válida para subir el archivo.');
+          }
+
+          // 2. Subir directamente el archivo a Cloudflare R2
+          const uploadRes = await fetch(presignData.url, {
+            method: 'PUT',
+            headers: { 'Content-Type': file.type || 'application/octet-stream' },
+            body: file
+          });
+
+          if (!uploadRes.ok) {
+            throw new Error(`Error al transferir el archivo ${file.name} al almacenamiento externo.`);
+          }
+
+          // 3. Resultado simulado idéntico a la API anterior
+          const uploadResult = {
+            url: presignData.path,
+            path: presignData.path,
+            secure_url: presignData.path,
+            provider: 'r2'
+          };
 
         const fileExt = file.name.split(".").pop()?.toUpperCase() || "PDF";
-        
+
         const newNote = {
           title: fileTitle,
           author: cleanAuthor,
