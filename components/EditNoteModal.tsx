@@ -70,12 +70,12 @@ export function EditNoteModal({ isOpen, onClose, note, onSave }: EditNoteModalPr
   };
 
   return (
-    <div 
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 sm:p-6 overflow-hidden overscroll-none"
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 sm:p-6 overscroll-none"
       onWheel={(e) => e.stopPropagation()}
       onTouchMove={(e) => e.stopPropagation()}
     >
-      <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg max-h-[90vh] sm:max-h-[85vh] flex flex-col border border-[#E3DCD2] overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-xl w-full max-w-[calc(100vw-2rem)] sm:max-w-lg max-h-[90vh] sm:max-h-[85vh] flex flex-col border border-[#E3DCD2] overflow-hidden">
         <div className="p-4 border-b border-[#EDE6DD] flex justify-between items-center bg-white rounded-t-2xl shrink-0 z-10">
           <h2 className="text-lg font-bold text-[#3D3229]">Editar Apunte</h2>
           <button onClick={onClose} className="p-2 bg-[#F5F0EA] hover:bg-[#EDE6DD] rounded-xl text-[#7A6E62] transition-colors outline-none"><X className="w-4 h-4" /></button>
