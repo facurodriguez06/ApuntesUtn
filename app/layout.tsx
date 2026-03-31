@@ -5,6 +5,7 @@ import { InteractiveBackground } from "@/components/InteractiveBackground";
 import { Preloader } from "@/components/Preloader";
 import { AnnouncementModal } from "@/components/AnnouncementModal";
 import { ImagePopupModal } from "@/components/ImagePopupModal";
+import { MetricsTracker } from "@/components/MetricsTracker";
 import Script from "next/script";
 import { AuthProvider } from "@/context/AuthContext";
 import { ToastProvider } from "@/context/ToastContext";
@@ -54,17 +55,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="h-full antialiased" suppressHydrationWarning>
-      <body className="min-h-full flex flex-col bg-[#FFFBF7] text-[#3D3229] w-full m-0 p-0 relative">
+    <html lang="es" className="antialiased" suppressHydrationWarning>
+      <head>
+        <script id="security" dangerouslySetInnerHTML={{ __html: securityScript }} />
+      </head>
+      <body className="min-h-screen flex flex-col bg-[#FFFBF7] text-[#3D3229] w-full m-0 p-0 relative">
+        <MetricsTracker />
         <Preloader />
         <AnnouncementModal />
         <ImagePopupModal />
         <ToastProvider>
           <AuthProvider>
-            <Script id="security" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: securityScript }} />
             <InteractiveBackground />
             <Header />
-            <main className="relative z-10 flex-1 flex flex-col w-full overflow-x-hidden">{children}</main>
+            <main className="relative z-10 flex-1 flex flex-col w-full overflow-x-clip">{children}</main>
             
             <footer className="relative z-10 py-8 border-t border-[#EDE6DD] mt-auto text-center overflow-hidden bg-white/30 backdrop-blur-sm w-full">
               <div className="relative z-10 max-w-xl mx-auto px-4">

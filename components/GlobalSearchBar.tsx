@@ -1,11 +1,14 @@
 "use client";
 
-import { Search, X, ChevronRight, FileText, BookMarked } from "lucide-react";
+import { Search, X, ChevronRight, FileText } from "lucide-react";
 import { useEffect, useState, useMemo, useRef, ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { subjectsData, careersData, yearConfig } from "@/lib/data";
 import { Sprout, BookOpen, Microscope, Rocket, GraduationCap, Award } from "lucide-react";
 import Link from "next/link";
+import { db } from "@/lib/firebase/config";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { useScrollLock } from "@/hooks/useScrollLock";
 
 const yearIcons: Record<string, React.ElementType> = { Sprout, BookOpen, Microscope, Rocket, GraduationCap, Award };
 
@@ -18,8 +21,12 @@ const tagClass: Record<string, string> = {
 
 export function GlobalSearchBar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [query, setQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
+  const [notes, setNotes] = useState<any[]>([]);
+
+  // Bloquea el scroll del fondo cuando el modal de búsqueda está abierto
+  useScrollLock(isOpen);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -29,7 +36,7 @@ export function GlobalSearchBar() {
         e.preventDefault();
         setIsOpen(true);
       }
-      if (e.key === "Escape") { setIsOpen(false); setQuery(""); }
+      if (e.key === "Escape") { setIsOpen(false); setSearchQuery(""); }
     };
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
@@ -39,23 +46,54 @@ export function GlobalSearchBar() {
     if (isOpen && inputRef.current) setTimeout(() => inputRef.current?.focus(), 50);
   }, [isOpen]);
 
-  const results = useMemo(() => {
-    if (!query.trim()) return [];
-    const q = query.toLowerCase();
-    const subjectMatches = subjectsData
-      .filter(s => s.name.toLowerCase().includes(q)).slice(0, 5)
-      .map(s => ({ type: 'subject' as const, subject: s }));
-    const noteMatches = subjectsData
-      .flatMap(s => s.notes.map(n => ({ note: n, subject: s })))
-      .filter(({ note }) => note.title.toLowerCase().includes(q) || note.author.toLowerCase().includes(q)).slice(0, 5)
-      .map(match => ({ type: 'note' as const, ...match }));
-    return [...subjectMatches, ...noteMatches];
-  }, [query]);
+  // Carga de notas desde Firebase solo cuando está abierto
+  useEffect(() => {
+    if (isOpen) {
+      const fetchNotes = async () => {
+        try {
+          const notesRef = collection(db, "notes");
+          const q = query(notesRef, where("status", "==", "approved"));
+          const snapshot = await getDocs(q);
+          const notesList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          setNotes(notesList);
+        } catch (error) {
+          console.error("Error fetching notes:", error);
+        }
+      };
+      // Solo hacer el fetch si todavía no las cargamos o las querés actualizar.
+      fetchNotes();
+    }
+  }, [isOpen]);
+
+  const { subjectMatches, noteMatches } = useMemo(() => {
+    if (!searchQuery.trim()) return { subjectMatches: [], noteMatches: [] };
+    const q = searchQuery.toLowerCase();
+    
+    const subMatches = subjectsData
+      .filter(s => s.name.toLowerCase().includes(q))
+      .slice(0, 5)
+      .map(s => {
+        const count = notes.filter(n => n.subjectId === s.id).length;
+        return { type: 'subject' as const, subject: { ...s, notesCount: count } };
+      });
+      
+    const notMatches = notes
+      .filter(n => n.title?.toLowerCase().includes(q) || n.author?.toLowerCase().includes(q))
+      .slice(0, 5)
+      .map(note => {
+        const subject = subjectsData.find(s => s.id === note.subjectId) || subjectsData[0];
+        return { type: 'note' as const, note, subject };
+      });
+      
+    return { subjectMatches: subMatches, noteMatches: notMatches };
+  }, [searchQuery, notes]);
+
+  const hasResults = subjectMatches.length > 0 || noteMatches.length > 0;
 
   return (
     <>
       <div className="w-full max-w-lg mx-auto animate-fade-in-up">
-        <button 
+        <button
           onClick={() => setIsOpen(true)}
           className="relative flex items-center w-full h-12 rounded-2xl border border-[#EDE6DD] bg-white/80 backdrop-blur-sm overflow-hidden hover:border-[#C5DBC9] hover:shadow-md hover:shadow-[#8BAA91]/10 transition-all duration-300 cursor-text group"
         >
@@ -70,80 +108,126 @@ export function GlobalSearchBar() {
           </div>
         </button>
       </div>
-      
+
       {isOpen && typeof document !== "undefined" && createPortal(
-        <div 
-          className="fixed inset-0 z-50 flex items-start justify-center pt-[10vh] sm:pt-[15vh] bg-black/20 backdrop-blur-sm px-4" 
-          onClick={() => { setIsOpen(false); setQuery(""); }}
+        <div
+          className="fixed inset-0 z-50 flex items-start justify-center pt-[10vh] sm:pt-[15vh] bg-black/20 backdrop-blur-sm px-4"
+          onClick={() => { setIsOpen(false); setSearchQuery(""); }}
         >
-          <div 
-            className="w-full max-w-lg bg-white rounded-2xl shadow-2xl shadow-black/10 overflow-hidden border border-[#EDE6DD] animate-fade-in-scale" 
+          <div
+            className="w-full max-w-lg bg-white rounded-2xl shadow-2xl shadow-black/10 overflow-hidden border border-[#EDE6DD] animate-fade-in-scale"
             onClick={e => e.stopPropagation()}
           >
             <div className="flex items-center px-4 py-3 border-b border-[#EDE6DD] bg-gradient-to-r from-white to-[#FFFBF7]">
               <Search className="w-4 h-4 text-[#8BAA91] mr-3 shrink-0" />
-              <input 
-                ref={inputRef} value={query} onChange={e => setQuery(e.target.value)}
+              <input
+                ref={inputRef} 
+                value={searchQuery} 
+                onChange={e => setSearchQuery(e.target.value)}
                 placeholder="Buscar materia, apunte o autor..."
                 className="flex-1 outline-none text-base text-[#3D3229] bg-transparent placeholder:text-[#A89F95]"
               />
-              {query && (
-                <button onClick={() => setQuery("")} className="p-1 rounded-lg hover:bg-[#F5F0EA] text-[#A89F95] transition-colors mr-2 active:scale-90">
+              {searchQuery && (
+                <button onClick={() => setSearchQuery("")} className="p-1 rounded-lg hover:bg-[#F5F0EA] text-[#A89F95] transition-colors mr-2 active:scale-90">
                   <X className="w-4 h-4" />
                 </button>
               )}
-              <kbd className="px-2 py-0.5 rounded-lg bg-[#F5F0EA] border border-[#EDE6DD] text-[10px] font-bold text-[#A89F95] cursor-pointer hover:bg-[#EDE6DD] transition-all" onClick={() => { setIsOpen(false); setQuery(""); }}>
+              <kbd className="px-2 py-0.5 rounded-lg bg-[#F5F0EA] border border-[#EDE6DD] text-[10px] font-bold text-[#A89F95] cursor-pointer hover:bg-[#EDE6DD] transition-all" onClick={() => { setIsOpen(false); setSearchQuery(""); }}>
                 ESC
               </kbd>
             </div>
 
-            <div className="max-h-80 overflow-y-auto">
-              {query.trim() === "" ? (
+            <div className="max-h-[60vh] overflow-y-auto w-full">
+              {searchQuery.trim() === "" ? (
                 <div className="px-4 py-10 text-center">
                   <Search className="w-8 h-8 text-[#EDE6DD] mx-auto mb-3" />
                   <p className="text-sm text-[#A89F95]">Escribí algo para buscar entre materias y apuntes</p>
                 </div>
-              ) : results.length === 0 ? (
+              ) : !hasResults ? (
                 <div className="px-4 py-10 text-center">
                   <FileText className="w-8 h-8 text-[#EDE6DD] mx-auto mb-3" />
-                  <p className="text-sm text-[#A89F95]">No encontramos resultados para &ldquo;{query}&rdquo;</p>
+                  <p className="text-sm text-[#A89F95]">No encontramos resultados para &ldquo;{searchQuery}&rdquo;</p>
                 </div>
               ) : (
-                <div className="py-1.5 stagger-children">
-                  {results.map((r, i) => {
-                    const yr = r.subject.year;
-                    const yc = yearConfig[yr];
-                    const YearIcon = yearIcons[yc.icon];
-                    return (
-                      <Link 
-                        key={i}
-                        href={`/carreras/${r.subject.careerId}/materias/${r.subject.id}`}
-                        onClick={() => { setIsOpen(false); setQuery(""); }}
-                        className="flex items-center gap-3 px-4 py-2.5 hover:bg-[#F5F0EA] transition-all group cursor-pointer animate-fade-in-up"
-                      >
-                        <span className={`flex items-center justify-center w-7 h-7 rounded-lg ${yc.bg}`}>
-                          {YearIcon && <YearIcon className={`w-3.5 h-3.5 ${yc.text}`} />}
-                        </span>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-semibold text-[#3D3229] truncate group-hover:text-[#4A7A52] transition-colors">
-                            {r.type === 'subject' ? r.subject.name : r.note.title}
-                          </p>
-                          <p className="text-[11px] text-[#A89F95] truncate">
-                            {r.type === 'subject' 
-                              ? `${careersData.find(c => c.id === r.subject.careerId)?.shortName || ''} · ${yc.label} · ${r.subject.notesCount} apuntes`
-                              : `en ${r.subject.name} · por ${r.note.author}`
-                            }
-                          </p>
-                        </div>
-                        {r.type === 'note' && (
-                          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${tagClass[r.note.type]}`}>
-                            {r.note.type}
-                          </span>
-                        )}
-                        <ChevronRight className="w-3.5 h-3.5 text-[#A89F95] group-hover:text-[#8BAA91] group-hover:translate-x-0.5 transition-all shrink-0" />
-                      </Link>
-                    );
-                  })}
+                <div className="py-1.5 flex flex-col group/results">
+                  
+                  {/* SECCION MATERIAS */}
+                  {subjectMatches.length > 0 && (
+                    <>
+                      <div className="px-4 py-2 text-[11px] font-extrabold text-[#4A7A52] uppercase tracking-wider bg-[#EEF3EF] border-y border-[#D6E5D8] mt-1 mb-2 first:mt-0 shadow-sm">
+                        Materias
+                      </div>
+                      
+                      {subjectMatches.map((r, i) => {
+                        const yr = r.subject.year;
+                        const yc = yearConfig[yr] || yearConfig[1]; /* Fallback si es 'basicas' o config sin año */
+                        const YearIcon = yc?.icon ? yearIcons[yc.icon] : null;
+
+                        return (
+                          <Link
+                            key={"sub-" + i}
+                            href={`/carreras/${r.subject.careerId}/materias/${r.subject.id}`}
+                            onClick={() => { setIsOpen(false); setSearchQuery(""); }}
+                            className="flex items-center gap-3 px-4 py-2.5 hover:bg-[#F5F0EA] transition-all group cursor-pointer animate-fade-in-up"
+                          >
+                            <span className={`flex items-center justify-center w-7 h-7 rounded-lg ${yc?.bg || "bg-gray-100"}`}>
+                              {YearIcon && <YearIcon className={`w-3.5 h-3.5 ${yc?.text || "text-gray-500"}`} />}
+                            </span>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-sm font-semibold text-[#3D3229] truncate group-hover:text-[#4A7A52] transition-colors">
+                                {r.subject.name}
+                              </p>
+                              <p className="text-[11px] text-[#A89F95] truncate">
+                                {`${careersData.find(c => c.id === r.subject.careerId)?.shortName || ""} ${r.subject.careerId === "basicas" ? "" : `· ${yc?.label || ""}`} · ${r.subject.notesCount} apunte${r.subject.notesCount !== 1 ? "s" : ""}`}
+                              </p>
+                            </div>
+                            <ChevronRight className="w-3.5 h-3.5 text-[#A89F95] group-hover:text-[#8BAA91] group-hover:translate-x-0.5 transition-all shrink-0" />
+                          </Link>
+                        );
+                      })}
+                    </>
+                  )}
+                  
+                  {/* SECCION APUNTES */}
+                  {noteMatches.length > 0 && (
+                    <>
+                      <div className="px-4 py-2 text-[11px] font-extrabold text-[#9C6527] uppercase tracking-wider bg-[#FFF7ED] border-y border-[#F0DDC5] mt-3 mb-2 first:mt-0 shadow-sm">
+                        Apuntes
+                      </div>
+                      
+                      {noteMatches.map((r, i) => {
+                        const yr = r.subject.year;
+                        const yc = yearConfig[yr] || yearConfig[1]; /* Fallback si es 'basicas' o config sin año */
+                        const YearIcon = yc?.icon ? yearIcons[yc.icon] : null;
+
+                        return (
+                          <Link
+                            key={"not-" + i}
+                            href={`/carreras/${r.subject.careerId}/materias/${r.subject.id}`}
+                            onClick={() => { setIsOpen(false); setSearchQuery(""); }}
+                            className="flex items-center gap-3 px-4 py-2.5 hover:bg-[#F5F0EA] transition-all group cursor-pointer animate-fade-in-up"
+                          >
+                            <span className={`flex items-center justify-center w-7 h-7 rounded-lg ${yc?.bg || "bg-gray-100"}`}>
+                              {YearIcon && <YearIcon className={`w-3.5 h-3.5 ${yc?.text || "text-gray-500"}`} />}
+                            </span>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-sm font-semibold text-[#3D3229] truncate group-hover:text-[#4A7A52] transition-colors">
+                                {r.note.title}
+                              </p>
+                              <p className="text-[11px] text-[#A89F95] truncate">
+                                {`en ${r.subject.name} · por ${r.note.author}`}
+                              </p>
+                            </div>
+                            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${tagClass[r.note.type] || "bg-[#F5F5F5] text-[#A89F95]"}`}>
+                              {r.note.type}
+                            </span>
+                            <ChevronRight className="w-3.5 h-3.5 text-[#A89F95] group-hover:text-[#8BAA91] group-hover:translate-x-0.5 transition-all shrink-0" />
+                          </Link>
+                        );
+                      })}
+                    </>
+                  )}
+                  
                 </div>
               )}
             </div>

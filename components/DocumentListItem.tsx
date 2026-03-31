@@ -44,10 +44,12 @@ const getCreatorTagClass = (type: string) => {
   }
 };
 
-export function DocumentListItem({ note, index = 0 }: { note: Note; index?: number }) {
+export type CustomStyle = { color: string; label: string };
+export function DocumentListItem({ note, customStyles = {}, index = 0 }: { note: Note; customStyles?: Record<string, CustomStyle>; index?: number }) {
   const { showToast } = useToast();
   const [downloaded, setDownloaded] = useState(false);
   const isCreatorNote = normalizeAuthorName(note.author ?? "") === CREATOR_AUTHOR;
+  const customAuthorStyle = customStyles?.[normalizeAuthorName(note.author ?? "")];
 
   const handleVisualizar = () => {
     if (note.fileUrl) {
@@ -87,12 +89,12 @@ export function DocumentListItem({ note, index = 0 }: { note: Note; index?: numb
 
   return (
     <div
-      className={`group relative flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 border rounded-xl hover:-translate-y-[2px] transition-all duration-400 animate-fade-in-up ${getBgClass(note.type, isCreatorNote)}`}
-      style={{ animationDelay: `${index * 80}ms` }}
+      className={`group relative flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 border rounded-xl hover:-translate-y-[2px] transition-all duration-400 animate-fade-in-up ${!customAuthorStyle ? getBgClass(note.type, isCreatorNote) : ''}`} style={{ animationDelay: `${index * 80}ms`, ...(customAuthorStyle ? { backgroundColor: customAuthorStyle.color + '0a', borderColor: customAuthorStyle.color + '40' } : {}) }}
+      
     >
       <div className="flex items-start gap-3 flex-1 mb-3 sm:mb-0 min-w-0">
         <div
-          className={`mt-0.5 shrink-0 p-2.5 rounded-xl border group-hover:scale-110 group-hover:rotate-[-3deg] transition-transform duration-300 ${
+          style={customAuthorStyle ? { backgroundColor: customAuthorStyle.color + "1A", borderColor: customAuthorStyle.color + "66" } : undefined} className={`mt-0.5 shrink-0 p-2.5 rounded-xl border group-hover:scale-110 group-hover:rotate-[-3deg] transition-transform duration-300 ${
             isCreatorNote ? "bg-[#FFF4CC] border-[#E2C15F]" : "bg-[#F5F0EA] border-[#EDE6DD]"
           }`}
         >
@@ -100,7 +102,7 @@ export function DocumentListItem({ note, index = 0 }: { note: Note; index?: numb
         </div>
         <div className="min-w-0">
           <h4
-            className={`font-bold text-sm transition-colors truncate ${
+            style={customAuthorStyle ? { color: customAuthorStyle.color } : undefined} className={`font-bold text-sm transition-colors truncate ${
               isCreatorNote ? "text-[#7A5A0A] group-hover:text-[#5E4608]" : "text-[#3D3229] group-hover:text-[#4A7A52]"
             }`}
           >
@@ -108,13 +110,13 @@ export function DocumentListItem({ note, index = 0 }: { note: Note; index?: numb
           </h4>
           <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1.5">
             <span
-              className={`inline-flex items-center gap-1 text-xs font-semibold px-1.5 py-0.5 rounded-md ${
+              style={customAuthorStyle ? { backgroundColor: customAuthorStyle.color + "22", color: customAuthorStyle.color } : undefined} className={`inline-flex items-center gap-1 text-xs font-semibold px-1.5 py-0.5 rounded-md ${
                 isCreatorNote ? "text-[#7A5A0A] bg-[#FFF0B3]" : "text-[#7A6E62] bg-[#F5F0EA]"
               }`}
             >
               <User className="w-2.5 h-2.5" /> {note.author}
             </span>
-            {isCreatorNote && (
+            {customAuthorStyle && (<span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full text-white shadow-sm" style={{ backgroundColor: customAuthorStyle.color }}><Crown className="w-3 h-3" />{customAuthorStyle.label}</span>)}{isCreatorNote && (
               <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#D4AF37] text-white shadow-sm">
                 <Crown className="w-3 h-3" />
                 Creador

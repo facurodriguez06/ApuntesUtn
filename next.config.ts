@@ -26,7 +26,7 @@ const nextConfig: NextConfig = {
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: blob: https://*.googleusercontent.com https://*.r2.dev https://res.cloudinary.com",
               "font-src 'self' https://fonts.gstatic.com",
-              "connect-src 'self' https://*.googleapis.com https://*.firebaseio.com wss://*.firebaseio.com https://*.firebase.com https://api.cloudinary.com https://*.r2.dev",
+              "connect-src * 'self' data: blob: 'unsafe-inline' 'unsafe-eval'",
               "frame-ancestors 'none'",
               "base-uri 'self'",
               "form-action 'self'",
