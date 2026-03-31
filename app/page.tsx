@@ -59,7 +59,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="relative flex-1 flex flex-col">
+    <div className="relative flex-1 flex flex-col overflow-x-hidden">
       
       {/* Decorative blobs — soft ambient light */}
       <div className="blob w-96 h-96 bg-[#C5DBC9] -top-20 -left-40 animate-blob" />

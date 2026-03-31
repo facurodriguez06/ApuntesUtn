@@ -55,7 +55,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className="h-full antialiased" suppressHydrationWarning>
-      <body className="min-h-full flex flex-col bg-[#FFFBF7] text-[#3D3229] overflow-x-hidden">
+      <body className="min-h-full flex flex-col bg-[#FFFBF7] text-[#3D3229] overflow-x-hidden w-full m-0 p-0">
         <Preloader />
         <AnnouncementModal />
         <ImagePopupModal />
@@ -64,9 +64,9 @@ export default function RootLayout({
             <Script id="security" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: securityScript }} />
             <InteractiveBackground />
             <Header />
-            <main className="relative z-10 flex-1 flex flex-col">{children}</main>
+            <main className="relative z-10 flex-1 flex flex-col w-full overflow-x-hidden">{children}</main>
             
-            <footer className="relative z-10 py-8 border-t border-[#EDE6DD] mt-auto text-center overflow-hidden bg-white/30 backdrop-blur-sm">
+            <footer className="relative z-10 py-8 border-t border-[#EDE6DD] mt-auto text-center overflow-hidden bg-white/30 backdrop-blur-sm w-full">
               <div className="relative z-10 max-w-xl mx-auto px-4">
                 <div className="flex items-center justify-center gap-4 mb-4">
                   <p className="text-xs font-bold text-[#A89F95]">

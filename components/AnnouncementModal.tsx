@@ -32,6 +32,17 @@ export function AnnouncementModal() {
     return () => unsub();
   }, []);
 
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   const handleClose = () => {
     setIsOpen(false);
     localStorage.setItem("lastAnnouncement", title + message);
@@ -40,8 +51,12 @@ export function AnnouncementModal() {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-fade-in">
-      <div className="bg-white rounded-3xl p-6 sm:p-8 w-full max-w-md shadow-2xl relative border border-[#EDE6DD] animate-fade-in-up">
+    <div 
+      className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-fade-in overscroll-none"
+      onWheel={(e) => e.stopPropagation()}
+      onTouchMove={(e) => e.stopPropagation()}
+    >
+      <div className="bg-white rounded-3xl p-6 sm:p-8 w-full max-w-[calc(100vw-2rem)] sm:max-w-md shadow-2xl relative border border-[#EDE6DD] animate-fade-in-up">
         <button
           onClick={handleClose}
           className="absolute top-4 right-4 p-2 rounded-xl text-[#A89F95] hover:bg-[#F5F0EA] hover:text-[#4A433C] transition-colors"

@@ -32,10 +32,10 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
     if (isOpen) {
       document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "";
     }
     return () => {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "";
     };
   }, [isOpen]);
 
@@ -77,20 +77,20 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
 
   // El contenido del Modal que se inyectará al final del body
   const modalContent = (
-    <div className={cn(
-      "fixed inset-0 z-[10000] flex items-center justify-center p-2 sm:p-4 transition-all duration-300",
-      isClosing ? "opacity-0" : "opacity-100"
-    )}>
+    <div 
+      className={cn(
+        "fixed inset-0 z-[10000] flex items-center justify-center p-2 sm:p-4 transition-all duration-300 overscroll-none",
+        isClosing ? "opacity-0" : "opacity-100"
+      )}
+      onWheel={(e) => e.stopPropagation()}
+      onTouchMove={(e) => e.stopPropagation()}
+    >
       {/* High-Impact Overlay (Sin acción de cierre para forzar el uso de la cruz) */}
-      <div 
-        className="absolute inset-0 bg-black/75 backdrop-blur-2xl animate-fade-in"
-      />
+      <div className="absolute inset-0 bg-black/75 backdrop-blur-2xl animate-fade-in" />
 
       {/* Modal Container */}
       <div className={cn(
-        "relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-[2rem] sm:rounded-[3rem] bg-white border-[4px] sm:border-[6px] border-[#8BAA91]/10 shadow-[0_45px_100px_-20px_rgba(0,0,0,0.5)] transition-all duration-700 transform",
-        isClosing ? "scale-90 opacity-0 translate-y-12" : "scale-100 opacity-100 translate-y-0"
-      )}>
+        "relative w-full max-w-[calc(100vw-1rem)] sm:max-w-4xl max-h-[90vh] overflow-y-auto overflow-x-hidden rounded-[2rem] sm:rounded-[3rem] bg-white border-[4px] sm:border-[6px] border-[#8BAA91]/10 shadow-[0_45px_100px_-20px_rgba(0,0,0,0.5)] transition-all duration-700 transform",
         
         {/* Close Button */}
         <button 

@@ -36,6 +36,17 @@ export function ImagePopupModal() {
     return () => unsub();
   }, []);
 
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   const handleClose = () => {
     setIsOpen(false);
     sessionStorage.setItem("imagePopupClosedThisSession", "true");
@@ -47,8 +58,12 @@ export function ImagePopupModal() {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
-      <div className="relative max-w-2xl w-full animate-fade-in-up">
+    <div 
+      className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in overscroll-none"
+      onWheel={(e) => e.stopPropagation()}
+      onTouchMove={(e) => e.stopPropagation()}
+    >
+      <div className="relative max-w-[calc(100vw-2rem)] sm:max-w-2xl w-full animate-fade-in-up">
         <button
           onClick={handleClose}
           className="absolute -top-4 -right-4 sm:-top-6 sm:-right-6 z-10 p-2 bg-white rounded-full text-black hover:bg-gray-200 shadow-xl transition-colors outline-none"
