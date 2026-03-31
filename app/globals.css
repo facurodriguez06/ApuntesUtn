@@ -43,13 +43,6 @@ html, body {
   overscroll-behavior-y: none; /* Prevents iOS bounce */
 }
 
-/* iOS robust scroll lock */
-html.lock-scroll,
-body.lock-scroll {
-  overflow: hidden !important;
-  touch-action: none !important;
-}
-
 body {
   background: var(--bg-warm);
   color: var(--text-primary);
