@@ -35,15 +35,9 @@
 }
 
 /* Custom cursors */
-html, body {
-  position: relative;
-  max-width: 100vw;
-  width: 100vw;
-  overflow-x: hidden;
-  overscroll-behavior-y: none; /* Prevents iOS bounce */
-}
 
 body {
+  position: relative;
   background: var(--bg-warm);
   color: var(--text-primary);
   font-family: var(--font-sans), 'Segoe UI', system-ui, sans-serif;
