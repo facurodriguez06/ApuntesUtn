@@ -31,15 +31,15 @@ export default function Home() {
         if (isPopupActive) {
           const today = new Date().toISOString().split("T")[0];
           const storedData = localStorage.getItem("donation_modal_stats");
-          let stats = storedData ? JSON.parse(storedData) : { count: 0, date: "" };
+          let stats = storedData ? JSON.parse(storedData) : { count: 0, date: "", closedManually: false };
 
           if (stats.date !== today) {
-            stats = { count: 0, date: today };
+            stats = { count: 0, date: today, closedManually: false };
           }
 
-          console.log("Contador de popup hoy:", stats.count);
+          console.log("Contador de popup hoy:", stats.count, "Cerrado manualmente:", stats.closedManually);
 
-          if (stats.count < 2) {
+          if (stats.count < 2 && !stats.closedManually) {
             console.log("Programando aparición de popup en 2s...");
             const timer = setTimeout(() => {
               setShowDonationModal(true);
@@ -50,7 +50,7 @@ export default function Home() {
             
             return () => clearTimeout(timer);
           } else {
-            console.log("Límite de 2 popups diarios alcanzado para este usuario.");
+            console.log("Límite de popups o usuario lo descartó manualmente por hoy.");
           }
         }
       }
@@ -135,7 +135,15 @@ export default function Home() {
         {isDonationActive && (
           <DonationModal 
             isOpen={showDonationModal} 
-            onClose={() => setShowDonationModal(false)} 
+            onClose={() => {
+              setShowDonationModal(false);
+              const storedData = localStorage.getItem("donation_modal_stats");
+              if (storedData) {
+                const stats = JSON.parse(storedData);
+                stats.closedManually = true;
+                localStorage.setItem("donation_modal_stats", JSON.stringify(stats));
+              }
+            }} 
           />
         )}
       </div>

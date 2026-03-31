@@ -22,7 +22,7 @@ export class CloudinaryAdapter implements StorageAdapter {
     formData.append("public_id", publicId);
 
     const response = await fetch(
-      `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/raw/upload`,
+      `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`,
       {
         method: "POST",
         body: formData,

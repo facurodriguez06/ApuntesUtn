@@ -1,5 +1,5 @@
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
-import { StorageAdapter, UploadResult } from "./StorageAdapter";
+import { StorageAdapter, StorageResult } from "./StorageAdapter";
 
 export class CloudflareR2Adapter implements StorageAdapter {
   private s3Client: S3Client;
@@ -25,7 +25,7 @@ export class CloudflareR2Adapter implements StorageAdapter {
     });
   }
 
-  async upload(file: File, folder: string, title?: string): Promise<UploadResult> {
+  async upload(file: File, folder: string, title?: string): Promise<StorageResult> {
     try {
       const buffer = Buffer.from(await file.arrayBuffer());
       const originalExt = file.name.split('.').pop()?.toLowerCase() || 'pdf';

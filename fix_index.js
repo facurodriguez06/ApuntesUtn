@@ -1,3 +1,6 @@
+const fs = require('fs');
+
+const content = 
 import { StorageAdapter } from "./StorageAdapter";
 import { CloudinaryAdapter } from "./CloudinaryAdapter";
 import { CloudflareR2Adapter } from "./CloudflareR2Adapter";
@@ -13,10 +16,6 @@ export const getStorageAdapter = (): StorageAdapter => {
   return new CloudinaryAdapter();
 };
 
-/**
- * Utility to resolve relative paths back to their full CDN URLs
- * The UI can use this dynamically so that database only holds the relative 'path'
- */
 export const resolveStorageUrl = (pathOrUrl: string | undefined): string => {
   if (!pathOrUrl) return "";
 
@@ -25,14 +24,16 @@ export const resolveStorageUrl = (pathOrUrl: string | undefined): string => {
     return pathOrUrl;
   }
 
-  // Always fallback to R2 if configured because uploads go there
-  const r2Url = process.env.NEXT_PUBLIC_R2_PUBLIC_URL || "https://pub-be009cc7cdca400cb717da8a110bcaa8.r2.dev";
-  if (r2Url) {
-    const baseUrl = r2Url.replace(/\/+$/, "");
-    return `${baseUrl}/${pathOrUrl}`;
+  if (process.env.NEXT_PUBLIC_R2_PUBLIC_URL) {
+    const baseUrl = process.env.NEXT_PUBLIC_R2_PUBLIC_URL.replace(/\\/+$/, "");
+    return \\/\\;
   }
 
   // Example resolver for Cloudinary fallback
   const CLOUDINARY_CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
-  return `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/raw/upload/${pathOrUrl}`;
+  return \https://res.cloudinary.com/\/raw/upload/\\;
 };
+;
+
+fs.writeFileSync('lib/storage/index.ts', content.trim());
+console.log('Fixed index');

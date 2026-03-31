@@ -14,8 +14,9 @@ import {
 } from "lucide-react";
 import { useRef, useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
-import { careersData, yearConfig, getSubjectsByCareerAndYear } from "@/lib/data";
+import { careersData, yearConfig, getSubjectsByCareerAndYear, getSubjectsByCareer } from "@/lib/data";
 import { db } from "@/lib/firebase/config";
+import { CustomSelect } from "./CustomSelect";
 
 type UploadApiResponse = {
   url?: string;
@@ -164,9 +165,7 @@ export function UploadModule() {
           status: "pending",
             careerId: availableSubjects.find((s) => s.id === materia)?.careerId || carrera,
           subjectId: materia,
-          year: parseInt(anio, 10),
-        };
-
+            year: availableSubjects.find((s) => s.id === materia)?.year || parseInt(anio, 10) || 1,          };
         await addDoc(collection(db, "notes"), newNote);
         setUploadProgress(5 + progressStep * (i + 1));
       }
@@ -192,9 +191,15 @@ const isValid = files.length > 0 && (files.length > 1 ? true : sanitize(title) !
 
   const selectedCareer = careersData.find((career) => career.id === carrera);
   const availableYears = selectedCareer
-    ? Array.from({ length: selectedCareer.maxYears }, (_, index) => index + 1)
+    ? [
+        ...Array.from({ length: selectedCareer.maxYears }, (_, index) => index + 1),
+        ...(carrera !== "basicas" ? [99] : [])
+      ]
     : [];
-  const availableSubjects = carrera && anio ? getSubjectsByCareerAndYear(carrera, parseInt(anio, 10)) : [];
+  const availableSubjects = 
+    carrera === "basicas" 
+      ? getSubjectsByCareer("basicas") 
+      : (carrera && anio ? getSubjectsByCareerAndYear(carrera, parseInt(anio, 10)) : []);
 
   const handleCarreraChange = (value: string) => {
     setCarrera(value);
@@ -235,8 +240,8 @@ const isValid = files.length > 0 && (files.length > 1 ? true : sanitize(title) !
       <div className="blob w-52 h-52 bg-[#C5DBC9] -top-16 -left-16 animate-blob" />
       <div className="blob w-40 h-40 bg-[#D5CCE5] -bottom-16 -right-16 animate-blob" style={{ animationDelay: "3s" }} />
 
-      <div className="relative bg-white/95 backdrop-blur-sm rounded-2xl border border-[#E3DCD2] overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] z-10">
-        <div className="h-1.5 bg-gradient-to-r from-[#8BAA91] via-[#7CC2A8] to-[#7BA7C2]" />
+      <div className="relative bg-white/95 backdrop-blur-sm rounded-2xl border border-[#E3DCD2] shadow-[0_8px_30px_rgb(0,0,0,0.04)] z-10">
+        <div className="h-1.5 rounded-t-[15px] bg-gradient-to-r from-[#8BAA91] via-[#7CC2A8] to-[#7BA7C2]" />
 
         <div className="p-5 border-b border-[#EDE6DD]">
           <div className="flex items-center gap-2.5">
@@ -365,18 +370,12 @@ const isValid = files.length > 0 && (files.length > 1 ? true : sanitize(title) !
               <label className="flex items-center gap-1.5 text-sm font-bold text-[#3D3229] mb-1.5">
                 <Building2 className="w-3.5 h-3.5 text-[#A89F95]" /> Carrera
               </label>
-              <select
+              <CustomSelect
                 value={carrera}
-                onChange={(event) => handleCarreraChange(event.target.value)}
-                className="w-full rounded-xl border border-[#EDE6DD] px-3.5 py-2.5 text-sm text-[#3D3229] focus:border-[#8BAA91] focus:outline-none focus:ring-2 focus:ring-[#8BAA91]/20 bg-white transition-all"
-              >
-                <option value="">Seleccionar...</option>
-                {careersData.map((career) => (
-                  <option key={career.id} value={career.id}>
-                    {career.shortName}
-                  </option>
-                ))}
-              </select>
+                onChange={handleCarreraChange}
+                options={careersData.map((career) => ({ value: career.id, label: career.shortName }))}
+                placeholder="Seleccionar..."
+              />
             </div>
 
             {carrera !== "basicas" && (
@@ -384,19 +383,13 @@ const isValid = files.length > 0 && (files.length > 1 ? true : sanitize(title) !
                 <label className="flex items-center gap-1.5 text-sm font-bold text-[#3D3229] mb-1.5">
                   <BookOpen className="w-3.5 h-3.5 text-[#A89F95]" /> Año
                 </label>
-                <select
+                <CustomSelect
                   value={anio}
-                  onChange={(event) => handleAnioChange(event.target.value)}
+                  onChange={handleAnioChange}
                   disabled={!carrera}
-                  className="w-full rounded-xl border border-[#EDE6DD] px-3.5 py-2.5 text-sm text-[#3D3229] focus:border-[#8BAA91] focus:outline-none focus:ring-2 focus:ring-[#8BAA91]/20 bg-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  <option value="">Seleccionar...</option>
-                  {availableYears.map((year) => (
-                    <option key={year} value={year}>
-                      {yearConfig[year]?.label || `Año ${year}`}
-                    </option>
-                  ))}
-                </select>
+                  options={availableYears.map((year) => ({ value: String(year), label: yearConfig[year]?.label || `Año ${year}` }))}
+                  placeholder="Seleccionar..."
+                />
               </div>
             )}
           </div>
@@ -406,41 +399,35 @@ const isValid = files.length > 0 && (files.length > 1 ? true : sanitize(title) !
               <label className="flex items-center gap-1.5 text-sm font-bold text-[#3D3229] mb-1.5">
                 <BookOpen className="w-3.5 h-3.5 text-[#A89F95]" /> Materia
               </label>
-              <select
+              <CustomSelect
                 value={materia}
-                onChange={(event) => setMateria(event.target.value)}
+                onChange={setMateria}
                 disabled={!carrera || !anio}
-                className="w-full rounded-xl border border-[#EDE6DD] px-3.5 py-2.5 text-sm text-[#3D3229] focus:border-[#8BAA91] focus:outline-none focus:ring-2 focus:ring-[#8BAA91]/20 bg-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <option value="">Seleccionar...</option>
-                {availableSubjects.map((subject) => (
-                  <option key={subject.id} value={subject.id}>
-                    {subject.name}
-                  </option>
-                ))}
-              </select>
+                options={availableSubjects.map((subject) => ({ value: subject.id, label: subject.name }))}
+                placeholder="Seleccionar..."
+              />
             </div>
 
             <div>
               <label className="flex items-center gap-1.5 text-sm font-bold text-[#3D3229] mb-1.5">
                 <FileType className="w-3.5 h-3.5 text-[#A89F95]" /> Tipo
               </label>
-              <select
+              <CustomSelect
                 value={tipo}
-                onChange={(event) => setTipo(event.target.value)}
-                className="w-full rounded-xl border border-[#EDE6DD] px-3.5 py-2.5 text-sm text-[#3D3229] focus:border-[#8BAA91] focus:outline-none focus:ring-2 focus:ring-[#8BAA91]/20 bg-white transition-all"
-              >
-                <option value="">Seleccionar...</option>
-                <option value="resumen">Resumen</option>
-                <option value="examen">Examen Resuelto</option>
-                <option value="tp">Trabajo Práctico</option>
-                <option value="guia">Guia de Ejercicios</option>
-              </select>
+                onChange={setTipo}
+                options={[
+                  { value: "resumen", label: "Resumen" },
+                  { value: "examen", label: "Examen Resuelto" },
+                  { value: "tp", label: "Trabajo Práctico" },
+                  { value: "guia", label: "Guía de Ejercicios" },
+                ]}
+                placeholder="Seleccionar..."
+              />
             </div>
           </div>
         </div>
 
-        <div className="px-5 py-4 flex flex-col gap-3 border-t border-[#EDE6DD] bg-[#FFFBF7]">
+        <div className="px-5 py-4 flex flex-col gap-3 border-t border-[#EDE6DD] bg-[#FFFBF7] rounded-b-[15px]">
           {isUploading && (
             <div className="w-full space-y-1.5 animate-fade-in">
               <div className="flex justify-between text-[11px] font-bold text-[#4A7A52]">

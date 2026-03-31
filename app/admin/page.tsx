@@ -20,14 +20,17 @@ import {
   Calendar,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { resolveStorageUrl } from "@/lib/storage";
 import type { Note } from "@/lib/data";
 import { careersData, subjectsData, yearConfig } from "@/lib/data";
 import { useAuth } from "@/context/AuthContext";
+import { EditNoteModal } from "@/components/EditNoteModal";
+import { Edit, Megaphone, ChevronDown } from "lucide-react";
 import { useToast } from "@/context/ToastContext";
 import { signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { auth, app as primaryApp, db } from "@/lib/firebase/config";
 import { initializeApp, getApps } from "firebase/app";
-import { collection, query, where, onSnapshot, updateDoc, deleteDoc, doc } from "firebase/firestore";
+import { collection, query, where, onSnapshot, updateDoc, deleteDoc, doc, setDoc } from "firebase/firestore";
 
 type AuthError = Partial<FirebaseError> & {
   message?: string;
@@ -137,6 +140,83 @@ function EmptySection({
   );
 }
 
+function SubjectGroup({
+  subject,
+  notes,
+  onOpenFile,
+  onEditNote,
+  onDeleteNote,
+}: {
+  subject: string;
+  notes: Note[];
+  onOpenFile: (note: Note) => void;
+  onEditNote: (note: Note) => void;
+  onDeleteNote: (id: string) => void;
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="bg-white/50 rounded-2xl border border-[#EDE6DD] overflow-hidden transition-all">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full flex items-center justify-between p-4 bg-[#F9F7F4] hover:bg-[#F5EFE5] transition-colors"
+      >
+        <h3 className="text-lg font-bold text-[#4A433C] flex items-center gap-2">
+          {subject} <span className="text-[#A89F95] text-sm font-normal">({notes.length} {notes.length === 1 ? 'apunte' : 'apuntes'})</span>
+        </h3>
+        <span
+          className={cn(
+            "transform transition-transform duration-300 w-8 h-8 flex items-center justify-center bg-white rounded-full border border-[#EDE6DD] text-[#8B7355]",
+            isOpen ? "rotate-180" : "rotate-0"
+          )}
+        >
+          <ChevronDown className="w-5 h-5" />
+        </span>
+      </button>
+      
+      {isOpen && (
+        <div className="p-4 grid grid-cols-1 gap-4 bg-white border-t border-[#EDE6DD] animate-fade-in-up">
+          {notes.map((note) => (
+            <NoteCard
+              key={note.id}
+              note={note}
+              actions={
+                <>
+                  <button
+                    onClick={() => onOpenFile(note)}
+                    className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 py-2 bg-white border border-[#EDE6DD] hover:bg-[#F9F7F4] text-[#7A6E62] rounded-xl font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                    title="Ver archivo"
+                    disabled={!note.fileUrl}
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    <span className="text-xs">Ver</span>
+                  </button>
+                  <button
+                    onClick={() => onEditNote(note)}
+                    className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 py-2 bg-white border border-[#EDE6DD] hover:bg-[#F9F7F4] text-[#8BAA91] rounded-xl font-medium transition-all duration-200"
+                    title="Editar apunte"
+                  >
+                    <Edit className="w-4 h-4" />
+                    <span className="text-xs">Editar</span>
+                  </button>
+                  <button
+                    onClick={() => onDeleteNote(note.id)}
+                    className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-[#FFF0F0] hover:bg-[#FFE5E5] text-[#D84545] border border-[#FFDCDC] rounded-xl font-semibold transition-all duration-200"
+                    title="Eliminar apunte aprobado"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                    <span className="text-xs">Eliminar</span>
+                  </button>
+                </>
+              }
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function AdminPage() {
   const { user, loading } = useAuth();
 
@@ -160,6 +240,15 @@ export default function AdminPage() {
   const { showToast } = useToast();
   const [adminList, setAdminList] = useState<any[]>([]);
   const [adminError, setAdminError] = useState("");
+
+  const [editingNote, setEditingNote] = useState<Note | null>(null);
+  const [isImagePopupActive, setIsImagePopupActive] = useState(false);
+  const [imagePopupUrl, setImagePopupUrl] = useState("");
+  const [imagePopupLink, setImagePopupLink] = useState("");
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
+  const [isAnnouncementActive, setIsAnnouncementActive] = useState(false);
+  const [announcementTitle, setAnnouncementTitle] = useState("");
+  const [announcementMessage, setAnnouncementMessage] = useState("");
 
   // Custom confirmation state
   const [confirmDeleteAdmin, setConfirmDeleteAdmin] = useState<{ isOpen: boolean; adminMail: string }>({
@@ -204,6 +293,11 @@ export default function AdminPage() {
         if (docSnap.exists()) {
           setIsDonationActive(docSnap.data().isDonationActive ?? true);
           setIsDonationPopupActive(docSnap.data().isDonationPopupActive ?? true);
+            setIsAnnouncementActive(docSnap.data().isAnnouncementActive ?? false);
+            setAnnouncementTitle(docSnap.data().announcementTitle ?? "");
+            setAnnouncementMessage(docSnap.data().announcementMessage ?? "");          setIsImagePopupActive(docSnap.data().isImagePopupActive ?? false);
+          setImagePopupUrl(docSnap.data().imagePopupUrl ?? "");
+          setImagePopupLink(docSnap.data().imagePopupLink ?? "");
         }
       }
     );
@@ -347,6 +441,80 @@ export default function AdminPage() {
     }
   };
 
+  const handleEditNoteSave = async (updatedFields: Partial<Note>) => {
+    if (!editingNote) return;
+    try {
+      const { updateDoc, doc } = await import("firebase/firestore");
+      await updateDoc(doc(db, "notes", editingNote.id), updatedFields);
+      showToast("Apunte editado correctamente.", "success");
+    } catch (error) {
+      console.error(error);
+      showToast("Error al editar apunte.", "error");
+    }
+  };
+
+  const saveImagePopupSettings = async () => {
+    setIsUpdatingSettings(true);
+    try {
+      await setDoc(doc(db, "settings", "global"), {
+        isImagePopupActive,
+        imagePopupUrl,
+        imagePopupLink,
+      }, { merge: true });
+      showToast("Ajustes de popup de imagen guardados.", "success");
+    } catch (err) {
+      console.error(err);
+      showToast("Error al guardar popup de imagen.", "error");
+    } finally {
+      setIsUpdatingSettings(false);
+    }
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploadingImage(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("type", "image");
+
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!res.ok) throw new Error("Error al subir imagen");
+
+      const data = await res.json();
+      setImagePopupUrl(data.url);
+      showToast("Imagen subida con éxito", "success");
+    } catch (error) {
+      console.error(error);
+      showToast("Error al subir imagen", "error");
+    } finally {
+      setIsUploadingImage(false);
+    }
+  };
+
+  const saveAnnouncementSettings = async () => {
+    setIsUpdatingSettings(true);
+    try {
+      await setDoc(doc(db, "settings", "global"), {
+        isAnnouncementActive,
+        announcementTitle,
+        announcementMessage,
+      }, { merge: true });
+      showToast("Ajustes de anuncio guardados.", "success");
+    } catch (err) {
+      console.error(err);
+      showToast("Error al guardar anuncio.", "error");
+    } finally {
+      setIsUpdatingSettings(false);
+    }
+  };
+
   const handleDelete = async (id: string) => {
     setAdminError("");
     try {
@@ -374,16 +542,58 @@ export default function AdminPage() {
     try {
       const field = type === 'section' ? 'isDonationActive' : 'isDonationPopupActive';
       const currentVal = type === 'section' ? isDonationActive : isDonationPopupActive;
+      const newValue = !currentVal;
       
-      await updateDoc(doc(db, "settings", "global"), {
-        [field]: !currentVal,
-      });
+      if (type === 'section') setIsDonationActive(newValue);
+      else setIsDonationPopupActive(newValue);
+      
+      await setDoc(doc(db, "settings", "global"), {
+        [field]: newValue,
+      }, { merge: true });
     } catch (err) {
       console.error("Error updating settings:", err);
-      const { setDoc } = await import("firebase/firestore");
+    } finally {
+      setIsUpdatingSettings(false);
+    }
+  };
+
+  const toggleImagePopupState = async () => {
+    setIsUpdatingSettings(true);
+    const newValue = !isImagePopupActive;
+    setIsImagePopupActive(newValue);
+    try {
       await setDoc(doc(db, "settings", "global"), {
-        [type === 'section' ? 'isDonationActive' : 'isDonationPopupActive']: type === 'section' ? !isDonationActive : !isDonationPopupActive,
+        isImagePopupActive: newValue,
       }, { merge: true });
+      showToast(
+        newValue ? "Anuncio con imagen activado" : "Anuncio con imagen desactivado", 
+        "success"
+      );
+    } catch (err) {
+      console.error("Error updating settings:", err);
+      setIsImagePopupActive(!newValue); // revert on error
+      showToast("Error al cambiar estado", "error");
+    } finally {
+      setIsUpdatingSettings(false);
+    }
+  };
+
+  const toggleAnnouncementState = async () => {
+    setIsUpdatingSettings(true);
+    const newValue = !isAnnouncementActive;
+    setIsAnnouncementActive(newValue);
+    try {
+      await setDoc(doc(db, "settings", "global"), {
+        isAnnouncementActive: newValue,
+      }, { merge: true });
+      showToast(
+        newValue ? "Aviso de texto activado" : "Aviso de texto desactivado", 
+        "success"
+      );
+    } catch (err) {
+      console.error("Error updating settings:", err);
+      setIsAnnouncementActive(!newValue); // revert on error
+      showToast("Error al cambiar estado", "error");
     } finally {
       setIsUpdatingSettings(false);
     }
@@ -700,7 +910,204 @@ export default function AdminPage() {
       </section>
 
 
+      
+      {/* Sistema de Anuncios o Popup Imagen */}
+      <section className="mb-10 animate-fade-in-up">
+        <div className="bg-white rounded-[2.5rem] border border-[#EDE6DD] p-6 md:p-8 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)]">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-6">
+            <div className="max-w-xl">
+              <h2 className="text-xl font-black text-[#3D3229] mb-2 flex items-center gap-2">
+                <span className="p-2 rounded-lg bg-[#F5EFE5] text-[#8B7355]">
+                  <Megaphone className="w-5 h-5" />
+                </span>
+                Popup de Imagen Promocional
+              </h2>
+              <p className="text-[#7A6E62] text-sm leading-relaxed">
+                Mostrá una imagen emergente. El usuario solo lo verá 1 vez por imagen.
+              </p>
+            </div>
+            
+            <div className="flex items-center gap-4 bg-[#F9F7F4] p-4 rounded-2xl border border-[#EDE6DD]">
+              <div className="flex flex-col">
+                <span className="text-sm font-bold text-[#3D3229]">Estado</span>
+                <span className={cn(
+                  "text-[10px] font-black uppercase tracking-wider",
+                  isImagePopupActive ? "text-[#4A7A52]" : "text-[#D84545]"
+                )}>
+                  {isImagePopupActive ? "Activo" : "Inactivo"}
+                </span>
+              </div>
+              
+              <button
+                onClick={toggleImagePopupState}
+                disabled={isUpdatingSettings}
+                className={cn(
+                  "relative inline-flex h-7 w-12 shrink-0 cursor-pointer items-center rounded-full transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8BAA91] disabled:opacity-50",
+                  isImagePopupActive ? "bg-[#8BAA91]" : "bg-[#D5CAC0]"
+                )}
+              >
+                <span
+                  className={cn(
+                    "pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-lg ring-0 transition-transform duration-300",
+                    isImagePopupActive ? "translate-x-6" : "translate-x-1"
+                  )}
+                />
+              </button>
+            </div>
+          </div>
+
+          {isImagePopupActive && (
+            <div className="flex flex-col gap-4 bg-[#F9F7F4] p-5 rounded-2xl border border-[#EDE6DD] animate-fade-in-up">
+              <div className="flex flex-col gap-3">
+                <label className="text-sm font-bold text-[#4A433C]">Imagen del Anuncio</label>
+                <div className="flex items-center justify-center w-full">
+                  <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-[#D5CAC0m border-dashed rounded-xl cursor-pointer bg-[#F5EFE5] hover:bg-[#EAE4D9] transition-colors">
+                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                      {isUploadingImage ? (
+                        <Loader2 className="w-6 h-6 mb-2 text-[#8BAA91] animate-spin" />
+                      ) : (
+                        <p className="mb-2 text-sm text-[#7A6E62]">Click para subir</p>
+                      )}
+                    </div>
+                    <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} disabled={isUploadingImage} />
+                  </label>
+                </div>
+                {imagePopupUrl && (
+                  <div className="mt-2 text-center">
+                    <div className="p-2 bg-white rounded-lg border border-[#EDE6DD] relative inline-block">
+                      <button
+                        onClick={async () => {
+                          const { setDoc } = await import("firebase/firestore");
+                          await setDoc(doc(db, "settings", "global"), {
+                            imagePopupUrl: "",
+                          }, { merge: true });
+                          setImagePopupUrl("");
+                          showToast("Imagen eliminada.", "success");
+                        }}
+                        className="absolute -top-3 -right-3 z-10 w-8 h-8 flex items-center justify-center bg-red-500 hover:bg-red-600 text-white rounded-full transition-colors shadow-lg"
+                        title="Eliminar imagen"
+                      >
+                        <X className="w-5 h-5" />
+                      </button>
+                      <img 
+                        src={imagePopupUrl.startsWith("http") ? imagePopupUrl : `https://pub-be009cc7cdca400cb717da8a110bcaa8.r2.dev/${imagePopupUrl}`} 
+                        alt="Preview" 
+                        className="max-h-48 mx-auto rounded-md object-contain" 
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-bold text-[#4A433C]">Link (Opcional)</label>
+                <input
+                  type="url"
+                  value={imagePopupLink}
+                  onChange={(e) => setImagePopupLink(e.target.value)}
+                  className="w-full bg-white border border-[#D5CAC0] rounded-xl p-4 py-2.5 text-[#3D3229] focus:outline-none focus:ring-2 focus:ring-[#8BAA91]"
+                />
+              </div>
+
+              <button
+                onClick={saveImagePopupSettings}
+                disabled={isUpdatingSettings}
+                className="mt-2 w-full sm:w-auto py-2.5 p-6 rounded-xl bg-[#4A433C] text-white font-bold hover:bg-[#2C2825] transition-colors disabled:opacity-50 self-end"
+              >
+                {isUpdatingSettings ? <Loader2 className="w-5 h-5 animate-spin" /> : "Guardar Configuración"}
+              </button>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Sistema de Anuncios de Texto */}
+      <section className="mb-10 animate-fade-in-up">
+        <div className="bg-white rounded-[2.5rem] border border-[#EDE6DD] p-6 md:p-8 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)]">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-6">
+            <div className="max-w-xl">
+              <h2 className="text-xl font-black text-[#3D3229] mb-2 flex items-center gap-2">
+                <span className="p-2 rounded-lg bg-[#F5EFE5] text-[#8B7355]">
+                  <Megaphone className="w-5 h-5" />
+                </span>
+                Sistema de Anuncios: Popup Global
+              </h2>
+              <p className="text-[#7A6E62] text-sm leading-relaxed">
+                Mostrá un aviso temporal importante. El usuario podrá cerrarlo y no volverá a aparecer hasta que cambies el mensaje.
+              </p>
+            </div>
+            
+            <div className="flex items-center gap-4 bg-[#F9F7F4] p-4 rounded-2xl border border-[#EDE6DD]">
+              <div className="flex flex-col">
+                <span className="text-sm font-bold text-[#3D3229]">Estado del Aviso</span>
+                <span className={cn(
+                  "text-[10px] font-black uppercase tracking-wider",
+                  isAnnouncementActive ? "text-[#4A7A52]" : "text-[#D84545]"
+                )}>
+                  {isAnnouncementActive ? "Activo" : "Inactivo"}
+                </span>
+              </div>
+
+              <button
+                onClick={toggleAnnouncementState}
+                disabled={isUpdatingSettings}
+                className={cn(
+                  "relative inline-flex h-7 w-12 shrink-0 cursor-pointer items-center rounded-full transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8BAA91] focus-visible:ring-offset-2 disabled:opacity-50",
+                  isAnnouncementActive ? "bg-[#8BAA91]" : "bg-[#D5CAC0]"
+                )}
+              >
+                <span
+                  className={cn(
+                    "pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-lg ring-0 transition-transform duration-300",
+                    isAnnouncementActive ? "translate-x-6" : "translate-x-1"
+                  )}
+                />
+              </button>
+            </div>
+          </div>
+
+          {isAnnouncementActive && (
+            <div className="flex flex-col gap-4 bg-[#F9F7F4] p-5 rounded-2xl border border-[#EDE6DD] animate-fade-in-up">
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-bold text-[#4A433C]">Título del Aviso</label>
+                <input
+                  type="text"
+                  value={announcementTitle}
+                  onChange={(e) => setAnnouncementTitle(e.target.value)}
+                  placeholder="Ej: ¡Nuevo contenido!"
+                  className="w-full bg-white border border-[#D5CAC0] rounded-xl px-4 py-2.5 text-[#3D3229] focus:outline-none focus:ring-2 focus:ring-[#8BAA91]"
+                />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-bold text-[#4A433C]">Mensaje</label>
+                <textarea
+                  value={announcementMessage}
+                  onChange={(e) => setAnnouncementMessage(e.target.value)}
+                  placeholder="Detalles del aviso..."
+                  rows={3}
+                  className="w-full bg-white border border-[#D5CAC0] rounded-xl px-4 py-2.5 text-[#3D3229] focus:outline-none focus:ring-2 focus:ring-[#8BAA91] resize-none"
+                />
+              </div>
+
+              <button
+                onClick={saveAnnouncementSettings}
+                disabled={isUpdatingSettings}
+                className="mt-2 w-full sm:w-auto py-2.5 px-6 rounded-xl bg-[#4A433C] text-white font-bold hover:bg-[#2C2825] transition-colors disabled:opacity-50 flex items-center justify-center gap-2 self-end"
+              >
+                {isUpdatingSettings ? (
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                ) : (
+                  "Guardar Anuncio"
+                )}
+              </button>
+            </div>
+          )}
+        </div>
+      </section>
+
       <section className="mb-8">
+
         <h2 className="text-xl font-bold text-[#4A433C] mb-4 ml-1 flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-[#C4A87D]"></span>
           Bandeja de Pendientes ({pendingNotes.length})
@@ -816,35 +1223,19 @@ export default function AdminPage() {
               icon={<FileText className="w-10 h-10 text-[#A8B8A0]" />}
             />
           ) : (
-            <div className="grid grid-cols-1 gap-4">
-              {approvedNotes.map((note) => (
-                <NoteCard
-                  key={note.id}
-                  note={note}
-                  actions={
-                    <>
-                      <button
-                        onClick={() => handleOpenFile(note)}
-                        className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 py-2 bg-white border border-[#EDE6DD] hover:bg-[#F9F7F4] text-[#7A6E62] rounded-xl font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                        title="Ver archivo"
-                        disabled={!note.fileUrl}
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                        <span className="text-xs">Ver</span>
-                      </button>
-                      <button
-                        onClick={() => handleDelete(note.id)}
-                        className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-[#FFF0F0] hover:bg-[#FFE5E5] text-[#D84545] border border-[#FFDCDC] rounded-xl font-semibold transition-all duration-200"
-                        title="Eliminar apunte aprobado"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                        <span className="text-xs">Eliminar</span>
-                      </button>
-                    </>
-                  }
-                />
-              ))}
-            </div>
+            
+              <div className="flex flex-col gap-8">
+                {Object.entries(
+                  approvedNotes.reduce((acc, note) => {
+                    const subjectName = subjectsData.find(s => s.id === note.subjectId)?.name || note.subjectId || "General";
+                    if (!acc[subjectName]) acc[subjectName] = [];
+                    acc[subjectName].push(note);
+                    return acc;
+                  }, {} as Record<string, Note[]>)
+                ).sort((a, b) => a[0].localeCompare(b[0])).map(([subject, notes]) => (
+                  <SubjectGroup key={subject} subject={subject} notes={notes} onOpenFile={handleOpenFile} onEditNote={setEditingNote} onDeleteNote={handleDelete} />
+                ))}
+              </div>
           )}
         </div>
       </section>
@@ -876,6 +1267,15 @@ export default function AdminPage() {
             </div>
           </div>
         </div>
+      )}
+
+      {editingNote && (
+        <EditNoteModal
+          isOpen={!!editingNote}
+          onClose={() => setEditingNote(null)}
+          onSave={handleEditNoteSave}
+          note={editingNote}
+        />
       )}
     </div>
   );

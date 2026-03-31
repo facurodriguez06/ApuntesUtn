@@ -3,6 +3,8 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { InteractiveBackground } from "@/components/InteractiveBackground";
 import { Preloader } from "@/components/Preloader";
+import { AnnouncementModal } from "@/components/AnnouncementModal";
+import { ImagePopupModal } from "@/components/ImagePopupModal";
 import Script from "next/script";
 import { AuthProvider } from "@/context/AuthContext";
 import { ToastProvider } from "@/context/ToastContext";
@@ -55,6 +57,8 @@ export default function RootLayout({
     <html lang="es" className="h-full antialiased" suppressHydrationWarning>
       <body className="min-h-full flex flex-col bg-[#FFFBF7] text-[#3D3229] overflow-x-hidden">
         <Preloader />
+        <AnnouncementModal />
+        <ImagePopupModal />
         <ToastProvider>
           <AuthProvider>
             <Script id="security" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: securityScript }} />
