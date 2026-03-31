@@ -55,7 +55,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className="h-full antialiased" suppressHydrationWarning>
-      <body className="min-h-full flex flex-col bg-[#FFFBF7] text-[#3D3229] overflow-x-hidden w-full m-0 p-0">
+      <body className="min-h-full flex flex-col bg-[#FFFBF7] text-[#3D3229] w-full m-0 p-0 relative">
         <Preloader />
         <AnnouncementModal />
         <ImagePopupModal />

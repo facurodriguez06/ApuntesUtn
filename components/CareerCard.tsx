@@ -55,6 +55,6 @@ export function CareerCard({ career }: { career: Career }) {
     </div>
   );
 
-  if (!career.implemented) return content;
-  return <Link href={`/carreras/${career.id}`}>{content}</Link>;
+  if (!career.implemented) return <div className="h-full w-full">{content}</div>;
+  return <Link href={`/carreras/${career.id}`} className="h-full w-full block">{content}</Link>;
 }

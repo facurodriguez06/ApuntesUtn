@@ -123,7 +123,7 @@ export default function Home() {
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 stagger-children items-stretch">
             {careersData.map((career) => (
-              <div key={career.id} className="animate-fade-in-up flex">
+              <div key={career.id} className="animate-fade-in-up flex h-full">
                 <CareerCard career={career} />
               </div>
             ))}

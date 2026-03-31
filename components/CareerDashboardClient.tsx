@@ -157,9 +157,9 @@ export function CareerDashboardClient({
           </div>
         )}
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 stagger-children" key={activeYear}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 stagger-children items-stretch" key={activeYear}>
           {filteredSubjects.map((subject) => (
-            <div key={subject.id} className="animate-fade-in-up">
+            <div key={subject.id} className="animate-fade-in-up flex h-full flex-col w-full">
               <SubjectCard
                 subject={{
                   ...subject,

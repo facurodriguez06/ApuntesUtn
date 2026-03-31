@@ -34,12 +34,15 @@ export function AnnouncementModal() {
 
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = "hidden";
+      document.documentElement.classList.add("lock-scroll");
+      document.body.classList.add("lock-scroll");
     } else {
-      document.body.style.overflow = "";
+      document.documentElement.classList.remove("lock-scroll");
+      document.body.classList.remove("lock-scroll");
     }
     return () => {
-      document.body.style.overflow = "";
+      document.documentElement.classList.remove("lock-scroll");
+      document.body.classList.remove("lock-scroll");
     };
   }, [isOpen]);
 

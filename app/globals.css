@@ -36,8 +36,18 @@
 
 /* Custom cursors */
 html, body {
-  max-width: 100%;
+  position: relative;
+  max-width: 100vw;
+  width: 100vw;
   overflow-x: hidden;
+  overscroll-behavior-y: none; /* Prevents iOS bounce */
+}
+
+/* iOS robust scroll lock */
+html.lock-scroll,
+body.lock-scroll {
+  overflow: hidden !important;
+  touch-action: none !important;
 }
 
 body {
