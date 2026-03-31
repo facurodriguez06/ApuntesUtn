@@ -150,14 +150,24 @@ export function UploadModule() {
           }
 
           // 2. Subir directamente el archivo a Cloudflare R2
-          const uploadRes = await fetch(presignData.url, {
-            method: 'PUT',
-            headers: { 'Content-Type': file.type || 'application/octet-stream' },
-            body: file
-          });
+          let uploadRes;
+          try {
+            uploadRes = await fetch(presignData.url, {
+              method: 'PUT',
+              headers: { 'Content-Type': file.type || 'application/octet-stream' },
+              body: file
+            });
+          } catch (fetchError: any) {
+            console.error("Fetch error completo:", fetchError);
+            if (fetchError.message === 'Failed to fetch') {
+              throw new Error("El navegador bloqueó la subida (Error de CORS). Por favor, asegurate de haber configurado las políticas CORS en tu bucket de Cloudflare R2 como te indicó el asistente.");
+            }
+            throw fetchError;
+          }
 
           if (!uploadRes.ok) {
-            throw new Error(`Error al transferir el archivo ${file.name} al almacenamiento externo.`);
+            const errText = await uploadRes.text();
+            throw new Error(`Error al transferir el archivo ${file.name} al almacenamiento externo. Estado: ${uploadRes.status}. Detalle: ${errText}`);
           }
 
           // 3. Resultado simulado idéntico a la API anterior
