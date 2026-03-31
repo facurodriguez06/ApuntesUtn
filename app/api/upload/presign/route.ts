@@ -24,6 +24,7 @@ export async function POST(request: Request) {
         accessKeyId,
         secretAccessKey,
       },
+      forcePathStyle: true,
     });
 
     const originalExt = fileName.split('.').pop()?.toLowerCase() || 'pdf';
