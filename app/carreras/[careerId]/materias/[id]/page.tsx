@@ -74,7 +74,7 @@ export default async function SubjectProfile({ params }: { params: Promise<{ car
   if (!subject || !career) return notFound();
 
   let realNotes: Note[] = [];
-  let customStyles = {};
+  let customStyles: Record<string, { color: string; label: string }> = {};
   try {
     const globalSnap = await getDoc(doc(db, "settings", "global"));
     if (globalSnap.exists()) customStyles = globalSnap.data().authorStyles || {};
