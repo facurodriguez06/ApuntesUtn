@@ -129,12 +129,14 @@ export default function RootLayout({
                   <span className="w-1 h-1 rounded-full bg-[#EDE6DD]" />
                   <a href="/privacidad" className="hover:text-[#3D3229] transition-colors">Políticas de Privacidad</a>
                 </div>
-
-                <p className="mt-4 text-[10px] text-[#A89F95]/80 font-medium">
-                  Repositorio orientado a la UTN FRM (Facultad Regional Mendoza)
-                </p>
               </div>
             </footer>
+
+            <div className="w-full text-center pb-6 relative z-10">
+              <p className="text-[10px] text-[#A89F95]/80 font-medium">
+                Repositorio orientado a la UTN FRM (Facultad Regional Mendoza)
+              </p>
+            </div>
           </AuthProvider>
         </ToastProvider>
       </body>
