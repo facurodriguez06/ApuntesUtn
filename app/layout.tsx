@@ -3,6 +3,7 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { InteractiveBackground } from "@/components/InteractiveBackground";
 import { Preloader } from "@/components/Preloader";
+import { CustomCursor } from "@/components/CustomCursor";
 import { AnnouncementModal } from "@/components/AnnouncementModal";
 import { ImagePopupModal } from "@/components/ImagePopupModal";
 import { MetricsTracker } from "@/components/MetricsTracker";
@@ -70,6 +71,7 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col bg-[#FFFBF7] text-[#3D3229] w-full m-0 p-0 relative">
         <MetricsTracker />
         <Preloader />
+        <CustomCursor />
         <AnnouncementModal />
         <ImagePopupModal />
         <ToastProvider>
