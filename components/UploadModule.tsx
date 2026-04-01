@@ -41,7 +41,7 @@ export function UploadModule() {
   const sanitize = (input: string, maxLen = 120): string =>
     input.replace(/<[^>]*>/g, "").replace(/[<>'"]/g, "").trim().slice(0, maxLen);
 
-  const ALLOWED_TYPES = [".pdf", ".doc", ".docx", ".xlsx", ".zip", ".jpg", ".jpeg", ".png"];
+  const ALLOWED_TYPES = [".pdf", ".doc", ".docx", ".xlsx", ".zip", ".rar", ".jpg", ".jpeg", ".png"];
   const MAX_SIZE_MB = 50;
 
   const handleFileSelect = (selectedFiles: FileList | null) => {
@@ -310,14 +310,14 @@ const isValid = files.length > 0 && (files.length > 1 ? true : sanitize(title) !
             >
               <UploadCloud className="w-10 h-10 text-[#A89F95] mb-3 group-hover:text-[#8BAA91] transition-colors" />
               <p className="text-sm text-[#7A6E62] font-semibold mb-1">Arrastra archivos o hace click</p>
-              <p className="text-xs text-[#A89F95] mb-2">PDF, DOCX, XLSX, ZIP, JPG o PNG (Max. 50MB)</p>
+              <p className="text-xs text-[#A89F95] mb-2">PDF, DOCX, XLSX, ZIP, RAR, JPG o PNG (Max. 50MB)</p>
               <p className="text-[10px] text-[#4A7A52] font-bold bg-[#E8F0EA] px-2 py-1 rounded-md">¡Podés seleccionar varios a la vez!</p>
               <input
                 ref={fileInputRef}
                 type="file"
                 className="hidden"
                 multiple
-                accept=".pdf,.doc,.docx,.xlsx,.zip,.jpg,.jpeg,.png"
+                accept=".pdf,.doc,.docx,.xlsx,.zip,.rar,.jpg,.jpeg,.png"
                 onChange={(event) => handleFileSelect(event.target.files)}
               />
             </div>
@@ -336,7 +336,7 @@ const isValid = files.length > 0 && (files.length > 1 ? true : sanitize(title) !
                     type="file"
                     className="hidden"
                     multiple
-                    accept=".pdf,.doc,.docx,.xlsx,.zip,.jpg,.jpeg,.png"
+                    accept=".pdf,.doc,.docx,.xlsx,.zip,.rar,.jpg,.jpeg,.png"
                     onChange={(event) => handleFileSelect(event.target.files)}
                   />
               </div>
