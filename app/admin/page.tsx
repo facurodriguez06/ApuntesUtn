@@ -31,7 +31,7 @@ import { useToast } from "@/context/ToastContext";
 import { signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { auth, app as primaryApp, db } from "@/lib/firebase/config";
 import { initializeApp, getApps } from "firebase/app";
-import { collection, query, where, onSnapshot, updateDoc, deleteDoc, doc, setDoc } from "firebase/firestore";
+import { collection, query, where, onSnapshot, updateDoc, deleteDoc, doc, setDoc, getDocs } from "firebase/firestore";
 
 type AuthError = Partial<FirebaseError> & {
   message?: string;
@@ -265,6 +265,10 @@ export default function AdminPage() {
     isOpen: false,
     adminMail: "",
   });
+
+  const [confirmReset, setConfirmReset] = useState(false);
+
+  const [isResetting, setIsResetting] = useState(false);
 
   useEffect(() => {
     if (!user) {
@@ -986,7 +990,43 @@ export default function AdminPage() {
         <div className="animate-fade-in">
           {/* RESET BUTTON */}
           <section className="mb-10 animate-fade-in-up">
-            <div className="bg-white rounded-[2.5rem] border border-[#f5c6c6] p-6 md:p-8 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)]">
+            <div className="bg-white rounded-[2.5rem] border border-[#f5c6c6] p-6 md:p-8 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] relative overflow-hidden">
+              {confirmReset && (
+                <div className="absolute inset-0 z-20 bg-white/95 backdrop-blur-sm flex flex-col items-center justify-center p-6 text-center animate-fade-in">
+                  <ShieldAlert className="w-10 h-10 text-[#8E5A5A] mb-3 animate-pulse" />
+                  <p className="font-bold text-[#3D3229] mb-1">¿Estás seguro de borrar todas las visitas?</p>
+                  <p className="text-xs text-[#8E5A5A] mb-4">Esta acción no se puede deshacer y los contadores volverán a 0.</p>
+                  <div className="flex gap-3">
+                    <button 
+                      onClick={() => setConfirmReset(false)}
+                      disabled={isResetting}
+                      className="px-4 py-2 font-bold text-xs bg-[#F5F0EA] text-[#7A6E62] rounded-xl hover:bg-[#EDE6DD] transition-colors disabled:opacity-50"
+                    >
+                      Cancelar
+                    </button>
+                    <button 
+                      onClick={async () => {
+                        setIsResetting(true);
+                        try {
+                          const qSnap = await getDocs(collection(db, "metrics"));
+                          await Promise.all(qSnap.docs.map(d => deleteDoc(doc(db, "metrics", d.id))));
+                          showToast("Métricas reiniciadas exitosamente a 0.", "success");
+                        } catch (err: unknown) {
+                           showToast("Hubo un error vaciando las visitas.", "error");
+                           console.error(err);
+                        } finally {
+                           setIsResetting(false);
+                           setConfirmReset(false);
+                        }
+                      }}
+                      disabled={isResetting}
+                      className="px-4 py-2 font-bold text-xs bg-[#8E5A5A] text-white rounded-xl shadow-md hover:bg-[#734a4a] transition-all flex items-center gap-2 disabled:opacity-50"
+                    >
+                      {isResetting ? <><Loader2 className="w-3 h-3 animate-spin"/> Borrando...</> : "Sí, borrar todo"}
+                    </button>
+                  </div>
+                </div>
+              )}
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div className="max-w-xl">
                   <h2 className="text-xl font-black text-[#8E5A5A] mb-2 flex items-center gap-2">
@@ -1001,18 +1041,7 @@ export default function AdminPage() {
                 </div>
                 <div className="flex items-center gap-4 py-1">
                   <button
-                    onClick={async () => {
-                      if (window.confirm("¿Seguro querés volver a 0 las visitas? Esta acción no se puede deshacer.")) {
-                        try {
-                          const { collection, getDocs, deleteDoc, doc } = require("firebase/firestore");
-                          const qSnap = await getDocs(collection(db, "metrics"));
-                          await Promise.all(qSnap.docs.map(d => deleteDoc(doc(db, "metrics", d.id))));
-                          alert("¡Métricas limpias para el lanzamiento! :D");
-                        } catch (err) {
-                           alert("Ocurrio un error borrando las métricas: " + err.message);
-                        }
-                      }
-                    }}
+                    onClick={() => setConfirmReset(true)}
                     className="px-6 py-2.5 font-bold text-sm bg-[#8E5A5A] text-white rounded-xl hover:-translate-y-0.5 transition-all shadow-[0_4px_12px_rgba(142,90,90,0.25)] hover:shadow-lg"
                   >
                     Borrar 100%
