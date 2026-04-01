@@ -384,11 +384,14 @@ const isValid = files.length > 0 && (files.length > 1 ? true : sanitize(title) !
             </div>
 
             <div>
-              <label className="flex items-center gap-1.5 text-sm font-bold text-[#3D3229] mb-1.5">
+              <label htmlFor="author" className="flex items-center gap-1.5 text-sm font-bold text-[#3D3229] mb-1.5">
                 <Pencil className="w-3.5 h-3.5 text-[#A89F95]" /> Tu nombre (opcional)
               </label>
               <input
+                id="author"
+                name="author"
                 type="text"
+                autoComplete="name"
                 value={author}
                 onChange={(event) => setAuthor(event.target.value)}
                 placeholder="Ej. Juan Perez"
