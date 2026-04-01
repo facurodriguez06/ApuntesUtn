@@ -12,6 +12,9 @@ export function Header() {
   const [showDonationModal, setShowDonationModal] = useState(false);
 
   useEffect(() => {
+    // Check initial scroll position immediately on mount
+    setScrolled(window.scrollY > 20);
+    
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
