@@ -110,6 +110,12 @@ export default function RootLayout({
                     Contanos vía WhatsApp
                   </a>
                 </p>
+
+                <div className="mt-5 flex items-center justify-center gap-4 text-[11px] font-medium text-[#C5C0B8]">
+                  <a href="/terminos" className="hover:text-[#3D3229] transition-colors">Términos y Condiciones</a>
+                  <span className="w-1 h-1 rounded-full bg-[#EDE6DD]" />
+                  <a href="/privacidad" className="hover:text-[#3D3229] transition-colors">Políticas de Privacidad</a>
+                </div>
               </div>
             </footer>
           </AuthProvider>
