@@ -983,8 +983,46 @@ export default function AdminPage() {
       </div>
 
       {activeTab === 'sistema' && (
-      <div className="animate-fade-in">
-      {/* Global Settings Section */}
+        <div className="animate-fade-in">
+          {/* RESET BUTTON */}
+          <section className="mb-10 animate-fade-in-up">
+            <div className="bg-white rounded-[2.5rem] border border-[#f5c6c6] p-6 md:p-8 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)]">
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                <div className="max-w-xl">
+                  <h2 className="text-xl font-black text-[#8E5A5A] mb-2 flex items-center gap-2">
+                    <span className="p-2 rounded-lg bg-[#F5E8E8] text-[#8E5A5A]">
+                      <Trash2 className="w-5 h-5" />
+                    </span>
+                    Reiniciar Estadísticas (Visitas / Vistas)
+                  </h2>
+                  <p className="text-[#8E5A5A]/80 text-sm leading-relaxed">
+                    Eliminá todos los registros de la base de datos para arrancar desde cero el lanzamiento de la web.
+                  </p>
+                </div>
+                <div className="flex items-center gap-4 py-1">
+                  <button
+                    onClick={async () => {
+                      if (window.confirm("¿Seguro querés volver a 0 las visitas? Esta acción no se puede deshacer.")) {
+                        try {
+                          const { collection, getDocs, deleteDoc, doc } = require("firebase/firestore");
+                          const qSnap = await getDocs(collection(db, "metrics"));
+                          await Promise.all(qSnap.docs.map(d => deleteDoc(doc(db, "metrics", d.id))));
+                          alert("¡Métricas limpias para el lanzamiento! :D");
+                        } catch (err) {
+                           alert("Ocurrio un error borrando las métricas: " + err.message);
+                        }
+                      }
+                    }}
+                    className="px-6 py-2.5 font-bold text-sm bg-[#8E5A5A] text-white rounded-xl hover:-translate-y-0.5 transition-all shadow-[0_4px_12px_rgba(142,90,90,0.25)] hover:shadow-lg"
+                  >
+                    Borrar 100%
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        {/* Global Settings Section */}
       <section className="mb-10 animate-fade-in-up">
         <div className="bg-white rounded-[2.5rem] border border-[#EDE6DD] p-6 md:p-8 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)]">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
