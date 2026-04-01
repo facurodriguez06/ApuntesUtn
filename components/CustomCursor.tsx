@@ -65,7 +65,7 @@ export function CustomCursor() {
       {/* Cursor principal adaptado al estilo y paleta de la página */}
       <div 
         className={cn(
-          "fixed top-0 left-0 rounded-full pointer-events-none z-[9999]",
+          "fixed top-0 left-0 rounded-full pointer-events-none z-[99999]",
           "transition-[width,height,background-color,border-color,backdrop-filter] duration-[200ms] ease-out flex items-center justify-center",
           isHovering 
             ? "w-12 h-12 bg-[#8BAA91]/20 border border-[#8BAA91]/80 backdrop-blur-[1px]" 
@@ -79,7 +79,7 @@ export function CustomCursor() {
       {/* Punto de precisión estático */}
       <div 
         className={cn(
-          "fixed top-0 left-0 rounded-full pointer-events-none z-[10000]",
+          "fixed top-0 left-0 rounded-full pointer-events-none z-[100000]",
           "transition-[width,height,background-color,opacity] duration-[150ms]",
           isHovering 
             ? "w-1.5 h-1.5 bg-[#2C2825] opacity-80" // Punto oscuro al hacer hover
