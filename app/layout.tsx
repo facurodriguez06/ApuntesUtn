@@ -77,6 +77,12 @@ export default function RootLayout({
             <InteractiveBackground />
             <Header />
             <main className="relative z-10 flex-1 flex flex-col w-full overflow-x-clip">{children}</main>
+
+            <div className="w-full text-center py-6 mt-8 relative z-10">
+              <p className="text-[11px] text-[#A89F95]/80 font-medium tracking-wide">
+                Repositorio orientado a la UTN FRM (Facultad Regional Mendoza)
+              </p>
+            </div>
             
             <footer className="relative z-10 py-8 border-t border-[#EDE6DD] mt-auto text-center overflow-hidden bg-white/30 backdrop-blur-sm w-full">
               <div className="relative z-10 max-w-xl mx-auto px-4">
@@ -131,12 +137,6 @@ export default function RootLayout({
                 </div>
               </div>
             </footer>
-
-            <div className="w-full text-center pb-6 relative z-10">
-              <p className="text-[10px] text-[#A89F95]/80 font-medium">
-                Repositorio orientado a la UTN FRM (Facultad Regional Mendoza)
-              </p>
-            </div>
           </AuthProvider>
         </ToastProvider>
       </body>
