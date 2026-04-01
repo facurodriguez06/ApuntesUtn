@@ -230,6 +230,8 @@ export default function AdminPage() {
   const [pendingNotes, setPendingNotes] = useState<Note[]>([]);
   const [approvedNotes, setApprovedNotes] = useState<Note[]>([]);
   const [folderInputs, setFolderInputs] = useState<Record<string, string>>({});
+  const [selectedPendingNotes, setSelectedPendingNotes] = useState<string[]>([]);
+  const [bulkFolderInput, setBulkFolderInput] = useState("");
 
   const [showCreateAdmin, setShowCreateAdmin] = useState(false);
   const [isDonationActive, setIsDonationActive] = useState(true);
@@ -249,6 +251,7 @@ export default function AdminPage() {
   const [imagePopupLink, setImagePopupLink] = useState("");
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [isAnnouncementActive, setIsAnnouncementActive] = useState(false);
+  const [activeTab, setActiveTab] = useState("apuntes");
   const [announcementTitle, setAnnouncementTitle] = useState("");
   const [announcementMessage, setAnnouncementMessage] = useState("");
 
@@ -466,6 +469,52 @@ export default function AdminPage() {
       const authError = toAuthError(err);
       console.error("No se pudo aprobar:", err);
       setAdminError(`Error al aprobar (${authError.code || "unknown"}). Verificá las reglas de Firebase.`);
+    }
+  };
+
+  
+  const toggleNoteSelection = (id: string) => {
+    setSelectedPendingNotes(prev => prev.includes(id) ? prev.filter(n => n !== id) : [...prev, id]);
+  };
+
+  const handleSelectAllPending = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) setSelectedPendingNotes(pendingNotes.map(n => n.id));
+    else setSelectedPendingNotes([]);
+  };
+
+  const handleApplyBulkFolder = () => {
+    setFolderInputs(prev => {
+      const next = { ...prev };
+      selectedPendingNotes.forEach(id => {
+        next[id] = bulkFolderInput;
+      });
+      return next;
+    });
+    showToast("Carpeta aplicada a los seleccionados", "info");
+  };
+
+  const handleBulkApprove = async () => {
+    const toApprove = pendingNotes.filter(n => selectedPendingNotes.includes(n.id));
+    if(toApprove.length === 0) return;
+    setAdminError("");
+    try {
+      await Promise.all(toApprove.map(async (note) => {
+        const folderName = normalizeFolderName(folderInputs[note.id] ?? "");
+        await updateDoc(doc(db, "notes", note.id), {
+          status: "approved",
+          folderName: folderName || null,
+        });
+      }));
+      setFolderInputs((current) => {
+        const next = { ...current };
+        toApprove.forEach(n => delete next[n.id]);
+        return next;
+      });
+      setSelectedPendingNotes([]);
+      setBulkFolderInput("");
+      showToast(`Se aprobaron ${toApprove.length} apuntes masivamente.`, "success");
+    } catch(err) {
+      setAdminError("Error al aprobar apuntes masivamente.");
     }
   };
 
@@ -905,6 +954,36 @@ export default function AdminPage() {
         </div>
       )}
 
+      {/* TABS NAVIGATION */}
+      <div className="flex flex-wrap gap-2 mb-8 bg-white p-2 rounded-2xl border border-[#EDE6DD] shadow-sm">
+        <button 
+          onClick={() => setActiveTab('apuntes')} 
+          className={cn("flex-1 py-3 px-4 rounded-xl font-bold text-sm transition-all whitespace-nowrap", activeTab === 'apuntes' ? 'bg-[#4A7A52] text-white shadow-md' : 'text-[#7A6E62] hover:bg-[#F5F0EA]')}
+        >
+          Apuntes
+        </button>
+        <button 
+          onClick={() => setActiveTab('autores')} 
+          className={cn("flex-1 py-3 px-4 rounded-xl font-bold text-sm transition-all whitespace-nowrap", activeTab === 'autores' ? 'bg-[#4A7A52] text-white shadow-md' : 'text-[#7A6E62] hover:bg-[#F5F0EA]')}
+        >
+          Autores
+        </button>
+        <button 
+          onClick={() => setActiveTab('avisos')} 
+          className={cn("flex-1 py-3 px-4 rounded-xl font-bold text-sm transition-all whitespace-nowrap", activeTab === 'avisos' ? 'bg-[#4A7A52] text-white shadow-md' : 'text-[#7A6E62] hover:bg-[#F5F0EA]')}
+        >
+          Avisos
+        </button>
+        <button 
+          onClick={() => setActiveTab('sistema')} 
+          className={cn("flex-1 py-3 px-4 rounded-xl font-bold text-sm transition-all whitespace-nowrap", activeTab === 'sistema' ? 'bg-[#4A7A52] text-white shadow-md' : 'text-[#7A6E62] hover:bg-[#F5F0EA]')}
+        >
+          Sistema
+        </button>
+      </div>
+
+      {activeTab === 'sistema' && (
+      <div className="animate-fade-in">
       {/* Global Settings Section */}
       <section className="mb-10 animate-fade-in-up">
         <div className="bg-white rounded-[2.5rem] border border-[#EDE6DD] p-6 md:p-8 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)]">
@@ -987,6 +1066,11 @@ export default function AdminPage() {
 
       
 
+      </div>
+      )}
+
+      {activeTab === 'autores' && (
+      <div className="animate-fade-in">
       {/* Estilos para autores / Destacados */}
       <section className="mb-10 animate-fade-in-up">
         <div className="bg-white rounded-[2.5rem] border border-[#EDE6DD] p-6 md:p-8 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)]">
@@ -1064,6 +1148,11 @@ export default function AdminPage() {
         </div>
       </section>
 
+      </div>
+      )}
+
+      {activeTab === 'avisos' && (
+      <div className="animate-fade-in">
       {/* Sistema de Anuncios o Popup Imagen */}
       <section className="mb-10 animate-fade-in-up">
         <div className="bg-white rounded-[2.5rem] border border-[#EDE6DD] p-6 md:p-8 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)]">
@@ -1259,6 +1348,11 @@ export default function AdminPage() {
         </div>
       </section>
 
+      </div>
+      )}
+
+      {activeTab === 'apuntes' && (
+      <div className="animate-fade-in">
       <section className="mb-8">
 
         <h2 className="text-xl font-bold text-[#4A433C] mb-4 ml-1 flex items-center gap-2">
@@ -1274,7 +1368,46 @@ export default function AdminPage() {
               icon={<Check className="w-10 h-10 text-[#A8B8A0]" />}
             />
           ) : (
-            <div className="grid grid-cols-1 gap-4">
+            <div className="flex flex-col">
+              <div className="mb-4 p-4 bg-[#F9F7F4] border border-[#ede6dd] rounded-2xl flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                <div className="flex items-center gap-3">
+                  <input
+                    type="checkbox"
+                    checked={selectedPendingNotes.length > 0 && selectedPendingNotes.length === pendingNotes.length}
+                    onChange={handleSelectAllPending}
+                    className="w-5 h-5 cursor-pointer accent-[#4A7A52] rounded"
+                    title="Seleccionar todos"
+                  />
+                  <span className="text-sm font-bold text-[#4A433C]">
+                    {selectedPendingNotes.length} seleccionados
+                  </span>
+                </div>
+                
+                {selectedPendingNotes.length > 0 && (
+                  <div className="flex flex-1 w-full sm:w-auto items-center gap-2">
+                    <input
+                      type="text"
+                      placeholder="Carpeta masiva..."
+                      value={bulkFolderInput}
+                      onChange={(e) => setBulkFolderInput(e.target.value)}
+                      className="flex-1 min-w-[120px] max-w-[200px] border border-[#E5DCD3] rounded-xl px-3 py-2 text-sm focus:border-[#4A7A52] outline-none"
+                    />
+                    <button
+                      onClick={handleApplyBulkFolder}
+                      className="text-xs bg-white border border-[#EDE6DD] px-4 py-2.5 rounded-xl font-bold hover:bg-[#F5EFE5] transition-colors"
+                    >
+                      Aplicar a todos
+                    </button>
+                    <button
+                      onClick={handleBulkApprove}
+                      className="ml-auto text-xs bg-[#4A7A52] text-white px-5 py-2.5 rounded-xl font-bold hover:bg-[#3A6040] shadow-sm transition-colors flex items-center gap-1"
+                    >
+                      <Check className="w-3.5 h-3.5" /> Aprobar {selectedPendingNotes.length}
+                    </button>
+                  </div>
+                )}
+              </div>
+              <div className="grid grid-cols-1 gap-4">
               {pendingNotes.map((note) => {
                 const folderSuggestions = getFolderSuggestions(note);
                 const datalistId = `folders-${note.id}`;
@@ -1285,8 +1418,18 @@ export default function AdminPage() {
                   authorFolder.toLowerCase() !== "anonimo";
 
                 return (
+                  <div key={note.id} className="flex gap-3">
+                    <div className="pt-6 pl-2 hidden sm:block">
+                       <input 
+                         type="checkbox" 
+                         checked={selectedPendingNotes.includes(note.id)}
+                         onChange={() => toggleNoteSelection(note.id)}
+                         className="w-5 h-5 cursor-pointer accent-[#4A7A52] rounded"
+                         title="Seleccionar apunte"
+                       />
+                    </div>
+                    <div className="flex-1 min-w-0">
                   <NoteCard
-                    key={note.id}
                     note={note}
                     extraContent={
                       <div className="rounded-2xl border border-[#EDE6DD] bg-[#FFFBF7] p-4">
@@ -1355,8 +1498,11 @@ export default function AdminPage() {
                       </>
                     }
                   />
+                    </div>
+                  </div>
                 );
               })}
+              </div>
             </div>
           )}
         </div>
@@ -1392,6 +1538,8 @@ export default function AdminPage() {
           )}
         </div>
       </section>
+      </div>
+      )}
 
       {/* CUSTOM CONFIRMATION MODAL */}
       {confirmDeleteAdmin.isOpen && (
