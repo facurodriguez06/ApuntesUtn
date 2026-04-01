@@ -63,13 +63,43 @@ export function DocumentListItem({ note, customStyles = {}, index = 0 }: { note:
     if (note.fileUrl) {
       setDownloaded(true);
 
-      const link = document.createElement("a");
-      link.href = resolveStorageUrl(note.fileUrl);
-      link.download = note.title;
-      link.target = "_blank";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      const url = resolveStorageUrl(note.fileUrl);
+      const filename = note.title || "documento";
+      
+      // Intentar fetch para forzar la descarga a través de blob
+      // Si falla por CORS (archivos externos sin cabeceras), hace fallback a tab nueva
+      fetch(url)
+        .then(response => {
+          if (!response.ok) throw new Error('Error de red');
+          return response.blob();
+        })
+        .then(blob => {
+          const blobUrl = window.URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = blobUrl;
+          // Construir un nombre de archivo con extensión correcta si no la tiene
+          let downloadName = filename;
+          if (note.fileType && !downloadName.toLowerCase().endsWith(note.fileType.toLowerCase())) {
+            downloadName += `.${note.fileType.toLowerCase()}`;
+          }
+          link.download = downloadName;
+          document.body.appendChild(link);
+          link.click();
+          // Cleanup
+          link.remove();
+          window.URL.revokeObjectURL(blobUrl);
+        })
+        .catch(() => {
+          // Fallback para navegadores rebeldes o errores de CORS: tratar de forzar download programáticamente con rel="noopener"
+          const link = document.createElement("a");
+          link.href = url;
+          // Agregamos download, la mayoría de navegadores lo respeta si el origin es el mismo
+          link.setAttribute("download", filename);
+          link.target = "_blank";
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+        });
 
       setTimeout(() => setDownloaded(false), 2500);
     }
