@@ -406,6 +406,7 @@ const basicasSubs: Subject[] = [
   
   // 2do Año Básicas
   sub('bas-am2', 'Análisis Matemático II', 2, 'basicas'),
+  sub('bas-fis2', 'Física II', 2, 'basicas'),
   {...sub('bas-fis3', 'Física III', 2, 'basicas'), excludedCareers: ['sistemas']},
   sub('bas-pye', 'Probabilidad y Estadística', 2, 'basicas'),
   sub('bas-eco', 'Economía', 2, 'basicas'),
