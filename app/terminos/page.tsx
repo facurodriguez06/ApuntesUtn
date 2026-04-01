@@ -16,7 +16,7 @@ export default function TerminosYCondiciones() {
           <ul className="list-disc pl-6 mt-2 space-y-2">
             <li>No garantizamos que el material esté 100% libre de errores. ¡Revisá y verificá con los apuntes oficiales de tu profe!</li>
             <li>Si subís un archivo, estás de acuerdo en que pase a ser de consulta pública y gratuita para toda la comunidad de UTNHub.</li>
-            <li>UTNHub no es responsable de las calificaciones de tus exámenes (ojalá promociones, pero estudiar sigue dependiendo de vos 📚).</li>
+            <li>UTNHub no es responsable de las calificaciones de tus exámenes (ojalá promociones, pero estudiar sigue dependiendo de vos).</li>
           </ul>
         </section>
         
