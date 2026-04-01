@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { subjectsData, careersData, yearConfig, type Note } from "@/lib/data";
 import { DocumentListItem } from "@/components/DocumentListItem";
 import { EmptyState } from "@/components/EmptyState";
@@ -179,9 +180,22 @@ export default async function SubjectProfile({ params }: { params: Promise<{ car
           {displayNotes.length > 0 ? (
             noteGroups.map((group, groupIndex) => {
               if (group.key === GENERAL_FOLDER_KEY) {
-                return group.notes.map((note, index) => (
-                  <DocumentListItem key={note.id} note={note} index={index} customStyles={customStyles} />
-                ));
+                return group.notes.map((note, index) => {
+                  const showSeparator = index === 0 || note.type !== group.notes[index - 1].type;
+                  return (
+                    <Fragment key={note.id}>
+                      {showSeparator && (
+                        <div className={`flex items-center gap-3 w-full mb-1 ${index === 0 ? "mt-0" : "mt-4"}`}>
+                          <span className="text-[10px] sm:text-[11px] font-black uppercase tracking-widest text-[#A89F95] px-3 py-1.5 bg-[#F5F0EA]/80 backdrop-blur-sm rounded-lg border border-[#EDE6DD]">
+                            {note.type || "Otros"}
+                          </span>
+                          <div className="h-[1px] flex-1 bg-gradient-to-r from-[#EDE6DD] to-transparent" />
+                        </div>
+                      )}
+                      <DocumentListItem note={note} index={index} customStyles={customStyles} />
+                    </Fragment>
+                  );
+                });
               }
 
               return (() => {
@@ -256,9 +270,28 @@ export default async function SubjectProfile({ params }: { params: Promise<{ car
                       style={customStyleFolder && !isCreatorFolder ? { borderColor: customStyleFolder.color + "33" } : {}}
                     >
                       <div className="flex flex-col gap-3">
-                        {group.notes.map((note, index) => (
-                          <DocumentListItem key={note.id} note={note} index={index} customStyles={customStyles} />
-                        ))}
+                        {group.notes.map((note, index) => {
+                          const showSeparator = index === 0 || note.type !== group.notes[index - 1].type;
+                          return (
+                            <Fragment key={note.id}>
+                              {showSeparator && (
+                                <div className={`flex items-center gap-3 w-full ${index === 0 ? "mb-1 mt-0" : "my-2"}`}>
+                                  <span 
+                                    className="text-[10px] font-black uppercase tracking-wider text-[#A89F95] px-2 py-1 bg-[#F5F0EA] rounded-md"
+                                    style={customStyleFolder && !isCreatorFolder ? { backgroundColor: customStyleFolder.color + "1A", color: customStyleFolder.color } : {}}
+                                  >
+                                    {note.type || "Otros"}
+                                  </span>
+                                  <div 
+                                    className="h-[1px] flex-1 bg-gradient-to-r from-[#EDE6DD] to-transparent" 
+                                    style={customStyleFolder && !isCreatorFolder ? { backgroundImage: `linear-gradient(to right, ${customStyleFolder.color}40, transparent)` } : {}} 
+                                  />
+                                </div>
+                              )}
+                              <DocumentListItem note={note} index={index} customStyles={customStyles} />
+                            </Fragment>
+                          );
+                        })}
                       </div>
                     </div>
                   </details>
