@@ -20,7 +20,15 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: "UTNHub",
-  description: "Repositorio colaborativo de apuntes universitarios",
+  description: "Relajá tu semestre. La comunidad definitiva de resúmenes.",
+  openGraph: {
+    title: "UTNHub",
+    description: "Relajá tu semestre. La comunidad definitiva de resúmenes.",
+    type: "website",
+    url: "https://www.utnhub.com",
+    locale: "es_AR",
+    siteName: "UTNHub",
+  },
   icons: {
     icon: "/icon.png",
     apple: "/icon.png",
