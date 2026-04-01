@@ -14,6 +14,16 @@ export function CustomCursor() {
     if (isTouchDevice) return;
 
     const handleMouseMove = (e: MouseEvent) => {
+      // Detect if mouse is over native scrollbars
+      const isOverScrollbar = 
+        e.clientX >= document.documentElement.clientWidth || 
+        e.clientY >= document.documentElement.clientHeight;
+
+      if (isOverScrollbar) {
+        if (isVisible) setIsVisible(false);
+        return;
+      }
+
       setMousePos({ x: e.clientX, y: e.clientY });
       if (!isVisible) setIsVisible(true);
 
@@ -48,9 +58,8 @@ export function CustomCursor() {
   return (
     <>
       <style dangerouslySetInnerHTML={{__html: `
-        /* Ocultar el cursor nativo globalmente excepto en inputs */
+        /* Ocultar el cursor nativo enteramente en TODA LA PÁGINA, incluso en inputs */
         * { cursor: none !important; }
-        input, textarea, [contenteditable="true"] { cursor: text !important; }
       `}} />
       
       {/* Cursor principal adaptado al estilo y paleta de la página */}
