@@ -188,7 +188,7 @@ export function UploadModule() {
             tipo === "resumen"
               ? "Resumen"
               : tipo === "examen"
-                ? "Examen Resuelto"
+                ? "Examen"
                 : tipo === "tp"
                   ? "Trabajo Práctico"
                   : "Guía de Ejercicios",
@@ -450,7 +450,7 @@ const isValid = files.length > 0 && (files.length > 1 ? true : sanitize(title) !
                 onChange={setTipo}
                 options={[
                   { value: "resumen", label: "Resumen" },
-                  { value: "examen", label: "Examen Resuelto" },
+                  { value: "examen", label: "Examen" },
                   { value: "tp", label: "Trabajo Práctico" },
                   { value: "guia", label: "Guía de Ejercicios" },
                 ]}
