@@ -1,5 +1,5 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, initializeFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
@@ -19,6 +19,16 @@ const firebaseConfig = {
 
 // Se utiliza un patrón Singleton para evitar la inicialización múltiple durante el entorno de desarrollo (HMR) de Next.js
 export const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
-export const db = getFirestore(app);
+
+let firestoreInstance;
+if (getApps().length === 0) {
+  firestoreInstance = initializeFirestore(app, {
+    experimentalForceLongPolling: true,
+  });
+} else {
+  firestoreInstance = getFirestore(app);
+}
+
+export const db = firestoreInstance;
 export const auth = getAuth(app);
 export const storage = typeof window === "undefined" ? null : getStorage(app);

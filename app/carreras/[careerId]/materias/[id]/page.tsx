@@ -141,7 +141,7 @@ export default async function SubjectProfile({ params }: { params: Promise<{ car
           </Link>
         </div>
 
-        <div className="bg-white rounded-2xl border border-[#EDE6DD] overflow-hidden mb-6 animate-fade-in-up">
+        <div className="bg-white/80 backdrop-blur-xl rounded-3xl border border-[#EDE6DD] overflow-hidden mb-8 shadow-[0_8px_30px_rgba(61,50,41,0.04)]  z-10 relative">
           <div className="h-1.5 w-full" style={{ background: `linear-gradient(to right, ${yc.accent}, ${yc.accent}88)` }} />
           <div className="p-5 sm:p-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -192,8 +192,10 @@ export default async function SubjectProfile({ params }: { params: Promise<{ car
                           <div className="h-[1px] flex-1 bg-gradient-to-r from-[#EDE6DD] to-transparent" />
                         </div>
                       )}
-                      <DocumentListItem note={note} index={index} customStyles={customStyles} />
-                    </Fragment>
+                        <div className="animate-fade-in-up" style={{ animationDelay: `${(index % 10) * 40 + 100}ms` }}>
+                          <DocumentListItem note={note} index={index} customStyles={customStyles} />
+                        </div>
+                      </Fragment>
                   );
                 });
               }
@@ -231,9 +233,9 @@ export default async function SubjectProfile({ params }: { params: Promise<{ car
                   <details
                     key={group.key}
                     open={openFoldersByDefault}
-                    className={`animate-fade-in-up rounded-2xl border open:shadow-sm ${wrapperClass}`}
+                    className={`animate-fade-in-up rounded-2xl border transition-all hover:shadow-md group/folder z-10 relative ${wrapperClass}`}
                     style={{ 
-                      animationDelay: `${groupIndex * 60}ms`,
+                      animationDelay: `${groupIndex * 50}ms`,
                       ...(customStyleFolder && !isCreatorFolder ? {
                         backgroundColor: customStyleFolder.color + "10",
                         borderColor: customStyleFolder.color + "40"
@@ -262,7 +264,7 @@ export default async function SubjectProfile({ params }: { params: Promise<{ car
                         >
                           {group.notes.length}
                         </span>
-                        <ChevronDown className={`w-4 h-4 ${chevronClass}`} style={customStyleFolder && !isCreatorFolder ? { color: customStyleFolder.color } : {}} />
+                        <ChevronDown className={`w-4 h-4 transition-transform duration-300 group-open/folder:rotate-180 ${chevronClass}`} style={customStyleFolder && !isCreatorFolder ? { color: customStyleFolder.color } : {}} />
                       </div>
                     </summary>
                     <div 
@@ -275,7 +277,7 @@ export default async function SubjectProfile({ params }: { params: Promise<{ car
                           return (
                             <Fragment key={note.id}>
                               {showSeparator && (
-                                <div className={`flex items-center gap-3 w-full ${index === 0 ? "mb-1 mt-0" : "my-2"}`}>
+                                <div className={`animate-in fade-in fill-mode-forwards opacity-0 duration-500 delay-[200ms] flex items-center gap-3 w-full ${index === 0 ? "mb-1 mt-0" : "my-2"}`}>
                                   <span 
                                     className="text-[10px] font-black uppercase tracking-wider text-[#A89F95] px-2 py-1 bg-[#F5F0EA] rounded-md"
                                     style={customStyleFolder && !isCreatorFolder ? { backgroundColor: customStyleFolder.color + "1A", color: customStyleFolder.color } : {}}
@@ -288,7 +290,9 @@ export default async function SubjectProfile({ params }: { params: Promise<{ car
                                   />
                                 </div>
                               )}
-                              <DocumentListItem note={note} index={index} customStyles={customStyles} />
+                              <div className="animate-fade-in-up" style={{ animationDelay: `${(index % 10) * 40 + 200}ms` }}>
+                                <DocumentListItem note={note} index={index} customStyles={customStyles} />
+                              </div>
                             </Fragment>
                           );
                         })}

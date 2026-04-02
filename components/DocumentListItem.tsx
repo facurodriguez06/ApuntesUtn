@@ -119,8 +119,8 @@ export function DocumentListItem({ note, customStyles = {}, index = 0 }: { note:
 
   return (
     <div
-      className={`group relative flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 border rounded-xl hover:-translate-y-[2px] transition-all duration-400 animate-fade-in-up ${!customAuthorStyle ? getBgClass(note.type, isCreatorNote) : ''}`} style={{ animationDelay: `${index * 80}ms`, ...(customAuthorStyle ? { backgroundColor: customAuthorStyle.color + '0a', borderColor: customAuthorStyle.color + '40' } : {}) }}
-      
+      className={`group relative flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 border rounded-xl hover:-translate-y-[2px] transition-all duration-400 ${!customAuthorStyle ? getBgClass(note.type, isCreatorNote) : ''}`} style={{ ...(customAuthorStyle ? { backgroundColor: customAuthorStyle.color + '0a', borderColor: customAuthorStyle.color + '40' } : {}) }}
+
     >
       <div className="flex items-start gap-3 flex-1 mb-3 sm:mb-0 min-w-0">
         <div

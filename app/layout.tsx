@@ -7,7 +7,7 @@ import { CustomCursor } from "@/components/CustomCursor";
 import { AnnouncementModal } from "@/components/AnnouncementModal";
 import { ImagePopupModal } from "@/components/ImagePopupModal";
 import { MetricsTracker } from "@/components/MetricsTracker";
-import Script from "next/script";
+import { AntiDevtools } from "@/components/AntiDevtools";
 import { AuthProvider } from "@/context/AuthContext";
 import { ToastProvider } from "@/context/ToastContext";
 
@@ -36,28 +36,6 @@ export const metadata: Metadata = {
   },
 };
 
-// Anti-devtools protection script (only active in production)
-const securityScript = `
-(function() {
-  var isProd = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
-  if (!isProd) return;
-
-  // 1. Silenciar consola
-  var noop = function() {};
-  var methods = ['log', 'debug', 'info', 'warn', 'error', 'table', 'dir'];
-  methods.forEach(function(m) { console[m] = noop; });
-
-  // 2. Bloqueo de teclado e inspección
-  document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || (e.ctrlKey && e.key === 'u')) {
-      e.preventDefault();
-      return false;
-    }
-  });
-})();
-`;
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -65,16 +43,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className="antialiased" suppressHydrationWarning>
-      <head>
-        <script id="security" dangerouslySetInnerHTML={{ __html: securityScript }} />
-      </head>
       <body className="min-h-screen flex flex-col bg-[#FFFBF7] text-[#3D3229] w-full m-0 p-0 relative">
-        <MetricsTracker />
-        <Preloader />
-        <CustomCursor />
-        <AnnouncementModal />
-        <ImagePopupModal />
+        <AntiDevtools />
         <ToastProvider>
+          <MetricsTracker />
+          <Preloader />
+          <CustomCursor />
+          <AnnouncementModal />
+          <ImagePopupModal />
           <AuthProvider>
             <InteractiveBackground />
             <Header />
