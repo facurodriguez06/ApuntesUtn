@@ -61,6 +61,13 @@ export function Header() {
               Explorar
               <span className="absolute bottom-1.5 left-4 right-4 h-[2px] bg-[#8BAA91] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center rounded-full opacity-60" />
             </Link>
+            <Link 
+              href="/planes" 
+              className="relative text-[13px] font-bold text-[#7A6E62] hover:text-[#3D3229] px-4 py-2 rounded-xl transition-all duration-300 group hover:bg-[#F5F0EA]/50"
+            >
+              Planes de Estudio
+              <span className="absolute bottom-1.5 left-4 right-4 h-[2px] bg-[#8BAA91] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center rounded-full opacity-60" />
+            </Link>
             <button 
               onClick={() => setShowDonationModal(true)}
               className="relative flex items-center gap-1.5 text-[12px] font-bold text-[#8B7355] hover:text-[#3D3229] px-3 py-2 rounded-xl transition-all duration-300 group hover:bg-[#F5EFE5]/50"
@@ -99,6 +106,13 @@ export function Header() {
                 onClick={() => setMenuOpen(false)}
               >
                 Explorar materias <ChevronRight className="w-4 h-4 opacity-50" />
+              </Link>
+              <Link 
+                href="/planes" 
+                className="flex items-center justify-between text-sm font-bold text-[#7A6E62] hover:text-[#3D3229] px-4 py-3 rounded-xl hover:bg-white transition-all"
+                onClick={() => setMenuOpen(false)}
+              >
+                Planes de Estudio <ChevronRight className="w-4 h-4 opacity-50" />
               </Link>
               <Link 
                 href="/upload" 
