@@ -99,19 +99,19 @@ export default function Home() {
           </div>
 
           {/* Live stats */}
-          <div className="flex items-center justify-center gap-4 mt-6 animate-fade-in-up">
-            <div className="flex items-center gap-2 bg-[#E8F0EA] px-3 py-1.5 rounded-full hover-lift transition-all">
-              <BookOpen className="w-3 h-3 text-[#4A7A52]" />
+          <div className="flex flex-wrap items-center justify-center gap-3 mt-6 animate-fade-in-up">
+            <div className="group/stat flex items-center gap-2 bg-[#E8F0EA] px-3 py-1.5 rounded-full hover:-translate-y-1 hover:shadow-md hover:shadow-[#8BAA91]/20 transition-all duration-300 cursor-default">
+              <BookOpen className="w-3 h-3 text-[#4A7A52] group-hover/stat:rotate-12 group-hover/stat:scale-110 transition-transform duration-300" />
               <span className="text-xs font-bold text-[#4A7A52]">
                 <LiveNotesCount /> apuntes
               </span>
             </div>
-            <div className="flex items-center gap-2 bg-[#EFEBF5] px-3 py-1.5 rounded-full hover-lift transition-all">
-              <Layers className="w-3 h-3 text-[#6B5A8E]" />
+            <div className="group/stat flex items-center gap-2 bg-[#EFEBF5] px-3 py-1.5 rounded-full hover:-translate-y-1 hover:shadow-md hover:shadow-[#6B5A8E]/20 transition-all duration-300 cursor-default">
+              <Layers className="w-3 h-3 text-[#6B5A8E] group-hover/stat:-rotate-12 group-hover/stat:scale-110 transition-transform duration-300" />
               <span className="text-xs font-bold text-[#6B5A8E]">{totalSubjects} materias</span>
             </div>
-            <div className="hidden sm:flex items-center gap-2 bg-[#FFF0E5] px-3 py-1.5 rounded-full hover-lift transition-all">
-              <School className="w-3 h-3 text-[#9B6B3D]" />
+            <div className="group/stat flex items-center gap-2 bg-[#FFF0E5] px-3 py-1.5 rounded-full hover:-translate-y-1 hover:shadow-md hover:shadow-[#9B6B3D]/20 transition-all duration-300 cursor-default">
+              <School className="w-3 h-3 text-[#9B6B3D] group-hover/stat:rotate-6 group-hover/stat:scale-110 transition-transform duration-300" />
               <span className="text-xs font-bold text-[#9B6B3D]">{careersData.length} carreras</span>
             </div>
           </div>

@@ -278,8 +278,8 @@ const isValid = files.length > 0 && (files.length > 1 ? true : sanitize(title) !
 
         <div className="p-5 border-b border-[#EDE6DD]">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-[#E8F0EA] flex items-center justify-center">
-              <Upload className="w-4 h-4 text-[#4A7A52]" />
+            <div className="group/icon w-8 h-8 rounded-lg bg-[#E8F0EA] flex items-center justify-center shadow-sm shadow-[#8BAA91]/10 hover:shadow-md transition-all duration-300">
+              <Upload className="w-4 h-4 text-[#4A7A52] group-hover/icon:-translate-y-1 transition-transform duration-300" />
             </div>
             <div>
               <h2 className="text-lg font-extrabold text-[#3D3229]">Subir apunte</h2>
@@ -291,10 +291,10 @@ const isValid = files.length > 0 && (files.length > 1 ? true : sanitize(title) !
         <div className="p-5 space-y-5">
           {files.length === 0 ? (
             <div
-              className={`relative flex flex-col items-center justify-center w-full py-10 px-4 border-2 border-dashed rounded-2xl transition-all duration-300 cursor-pointer group ${
+              className={`relative flex flex-col items-center justify-center w-full py-10 px-4 border-2 border-dashed rounded-2xl transition-all duration-300 cursor-pointer group/drop ${
                 isDragging
-                  ? "border-[#8BAA91] bg-[#E8F0EA] scale-[1.01]"
-                  : "border-[#EDE6DD] bg-[#FFFBF7] hover:bg-[#F5F0EA] hover:border-[#C5DBC9]"
+                  ? "border-[#8BAA91] bg-[#E8F0EA] scale-[1.01] shadow-lg shadow-[#8BAA91]/20"
+                  : "border-[#EDE6DD] bg-[#FFFBF7] hover:bg-[#F5F0EA] hover:border-[#8BAA91]/50 hover:shadow-md hover:-translate-y-0.5"
               }`}
               onDragOver={(event) => {
                 event.preventDefault();
@@ -308,10 +308,10 @@ const isValid = files.length > 0 && (files.length > 1 ? true : sanitize(title) !
               }}
               onClick={() => fileInputRef.current?.click()}
             >
-              <UploadCloud className="w-10 h-10 text-[#A89F95] mb-3 group-hover:text-[#8BAA91] transition-colors" />
+              <UploadCloud className="w-10 h-10 text-[#A89F95] mb-3 group-hover/drop:text-[#8BAA91] group-hover/drop:scale-110 group-hover/drop:-translate-y-1 transition-all duration-300" />
               <p className="text-sm text-[#7A6E62] font-semibold mb-1">Arrastra archivos o hace click</p>
               <p className="text-xs text-[#A89F95] mb-2">PDF, DOCX, XLSX, ZIP, RAR, JPG o PNG (Max. 50MB)</p>
-              <p className="text-[10px] text-[#4A7A52] font-bold bg-[#E8F0EA] px-2 py-1 rounded-md">¡Podés seleccionar varios a la vez!</p>
+              <p className="text-[10px] text-[#4A7A52] font-bold bg-[#E8F0EA] px-2 py-1 rounded-md group-hover/drop:bg-[#D6E5D8] transition-colors duration-300">¡Podés seleccionar varios a la vez!</p>
               <input
                 ref={fileInputRef}
                 type="file"
@@ -489,20 +489,28 @@ const isValid = files.length > 0 && (files.length > 1 ? true : sanitize(title) !
             <button
               onClick={resetForm}
               disabled={isUploading}
-              className="px-4 py-2 text-sm font-semibold text-[#7A6E62] hover:text-[#3D3229] rounded-xl hover:bg-[#F5F0EA] transition-all active:scale-95 disabled:opacity-50"
+              className="px-4 py-2 text-sm font-semibold text-[#7A6E62] hover:text-[#3D3229] rounded-xl hover:bg-[#F5F0EA] transition-all duration-300 active:scale-95 disabled:opacity-50"
             >
               Limpiar
             </button>
             <button
               onClick={handleSubmit}
               disabled={!isValid || isUploading}
-              className={`inline-flex items-center gap-1.5 px-6 py-2.5 text-sm font-bold rounded-xl transition-all duration-300 active:scale-95 ${
+              className={`group/btn inline-flex items-center gap-1.5 px-6 py-2.5 text-sm font-bold rounded-xl transition-all duration-300 active:scale-95 ${
                 isValid && !isUploading
-                  ? "bg-gradient-to-r from-[#8BAA91] to-[#7CC2A8] text-white shadow-md hover:shadow-lg hover:shadow-[#8BAA91]/25 hover:scale-[1.02]"
-                  : "bg-[#EDE6DD] text-[#A89F95] cursor-not-allowed"
+                  ? "bg-gradient-to-r from-[#8BAA91] to-[#6A8F70] text-white shadow-sm shadow-[#8BAA91]/20 hover:shadow-md hover:shadow-[#8BAA91]/30 hover:-translate-y-0.5 border border-[#597A5E]"
+                  : "bg-[#EAE4DB] text-[#A89F95] cursor-not-allowed border border-[#DED5C7]"
               }`}
             >
-              {isUploading ? "Cargando..." : "Subir apunte"} <Send className="w-3.5 h-3.5" />
+              {isUploading ? (
+                <>
+                  <UploadCloud className="w-4 h-4 animate-bounce" /> Subiendo...
+                </>
+              ) : (
+                <>
+                  Subir Apunte <UploadCloud className="w-4 h-4 group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5 transition-transform" />
+                </>
+              )}
             </button>
           </div>
         </div>

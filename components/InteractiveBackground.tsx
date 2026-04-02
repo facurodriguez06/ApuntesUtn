@@ -43,13 +43,14 @@ export function InteractiveBackground() {
           background-size: 28px 28px;
           background-repeat: repeat;
           opacity: 0.15; /* Base visibility for mobile */
+          transition: opacity 0.5s ease;
         }
-        
+
         @media (hover: hover) and (pointer: fine) {
           .interactive-bg-pattern {
             opacity: 1; /* Reset opacity since mask will handle it */
-            -webkit-mask-image: radial-gradient(circle 200px at var(--mx, -200px) var(--my, -200px), black 0%, transparent 100%);
-            mask-image: radial-gradient(circle 200px at var(--mx, -200px) var(--my, -200px), black 0%, transparent 100%);
+            -webkit-mask-image: radial-gradient(circle 350px at var(--mx, -350px) var(--my, -350px), black 0%, transparent 100%);
+            mask-image: radial-gradient(circle 350px at var(--mx, -350px) var(--my, -350px), black 0%, rgba(0,0,0,0.05) 100%);
           }
         }
       `}} />

@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { Career } from "@/lib/data";
 import { cn } from "@/lib/utils";
@@ -9,13 +11,15 @@ export function CareerCard({ career }: { career: Career }) {
   const IconComponent = iconMap[career.icon];
 
   const content = (
-    <div className={cn(
-      "group relative flex flex-col h-full w-full rounded-[24px] box-border border overflow-hidden",
-      "transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]",
-      career.implemented
-        ? "bg-white border-[#EAE4DB] hover:border-[#D5CFC6] shadow-[0_4px_24px_-8px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.06)] cursor-pointer hover:-translate-y-1"
-        : "bg-[#FCFBFA] border-[#E8E2D9] opacity-70 cursor-not-allowed"
-    )}>
+    <div 
+      className={cn(
+        "group relative flex flex-col h-full w-full rounded-[24px] box-border border overflow-hidden",
+        "transition-all duration-300 ease-out will-change-transform",
+        career.implemented
+          ? "bg-white border-[#EAE4DB] shadow-sm hover:translate-y-[-4px] hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:border-[#DED5CA] cursor-pointer"
+          : "bg-[#FCFBFA] border-[#E8E2D9] opacity-70 cursor-not-allowed"
+      )}
+    >
       
       {/* Background gentle color fill on hover */}
       {career.implemented && (
@@ -53,19 +57,11 @@ export function CareerCard({ career }: { career: Career }) {
               "group-hover:bg-white group-hover:shadow-[0_8px_16px_-6px_rgba(0,0,0,0.06)] group-hover:border-transparent group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
             )}>
               <span className={cn("absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500", career.pastelBg)} />
-              <ArrowUpRight className={cn(
-                "w-[18px] h-[18px] transition-all duration-500 relative z-10",
-                "group-hover:scale-110",
-                career.implemented ? `group-hover:${career.pastelText.replace('text-', '')}` : "" 
-                // We'll just define the color to appear via CSS trick or direct usage:
-              )} color={career.implemented ? "currentColor" : undefined} style={career.implemented ? { color: 'inherit' } : {}} strokeWidth={2} />
-              
-              {/* Force the hover color using a layered approach */}
-              <div className={cn("absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500", career.pastelText)}>
-                <ArrowUpRight className="w-[18px] h-[18px] scale-110" strokeWidth={2} />
-              </div>
-              <div className="absolute inset-0 flex items-center justify-center opacity-100 group-hover:opacity-0 transition-opacity duration-500">
+              <div className="absolute inset-0 flex items-center justify-center opacity-100 group-hover:opacity-0 transition-all duration-300">
                 <ArrowUpRight className="w-[18px] h-[18px]" strokeWidth={2} />
+              </div>
+              <div className={cn("absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300", career.pastelText)}>
+                <ArrowUpRight className="w-[18px] h-[18px]" strokeWidth={2.5} />
               </div>
             </div>
           )}
@@ -90,13 +86,11 @@ export function CareerCard({ career }: { career: Career }) {
 
       {/* Decorative animated base line */}
       {career.implemented && (
-        <div className="px-7 sm:px-8 pb-7 relative mt-1">
-          <div className="h-1 w-10 rounded-full bg-[#EAE4DB] transition-all duration-500 overflow-hidden relative group-hover:w-full group-hover:opacity-50">
-            <div className={cn(
-              "absolute inset-0 w-full h-full -translate-x-full group-hover:translate-x-0 transition-transform duration-[800ms] ease-[cubic-bezier(0.23,1,0.32,1)]",
-              career.pastelBg
-            )} />
-          </div>
+        <div className="px-7 sm:px-8 pb-7 relative mt-1 flex">
+          <div className={cn(
+            "h-1.5 w-12 rounded-full transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:w-full opacity-70 group-hover:opacity-100",
+            career.pastelAccent
+          )} />
         </div>
       )}
     </div>

@@ -164,24 +164,24 @@ export function DocumentListItem({ note, customStyles = {}, index = 0 }: { note:
       <div className={`flex items-center justify-end w-full sm:w-auto gap-2 border-t sm:border-t-0 pt-3 sm:pt-0 ${isCreatorNote ? "border-[#E7D39A]" : "border-[#EDE6DD]"}`}>
         <button
           onClick={handleVisualizar}
-          className={`inline-flex items-center justify-center rounded-lg px-3 py-2 text-sm font-semibold transition-all duration-300 active:scale-95 ${
+          className={`group/btn inline-flex items-center justify-center rounded-lg px-3 py-2 text-sm font-semibold transition-all duration-300 active:scale-95 ${
             isCreatorNote
               ? "bg-[#FFF4CC] text-[#7A5A0A] hover:bg-[#FFE9A3] hover:text-[#5E4608] border border-[#E2C15F]/50"
-              : "bg-white text-[#7A6E62] border border-[#EBE3D5] hover:bg-[#FDFBF7] hover:border-[#DED5C7] hover:text-[#3D3229] hover:shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
+              : "bg-white text-[#7A6E62] border border-[#EBE3D5] hover:bg-[#FDFBF7] hover:border-[#DED5C7] hover:text-[#3D3229] hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
           }`}
           title="Previsualizar"
         >
-          <Eye className="w-3.5 h-3.5 mr-1.5" /> Ver
+          <Eye className="w-3.5 h-3.5 mr-1.5 group-hover/btn:scale-110 transition-transform duration-300" /> Ver
         </button>
 
         <button
           onClick={handleDownload}
-          className={`inline-flex items-center justify-center rounded-lg px-3.5 py-2 text-sm font-semibold border transition-all duration-300 active:scale-95 ${
+          className={`group/btn inline-flex items-center justify-center rounded-lg px-3.5 py-2 text-sm font-semibold border transition-all duration-300 active:scale-95 ${
             downloaded
               ? "bg-[#E8F0EA] text-[#4A7A52] border-[#C5DBC9] shadow-inner"
               : isCreatorNote
-                ? "bg-[#D4AF37] text-white border-[#C29D26] shadow-[0_2px_8px_rgba(212,175,55,0.25)] hover:shadow-[0_4px_12px_rgba(212,175,55,0.35)] hover:-translate-y-0.5"
-                : "bg-[#8BAA91] text-white border-[#7A9880] shadow-[0_2px_8px_rgba(139,170,145,0.25)] hover:shadow-[0_4px_12px_rgba(139,170,145,0.35)] hover:-translate-y-0.5"
+                ? "bg-[#D4AF37] text-white border-[#C29D26] shadow-[0_2px_8px_rgba(212,175,55,0.25)] hover:shadow-[0_6px_16px_rgba(212,175,55,0.35)] hover:-translate-y-1"
+                : "bg-[#8BAA91] text-white border-[#7A9880] shadow-[0_2px_8px_rgba(139,170,145,0.25)] hover:shadow-[0_6px_16px_rgba(139,170,145,0.35)] hover:-translate-y-1"
           }`}
         >
           {downloaded ? (
@@ -190,7 +190,7 @@ export function DocumentListItem({ note, customStyles = {}, index = 0 }: { note:
             </>
           ) : (
             <>
-              Descargar <Download className="w-3.5 h-3.5 ml-1.5" />
+              Descargar <Download className="w-3.5 h-3.5 ml-1.5 group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5 transition-transform duration-300" />
             </>
           )}
         </button>

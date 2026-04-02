@@ -1,18 +1,25 @@
+"use client";
+
 import Link from "next/link";
 import { Subject, yearConfig } from "@/lib/data";
 import { ChevronRight, FileText, Inbox } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export function SubjectCard({ subject, careerId }: { subject: Subject; careerId?: string }) {
   const hasNotes = subject.notesCount > 0;
-  const yc = yearConfig[subject.year];
+  const yc = yearConfig[subject.year] || yearConfig[1];
 
   return (
     <Link
       href={`/carreras/${subject.careerId}/materias/${subject.id}`}
-      className="group flex flex-col justify-between h-full w-full flex-1 rounded-xl border border-[#E3DCD2] bg-white p-4 hover:-translate-y-1 hover:border-[#B2C7B6] hover:shadow-[0_8px_24px_rgba(139,170,145,0.12)] transition-all duration-400 relative overflow-hidden"
+      className={cn(
+        "group flex flex-col justify-between h-full w-full flex-1 rounded-xl border border-[#E3DCD2] bg-white p-4 relative overflow-hidden",
+        "transition-all duration-300 ease-out will-change-transform",
+        "hover:-translate-y-1 hover:border-[#B2C7B6] hover:shadow-[0_8px_24px_rgba(139,170,145,0.12)]"
+      )}
     >
       <div 
-        className="absolute top-0 right-0 w-16 h-16 rounded-bl-[40px] opacity-[0.12] transition-opacity duration-300 group-hover:opacity-[0.25]" 
+        className="absolute top-0 right-0 w-16 h-16 rounded-bl-[40px] opacity-[0.12] transition-opacity duration-300 group-hover:opacity-[0.25] z-0" 
         style={{ backgroundColor: yc.accent }}
       />
       
@@ -36,8 +43,15 @@ export function SubjectCard({ subject, careerId }: { subject: Subject; careerId?
           }
         </div>
       </div>
-      <div className="flex items-center text-[13px] font-semibold text-[#8BAA91] mt-4 group-hover:text-[#4A7A52] relative z-10">
-        Ver material <ChevronRight className="w-3.5 h-3.5 ml-0.5 transition-transform duration-200 group-hover:translate-x-1" />
+      <div className="flex items-center justify-between text-[13px] font-semibold text-[#8BAA91] mt-4 group-hover:text-[#4A7A52] relative z-10">
+        <span className="transition-colors duration-300">Ver material</span>
+        <div className="relative flex items-center justify-center w-6 h-6 rounded-full transition-all duration-300 bg-[#F5F0EA] text-[#A89F95] group-hover:shadow-sm group-hover:-translate-y-[2px] group-hover:translate-x-[2px] group-hover:text-white">
+          <div 
+            className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            style={{ backgroundColor: yc.accent }}
+          />
+          <ChevronRight className="w-3.5 h-3.5 relative z-10 transition-transform duration-300 group-hover:scale-110" strokeWidth={2.5} />
+        </div>
       </div>
     </Link>
   );

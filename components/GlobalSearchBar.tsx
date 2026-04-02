@@ -98,13 +98,20 @@ export function GlobalSearchBar() {
           className="relative flex items-center w-full h-12 rounded-2xl border border-[#EDE6DD] bg-white/80 backdrop-blur-sm overflow-hidden hover:border-[#C5DBC9] hover:shadow-md hover:shadow-[#8BAA91]/10 transition-all duration-300 cursor-text group"
         >
           <div className="pl-4 pr-3 flex items-center text-[#A89F95] group-hover:text-[#8BAA91] transition-colors duration-300">
-            <Search className="w-5 h-5" />
+            <Search className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
           </div>
-          <span className="flex-1 text-left text-[#A89F95] text-sm">
+          <span className="flex-1 text-left text-[#A89F95] text-sm group-hover:translate-x-1 transition-transform duration-300">
             Buscar materia o apunte...
           </span>
-          <div className="pr-3 hidden sm:flex items-center gap-1">
-            <kbd className="px-2 py-0.5 rounded-md bg-[#F5F0EA] text-[11px] font-bold text-[#A89F95] border border-[#EDE6DD]">/</kbd>
+          <div className="pr-3 hidden sm:flex items-center gap-2">
+            <span className="text-[10px] font-bold text-[#A89F95] opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300 pointer-events-none">
+              Buscar rápido
+            </span>
+            <div className="relative">
+              <kbd className="px-2 py-0.5 rounded-md bg-[#F5F0EA] text-[11px] font-bold text-[#A89F95] border border-[#EDE6DD] group-hover:border-[#C5DBC9] group-hover:bg-[#EEF3EF] group-hover:text-[#4A7A52] transition-colors duration-300">
+                /
+              </kbd>
+            </div>
           </div>
         </button>
       </div>

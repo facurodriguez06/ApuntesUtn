@@ -56,25 +56,27 @@ export function Header() {
           <nav className="hidden sm:flex items-center gap-2 p-1.5 bg-white/60 backdrop-blur-md rounded-2xl border border-[#EDE6DD]/80 shadow-sm shadow-[#EDE6DD]/30">
             <Link 
               href="/" 
-              className="text-[13px] font-bold text-[#7A6E62] hover:text-[#3D3229] px-4 py-2 rounded-xl hover:bg-white hover:shadow-sm transition-all duration-300"
+              className="relative text-[13px] font-bold text-[#7A6E62] hover:text-[#3D3229] px-4 py-2 rounded-xl transition-all duration-300 group hover:bg-[#F5F0EA]/50"
             >
               Explorar
+              <span className="absolute bottom-1.5 left-4 right-4 h-[2px] bg-[#8BAA91] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center rounded-full opacity-60" />
             </Link>
             <button 
               onClick={() => setShowDonationModal(true)}
-              className="flex items-center gap-1.5 text-[12px] font-bold text-[#8B7355] hover:text-[#3D3229] px-3 py-2 rounded-xl hover:bg-[#F5EFE5] transition-all duration-300"
+              className="relative flex items-center gap-1.5 text-[12px] font-bold text-[#8B7355] hover:text-[#3D3229] px-3 py-2 rounded-xl transition-all duration-300 group hover:bg-[#F5EFE5]/50"
             >
-              <Heart className="w-3.5 h-3.5 opacity-70" />
+              <Heart className="w-3.5 h-3.5 opacity-70 group-hover:scale-110 group-hover:text-red-400 transition-all duration-300" />
               Apoyar
+              <span className="absolute bottom-1.5 left-3 right-3 h-[2px] bg-[#8B7355] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center rounded-full opacity-40" />
             </button>
             <Link 
               href="/upload" 
-              className="group relative flex items-center gap-2 text-[13px] font-bold text-white bg-gradient-to-b from-[#8BAA91] to-[#6A8F70] shadow-[0_2px_15px_-3px_rgba(106,143,112,0.4)] border border-[#597A5E] px-5 py-2 rounded-xl overflow-hidden active:scale-[0.97] transition-all duration-300"
+              className="group relative flex items-center gap-2 text-[13px] font-bold text-white bg-gradient-to-b from-[#8BAA91] to-[#6A8F70] shadow-[0_2px_15px_-3px_rgba(106,143,112,0.4)] hover:shadow-[0_4px_20px_-3px_rgba(106,143,112,0.6)] border border-[#597A5E] px-5 py-2 rounded-xl overflow-hidden active:scale-[0.97] transition-all duration-300 hover:-translate-y-[2px]"
             >
               {/* Button Shine Effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500 ease-out" />
-              <Upload className="w-3.5 h-3.5 text-[#E8F0EA] group-hover:text-white transition-colors relative z-10" strokeWidth={2.5} />
-              <span className="relative z-10 text-shadow-sm">Subir apunte</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out" />
+              <Upload className="w-3.5 h-3.5 text-[#E8F0EA] group-hover:text-white group-hover:-translate-y-[1px] transition-all relative z-10" strokeWidth={2.5} />
+              <span className="relative z-10 text-shadow-sm group-hover:translate-x-[1px] transition-transform">Subir apunte</span>
             </Link>
           </nav>
 
