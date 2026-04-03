@@ -1,49 +1,15 @@
-# University Notes Hub 📚
+# UTNHub
 
 Plataforma colaborativa para estudiantes de ingeniería donde podés encontrar y compartir apuntes, exámenes modelos y resúmenes de todas las materias. 
 
-## 🚀 Funcionalidades
-- **Gestión de Apuntes**: Subida de archivos reales (PDF, Docx, etc.) almacenados en la nube.
-- **Moderación**: Panel de administrador para aprobar o rechazar nuevas publicaciones.
-- **Organización**: Filtros por carrera, año y materia (UTN).
-- **Previsualización**: Ver los documentos directamente en el navegador antes de descargarlos.
+## Funcionalidades
 
-## 🛠️ Tecnologías
-- **Frontend**: [Next.js](https://nextjs.org/) (App Router) + Tailwind CSS.
-- **Base de Datos**: Firebase Firestore (Tiempo real).
-- **Autenticación**: Firebase Auth.
-- **Almacenamiento**: Cloudinary (Subida de archivos físicos).
-
-## ⚙️ Configuración
-Para correr el proyecto localmente, seguí estos pasos:
-
-1. Cloná el repositorio:
-   ```bash
-   git clone [tu-repo-url]
-   ```
-2. Instalá las dependencias:
-   ```bash
-   npm install
-   ```
-3. Configurá las variables de entorno en un archivo `.env.local`:
-   ```env
-   # Firebase
-   NEXT_PUBLIC_FIREBASE_API_KEY="..."
-   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN="..."
-   NEXT_PUBLIC_FIREBASE_PROJECT_ID="..."
-   NEXT_PUBLIC_FIREBASE_APP_ID="..."
-
-   # Cloudinary
-   NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME="..."
-   NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET="..."
-   ```
-4. Corré el servidor de desarrollo:
-   ```bash
-   npm run dev
-   ```
-
-## 🔒 Panel de Admin
-El panel de moderación se encuentra en `/admin`. Requiere inicio de sesión con una cuenta autorizada en Firebase Auth.
+- **Gestión de Apuntes:** Subida de archivos (PDF, Docx, etc.) para compartir con toda la comunidad estudiantil.
+- **Planes de Estudio Interactivos:** Sistema de visualización dinámica de diferentes carreras, permitiendo validar y revisar cuatrimestres, cargas horarias y materias correlativas actualizadas.
+- **Exportación en PDF:** Generador integrado de PDF para descargar el plan de estudio completo de manera compacta y lista para consultar offline.
+- **Moderación:** Panel de administración exclusivo para supervisar, leer, aprobar o rechazar de forma segura las nuevas solicitudes de aportes públicos.
+- **Organización:** Sistema centralizado y simplificado de filtros para consultar material puntualmente por carrera, año o asignatura.
+- **Previsualización:** Soporte nativo para observar y leer documentos de texto o imágenes de apuntes directamente desde el navegador antes de cualquier descarga.
 
 ---
-Proyecto desarrollado para facilitar el acceso a material de estudio gratuito y organizado.
+Proyecto diseñado para estructurar y facilitar el acceso transparente al material complementario de estudio universitario.
