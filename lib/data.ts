@@ -136,6 +136,7 @@ const sistemasSubs: Subject[] = [
   sub('sis-cdd', 'Comunicación de Datos', 3, 'sistemas'),
   sub('sis-ds', 'Desarrollo de Software', 3, 'sistemas'),
   sub('sis-an', 'Análisis Numérico', 3, 'sistemas'),
+  sub('sis-mep3', 'Materias Electivas', 3, 'sistemas'),
   
   // 4to Año
   sub('sis-si', 'Seminario Integrador', 4, 'sistemas'),
@@ -145,6 +146,7 @@ const sistemasSubs: Subject[] = [
   sub('sis-sim', 'Simulación', 4, 'sistemas'),
   sub('sis-red', 'Redes de Datos', 4, 'sistemas'),
   sub('sis-tpa', 'Tecnología para la Automatización', 4, 'sistemas'),
+  sub('sis-mep4', 'Materias Electivas', 4, 'sistemas'),
   
   // 5to Año
   sub('sis-pf', 'Proyecto Final', 5, 'sistemas'),
@@ -152,6 +154,7 @@ const sistemasSubs: Subject[] = [
   sub('sis-ssi', 'Seguridad en los Sistemas de Información', 5, 'sistemas'),
   sub('sis-ia', 'Inteligencia Artificial', 5, 'sistemas'),
   sub('sis-cd', 'Ciencia de Datos', 5, 'sistemas'),
+  sub('sis-mep5', 'Materias Electivas', 5, 'sistemas'),
   
 
     // Materias Electivas (Sistemas)
@@ -454,7 +457,14 @@ export const subjectsData: Subject[] = [
   ...electromecanicaSubs,
   ...telecomunicacionesSubs,
   ...sharedElectives,
+
+  // Materias Electivas (Agregadas)
+  sub('civ-elec', 'Materias Electivas', 6, 'civil'),
+  sub('emec-elec', 'Materias Electivas', 5, 'electromecanica'),
+  sub('elec-elec', 'Materias Electivas', 6, 'electronica'),
+  sub('qca-elec', 'Materias Electivas', 5, 'quimica')
 ];
+
 
 // Helper to get subjects by career
 export const getSubjectsByCareer = (careerId: string): Subject[] =>

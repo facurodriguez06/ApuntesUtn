@@ -49,7 +49,7 @@ a, button, [role="button"], input[type="submit"], select, label[for] {
 }
 
 /* Scrollbar */
-::-webkit-scrollbar { width: 8px; height: 0px; }
+::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: var(--bg-warm); }
 ::-webkit-scrollbar-thumb { background: var(--sage); border-radius: 10px; border: 2px solid var(--bg-warm); }
 ::-webkit-scrollbar-thumb:hover { background: var(--sage-dark); }

@@ -17,44 +17,531 @@ export const planesData = {
     icon: React.createElement(Code2, { className: "w-8 h-8" }),
     color: 'from-[#8BAA91] to-[#7CC2A8]',
     curriculum: [
-      { id: 1, year: 1, name: "Análisis Matemático I", regulares: [], aprobadas: [] },
-      { id: 2, year: 1, name: "Álgebra y Geometría Analítica", regulares: [], aprobadas: [] },
-      { id: 3, year: 1, name: "Física I", regulares: [], aprobadas: [] },
-      { id: 4, year: 1, name: "Inglés I", regulares: [], aprobadas: [] },
-      { id: 5, year: 1, name: "Lógica y Estructuras Discretas", regulares: [], aprobadas: [] },
-      { id: 6, year: 1, name: "Algoritmo y Estructura de Datos", regulares: [], aprobadas: [] },
-      { id: 7, year: 1, name: "Arquitectura de Computadoras", regulares: [], aprobadas: [] },
-      { id: 8, year: 1, name: "Sistemas y Procesos de Negocio", regulares: [], aprobadas: [] },
-      { id: 9, year: 2, name: "Análisis Matemático II", regulares: [1, 2], aprobadas: [] },
-      { id: 10, year: 2, name: "Física II", regulares: [1, 3], aprobadas: [] },
-      { id: 11, year: 2, name: "Ingeniería y Sociedad", regulares: [], aprobadas: [] },
-      { id: 12, year: 2, name: "Inglés II", regulares: [4], aprobadas: [] },
-      { id: 13, year: 2, name: "Sintaxis y Semántica de los Lenguajes", regulares: [5, 6], aprobadas: [] },
-      { id: 14, year: 2, name: "Paradigmas de Programación", regulares: [5, 6], aprobadas: [] },
-      { id: 15, year: 2, name: "Sistemas Operativos", regulares: [7], aprobadas: [] },
-      { id: 16, year: 2, name: "Análisis de Sistemas de Información", regulares: [6, 8], aprobadas: [] },
-      { id: 17, year: 3, name: "Probabilidad y Estadística", regulares: [1, 2], aprobadas: [] },
-      { id: 18, year: 3, name: "Economía", regulares: [], aprobadas: [1, 2] },
-      { id: 19, year: 3, name: "Base de Datos", regulares: [13, 16], aprobadas: [5, 6] },
-      { id: 20, year: 3, name: "Desarrollo de Software", regulares: [14, 16], aprobadas: [5, 6] },
-      { id: 21, year: 3, name: "Comunicación de Datos", regulares: [], aprobadas: [3, 7] },
-      { id: 22, year: 3, name: "Análisis Numérico", regulares: [9], aprobadas: [1, 2] },
-      { id: 23, year: 3, name: "Diseño de Sistemas de Información", regulares: [14, 16], aprobadas: [4, 6, 8] },
-      { id: 24, year: 4, name: "Legislación", regulares: [11], aprobadas: [] },
-      { id: 25, year: 4, name: "Ingeniería y Calidad de Software", regulares: [19, 20, 23], aprobadas: [13, 14] },
-      { id: 26, year: 4, name: "Redes de Datos", regulares: [15, 21], aprobadas: [] },
-      { id: 27, year: 4, name: "Investigación Operativa", regulares: [17, 22], aprobadas: [] },
-      { id: 28, year: 4, name: "Simulación", regulares: [17], aprobadas: [9] },
-      { id: 29, year: 4, name: "Tecnología para la Automatización", regulares: [10, 22], aprobadas: [9] },
-      { id: 30, year: 4, name: "Administración de Sistemas de Información", regulares: [18, 23], aprobadas: [16] },
-      { id: 37, year: 4, name: "Seminario Integrador", regulares: [15, 19, 20], aprobadas: [5, 6, 7, 8] },
-      { id: 31, year: 5, name: "Inteligencia Artificial", regulares: [28], aprobadas: [17, 22] },
-      { id: 32, year: 5, name: "Ciencia de Datos", regulares: [28], aprobadas: [17, 19] },
-      { id: 33, year: 5, name: "Sistemas de Gestión", regulares: [18, 27], aprobadas: [23] },
-      { id: 34, year: 5, name: "Gestión Gerencial", regulares: [24, 30], aprobadas: [18] },
-      { id: 35, year: 5, name: "Seguridad en los Sistemas de Información", regulares: [26, 30], aprobadas: [20, 21] },
-      { id: 36, year: 5, name: "Proyecto Final", regulares: [25, 26, 30], aprobadas: [12, 20, 23] }
-    ]
+      {
+            "id": 1,
+            "year": 1,
+            "semester": "1º Cuatrimestre",
+            "name": "Análisis Matemático I",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 2,
+            "year": 1,
+            "semester": "1º Cuatrimestre",
+            "name": "Álgebra y Geometría Analítica",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 5,
+            "year": 1,
+            "semester": "1º Cuatrimestre",
+            "name": "Lógica y Estructuras Discretas",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 6,
+            "year": 1,
+            "semester": "2º Cuatrimestre",
+            "name": "Algoritmo y Estructura de Datos",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 7,
+            "year": 1,
+            "semester": "2º Cuatrimestre",
+            "name": "Arquitectura de Computadoras",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 8,
+            "year": 1,
+            "semester": "2º Cuatrimestre",
+            "name": "Sistemas y Procesos de Negocio",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 3,
+            "year": 1,
+            "semester": "2º Cuatrimestre",
+            "name": "Física I",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 4,
+            "year": 1,
+            "semester": "2º Cuatrimestre",
+            "name": "Inglés I",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 16,
+            "year": 2,
+            "semester": "Anual",
+            "name": "Análisis de Sistemas de Información",
+            "weekly_hours": 6,
+            "total_hours": 144,
+            "regulares": [
+                  6,
+                  8
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 9,
+            "year": 2,
+            "semester": "1º Cuatrimestre",
+            "name": "Análisis Matemático II",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  1,
+                  2
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 13,
+            "year": 2,
+            "semester": "1º Cuatrimestre",
+            "name": "Sintaxis y Semántica de los Lenguajes",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  5,
+                  6
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 11,
+            "year": 2,
+            "semester": "1º Cuatrimestre",
+            "name": "Ingeniería y Sociedad",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 12,
+            "year": 2,
+            "semester": "1º Cuatrimestre",
+            "name": "Inglés II",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [
+                  4
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 10,
+            "year": 2,
+            "semester": "2º Cuatrimestre",
+            "name": "Física II",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  1,
+                  3
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 14,
+            "year": 2,
+            "semester": "2º Cuatrimestre",
+            "name": "Paradigmas de Programación",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  5,
+                  6
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 15,
+            "year": 2,
+            "semester": "2º Cuatrimestre",
+            "name": "Sistemas Operativos",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  7
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 23,
+            "year": 3,
+            "semester": "Anual",
+            "name": "Diseño de Sistemas de Información",
+            "weekly_hours": 6,
+            "total_hours": 144,
+            "regulares": [
+                  14,
+                  16
+            ],
+            "aprobadas": [
+                  4,
+                  6,
+                  8
+            ]
+      },
+      {
+            "id": 17,
+            "year": 3,
+            "semester": "1º Cuatrimestre",
+            "name": "Probabilidad y Estadística",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  1,
+                  2
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 18,
+            "year": 3,
+            "semester": "1º Cuatrimestre",
+            "name": "Economía",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [],
+            "aprobadas": [
+                  1,
+                  2
+            ]
+      },
+      {
+            "id": 19,
+            "year": 3,
+            "semester": "1º Cuatrimestre",
+            "name": "Base de Datos",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  13,
+                  16
+            ],
+            "aprobadas": [
+                  5,
+                  6
+            ]
+      },
+      {
+            "id": 21,
+            "year": 3,
+            "semester": "1º Cuatrimestre",
+            "name": "Comunicación de Datos",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [],
+            "aprobadas": [
+                  3,
+                  7
+            ]
+      },
+      {
+            "id": 20,
+            "year": 3,
+            "semester": "2º Cuatrimestre",
+            "name": "Desarrollo de Software",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  14,
+                  16
+            ],
+            "aprobadas": [
+                  5,
+                  6
+            ]
+      },
+      {
+            "id": 22,
+            "year": 3,
+            "semester": "2º Cuatrimestre",
+            "name": "Análisis Numérico",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  9
+            ],
+            "aprobadas": [
+                  1,
+                  2
+            ]
+      },
+      {
+            "id": 993,
+            "year": 3,
+            "semester": "Electiva",
+            "name": "Materias Electivas",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 37,
+            "year": 4,
+            "semester": "1º Cuatrimestre",
+            "name": "Seminario Integrador (opcional)",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  15,
+                  19,
+                  20
+            ],
+            "aprobadas": [
+                  5,
+                  6,
+                  7,
+                  8
+            ]
+      },
+      {
+            "id": 30,
+            "year": 4,
+            "semester": "Anual",
+            "name": "Administración de Sistemas de Información",
+            "weekly_hours": 6,
+            "total_hours": 144,
+            "regulares": [
+                  18,
+                  23
+            ],
+            "aprobadas": [
+                  16
+            ]
+      },
+      {
+            "id": 25,
+            "year": 4,
+            "semester": "Anual",
+            "name": "Ingeniería y Calidad de Software",
+            "weekly_hours": 6,
+            "total_hours": 72,
+            "regulares": [
+                  19,
+                  20,
+                  23
+            ],
+            "aprobadas": [
+                  13,
+                  14
+            ]
+      },
+      {
+            "id": 24,
+            "year": 4,
+            "semester": "1º Cuatrimestre",
+            "name": "Legislación",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [
+                  11
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 27,
+            "year": 4,
+            "semester": "1º Cuatrimestre",
+            "name": "Investigación Operativa",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  17,
+                  22
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 28,
+            "year": 4,
+            "semester": "1º Cuatrimestre",
+            "name": "Simulación",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  17
+            ],
+            "aprobadas": [
+                  9
+            ]
+      },
+      {
+            "id": 26,
+            "year": 4,
+            "semester": "2º Cuatrimestre",
+            "name": "Redes de Datos",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  15,
+                  21
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 29,
+            "year": 4,
+            "semester": "2º Cuatrimestre",
+            "name": "Tecnología para la Automatización",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  10,
+                  22
+            ],
+            "aprobadas": [
+                  9
+            ]
+      },
+      {
+            "id": 994,
+            "year": 4,
+            "semester": "Electiva",
+            "name": "Materias Electivas",
+            "weekly_hours": 6,
+            "total_hours": 144,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 36,
+            "year": 5,
+            "semester": "Anual",
+            "name": "Proyecto Final",
+            "weekly_hours": 6,
+            "total_hours": 144,
+            "regulares": [
+                  25,
+                  26,
+                  30
+            ],
+            "aprobadas": [
+                  12,
+                  20,
+                  23
+            ]
+      },
+      {
+            "id": 33,
+            "year": 5,
+            "semester": "1º Cuatrimestre",
+            "name": "Sistemas de Gestión",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  18,
+                  27
+            ],
+            "aprobadas": [
+                  23
+            ]
+      },
+      {
+            "id": 34,
+            "year": 5,
+            "semester": "1º Cuatrimestre",
+            "name": "Gestión Gerencial",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  24,
+                  30
+            ],
+            "aprobadas": [
+                  18
+            ]
+      },
+      {
+            "id": 35,
+            "year": 5,
+            "semester": "1º Cuatrimestre",
+            "name": "Seguridad en los Sistemas de Información",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  26,
+                  30
+            ],
+            "aprobadas": [
+                  20,
+                  21
+            ]
+      },
+      {
+            "id": 31,
+            "year": 5,
+            "semester": "2º Cuatrimestre",
+            "name": "Inteligencia Artificial",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  28
+            ],
+            "aprobadas": [
+                  17,
+                  22
+            ]
+      },
+      {
+            "id": 32,
+            "year": 5,
+            "semester": "2º Cuatrimestre",
+            "name": "Ciencia de Datos",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  28
+            ],
+            "aprobadas": [
+                  17,
+                  19
+            ]
+      },
+      {
+            "id": 995,
+            "year": 5,
+            "semester": "Electiva",
+            "name": "Materias Electivas",
+            "weekly_hours": 10,
+            "total_hours": 240,
+            "regulares": [],
+            "aprobadas": []
+      }
+]
   },
   civil: {
     id: 'civil',
@@ -64,47 +551,746 @@ export const planesData = {
     icon: React.createElement(Building2, { className: "w-8 h-8" }),
     color: 'from-[#E8CFC3] to-[#D4856A]',
     curriculum: [
-      { id: 1, year: 1, name: "Análisis Matemático I", regulares: [], aprobadas: [] },
-      { id: 2, year: 1, name: "Álgebra y Geometría Analítica", regulares: [], aprobadas: [] },
-      { id: 3, year: 1, name: "Ingeniería y Sociedad", regulares: [], aprobadas: [] },
-      { id: 4, year: 1, name: "Ingeniería Civil I", regulares: [], aprobadas: [] },
-      { id: 5, year: 1, name: "Sistemas de Representación", regulares: [], aprobadas: [] },
-      { id: 6, year: 1, name: "Química General", regulares: [], aprobadas: [] },
-      { id: 7, year: 1, name: "Física I", regulares: [], aprobadas: [] },
-      { id: 8, year: 1, name: "Fundamentos de Informática", regulares: [], aprobadas: [] },
-      { id: 9, year: 2, name: "Análisis Matemático II", regulares: [1, 2], aprobadas: [] },
-      { id: 10, year: 2, name: "Estabilidad", regulares: [1, 2, 5, 7, 8], aprobadas: [] },
-      { id: 11, year: 2, name: "Ingeniería Civil II", regulares: [3, 4, 5, 8], aprobadas: [] },
-      { id: 12, year: 2, name: "Tecnología de los Materiales", regulares: [1, 5, 6, 7], aprobadas: [] },
-      { id: 13, year: 2, name: "Física II", regulares: [1, 7], aprobadas: [] },
-      { id: 14, year: 2, name: "Probabilidad y Estadística", regulares: [1, 2], aprobadas: [] },
-      { id: 15, year: 2, name: "Inglés I", regulares: [3], aprobadas: [] },
-      { id: 16, year: 3, name: "Resistencia de Materiales", regulares: [10], aprobadas: [1, 2, 7, 8] },
-      { id: 17, year: 3, name: "Tecnología del Hormigón", regulares: [12, 14, 15], aprobadas: [1, 2, 6, 7] },
-      { id: 18, year: 3, name: "Tecnología de la Construcción", regulares: [10, 11, 12, 15], aprobadas: [1, 2, 4, 5, 6, 7, 8] },
-      { id: 19, year: 3, name: "Geotopografía", regulares: [9, 11, 13, 14], aprobadas: [1, 2, 4, 5, 7] },
-      { id: 20, year: 3, name: "Hidráulica General y Aplicada", regulares: [9, 10, 11, 13, 14], aprobadas: [1, 2, 5, 7, 8] },
-      { id: 21, year: 3, name: "Cálculo Avanzado", regulares: [9, 10, 12, 14], aprobadas: [1, 2, 5, 7, 8] },
-      { id: 22, year: 3, name: "Instalaciones Eléctricas Acústicas", regulares: [11, 12, 13], aprobadas: [1, 2, 4, 5, 6, 7] },
-      { id: 23, year: 3, name: "Instalaciones Termomecánicas", regulares: [11, 12, 13], aprobadas: [1, 2, 4, 5, 6, 7] },
-      { id: 24, year: 3, name: "Economía", regulares: [11, 14, 15], aprobadas: [1, 2, 3, 4, 8] },
-      { id: 25, year: 3, name: "Inglés II", regulares: [15], aprobadas: [3, 4] },
-      { id: 26, year: 4, name: "Geotecnia", regulares: [16, 17, 18, 19, 20], aprobadas: [9, 10, 11, 12, 13, 14] },
-      { id: 27, year: 4, name: "Instalaciones Sanitarias y Gas", regulares: [18, 19, 20, 24], aprobadas: [5, 6, 7, 8, 12] },
-      { id: 28, year: 4, name: "Diseño Arquitectónico y Planeamiento", regulares: [18, 19, 22, 23, 24, 25], aprobadas: [10, 11, 12, 15] },
-      { id: 29, year: 4, name: "Análisis Estructural I", regulares: [16, 17], aprobadas: [9, 10, 11, 14] },
-      { id: 30, year: 4, name: "Estructuras de Hormigón", regulares: [16, 17, 18, 19, 25], aprobadas: [9, 10, 11, 12, 13, 14] },
-      { id: 31, year: 4, name: "Hidrología y Obras Hidráulicas", regulares: [16, 18, 19, 20, 24, 25], aprobadas: [9, 10, 11, 12, 13, 14] },
-      { id: 32, year: 4, name: "Ingeniería Legal", regulares: [9, 11, 14, 15], aprobadas: [1, 2, 3, 4, 8] },
-      { id: 33, year: 5, name: "Construcciones Metálicas y de Madera", regulares: [21, 29], aprobadas: [16, 17, 18, 19] },
-      { id: 34, year: 5, name: "Cimentaciones", regulares: [21, 26, 29, 30, 31], aprobadas: [16, 17, 18, 19, 20] },
-      { id: 35, year: 5, name: "Ingeniería Sanitaria", regulares: [26, 27, 31], aprobadas: [17, 18, 19, 20, 25] },
-      { id: 36, year: 5, name: "Organización y Conducción de Obras", regulares: [26, 27, 28, 30, 31], aprobadas: [17, 18, 19, 20, 22, 23, 24, 25] },
-      { id: 37, year: 5, name: "Vías de Comunicación I", regulares: [17, 18, 19], aprobadas: [9, 10, 11, 12, 14, 15] },
-      { id: 38, year: 5, name: "Análisis Estructural II", regulares: [21, 26, 29, 30, 31], aprobadas: [16, 17, 18, 19, 25] },
-      { id: 39, year: 5, name: "Vías de Comunicación II", regulares: [26, 30, 31, 32, 37], aprobadas: [16, 17, 18, 19, 20, 24] },
-      { id: 40, year: 5, name: "Gestión Ambiental y Desarrollo Sustentable", regulares: [26, 28, 31, 32], aprobadas: [20, 24, 25] },
-      { id: 41, year: 6, name: "Proyecto Final", regulares: [26, 27, 28, 29, 30, 31, 32], aprobadas: [15, 16, 17, 18, 19, 20, 22, 23, 24, 25] }
+      {
+            "id": 4,
+            "year": 1,
+            "semester": "Anual",
+            "name": "Ingeniería Civil I",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 5,
+            "year": 1,
+            "semester": "Anual",
+            "name": "Sistemas de Representación",
+            "weekly_hours": 2,
+            "total_hours": 72,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 8,
+            "year": 1,
+            "semester": "Anual",
+            "name": "Fundamentos de Informática",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 1,
+            "year": 1,
+            "semester": "1º Cuatrimestre",
+            "name": "Análisis Matemático I",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 2,
+            "year": 1,
+            "semester": "1º Cuatrimestre",
+            "name": "Álgebra y Geometría Analítica",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 3,
+            "year": 1,
+            "semester": "1º Cuatrimestre",
+            "name": "Ingeniería y Sociedad",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 6,
+            "year": 1,
+            "semester": "2º Cuatrimestre",
+            "name": "Química General",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 7,
+            "year": 1,
+            "semester": "2º Cuatrimestre",
+            "name": "Física I",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 11,
+            "year": 2,
+            "semester": "Anual",
+            "name": "Ingeniería Civil II",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  3,
+                  4,
+                  5,
+                  8
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 9,
+            "year": 2,
+            "semester": "Anual",
+            "name": "Análisis Matemático II",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  1,
+                  2
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 12,
+            "year": 2,
+            "semester": "Anual",
+            "name": "Tecnología de los Materiales",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  1,
+                  5,
+                  6,
+                  7
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 10,
+            "year": 2,
+            "semester": "1º Cuatrimestre",
+            "name": "Estabilidad",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  1,
+                  2,
+                  5,
+                  7,
+                  8
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 13,
+            "year": 2,
+            "semester": "2º Cuatrimestre",
+            "name": "Física II",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  1,
+                  7
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 14,
+            "year": 2,
+            "semester": "2º Cuatrimestre",
+            "name": "Probabilidad y Estadística",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  1,
+                  2
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 15,
+            "year": 2,
+            "semester": "2º Cuatrimestre",
+            "name": "Inglés I (Materia cuatrimestral de cualquier cuatrimestre. Puede rendir libre).",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [
+                  3
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 16,
+            "year": 3,
+            "semester": "Anual",
+            "name": "Resistencia de Materiales",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  10
+            ],
+            "aprobadas": [
+                  1,
+                  2,
+                  7,
+                  8
+            ]
+      },
+      {
+            "id": 18,
+            "year": 3,
+            "semester": "Anual",
+            "name": "Tecnología de la Construcción",
+            "weekly_hours": 6,
+            "total_hours": 144,
+            "regulares": [
+                  10,
+                  11,
+                  12,
+                  15
+            ],
+            "aprobadas": [
+                  1,
+                  2,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8
+            ]
+      },
+      {
+            "id": 20,
+            "year": 3,
+            "semester": "Anual",
+            "name": "Hidráulica General y Aplicada",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  9,
+                  10,
+                  11,
+                  13,
+                  14
+            ],
+            "aprobadas": [
+                  1,
+                  2,
+                  5,
+                  7,
+                  8
+            ]
+      },
+      {
+            "id": 17,
+            "year": 3,
+            "semester": "1º Cuatrimestre",
+            "name": "Tecnología del Hormigón",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [
+                  12,
+                  14,
+                  15
+            ],
+            "aprobadas": [
+                  1,
+                  2,
+                  6,
+                  7
+            ]
+      },
+      {
+            "id": 22,
+            "year": 3,
+            "semester": "1º Cuatrimestre",
+            "name": "Instalaciones Eléctricas Acústicas",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [
+                  11,
+                  12,
+                  13
+            ],
+            "aprobadas": [
+                  1,
+                  2,
+                  4,
+                  5,
+                  6,
+                  7
+            ]
+      },
+      {
+            "id": 23,
+            "year": 3,
+            "semester": "1º Cuatrimestre",
+            "name": "Instalaciones Termomecánicas",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [
+                  11,
+                  12,
+                  13
+            ],
+            "aprobadas": [
+                  1,
+                  2,
+                  4,
+                  5,
+                  6,
+                  7
+            ]
+      },
+      {
+            "id": 19,
+            "year": 3,
+            "semester": "2º Cuatrimestre",
+            "name": "Geotopografía",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  9,
+                  11,
+                  13,
+                  14
+            ],
+            "aprobadas": [
+                  1,
+                  2,
+                  4,
+                  5,
+                  7
+            ]
+      },
+      {
+            "id": 21,
+            "year": 3,
+            "semester": "2º Cuatrimestre",
+            "name": "Cálculo Avanzado",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [
+                  9,
+                  10,
+                  12,
+                  14
+            ],
+            "aprobadas": [
+                  1,
+                  2,
+                  5,
+                  7,
+                  8
+            ]
+      },
+      {
+            "id": 24,
+            "year": 3,
+            "semester": "2º Cuatrimestre",
+            "name": "Economía",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  11,
+                  14,
+                  15
+            ],
+            "aprobadas": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  8
+            ]
+      },
+      {
+            "id": 25,
+            "year": 3,
+            "semester": "2º Cuatrimestre",
+            "name": "Inglés II (Materia cuatrimestral de cualquier cuatrimestre. Puede rendir libre).",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [
+                  15
+            ],
+            "aprobadas": [
+                  3,
+                  4
+            ]
+      },
+      {
+            "id": 28,
+            "year": 4,
+            "semester": "Anual",
+            "name": "Diseño Arquitectónico, Planeamiento y Urbanismo",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  18,
+                  19,
+                  22,
+                  23,
+                  24,
+                  25
+            ],
+            "aprobadas": [
+                  10,
+                  11,
+                  12,
+                  15
+            ]
+      },
+      {
+            "id": 31,
+            "year": 4,
+            "semester": "Anual",
+            "name": "Hidrología y Obras Hidráulicas",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  16,
+                  18,
+                  19,
+                  20,
+                  24,
+                  25
+            ],
+            "aprobadas": [
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14
+            ]
+      },
+      {
+            "id": 27,
+            "year": 4,
+            "semester": "1º Cuatrimestre",
+            "name": "Instalaciones Sanitarias y Gas",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  18,
+                  19,
+                  20,
+                  24
+            ],
+            "aprobadas": [
+                  5,
+                  6,
+                  7,
+                  8,
+                  12
+            ]
+      },
+      {
+            "id": 29,
+            "year": 4,
+            "semester": "1º Cuatrimestre",
+            "name": "Análisis Estructural I",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  16,
+                  17
+            ],
+            "aprobadas": [
+                  9,
+                  10,
+                  11,
+                  14
+            ]
+      },
+      {
+            "id": 26,
+            "year": 4,
+            "semester": "2º Cuatrimestre",
+            "name": "Geotecnia",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  16,
+                  17,
+                  18,
+                  19,
+                  20
+            ],
+            "aprobadas": [
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14
+            ]
+      },
+      {
+            "id": 30,
+            "year": 4,
+            "semester": "2º Cuatrimestre",
+            "name": "Estructuras de Hormigón",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  16,
+                  17,
+                  18,
+                  19,
+                  25
+            ],
+            "aprobadas": [
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14
+            ]
+      },
+      {
+            "id": 32,
+            "year": 4,
+            "semester": "2º Cuatrimestre",
+            "name": "Ingeniería Legal",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  9,
+                  11,
+                  14,
+                  15
+            ],
+            "aprobadas": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  8
+            ]
+      },
+      {
+            "id": 36,
+            "year": 5,
+            "semester": "Anual",
+            "name": "Organización y Conducción de Obras",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  26,
+                  27,
+                  28,
+                  30,
+                  31
+            ],
+            "aprobadas": [
+                  17,
+                  18,
+                  19,
+                  20,
+                  22,
+                  23,
+                  24,
+                  25
+            ]
+      },
+      {
+            "id": 34,
+            "year": 5,
+            "semester": "1º Cuatrimestre",
+            "name": "Cimentaciones",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  21,
+                  26,
+                  29,
+                  30,
+                  31
+            ],
+            "aprobadas": [
+                  16,
+                  17,
+                  18,
+                  19,
+                  20
+            ]
+      },
+      {
+            "id": 35,
+            "year": 5,
+            "semester": "1º Cuatrimestre",
+            "name": "Ingeniería Sanitaria",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  26,
+                  27,
+                  31
+            ],
+            "aprobadas": [
+                  17,
+                  18,
+                  19,
+                  20,
+                  25
+            ]
+      },
+      {
+            "id": 37,
+            "year": 5,
+            "semester": "1º Cuatrimestre",
+            "name": "Vías de Comunicación I",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  17,
+                  18,
+                  19
+            ],
+            "aprobadas": [
+                  9,
+                  10,
+                  11,
+                  12,
+                  14,
+                  15
+            ]
+      },
+      {
+            "id": 40,
+            "year": 5,
+            "semester": "1º Cuatrimestre",
+            "name": "Gestión Ambiental y Desarrollo Sustentable",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  26,
+                  28,
+                  31,
+                  32
+            ],
+            "aprobadas": [
+                  20,
+                  24,
+                  25
+            ]
+      },
+      {
+            "id": 33,
+            "year": 5,
+            "semester": "2º Cuatrimestre",
+            "name": "Construcciones Metálicas y de Madera",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  21,
+                  29
+            ],
+            "aprobadas": [
+                  16,
+                  17,
+                  18,
+                  19
+            ]
+      },
+      {
+            "id": 38,
+            "year": 5,
+            "semester": "2º Cuatrimestre",
+            "name": "Análisis Estructural II",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  21,
+                  26,
+                  29,
+                  30,
+                  31
+            ],
+            "aprobadas": [
+                  16,
+                  17,
+                  18,
+                  19,
+                  25
+            ]
+      },
+      {
+            "id": 39,
+            "year": 5,
+            "semester": "2º Cuatrimestre",
+            "name": "Vías de Comunicación II",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  26,
+                  30,
+                  31,
+                  32,
+                  37
+            ],
+            "aprobadas": [
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  24
+            ]
+      },
+      {
+            "id": 41,
+            "year": 6,
+            "semester": "1º Cuatrimestre",
+            "name": "Proyecto Final",
+            "weekly_hours": 8,
+            "total_hours": 96,
+            "regulares": [
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32
+            ],
+            "aprobadas": [
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              22,
+              23,
+              24,
+              25
+            ]
+          },
+      {
+            "id": 999,
+            "year": 6,
+            "semester": "Electiva",
+            "name": "Materias Electivas",
+            "weekly_hours": 22,
+            "total_hours": 264,
+            "regulares": [],
+            "aprobadas": []
+      }
+
+
     ]
   },
   quimica: {
@@ -115,47 +1301,631 @@ export const planesData = {
     icon: React.createElement(FlaskConical, { className: "w-8 h-8" }),
     color: 'from-[#F5E8E8] to-[#C28B8B]',
     curriculum: [
-      { id: 1, year: 1, name: "Introducción a la Ing. Química", regulares: [], aprobadas: [] },
-      { id: 2, year: 1, name: "Ingeniería y Sociedad", regulares: [], aprobadas: [] },
-      { id: 3, year: 1, name: "Álgebra y Geometría Análitica", regulares: [], aprobadas: [] },
-      { id: 4, year: 1, name: "Análisis Matemático I", regulares: [], aprobadas: [] },
-      { id: 5, year: 1, name: "Física I", regulares: [], aprobadas: [] },
-      { id: 6, year: 1, name: "Química", regulares: [], aprobadas: [] },
-      { id: 7, year: 1, name: "Sistemas de representación", regulares: [], aprobadas: [] },
-      { id: 8, year: 2, name: "Fundamentos de Informática", regulares: [], aprobadas: [] },
-      { id: 9, year: 2, name: "Introducción a Equipos y Procesos", regulares: [1, 6], aprobadas: [] },
-      { id: 10, year: 2, name: "Probabilidad y Estadística", regulares: [3, 4], aprobadas: [] },
-      { id: 11, year: 2, name: "Química Inorgánica", regulares: [6], aprobadas: [] },
-      { id: 12, year: 2, name: "Análisis Matemático II", regulares: [3, 4], aprobadas: [] },
-      { id: 13, year: 2, name: "Física II", regulares: [4, 5], aprobadas: [] },
-      { id: 14, year: 2, name: "Química Orgánica", regulares: [6], aprobadas: [] },
-      { id: 15, year: 2, name: "Legislación", regulares: [1, 2], aprobadas: [] },
-      { id: 16, year: 2, name: "Inglés I", regulares: [], aprobadas: [] },
-      { id: 17, year: 3, name: "Balances de Masa y Energía", regulares: [6, 7, 8, 9, 13], aprobadas: [1, 3, 4] },
-      { id: 18, year: 3, name: "Termodinámica", regulares: [11, 12, 13], aprobadas: [4, 6] },
-      { id: 19, year: 3, name: "Matemática Superior Aplicada", regulares: [12], aprobadas: [3, 4] },
-      { id: 20, year: 3, name: "Ciencia de los Materiales", regulares: [9, 11, 14], aprobadas: [1, 6] },
-      { id: 21, year: 3, name: "Fisicoquímica", regulares: [9, 12, 13], aprobadas: [3, 4, 6] },
-      { id: 22, year: 3, name: "Fenómenos de Transporte", regulares: [9, 12, 13], aprobadas: [3, 4, 6] },
-      { id: 23, year: 3, name: "Química Analítica", regulares: [10, 11, 14], aprobadas: [2, 6] },
-      { id: 24, year: 3, name: "Microbiología y Q. Biológica", regulares: [11, 14], aprobadas: [6] },
-      { id: 25, year: 3, name: "Química Analítica Aplicada", regulares: [9, 11, 13, 16], aprobadas: [1, 2, 6, 16] },
-      { id: 26, year: 3, name: "Inglés II", regulares: [16], aprobadas: [] },
-      { id: 27, year: 4, name: "Diseño, simulación de procesos", regulares: [17, 19], aprobadas: [7, 8, 9, 12, 26] },
-      { id: 28, year: 4, name: "Operaciones Unitarias I", regulares: [17, 18, 22], aprobadas: [9, 12, 13] },
-      { id: 29, year: 4, name: "Tecnología de la Energía Térmica", regulares: [17, 18, 21, 22], aprobadas: [9, 12, 13] },
-      { id: 30, year: 4, name: "Economía", regulares: [9], aprobadas: [2, 3] },
-      { id: 31, year: 4, name: "Operaciones Unitarias II", regulares: [18, 21, 22], aprobadas: [9, 12, 13, 14] },
-      { id: 32, year: 4, name: "Ing. de las Reacciones Químicas", regulares: [17, 18, 21, 22], aprobadas: [11, 12, 14] },
-      { id: 33, year: 4, name: "Calidad y Control Estadístico", regulares: [10], aprobadas: [4] },
-      { id: 34, year: 4, name: "Organización Industrial", regulares: [10], aprobadas: [2, 9, 15] },
-      { id: 35, year: 5, name: "Control Automático de Procesos", regulares: [27, 31], aprobadas: [17, 19, 23] },
-      { id: 36, year: 5, name: "Mecánica Industrial", regulares: [5, 11, 20], aprobadas: [9, 21] },
-      { id: 37, year: 5, name: "Ingeniería Ambiental", regulares: [25, 28, 31, 32], aprobadas: [15, 17, 23] },
-      { id: 38, year: 5, name: "Procesos Biotecnológicos", regulares: [17, 21, 22, 24], aprobadas: [9, 11, 14] },
-      { id: 39, year: 5, name: "Higiene y Seg. en el Trabajo", regulares: [11, 14, 17], aprobadas: [9] },
-      { id: 40, year: 5, name: "Máquinas e Inst. Eléctricas", regulares: [9, 13], aprobadas: [28] },
-      { id: 41, year: 5, name: "Proyecto Final", regulares: [31, 32, 34], aprobadas: [17, 21, 22, 25, 27, 28, 29, 30] }
+      {
+            "id": 1,
+            "year": 1,
+            "semester": "Anual",
+            "name": "Introducción a la Ingeniería Química",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 7,
+            "year": 1,
+            "semester": "Anual",
+            "name": "Sistemas de representación",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 2,
+            "year": 1,
+            "semester": "1º Cuatrimestre",
+            "name": "Ingeniería y Sociedad",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 3,
+            "year": 1,
+            "semester": "1º Cuatrimestre",
+            "name": "Álgebra y Geometría Analítica",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 4,
+            "year": 1,
+            "semester": "1º Cuatrimestre",
+            "name": "Análisis Matemático I",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 5,
+            "year": 1,
+            "semester": "2º Cuatrimestre",
+            "name": "Física I",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 6,
+            "year": 1,
+            "semester": "2º Cuatrimestre",
+            "name": "Química",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 9,
+            "year": 2,
+            "semester": "Anual",
+            "name": "Introducción a Equipos y Procesos",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  1,
+                  6
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 14,
+            "year": 2,
+            "semester": "Anual",
+            "name": "Química Orgánica",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  6
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 10,
+            "year": 2,
+            "semester": "1º Cuatrimestre",
+            "name": "Probabilidad y Estadística",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  3,
+                  4
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 11,
+            "year": 2,
+            "semester": "1º Cuatrimestre",
+            "name": "Química Inorgánica",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  6
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 12,
+            "year": 2,
+            "semester": "1º Cuatrimestre",
+            "name": "Análisis Matemático II",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  3,
+                  4
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 13,
+            "year": 2,
+            "semester": "2º Cuatrimestre",
+            "name": "Física II",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  4,
+                  5
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 15,
+            "year": 2,
+            "semester": "2º Cuatrimestre",
+            "name": "Legislación",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [
+                  1,
+                  2
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 8,
+            "year": 2,
+            "semester": "2º Cuatrimestre",
+            "name": "Fundamentos de Informática",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 16,
+            "year": 2,
+            "semester": "2º Cuatrimestre",
+            "name": "Inglés I (Nota: Consultar en Bedelía de Básicas por cursado en 1º Cuatrimestre)",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 17,
+            "year": 3,
+            "semester": "Anual",
+            "name": "Balances de Masa y Energía",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  6,
+                  7,
+                  8,
+                  9,
+                  13
+            ],
+            "aprobadas": [
+                  1,
+                  3,
+                  4
+            ]
+      },
+      {
+            "id": 18,
+            "year": 3,
+            "semester": "1º Cuatrimestre",
+            "name": "Termodinámica",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  11,
+                  12,
+                  13
+            ],
+            "aprobadas": [
+                  4,
+                  6
+            ]
+      },
+      {
+            "id": 19,
+            "year": 3,
+            "semester": "1º Cuatrimestre",
+            "name": "Matemática Superior Aplicada",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  12
+            ],
+            "aprobadas": [
+                  3,
+                  4
+            ]
+      },
+      {
+            "id": 23,
+            "year": 3,
+            "semester": "1º Cuatrimestre",
+            "name": "Química Analítica",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  10,
+                  11,
+                  14
+            ],
+            "aprobadas": [
+                  2,
+                  6
+            ]
+      },
+      {
+            "id": 24,
+            "year": 3,
+            "semester": "1º Cuatrimestre",
+            "name": "Microbiología y Química Biológica",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  11,
+                  14
+            ],
+            "aprobadas": [
+                  6
+            ]
+      },
+      {
+            "id": 20,
+            "year": 3,
+            "semester": "2º Cuatrimestre",
+            "name": "Ciencia de los Materiales",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [
+                  9,
+                  11,
+                  14
+            ],
+            "aprobadas": [
+                  1,
+                  6
+            ]
+      },
+      {
+            "id": 21,
+            "year": 3,
+            "semester": "2º Cuatrimestre",
+            "name": "Fisicoquímica",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  9,
+                  12,
+                  13
+            ],
+            "aprobadas": [
+                  3,
+                  4,
+                  6
+            ]
+      },
+      {
+            "id": 22,
+            "year": 3,
+            "semester": "2º Cuatrimestre",
+            "name": "Fenómenos de Transporte",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  9,
+                  12,
+                  13
+            ],
+            "aprobadas": [
+                  3,
+                  4,
+                  6
+            ]
+      },
+      {
+            "id": 25,
+            "year": 3,
+            "semester": "2º Cuatrimestre",
+            "name": "Química Analítica Aplicada",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [
+                  9,
+                  11,
+                  13,
+                  16
+            ],
+            "aprobadas": [
+                  1,
+                  2,
+                  6,
+                  16
+            ]
+      },
+      {
+            "id": 26,
+            "year": 3,
+            "semester": "2º Cuatrimestre",
+            "name": "Inglés II (Nota: Se cursará a partir del 1º cuatrimestre del 2024)",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [
+                  16
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 27,
+            "year": 4,
+            "semester": "Anual",
+            "name": "Diseño, simulación, optimización y seguridad de procesos",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  17,
+                  19
+            ],
+            "aprobadas": [
+                  7,
+                  8,
+                  9,
+                  12,
+                  26
+            ]
+      },
+      {
+            "id": 28,
+            "year": 4,
+            "semester": "Anual",
+            "name": "Operaciones Unitarias I",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  17,
+                  18,
+                  22
+            ],
+            "aprobadas": [
+                  9,
+                  12,
+                  13
+            ]
+      },
+      {
+            "id": 32,
+            "year": 4,
+            "semester": "Anual",
+            "name": "Ingeniería de las Reacciones Químicas",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  17,
+                  18,
+                  21,
+                  22
+            ],
+            "aprobadas": [
+                  11,
+                  12,
+                  14
+            ]
+      },
+      {
+            "id": 29,
+            "year": 4,
+            "semester": "1º Cuatrimestre",
+            "name": "Tecnología de la Energía Térmica",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  17,
+                  18,
+                  21,
+                  22
+            ],
+            "aprobadas": [
+                  9,
+                  12,
+                  13
+            ]
+      },
+      {
+            "id": 30,
+            "year": 4,
+            "semester": "1º Cuatrimestre",
+            "name": "Economía",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  9
+            ],
+            "aprobadas": [
+                  2,
+                  3
+            ]
+      },
+      {
+            "id": 33,
+            "year": 4,
+            "semester": "1º Cuatrimestre",
+            "name": "Calidad y Control Estadístico de Procesos",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  10
+            ],
+            "aprobadas": [
+                  4
+            ]
+      },
+      {
+            "id": 31,
+            "year": 4,
+            "semester": "2º Cuatrimestre",
+            "name": "Operaciones Unitarias II",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  18,
+                  21,
+                  22
+            ],
+            "aprobadas": [
+                  9,
+                  12,
+                  13,
+                  14
+            ]
+      },
+      {
+            "id": 34,
+            "year": 4,
+            "semester": "2º Cuatrimestre",
+            "name": "Organización Industrial",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  10
+            ],
+            "aprobadas": [
+                  2,
+                  9,
+                  15
+            ]
+      },
+      {
+            "id": 35,
+            "year": 5,
+            "semester": "Anual",
+            "name": "Control Automático de Procesos",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  27,
+                  31
+            ],
+            "aprobadas": [
+                  17,
+                  19,
+                  23
+            ]
+      },
+      {
+            "id": 41,
+            "year": 5,
+            "semester": "Anual",
+            "name": "Proyecto Final",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  31,
+                  32,
+                  34
+            ],
+            "aprobadas": [
+                  17,
+                  21,
+                  22,
+                  25,
+                  27,
+                  28,
+                  29,
+                  30
+            ]
+      },
+      {
+            "id": 37,
+            "year": 5,
+            "semester": "Anual",
+            "name": "Ingeniería Ambiental",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  25,
+                  28,
+                  31,
+                  32
+            ],
+            "aprobadas": [
+                  15,
+                  17,
+                  23
+            ]
+      },
+      {
+            "id": 36,
+            "year": 5,
+            "semester": "1º Cuatrimestre",
+            "name": "Mecánica Industrial",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  5,
+                  11,
+                  20
+            ],
+            "aprobadas": [
+                  9,
+                  21
+            ]
+      },
+      {
+            "id": 38,
+            "year": 5,
+            "semester": "2º Cuatrimestre",
+            "name": "Procesos Biotecnológicos",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  17,
+                  21,
+                  22,
+                  24
+            ],
+            "aprobadas": [
+                  9,
+                  11,
+                  14
+            ]
+      },
+      {
+            "id": 39,
+            "year": 5,
+            "semester": "2º Cuatrimestre",
+            "name": "Higiene y Seguridad en el Trabajo",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [
+              11,
+              14,
+              17
+            ],
+            "aprobadas": [
+              9
+            ]
+          },
+      {
+            "id": 40,
+            "year": 5,
+            "semester": "2º Cuatrimestre",
+            "name": "Máquinas e Instalaciones Eléctricas",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [
+                  9,
+                  13
+            ],
+            "aprobadas": [
+                  28
+            ]
+      },
+      {
+            "id": 998,
+            "year": 5,
+            "semester": "Electiva",
+            "name": "Materias Electivas",
+            "weekly_hours": 12,
+            "total_hours": 288,
+            "regulares": [],
+            "aprobadas": []
+      }
+
+
     ]
   },
   electronica: {
@@ -166,43 +1936,556 @@ export const planesData = {
     icon: React.createElement(Cpu, { className: "w-8 h-8" }),
     color: 'from-[#FFF0E5] to-[#E8A87C]',
     curriculum: [
-      { id: 1, year: 1, name: "Informática I", regulares: [], aprobadas: [] },
-      { id: 2, year: 1, name: "Álgebra y Geometría Analítica", regulares: [], aprobadas: [] },
-      { id: 3, year: 1, name: "Análisis Matemático I", regulares: [], aprobadas: [] },
-      { id: 4, year: 1, name: "Ingeniería y Sociedad", regulares: [], aprobadas: [] },
-      { id: 5, year: 1, name: "Análisis Matemático II", regulares: [2, 3], aprobadas: [] },
-      { id: 6, year: 1, name: "Física I", regulares: [], aprobadas: [] },
-      { id: 7, year: 1, name: "Diseño asistido por computadora", regulares: [], aprobadas: [] },
-      { id: 8, year: 2, name: "Informática II", regulares: [1, 2, 3], aprobadas: [] },
-      { id: 9, year: 2, name: "Análisis de Señales y Sistemas", regulares: [5], aprobadas: [2, 3] },
-      { id: 10, year: 2, name: "Química General", regulares: [], aprobadas: [] },
-      { id: 11, year: 2, name: "Física II", regulares: [3, 6], aprobadas: [] },
-      { id: 12, year: 2, name: "Probabilidad y Estadística", regulares: [2, 3], aprobadas: [] },
-      { id: 13, year: 2, name: "Física Electrónica", regulares: [11], aprobadas: [2, 3, 6] },
-      { id: 14, year: 2, name: "Inglés I", regulares: [], aprobadas: [] },
-      { id: 15, year: 3, name: "Teoría de los Circuitos I", regulares: [5, 11], aprobadas: [3, 6] },
-      { id: 16, year: 3, name: "Técnicas Digitales I", regulares: [1], aprobadas: [2] },
-      { id: 17, year: 3, name: "Dispositivos Electrónicos", regulares: [1, 3, 10], aprobadas: [] },
-      { id: 18, year: 3, name: "Legislación", regulares: [8], aprobadas: [4] },
-      { id: 19, year: 3, name: "Electrónica Aplicada I", regulares: [10, 11], aprobadas: [1, 3, 6] },
-      { id: 20, year: 3, name: "Medios de Enlace", regulares: [5, 11], aprobadas: [2, 3, 6] },
-      { id: 21, year: 3, name: "Inglés II", regulares: [], aprobadas: [14] },
-      { id: 22, year: 4, name: "Técnicas Digitales II", regulares: [8, 16, 19], aprobadas: [10, 11] },
-      { id: 23, year: 4, name: "Medidas Electrónicas I", regulares: [9, 15, 16, 19], aprobadas: [5, 10, 11] },
-      { id: 24, year: 4, name: "Teoría de los Circuitos II", regulares: [9, 15], aprobadas: [5, 11] },
-      { id: 25, year: 4, name: "Máquinas e Instalaciones Eléctricas", regulares: [9, 15], aprobadas: [5, 11] },
-      { id: 26, year: 4, name: "Sistemas de Comunicaciones", regulares: [9, 12, 19, 20], aprobadas: [5, 11] },
-      { id: 27, year: 4, name: "Electrónica Aplicada II", regulares: [9, 13, 15, 17, 19], aprobadas: [5, 11, 14] },
-      { id: 28, year: 4, name: "Seguridad, Higiene y M. Amb.", regulares: [], aprobadas: [4, 10] },
-      { id: 29, year: 5, name: "Técnicas Digitales III", regulares: [22], aprobadas: [8, 16, 19] },
-      { id: 30, year: 5, name: "Medidas Electrónicas II", regulares: [22, 23, 26, 27], aprobadas: [7, 13, 15, 16, 19, 21] },
-      { id: 31, year: 5, name: "Sistemas de Control", regulares: [24, 25], aprobadas: [13, 15] },
-      { id: 32, year: 5, name: "Electrónica Aplicada III", regulares: [24, 26, 27], aprobadas: [13, 15, 19] },
-      { id: 33, year: 5, name: "Tecnología Electrónica", regulares: [23], aprobadas: [13, 16, 19] },
-      { id: 34, year: 5, name: "Electrónica de Potencia", regulares: [23, 25, 27], aprobadas: [13, 16, 19] },
-      { id: 35, year: 5, name: "Organización Industrial", regulares: [18], aprobadas: [] },
-      { id: 36, year: 6, name: "Economía", regulares: [8], aprobadas: [4] },
-      { id: 37, year: 6, name: "Proyecto Final", regulares: [29, 30, 32], aprobadas: [22, 23, 25, 27] }
+      {
+            "id": 1,
+            "year": 1,
+            "semester": "Anual",
+            "name": "Informática I",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 2,
+            "year": 1,
+            "semester": "1º Cuatrimestre",
+            "name": "Álgebra y Geometría Analítica",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 3,
+            "year": 1,
+            "semester": "1º Cuatrimestre",
+            "name": "Análisis Matemático I",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 4,
+            "year": 1,
+            "semester": "1º Cuatrimestre",
+            "name": "Ingeniería y Sociedad",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 5,
+            "year": 1,
+            "semester": "2º Cuatrimestre",
+            "name": "Análisis Matemático II",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  2,
+                  3
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 6,
+            "year": 1,
+            "semester": "2º Cuatrimestre",
+            "name": "Física I",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 7,
+            "year": 1,
+            "semester": "2º Cuatrimestre",
+            "name": "Diseño asistido por computadora",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 8,
+            "year": 2,
+            "semester": "Anual",
+            "name": "Informática II",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  1,
+                  2,
+                  3
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 9,
+            "year": 2,
+            "semester": "Anual",
+            "name": "Análisis de Señales y Sistemas",
+            "weekly_hours": 6,
+            "total_hours": 144,
+            "regulares": [
+                  5
+            ],
+            "aprobadas": [
+                  2,
+                  3
+            ]
+      },
+      {
+            "id": 10,
+            "year": 2,
+            "semester": "1º Cuatrimestre",
+            "name": "Química General",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 11,
+            "year": 2,
+            "semester": "1º Cuatrimestre",
+            "name": "Física II",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  3,
+                  6
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 12,
+            "year": 2,
+            "semester": "2º Cuatrimestre",
+            "name": "Probabilidad y Estadística",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  2,
+                  3
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 13,
+            "year": 2,
+            "semester": "2º Cuatrimestre",
+            "name": "Física Electrónica",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  11
+            ],
+            "aprobadas": [
+                  2,
+                  3,
+                  6
+            ]
+      },
+      {
+            "id": 14,
+            "year": 2,
+            "semester": "2º Cuatrimestre",
+            "name": "Inglés I (Nota: Consultar en Bedelía de Básicas por cursado en 1º Cuatrimestre)",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 15,
+            "year": 3,
+            "semester": "Anual",
+            "name": "Teoría de los Circuitos I",
+            "weekly_hours": 6,
+            "total_hours": 144,
+            "regulares": [
+                  5,
+                  11
+            ],
+            "aprobadas": [
+                  3,
+                  6
+            ]
+      },
+      {
+            "id": 16,
+            "year": 3,
+            "semester": "Anual",
+            "name": "Técnicas Digitales I",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  1
+            ],
+            "aprobadas": [
+                  2
+            ]
+      },
+      {
+            "id": 17,
+            "year": 3,
+            "semester": "1º Cuatrimestre",
+            "name": "Dispositivos Electrónicos",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  1,
+                  3,
+                  10
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 18,
+            "year": 3,
+            "semester": "1º Cuatrimestre",
+            "name": "Legislación",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [
+                  8
+            ],
+            "aprobadas": [
+                  4
+            ]
+      },
+      {
+            "id": 21,
+            "year": 3,
+            "semester": "1º Cuatrimestre",
+            "name": "Inglés II (Nota: Se cursará a partir del 1º cuatrimestre del 2024)",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [],
+            "aprobadas": [
+                  14
+            ]
+      },
+      {
+            "id": 19,
+            "year": 3,
+            "semester": "2º Cuatrimestre",
+            "name": "Electrónica Aplicada I",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  10,
+                  11
+            ],
+            "aprobadas": [
+                  1,
+                  3,
+                  6
+            ]
+      },
+      {
+            "id": 20,
+            "year": 3,
+            "semester": "2º Cuatrimestre",
+            "name": "Medios de Enlace",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  5,
+                  11
+            ],
+            "aprobadas": [
+                  2,
+                  3,
+                  6
+            ]
+      },
+      {
+            "id": 22,
+            "year": 4,
+            "semester": "Anual",
+            "name": "Técnicas Digitales II",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  8,
+                  16,
+                  19
+            ],
+            "aprobadas": [
+                  10,
+                  11
+            ]
+      },
+      {
+            "id": 23,
+            "year": 4,
+            "semester": "Anual",
+            "name": "Medidas Electrónicas I",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  9,
+                  15,
+                  16,
+                  19
+            ],
+            "aprobadas": [
+                  5,
+                  10,
+                  11
+            ]
+      },
+      {
+            "id": 24,
+            "year": 4,
+            "semester": "Anual",
+            "name": "Teoría de los Circuitos II",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  9,
+                  15
+            ],
+            "aprobadas": [
+                  5,
+                  11
+            ]
+      },
+      {
+            "id": 25,
+            "year": 4,
+            "semester": "Anual",
+            "name": "Máquinas e Instalaciones Eléctricas",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  9,
+                  15
+            ],
+            "aprobadas": [
+                  5,
+                  11
+            ]
+      },
+      {
+            "id": 26,
+            "year": 4,
+            "semester": "Anual",
+            "name": "Sistemas de Comunicaciones",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  9,
+                  12,
+                  19,
+                  20
+            ],
+            "aprobadas": [
+                  5,
+                  11
+            ]
+      },
+      {
+            "id": 27,
+            "year": 4,
+            "semester": "Anual",
+            "name": "Electrónica Aplicada II",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  9,
+                  13,
+                  15,
+                  17,
+                  19
+            ],
+            "aprobadas": [
+                  5,
+                  11,
+                  14
+            ]
+      },
+      {
+            "id": 28,
+            "year": 4,
+            "semester": "Anual",
+            "name": "Seguridad, Higiene y Medio Ambiente",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [],
+            "aprobadas": [
+                  4,
+                  10
+            ]
+      },
+      {
+            "id": 29,
+            "year": 5,
+            "semester": "Anual",
+            "name": "Técnicas Digitales III",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  22
+            ],
+            "aprobadas": [
+                  8,
+                  16,
+                  19
+            ]
+      },
+      {
+            "id": 30,
+            "year": 5,
+            "semester": "Anual",
+            "name": "Medidas Electrónicas II",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  22,
+                  23,
+                  26,
+                  27
+            ],
+            "aprobadas": [
+                  7,
+                  13,
+                  15,
+                  16,
+                  19,
+                  21
+            ]
+      },
+      {
+            "id": 31,
+            "year": 5,
+            "semester": "Anual",
+            "name": "Sistemas de Control",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  24,
+                  25
+            ],
+            "aprobadas": [
+                  13,
+                  15
+            ]
+      },
+      {
+            "id": 32,
+            "year": 5,
+            "semester": "Anual",
+            "name": "Electrónica Aplicada III",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  24,
+                  26,
+                  27
+            ],
+            "aprobadas": [
+                  13,
+                  15,
+                  19
+            ]
+      },
+      {
+            "id": 33,
+            "year": 5,
+            "semester": "Anual",
+            "name": "Tecnología Electrónica",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  23
+            ],
+            "aprobadas": [
+                  13,
+                  16,
+                  19
+            ]
+      },
+      {
+            "id": 34,
+            "year": 5,
+            "semester": "Anual",
+            "name": "Electrónica de Potencia",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+              23,
+              25,
+              27
+            ],
+            "aprobadas": [
+              13,
+              16,
+              19
+            ]
+          },
+      {
+            "id": 35,
+            "year": 5,
+            "semester": "Anual",
+            "name": "Organización Industrial",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [
+                  18
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 36,
+            "year": 6,
+            "semester": "1º Cuatrimestre",
+            "name": "Economía",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  8
+            ],
+            "aprobadas": [
+                  4
+            ]
+      },
+      {
+            "id": 37,
+            "year": 6,
+            "semester": "1º Cuatrimestre",
+            "name": "Proyecto Final",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  29,
+                  30,
+                  32
+            ],
+            "aprobadas": [
+                  22,
+                  23,
+                  25,
+                  27
+            ]
+      },
+      {
+            "id": 997,
+            "year": 6,
+            "semester": "Electiva",
+            "name": "Materias Electivas",
+            "weekly_hours": 8,
+            "total_hours": 192,
+            "regulares": [],
+            "aprobadas": []
+      }
+
+
     ]
   },
   electromecanica: {
@@ -213,47 +2496,637 @@ export const planesData = {
     icon: React.createElement(Zap, { className: "w-8 h-8" }),
     color: 'from-[#EFEBF5] to-[#B4A7D6]',
     curriculum: [
-      { id: 1, year: 1, name: "Ingeniería Electromecánica I", regulares: [], aprobadas: [] },
-      { id: 2, year: 1, name: "Análisis Matemático I", regulares: [], aprobadas: [] },
-      { id: 3, year: 1, name: "Álgebra y Geometría Analítica", regulares: [], aprobadas: [] },
-      { id: 4, year: 1, name: "Sistemas de Representación", regulares: [], aprobadas: [] },
-      { id: 5, year: 1, name: "Química General", regulares: [], aprobadas: [] },
-      { id: 6, year: 1, name: "Física I", regulares: [], aprobadas: [] },
-      { id: 7, year: 1, name: "Representación Gráfica", regulares: [], aprobadas: [] },
-      { id: 8, year: 1, name: "Ingeniería y Sociedad", regulares: [], aprobadas: [] },
-      { id: 9, year: 2, name: "Ingeniería Electromecánica II", regulares: [1, 2, 3], aprobadas: [] },
-      { id: 10, year: 2, name: "Estabilidad", regulares: [2, 3, 6], aprobadas: [] },
-      { id: 11, year: 2, name: "Conocimiento de Materiales", regulares: [5], aprobadas: [] },
-      { id: 12, year: 2, name: "Análisis Matemático II", regulares: [2, 3], aprobadas: [] },
-      { id: 13, year: 2, name: "Física II", regulares: [2, 6], aprobadas: [] },
-      { id: 14, year: 2, name: "Probabilidad y Estadística", regulares: [2, 3], aprobadas: [] },
-      { id: 15, year: 2, name: "Programación en Computación", regulares: [2, 3], aprobadas: [] },
-      { id: 22, year: 2, name: "Inglés I", regulares: [], aprobadas: [] },
-      { id: 16, year: 3, name: "Ingeniería Electromecánica III", regulares: [9, 12, 13], aprobadas: [1, 2, 3, 6] },
-      { id: 17, year: 3, name: "Mecánica y Mecanísmos", regulares: [7, 10, 12], aprobadas: [2, 3, 4, 6] },
-      { id: 18, year: 3, name: "Electrotecnia", regulares: [12, 13], aprobadas: [2, 3, 6] },
-      { id: 19, year: 3, name: "Tecnología Mecánica", regulares: [11, 13], aprobadas: [2, 5, 6, 7] },
-      { id: 20, year: 3, name: "Termodinámica Técnica", regulares: [13], aprobadas: [2, 6] },
-      { id: 21, year: 3, name: "Matemática para Ing. Elect.", regulares: [2, 6], aprobadas: [2, 3] },
-      { id: 23, year: 3, name: "Higiene y Seguridad Industrial", regulares: [13], aprobadas: [2, 6] },
-      { id: 32, year: 3, name: "Inglés II", regulares: [13], aprobadas: [2, 5, 6, 8] },
-      { id: 24, year: 4, name: "Elementos de Máquinas", regulares: [13, 16, 17, 19], aprobadas: [9, 10, 11, 12, 13, 15, 22] },
-      { id: 25, year: 4, name: "Mecánica de Fluidos", regulares: [13, 17, 20, 21], aprobadas: [10, 12, 15] },
-      { id: 26, year: 4, name: "Máquinas Térmicas", regulares: [20, 21], aprobadas: [13] },
-      { id: 27, year: 4, name: "Máquinas Eléctricas", regulares: [18, 21], aprobadas: [12, 13] },
-      { id: 28, year: 4, name: "Mediciones Eléctricas", regulares: [18, 21], aprobadas: [12, 13] },
-      { id: 29, year: 4, name: "Legislación", regulares: [9], aprobadas: [8] },
-      { id: 30, year: 4, name: "Electrónica Industrial", regulares: [18], aprobadas: [12, 13] },
-      { id: 31, year: 4, name: "Economía", regulares: [9], aprobadas: [8] },
-      { id: 33, year: 5, name: "Redes e Inst. Eléctricas", regulares: [27, 28], aprobadas: [18, 21] },
-      { id: 34, year: 5, name: "Eq. de Transporte", regulares: [24, 25, 30], aprobadas: [16, 19, 21, 22, 23] },
-      { id: 35, year: 5, name: "Gestión Electromecánica", regulares: [25, 27, 30], aprobadas: [16, 17, 18, 19, 21, 23] },
-      { id: 36, year: 5, name: "Inst. Térmicas y Mecánicas", regulares: [25, 26], aprobadas: [17, 20, 21] },
-      { id: 37, year: 5, name: "Automatización Industrial", regulares: [21, 24, 25, 27, 30], aprobadas: [17, 18, 20, 23] },
-      { id: 38, year: 5, name: "Sistemas de Transmisión", regulares: [25, 27, 28, 30], aprobadas: [17, 18, 20, 21] },
-      { id: 39, year: 5, name: "Organización Industrial", regulares: [26, 31], aprobadas: [9, 14] },
-      { id: 40, year: 5, name: "Proyecto Final", regulares: [25, 28, 30, 32], aprobadas: [16, 17, 18, 19, 20, 21, 23] },
-      { id: 41, year: 5, name: "Oleohidráulica y Neumática", regulares: [25], aprobadas: [13, 17, 20] }
-    ]
+      {
+            "id": 1,
+            "year": 1,
+            "semester": "Anual",
+            "name": "Ingeniería Electromecánica I",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 2,
+            "year": 1,
+            "semester": "1º Cuatrimestre",
+            "name": "Análisis Matemático I",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 3,
+            "year": 1,
+            "semester": "1º Cuatrimestre",
+            "name": "Álgebra y Geometría Analítica",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 4,
+            "year": 1,
+            "semester": "1º Cuatrimestre",
+            "name": "Sistemas de Representación",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 5,
+            "year": 1,
+            "semester": "2º Cuatrimestre",
+            "name": "Química General",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 6,
+            "year": 1,
+            "semester": "2º Cuatrimestre",
+            "name": "Física I",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 7,
+            "year": 1,
+            "semester": "2º Cuatrimestre",
+            "name": "Representación Gráfica",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 8,
+            "year": 1,
+            "semester": "2º Cuatrimestre",
+            "name": "Ingeniería y Sociedad",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 9,
+            "year": 2,
+            "semester": "Anual",
+            "name": "Ingeniería Electromecánica II",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [
+                  1,
+                  2,
+                  3
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 10,
+            "year": 2,
+            "semester": "Anual",
+            "name": "Estabilidad",
+            "weekly_hours": 6,
+            "total_hours": 144,
+            "regulares": [
+                  2,
+                  3,
+                  6
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 11,
+            "year": 2,
+            "semester": "Anual",
+            "name": "Conocimiento de Materiales",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  5
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 12,
+            "year": 2,
+            "semester": "1º Cuatrimestre",
+            "name": "Análisis Matemático II",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  2,
+                  3
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 13,
+            "year": 2,
+            "semester": "1º Cuatrimestre",
+            "name": "Física II",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  2,
+                  6
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 14,
+            "year": 2,
+            "semester": "2º Cuatrimestre",
+            "name": "Probabilidad y Estadística",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  2,
+                  3
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 15,
+            "year": 2,
+            "semester": "2º Cuatrimestre",
+            "name": "Programación en Computación",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  2,
+                  3
+            ],
+            "aprobadas": []
+      },
+      {
+            "id": 22,
+            "year": 2,
+            "semester": "2º Cuatrimestre",
+            "name": "Inglés I",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [],
+            "aprobadas": []
+      },
+      {
+            "id": 16,
+            "year": 3,
+            "semester": "Anual",
+            "name": "Ingeniería Electromecánica III",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  9,
+                  12,
+                  13
+            ],
+            "aprobadas": [
+                  1,
+                  2,
+                  3,
+                  6
+            ]
+      },
+      {
+            "id": 17,
+            "year": 3,
+            "semester": "Anual",
+            "name": "Mecánica y Mecanismos",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  7,
+                  10,
+                  12
+            ],
+            "aprobadas": [
+                  2,
+                  3,
+                  4,
+                  6
+            ]
+      },
+      {
+            "id": 18,
+            "year": 3,
+            "semester": "Anual",
+            "name": "Electrotecnia",
+            "weekly_hours": 6,
+            "total_hours": 144,
+            "regulares": [
+                  12,
+                  13
+            ],
+            "aprobadas": [
+                  2,
+                  3,
+                  6
+            ]
+      },
+      {
+            "id": 19,
+            "year": 3,
+            "semester": "Anual",
+            "name": "Tecnología Mecánica",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  11,
+                  13
+            ],
+            "aprobadas": [
+                  2,
+                  5,
+                  6,
+                  7
+            ]
+      },
+      {
+            "id": 20,
+            "year": 3,
+            "semester": "1º Cuatrimestre",
+            "name": "Termodinámica Técnica",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  13
+            ],
+            "aprobadas": [
+                  2,
+                  6
+            ]
+      },
+      {
+            "id": 21,
+            "year": 3,
+            "semester": "1º Cuatrimestre",
+            "name": "Matemática para Ing. Electromecánica",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  2,
+                  6
+            ],
+            "aprobadas": [
+                  2,
+                  3
+            ]
+      },
+      {
+            "id": 23,
+            "year": 3,
+            "semester": "2º Cuatrimestre",
+            "name": "Higiene y Seguridad Industrial",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [
+                  13
+            ],
+            "aprobadas": [
+                  2,
+                  6
+            ]
+      },
+      {
+            "id": 32,
+            "year": 3,
+            "semester": "2º Cuatrimestre",
+            "name": "Inglés II",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [
+                  13
+            ],
+            "aprobadas": [
+                  2,
+                  5,
+                  6,
+                  8
+            ]
+      },
+      {
+            "id": 24,
+            "year": 4,
+            "semester": "Anual",
+            "name": "Elementos de Máquinas",
+            "weekly_hours": 6,
+            "total_hours": 144,
+            "regulares": [
+                  13,
+                  16,
+                  17,
+                  19
+            ],
+            "aprobadas": [
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  15,
+                  22
+            ]
+      },
+      {
+            "id": 25,
+            "year": 4,
+            "semester": "Anual",
+            "name": "Mecánica de los Fluidos y Máquinas Fluidodinámicas",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  13,
+                  17,
+                  20,
+                  21
+            ],
+            "aprobadas": [
+                  10,
+                  12,
+                  15
+            ]
+      },
+      {
+            "id": 26,
+            "year": 4,
+            "semester": "Anual",
+            "name": "Máquinas Térmicas",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  20,
+                  21
+            ],
+            "aprobadas": [
+                  13
+            ]
+      },
+      {
+            "id": 27,
+            "year": 4,
+            "semester": "Anual",
+            "name": "Máquinas Eléctricas",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  18,
+                  21
+            ],
+            "aprobadas": [
+                  12,
+                  13
+            ]
+      },
+      {
+            "id": 28,
+            "year": 4,
+            "semester": "1º Cuatrimestre",
+            "name": "Mediciones Eléctricas",
+            "weekly_hours": 4,
+            "total_hours": 96,
+            "regulares": [
+                  18,
+                  21
+            ],
+            "aprobadas": [
+                  12,
+                  13
+            ]
+      },
+      {
+            "id": 29,
+            "year": 4,
+            "semester": "1º Cuatrimestre",
+            "name": "Legislación",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [
+                  9
+            ],
+            "aprobadas": [
+                  8
+            ]
+      },
+      {
+            "id": 30,
+            "year": 4,
+            "semester": "2º Cuatrimestre",
+            "name": "Electrónica Industrial",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  18
+            ],
+            "aprobadas": [
+                  12,
+                  13
+            ]
+      },
+      {
+            "id": 31,
+            "year": 4,
+            "semester": "2º Cuatrimestre",
+            "name": "Economía",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  9
+            ],
+            "aprobadas": [
+                  8
+            ]
+      },
+      {
+            "id": 33,
+            "year": 5,
+            "semester": "Anual",
+            "name": "Redes de Distribución e Instalaciones Eléctricas",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  27,
+                  28
+            ],
+            "aprobadas": [
+                  18,
+                  21
+            ]
+      },
+      {
+            "id": 34,
+            "year": 5,
+            "semester": "Anual",
+            "name": "Máquinas y Equipos de Transporte",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [
+                  24,
+                  25,
+                  30
+            ],
+            "aprobadas": [
+                  16,
+                  19,
+                  21,
+                  22,
+                  23
+            ]
+      },
+      {
+            "id": 35,
+            "year": 5,
+            "semester": "Anual",
+            "name": "Gestión y Mantenimiento Electromecánico",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [
+                  25,
+                  27,
+                  30
+            ],
+            "aprobadas": [
+                  16,
+                  17,
+                  18,
+                  19,
+                  21,
+                  23
+            ]
+      },
+      {
+            "id": 36,
+            "year": 5,
+            "semester": "1º Cuatrimestre",
+            "name": "Instalaciones Térmicas y Mecánicas",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  25,
+                  26
+            ],
+            "aprobadas": [
+                  17,
+                  20,
+                  21
+            ]
+      },
+      {
+            "id": 37,
+            "year": 5,
+            "semester": "1º Cuatrimestre",
+            "name": "Automatización y Control Industrial",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  21,
+                  24,
+                  25,
+                  27,
+                  30
+            ],
+            "aprobadas": [
+                  17,
+                  18,
+                  20,
+                  23
+            ]
+      },
+      {
+            "id": 38,
+            "year": 5,
+            "semester": "2º Cuatrimestre",
+            "name": "Centrales y Sistemas de Transmisión",
+            "weekly_hours": 5,
+            "total_hours": 120,
+            "regulares": [
+                  25,
+                  27,
+                  28,
+                  30
+            ],
+            "aprobadas": [
+                  17,
+                  18,
+                  20,
+                  21
+            ]
+      },
+      {
+            "id": 39,
+            "year": 5,
+            "semester": "2º Cuatrimestre",
+            "name": "Organización Industrial",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  26,
+                  31
+            ],
+            "aprobadas": [
+                  9,
+                  14
+            ]
+      },
+      {
+            "id": 41,
+            "year": 5,
+            "semester": "2º Cuatrimestre",
+            "name": "Oleohidráulica y Neumática",
+            "weekly_hours": 2,
+            "total_hours": 48,
+            "regulares": [
+                  25
+            ],
+            "aprobadas": [
+                  13,
+                  17,
+                  20
+            ]
+      },
+      {
+            "id": 40,
+            "year": 5,
+            "semester": "2º Cuatrimestre",
+            "name": "Proyecto Final",
+            "weekly_hours": 3,
+            "total_hours": 72,
+            "regulares": [
+                  25,
+                  28,
+                  30,
+                  32
+            ],
+            "aprobadas": [
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  23
+            ]
+      },
+      {
+            "id": 996,
+            "year": 5,
+            "semester": "Electiva",
+            "name": "Materias Electivas",
+            "weekly_hours": 10,
+            "total_hours": 240,
+            "regulares": [],
+            "aprobadas": []
+      }
+
+]
   }
 };
