@@ -68,8 +68,8 @@ export function CustomCursor() {
           "fixed top-0 left-0 rounded-full pointer-events-none z-[99999]",
           "transition-[width,height,background-color,border-color,backdrop-filter] duration-[200ms] ease-out flex items-center justify-center",
           isHovering 
-            ? "w-12 h-12 bg-[#8BAA91]/20 border border-[#8BAA91]/80 backdrop-blur-[1px]" 
-            : "w-7 h-7 bg-[#8BAA91] border border-[#7A9980] shadow-sm"
+            ? "w-8 h-8 bg-[#8BAA91]/20 border border-[#8BAA91]/80 backdrop-blur-[1px]" 
+            : "w-5 h-5 bg-[#8BAA91] border border-[#7A9980] shadow-sm"
         )}
         style={{ 
           transform: `translate(${mousePos.x}px, ${mousePos.y}px) translate(-50%, -50%)`,
@@ -82,8 +82,8 @@ export function CustomCursor() {
           "fixed top-0 left-0 rounded-full pointer-events-none z-[100000]",
           "transition-[width,height,background-color,opacity] duration-[150ms]",
           isHovering 
-            ? "w-1.5 h-1.5 bg-[#2C2825] opacity-80" // Punto oscuro al hacer hover
-            : "w-[5px] h-[5px] bg-[#F5F0EA] opacity-90" // Punto cremita en estado normal
+            ? "w-1 h-1 bg-[#2C2825] opacity-80" // Punto oscuro al hacer hover
+            : "w-[3px] h-[3px] bg-[#F5F0EA] opacity-90" // Punto cremita en estado normal
         )}
         style={{ 
           transform: `translate(${mousePos.x}px, ${mousePos.y}px) translate(-50%, -50%)`,

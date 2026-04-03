@@ -113,6 +113,7 @@ interface Subject {
   id: number;
   year: number;
   semester?: string;
+  note?: string;
   name: string;
   regulares: number[];
   aprobadas: number[];
@@ -322,9 +323,16 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                         {getSubjectIcon(subject.name, `w-5 h-5 ${iconColor} group-hover:text-[#8BAA91] group-hover:scale-125 group-hover:-rotate-12 transition-all duration-500 ease-out shrink-0 relative z-10`)}
                       </div>
                       
-                      <h4 className={`relative z-10 font-semibold text-sm leading-tight text-[#3D3229] transition-colors mt-auto`}>
-                        {subject.name}
-                      </h4>
+                      <div className="relative z-10 mt-auto flex flex-col gap-1.5">
+                        <h4 className="font-semibold text-sm leading-tight text-[#3D3229] transition-colors">
+                          {subject.name}
+                        </h4>
+                        {subject.note && (
+                          <p className="text-[9px] uppercase tracking-wide leading-tight text-[#8BAA91] font-bold">
+                            *{subject.note}
+                          </p>
+                        )}
+                      </div>
 
                       {/* Hover action hint */}
                       <div className="relative z-10 mt-4 flex items-center gap-1 text-[10px] uppercase tracking-wider font-bold text-[#8BAA91] opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 text-shadow-sm">
@@ -373,6 +381,11 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
               <h2 className="text-2xl font-bold text-[#1A1A1A] mb-2 leading-tight">
                 {selectedSubject.name}
               </h2>
+              {selectedSubject.note && (
+                <p className="text-[11px] uppercase tracking-wide leading-tight text-[#8BAA91] font-bold mb-3">
+                  *{selectedSubject.note}
+                </p>
+              )}
               <p className="text-[#8BAA91] font-medium flex items-center gap-2">
                 <Layers className="w-4 h-4" /> Año {selectedSubject.year}
                 {selectedSubject.semester && (
@@ -549,6 +562,11 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
             <h2 className="text-2xl font-bold text-[#1A1A1A] mb-2 leading-tight">
               {selectedSubject.name}
             </h2>
+            {selectedSubject.note && (
+              <p className="text-[11px] uppercase tracking-wide leading-tight text-[#8BAA91] font-bold mb-3">
+                *{selectedSubject.note}
+              </p>
+            )}
             <p className="text-[#8BAA91] font-medium flex items-center gap-2 flex-wrap">
               <Layers className="w-4 h-4" /> Año {selectedSubject.year}
                 {selectedSubject.semester && (

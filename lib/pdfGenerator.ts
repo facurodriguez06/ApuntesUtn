@@ -11,6 +11,7 @@ interface Subject {
   name: string;
   weekly_hours?: number;
   total_hours?: number;
+  note?: string;
   regulares: number[];
   aprobadas: number[];
 }
@@ -454,10 +455,14 @@ const buildYearTableBody = (
     if (periodSubjects.length === 0) return;
 
     periodSubjects.forEach((subject) => {
-      const subjectLabel =
+      let subjectLabel =
         getSemesterKey(subject) === 'elective'
           ? subject.name
           : `${formatCode(subject.id)} - ${subject.name}`;
+      
+      if (subject.note) {
+        subjectLabel += `\n*${subject.note}`;
+      }
       const correlationDetails = buildCorrelationDetails(subject, curriculum);
 
       body.push([
@@ -582,6 +587,42 @@ const buildYearTableConfig = (
     1: { cellWidth: compact ? 68 : 72 },
     2: { cellWidth: compact ? 26 : 28 },
     3: { cellWidth: compact ? 64 : 54 },
+  },
+  didParseCell: (data: any) => {
+    if (data.section === 'body' && data.column.index === 3) {
+      const doc = data.doc as jsPDF;
+      const raw = data.cell.raw as { regularText?: string; approvedText?: string } | undefined;
+      const regularText = raw?.regularText ?? '-';
+      const approvedText = raw?.approvedText ?? '-';
+
+      const labelFs = compact ? 5.4 : 6.3;
+      const valueFs = compact ? 5.2 : 6.1;
+
+      // Same text-wrapping width calculation as used in didDrawCell
+      const contentWidth = (compact ? 64 : 54) - 4.4;
+
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(labelFs);
+      const regularLabelWidth = doc.getTextWidth('Regulares:') + 1.3;
+      const approvedLabelWidth = doc.getTextWidth('Aprobadas:') + 1.3;
+
+      doc.setFontSize(valueFs);
+      const regularLines = doc.splitTextToSize(regularText, contentWidth - regularLabelWidth);
+      const approvedLines = doc.splitTextToSize(approvedText, contentWidth - approvedLabelWidth);
+
+      const lineH = compact ? 2.8 : 3.4;
+      const sectionGap = compact ? 1.0 : 1.5;
+      const regularBlockH = Math.max(regularLines.length, 1) * lineH;
+      const approvedBlockH = Math.max(approvedLines.length, 1) * lineH;
+      
+      const totalBlockH = regularBlockH + sectionGap + approvedBlockH;
+      const paddingY = compact ? 5 : 7; // Adequate padding sum
+
+      data.cell.styles.minCellHeight = Math.max(
+        data.cell.styles.minCellHeight || 0,
+        totalBlockH + paddingY
+      );
+    }
   },
   didDrawCell: (data: any) => {
     const doc = data.doc as jsPDF;
@@ -880,7 +921,7 @@ export const generateStudyPlanPDF = async (career: Career, curriculum: Subject[]
   // Per-career compact years — only these specific years need compact rendering
   const COMPACT_YEARS: Record<string, number[] | 'all'> = {
     civil: 'all',
-    quimica: [3],
+    quimica: [3, 5],
     electromecanica: [5],
   };
 

@@ -1810,9 +1810,13 @@ export const planesData = {
             "year": 5,
             "semester": "Anual",
             "name": "Proyecto Final",
+            "note": "Para rendir se requiere tener aprobadas todas",
             "weekly_hours": 4,
             "total_hours": 96,
             "regulares": [
+                  27,
+                  28,
+                  29,
                   31,
                   32,
                   34
@@ -1822,9 +1826,6 @@ export const planesData = {
                   21,
                   22,
                   25,
-                  27,
-                  28,
-                  29,
                   30
             ]
       },
@@ -1855,13 +1856,13 @@ export const planesData = {
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
+                  9,
+                  21
+            ],
+            "aprobadas": [
                   5,
                   11,
                   20
-            ],
-            "aprobadas": [
-                  9,
-                  21
             ]
       },
       {
@@ -2460,6 +2461,7 @@ export const planesData = {
             "year": 6,
             "semester": "1º Cuatrimestre",
             "name": "Proyecto Final",
+            "note": "Para rendir se requiere tener aprobadas todas",
             "weekly_hours": 4,
             "total_hours": 96,
             "regulares": [
