@@ -86,7 +86,7 @@ export default function Home() {
         <section className="text-center max-w-2xl mx-auto mb-16 stagger-children">
           <h1 className="text-3xl md:text-[2.75rem] font-extrabold text-[#3D3229] tracking-tight mb-4 leading-[1.15] animate-fade-in-up">
             Tus apuntes, {' '}
-            <span className="bg-gradient-to-r from-[#8BAA91] via-[#7CC2A8] to-[#7BA7C2] bg-clip-text text-transparent animate-gradient inline-block">
+            <span className="bg-gradient-to-r from-[#8BAA91] via-[#7CC2A8] to-[#7BA7C2] bg-clip-text text-transparent animate-gradient inline-block pb-2">
               en un solo lugar
             </span>
           </h1>
