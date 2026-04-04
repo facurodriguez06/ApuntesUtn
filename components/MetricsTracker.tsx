@@ -17,7 +17,9 @@ export function MetricsTracker() {
         // Ignorar en entorno localhost para no ensuciar datos
         if (typeof window !== 'undefined' && window.location.hostname === 'localhost') return;
 
-        const today = new Date().toISOString().split('T')[0];
+        const d = new Date();
+        const baTime = new Date(d.toLocaleString("en-US", {timeZone: "America/Argentina/Buenos_Aires"}));
+        const today = baTime.getFullYear() + '-' + String(baTime.getMonth() + 1).padStart(2, '0') + '-' + String(baTime.getDate()).padStart(2, '0');
         const isNewSession = !sessionStorage.getItem("tracked_session");
         
         const updateData: any = { 

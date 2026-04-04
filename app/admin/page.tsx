@@ -330,7 +330,9 @@ export default function AdminPage() {
       let totalViews = 0;
       let totalUnique = 0;
       let todayViews = 0;
-      const todayString = new Date().toISOString().split('T')[0];
+      const d = new Date();
+      const baTime = new Date(d.toLocaleString("en-US", {timeZone: "America/Argentina/Buenos_Aires"}));
+      const todayString = baTime.getFullYear() + '-' + String(baTime.getMonth() + 1).padStart(2, '0') + '-' + String(baTime.getDate()).padStart(2, '0');
 
       snapshot.forEach(d => {
         const data = d.data();
