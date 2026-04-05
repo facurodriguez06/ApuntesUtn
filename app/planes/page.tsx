@@ -310,13 +310,14 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                   return (
                     <div 
                       key={subject.id}
+                      role="button"
                       onMouseEnter={() => setHoveredSubject(subject.id)}
                       onMouseLeave={() => setHoveredSubject(null)}
                       onClick={() => setSelectedSubject(subject)}
-                      style={{ animationDelay: `${index * 35}ms` }}
+                      style={{ animationDelay: `${index * 15}ms` }}
                       className={`
-                        relative p-4 rounded-2xl border transition-all duration-500 ease-out cursor-pointer group min-h-[120px] flex flex-col overflow-hidden
-                        z-0 hover:z-20
+                        relative p-4 rounded-2xl border transition-all duration-300 ease-out group min-h-[120px] flex flex-col overflow-hidden
+                        z-0 hover:z-20 animate-fade-in-up
                         ${cardStyle}
                         ${spanClass}
                       `}
