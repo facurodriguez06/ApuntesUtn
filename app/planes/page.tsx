@@ -23,22 +23,11 @@ export default function PlanesPage() {
 
   useEffect(() => {
     let ticking = false;
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          if (bgRef.current) {
-            bgRef.current.style.setProperty('--x', `${e.clientX}px`);
-            bgRef.current.style.setProperty('--y', `${e.clientY}px`);
-          }
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
+    const handleMouseMove = () => {};
 
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
+      
     };
   }, []);
 
@@ -47,14 +36,14 @@ export default function PlanesPage() {
       {/* Dynamic Background Effect */}
       <div 
         ref={bgRef}
-        className="fixed inset-0 opacity-[0.25] pointer-events-none transition-colors duration-1000 z-0"
+        className="fixed inset-0 opacity-[0.25] pointer-events-none transition-opacity duration-300 z-0"
         style={{
-          background: `radial-gradient(circle 800px at var(--x, 50%) var(--y, 50%), ${activeCareer.name === 'Ingeniería en Sistemas' ? 'rgba(139, 170, 145, 0.4)' : activeCareer.name === 'Ingeniería Civil' ? 'rgba(212, 133, 106, 0.3)' : activeCareer.name === 'Ingeniería Química' ? 'rgba(124, 194, 168, 0.3)' : 'rgba(160, 160, 160, 0.3)'}, transparent)`
+          background: `radial-gradient(circle 100vh at 50% 0%, ${activeCareer.name === 'Ingeniería en Sistemas' ? 'rgba(139, 170, 145, 0.4)' : activeCareer.name === 'Ingeniería Civil' ? 'rgba(212, 133, 106, 0.3)' : activeCareer.name === 'Ingeniería Química' ? 'rgba(124, 194, 168, 0.3)' : 'rgba(160, 160, 160, 0.3)'}, transparent)`
         }}
       />
       
       {/* Soft Grid Pattern */}
-      <div className="fixed inset-0 bg-[url('/grid.svg')] bg-center opacity-[0.4] mix-blend-multiply pointer-events-none z-0"></div>
+      <div className="fixed inset-0 bg-[url('/grid.svg')] bg-center opacity-[0.4]  pointer-events-none z-0"></div>
 
       {/* Main Content */}
       <div ref={containerRef} className="flex-grow flex flex-col pt-12 relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -75,7 +64,7 @@ export default function PlanesPage() {
           </div>
           
           {/* Career Selector */}
-          <div className="flex bg-white/70 backdrop-blur-md p-2 rounded-2xl flex-wrap justify-start items-center border border-[#E8F0EA] shadow-sm w-fit gap-2 relative z-20">
+          <div className="flex bg-[#FCFBFA] p-2 rounded-2xl flex-wrap justify-start items-center border border-[#E8F0EA] shadow-sm w-fit gap-2 relative z-20">
             {careerOptions.map((career) => {
               const isActive = activeCareer.id === career.id;
               return (
@@ -83,7 +72,7 @@ export default function PlanesPage() {
                   key={career.id}
                   onClick={() => setActiveCareer(career)}
                   className={`
-                    relative px-4 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 flex items-center gap-2.5 active:scale-95
+                    relative px-4 py-2.5 rounded-xl text-sm font-bold transition-all duration-150 flex items-center gap-2.5 active:scale-95
                     ${isActive 
                       ? 'bg-white text-[#3D3229] shadow-md shadow-[#8BAA91]/10 ring-1 ring-[#8BAA91]/40 z-10 scale-[1.02]' 
                       : 'text-[#7A6E62] hover:text-[#3D3229] hover:bg-white/60 hover:-translate-y-0.5'
@@ -102,7 +91,7 @@ export default function PlanesPage() {
 
         {/* Curriculum Viewer Container */}
         <div className="flex-grow relative flex flex-col min-h-[600px] mb-8">
-          <div className="absolute inset-0 bg-white/70 backdrop-blur-xl rounded-3xl border border-[#E8F0EA] shadow-xl pointer-events-none z-0" />
+          <div className="absolute inset-0 bg-white border-b shadow-sm rounded-3xl border border-[#E8F0EA] shadow-xl pointer-events-none z-0" />
           <div className="relative z-10 flex-grow flex flex-col min-h-[600px] rounded-3xl">
             <CurriculumViewer career={activeCareer} />
           </div>
@@ -248,7 +237,7 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                   mod.generateStudyPlanPDF(career, career.curriculum);
                 });
               }}
-              className="flex items-center justify-center gap-2 bg-[#1A1A1A] hover:bg-[#3D3229] text-white px-4 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-[#1A1A1A]/20 transition-all duration-300 hover:-translate-y-1 group w-full sm:w-auto"
+              className="flex items-center justify-center gap-2 bg-[#1A1A1A] hover:bg-[#3D3229] text-white px-4 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-[#1A1A1A]/20 transition-all duration-150 hover:-translate-y-1 group w-full sm:w-auto"
             >
               <FileText className="w-4 h-4 group-hover:scale-110 transition-transform" />
               <span>Descargar Plan</span>
@@ -262,7 +251,7 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                 key={year}
                 onClick={() => setSelectedYear(year)}
                 className={`
-                  relative px-4 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 whitespace-nowrap active:scale-95 flex-1 xl:flex-none text-center
+                  relative px-4 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-150 whitespace-nowrap active:scale-95 flex-1 xl:flex-none text-center
                   ${selectedYear === year 
                     ? 'bg-white text-[#3D3229] shadow-md shadow-[#8BAA91]/10 ring-1 ring-[#8BAA91]/30 z-10 scale-105 xl:scale-[1.05]' 
                     : 'text-[#7A6E62] hover:text-[#3D3229] hover:bg-white'
@@ -277,18 +266,20 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
 
         {/* Years Grid */}
         <div className={`flex flex-col gap-6 pb-8 ${selectedSubject ? 'mb-[50vh] lg:mb-0' : ''}`}>
-          {displayedYears.map(([yearStr, subjects]) => (
+          {(() => {
+            const hoveredData = hoveredSubject ? career.curriculum.find(s => s.id === hoveredSubject) : null;
+            const hoveredRegulares = new Set(hoveredData?.regulares || []);
+            const hoveredAprobadas = new Set(hoveredData?.aprobadas || []);
+
+            return displayedYears.map(([yearStr, subjects]) => (
             <div key={yearStr} className="flex flex-col gap-4 w-full">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {subjects.map((subject, index) => {
                   const isHovered = hoveredSubject === subject.id;
                   const isSelected = selectedSubject?.id === subject.id;
-                  
-                  // Highlight logic
-                  const isReqOfHovered = hoveredSubject ? career.curriculum.find(s => s.id === hoveredSubject)?.regulares.includes(subject.id) || career.curriculum.find(s => s.id === hoveredSubject)?.aprobadas.includes(subject.id) : false;
-                  
-                  const unlocksHovered = hoveredSubject ? subject.regulares.includes(hoveredSubject) || subject.aprobadas.includes(hoveredSubject) : false;
 
+                  // Highlight logic much faster O(1)
+                  const isReqOfHovered = hoveredSubject ? hoveredRegulares.has(subject.id) || hoveredAprobadas.has(subject.id) : false;                   const unlocksHovered = hoveredSubject ? subject.regulares.includes(hoveredSubject) || subject.aprobadas.includes(hoveredSubject) : false;
                   let cardStyle = "bg-white border-[#E8F0EA] hover:border-[#8BAA91]/40 hover:shadow-xl hover:shadow-[#8BAA91]/10 hover:-translate-y-1";
                   let iconColor = "text-[#A0A0A0]";
                   let spanClass = "";
@@ -298,10 +289,10 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                   }
 
                   if (isReqOfHovered) {
-                    cardStyle = "bg-[#FFF9F2] ring-2 ring-[#D4856A] ring-offset-2 scale-[1.02] transition-all z-10 shadow-lg border-[#D4856A]/50";
+                    cardStyle = "bg-[#FFF9F2] ring-2 ring-[#D4856A] ring-offset-2 scale-[1.02] transition-all z-10 will-change-transform shadow-lg border-[#D4856A]/50";
                     iconColor = "text-[#D4856A]";
                   } else if (unlocksHovered) {
-                    cardStyle = "bg-[#F4FBFA] ring-2 ring-[#8BAA91] ring-offset-2 scale-[1.02] transition-all z-10 shadow-lg border-[#8BAA91]/50";
+                    cardStyle = "bg-[#F4FBFA] ring-2 ring-[#8BAA91] ring-offset-2 scale-[1.02] transition-all z-10 will-change-transform shadow-lg border-[#8BAA91]/50";
                     iconColor = "text-[#8BAA91]";
                   } else if (isSelected) {
                     cardStyle += " ring-2 ring-[#8BAA91] ring-offset-2 scale-[1.02] z-10 shadow-lg";
@@ -316,13 +307,13 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                       onClick={() => setSelectedSubject(subject)}
                       style={{ animationDelay: `${index * 8}ms`, animationDuration: '250ms' }}
                       className={`
-                        relative p-4 rounded-2xl border transition-all duration-200 ease-out group min-h-[120px] flex flex-col overflow-hidden
+                        relative p-4 rounded-2xl border transition-all duration-100 ease-out group min-h-[120px] flex flex-col overflow-hidden
                         z-0 hover:z-20 animate-fade-in-up
                         ${cardStyle}
                         ${spanClass}
                       `}
                     >
-                      <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-current opacity-[0.03] rounded-full group-hover:scale-[2.5] transition-transform duration-300 ease-out z-0 pointer-events-none" />
+                      <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-current opacity-[0.03] rounded-full group-hover:scale-[2.5] transition-transform duration-150 ease-out z-0 pointer-events-none" />
                       <div className="flex items-start justify-between mb-2">
                         <div className="flex items-center gap-1.5">
                           <span className="relative z-10 text-xs font-mono font-medium text-[#A0A0A0] bg-[#F5F5F5] px-2 py-1 rounded-md block w-fit">
@@ -343,7 +334,7 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                             </span>
                           )}
                         </div>
-                        {getSubjectIcon(subject.name, `w-5 h-5 ${iconColor} group-hover:text-[#8BAA91] group-hover:scale-125 group-hover:-rotate-12 transition-all duration-200 ease-out shrink-0 relative z-10`)}
+                        {getSubjectIcon(subject.name, `w-5 h-5 ${iconColor} group-hover:text-[#8BAA91] group-hover:scale-125 group-hover:-rotate-12 transition-all duration-100 ease-out shrink-0 relative z-10`)}
                       </div>
                       
                       <div className="relative z-10 mt-auto flex flex-col gap-1.5">
@@ -358,7 +349,7 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                       </div>
 
                       {/* Hover action hint */}
-                      <div className="relative z-10 mt-4 flex items-center gap-1 text-[10px] uppercase tracking-wider font-bold text-[#8BAA91] opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 text-shadow-sm">
+                      <div className="relative z-10 mt-4 flex items-center gap-1 text-[10px] uppercase tracking-wider font-bold text-[#8BAA91] opacity-0 group-hover:opacity-100 transition-all duration-150 translate-y-2 group-hover:translate-y-0 text-shadow-sm">
                         <Info className="w-3 h-3" /> Ver correlativas
                       </div>
                     </div>
@@ -366,7 +357,8 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                 })}
               </div>
             </div>
-          ))}
+            ));
+          })()}
         </div>
       </div>
 
@@ -383,7 +375,7 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
           <div className="
             fixed bottom-0 left-0 right-0 z-[101] rounded-t-3xl max-h-[85vh] overflow-y-auto scrollbar-hide
             border-t border-[#E8F0EA] bg-[#FAFAFA] px-6 pt-6 pb-8
-            transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] shadow-[0_-10px_30px_rgba(0,0,0,0.05)]
+            transition-all duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] shadow-[0_-10px_30px_rgba(0,0,0,0.05)]
           ">
             <div className="w-12 h-1.5 bg-[#E8F0EA] rounded-full mx-auto mb-6" />
 
@@ -452,7 +444,7 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                               <li 
                                 key={reqId} 
                                 style={{ animationDelay: `${index * 50 + 100}ms` }}
-                                className="flex items-start gap-2 text-sm text-[#3D3229] hover:text-[#8BAA91] hover:bg-[#F4FBFA] p-1.5 -ml-1.5 rounded-lg cursor-pointer transition-colors group"
+                                className="flex items-start gap-2 text-sm text-[#3D3229] hover:text-[#8BAA91] hover:bg-[#F4FBFA] p-1.5 -ml-1.5 rounded-lg transition-colors group"
                                 onClick={() => {
                                   if (reqSub) {
                                     setSelectedSubject(reqSub);
@@ -479,7 +471,7 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                               <li 
                                 key={reqId} 
                                 style={{ animationDelay: `${index * 50 + 200}ms` }}
-                                className="flex items-start gap-2 text-sm text-[#3D3229] hover:text-[#D4856A] hover:bg-[#FFF9F2] p-1.5 -ml-1.5 rounded-lg cursor-pointer transition-colors group"
+                                className="flex items-start gap-2 text-sm text-[#3D3229] hover:text-[#D4856A] hover:bg-[#FFF9F2] p-1.5 -ml-1.5 rounded-lg transition-colors group"
                                 onClick={() => {
                                   if (reqSub) {
                                     setSelectedSubject(reqSub);
@@ -520,7 +512,7 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                             {unlocksAsRegular.map((unlockedSub, index) => (
                               <span key={unlockedSub.id} 
                                     style={{ animationDelay: `${index * 50 + 100}ms` }}
-                                    className="text-xs font-medium bg-[#FFF9F2] border border-[#E8F0EA] text-[#3D3229] px-2.5 py-1.5 rounded-lg hover:border-[#D4856A] hover:bg-[#D4856A]/10 cursor-pointer transition-colors"
+                                    className="text-xs font-medium bg-[#FFF9F2] border border-[#E8F0EA] text-[#3D3229] px-2.5 py-1.5 rounded-lg hover:border-[#D4856A] hover:bg-[#D4856A]/10 transition-colors"
                                     onClick={() => {
                                       setSelectedSubject(unlockedSub);
                                       setSelectedYear(unlockedSub.year);
@@ -539,7 +531,7 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                             {unlocksAsApproved.map((unlockedSub, index) => (
                               <span key={unlockedSub.id} 
                                     style={{ animationDelay: `${index * 50 + 200}ms` }}
-                                    className="text-xs font-medium bg-[#F4FBFA] border border-[#E8F0EA] text-[#3D3229] px-2.5 py-1.5 rounded-lg hover:border-[#8BAA91] hover:bg-[#8BAA91]/10 cursor-pointer transition-colors"
+                                    className="text-xs font-medium bg-[#F4FBFA] border border-[#E8F0EA] text-[#3D3229] px-2.5 py-1.5 rounded-lg hover:border-[#8BAA91] hover:bg-[#8BAA91]/10 transition-colors"
                                     onClick={() => {
                                       setSelectedSubject(unlockedSub);
                                       setSelectedYear(unlockedSub.year);
@@ -565,7 +557,7 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
       {selectedSubject && (
         <div className="
           hidden lg:block w-[400px] border-l border-[#E8F0EA] bg-[#FAFAFA] p-6 
-          transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] shadow-[-10px_0_30px_rgba(0,0,0,0.02)]
+          transition-all duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] shadow-[-10px_0_30px_rgba(0,0,0,0.02)]
           flex-shrink-0 h-auto overflow-y-auto custom-scrollbar
         ">
           <div className="flex items-center justify-between mb-8">
@@ -633,7 +625,7 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                             <li 
                               key={reqId} 
                               style={{ animationDelay: `${index * 50 + 100}ms` }}
-                              className="flex items-start gap-2 text-sm text-[#3D3229] hover:text-[#8BAA91] hover:bg-[#F4FBFA] p-1.5 -ml-1.5 rounded-lg cursor-pointer transition-colors group"
+                              className="flex items-start gap-2 text-sm text-[#3D3229] hover:text-[#8BAA91] hover:bg-[#F4FBFA] p-1.5 -ml-1.5 rounded-lg transition-colors group"
                               onClick={() => {
                                 if (reqSub) {
                                   setSelectedSubject(reqSub);
@@ -660,7 +652,7 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                             <li 
                               key={reqId} 
                               style={{ animationDelay: `${index * 50 + 200}ms` }}
-                              className="flex items-start gap-2 text-sm text-[#3D3229] hover:text-[#D4856A] hover:bg-[#FFF9F2] p-1.5 -ml-1.5 rounded-lg cursor-pointer transition-colors group"
+                              className="flex items-start gap-2 text-sm text-[#3D3229] hover:text-[#D4856A] hover:bg-[#FFF9F2] p-1.5 -ml-1.5 rounded-lg transition-colors group"
                               onClick={() => {
                                 if (reqSub) {
                                   setSelectedSubject(reqSub);
@@ -701,7 +693,7 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                           {unlocksAsRegular.map((unlockedSub, index) => (
                             <span key={unlockedSub.id} 
                                   style={{ animationDelay: `${index * 50 + 100}ms` }}
-                                  className="text-xs font-medium bg-[#FFF9F2] border border-[#E8F0EA] text-[#3D3229] px-2.5 py-1.5 rounded-lg hover:border-[#D4856A] hover:bg-[#D4856A]/10 cursor-pointer transition-colors"
+                                  className="text-xs font-medium bg-[#FFF9F2] border border-[#E8F0EA] text-[#3D3229] px-2.5 py-1.5 rounded-lg hover:border-[#D4856A] hover:bg-[#D4856A]/10 transition-colors"
                                   onClick={() => {
                                     setSelectedSubject(unlockedSub);
                                     setSelectedYear(unlockedSub.year);
@@ -720,7 +712,7 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                           {unlocksAsApproved.map((unlockedSub, index) => (
                             <span key={unlockedSub.id} 
                                   style={{ animationDelay: `${index * 50 + 200}ms` }}
-                                  className="text-xs font-medium bg-[#F4FBFA] border border-[#E8F0EA] text-[#3D3229] px-2.5 py-1.5 rounded-lg hover:border-[#8BAA91] hover:bg-[#8BAA91]/10 cursor-pointer transition-colors"
+                                  className="text-xs font-medium bg-[#F4FBFA] border border-[#E8F0EA] text-[#3D3229] px-2.5 py-1.5 rounded-lg hover:border-[#8BAA91] hover:bg-[#8BAA91]/10 transition-colors"
                                   onClick={() => {
                                     setSelectedSubject(unlockedSub);
                                     setSelectedYear(unlockedSub.year);

@@ -44,7 +44,8 @@ body {
   cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='6' fill='none' stroke='%238BAA91' stroke-width='1.5' opacity='0.7'/%3E%3Ccircle cx='8' cy='8' r='2' fill='%238BAA91' opacity='0.9'/%3E%3C/svg%3E") 8 8, default !important;
 }
 
-a, button, [role="button"], input[type="submit"], select, label[for] {
+a, button, [role="button"], input[type="submit"], select, label[for], .cursor-pointer,
+a *, button *, [role="button"] *, .cursor-pointer * {
   cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='8' fill='%238BAA91' fill-opacity='0.15' stroke='%238BAA91' stroke-width='1.5'/%3E%3Ccircle cx='10' cy='10' r='2.5' fill='%234A7A52'/%3E%3C/svg%3E") 10 10, default !important;
 }
 
