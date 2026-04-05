@@ -36,7 +36,7 @@ export function Header() {
           <Link href="/" className="flex items-center gap-3.5 group" onClick={() => setMenuOpen(false)}>
             <div className="relative flex items-center justify-center w-11 h-11 transition-all duration-300 group-hover:scale-105 group-active:scale-95">
               <img 
-                src="/icon-optimized.png" 
+                src="/icon-optimized.webp" 
                 alt="Logo UTNHub" 
                 className="w-full h-full object-contain drop-shadow-sm"
               />

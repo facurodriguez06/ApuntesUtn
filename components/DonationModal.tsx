@@ -102,7 +102,7 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
             
             <div className="relative z-10">
               <div className="inline-flex items-center justify-center w-20 h-20 rounded-[2rem] bg-white shadow-xl border border-white/50 mb-6 animate-bounce-slow">
-                <img src="/utn-logo-optimized.png" alt="UTN Logo" className="w-12 h-12 object-contain" />
+                <img src="/utn-logo-optimized.webp" alt="UTN Logo" className="w-12 h-12 object-contain" />
                 <div className="absolute -top-1 -right-1 bg-[#2C2825] p-2 rounded-xl shadow-lg">
                   <Zap className="w-3 h-3 text-amber-400 fill-amber-400" />
                 </div>

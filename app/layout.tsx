@@ -1,15 +1,18 @@
 import type { Metadata, Viewport } from "next";
+import dynamic from "next/dynamic";
 import "./globals.css";
 import { Header } from "@/components/Header";
-import { InteractiveBackground } from "@/components/InteractiveBackground";
 import { Preloader } from "@/components/Preloader";
-import { CustomCursor } from "@/components/CustomCursor";
-import { AnnouncementModal } from "@/components/AnnouncementModal";
-import { ImagePopupModal } from "@/components/ImagePopupModal";
-import { MetricsTracker } from "@/components/MetricsTracker";
-import { AntiDevtools } from "@/components/AntiDevtools";
 import { AuthProvider } from "@/context/AuthContext";
 import { ToastProvider } from "@/context/ToastContext";
+
+// Lazy load non-critical components to dramatically reduce First Load JS & TBT
+const InteractiveBackground = dynamic(() => import("@/components/InteractiveBackground").then(mod => mod.InteractiveBackground));
+const CustomCursor = dynamic(() => import("@/components/CustomCursor").then(mod => mod.CustomCursor));
+const AnnouncementModal = dynamic(() => import("@/components/AnnouncementModal").then(mod => mod.AnnouncementModal));
+const ImagePopupModal = dynamic(() => import("@/components/ImagePopupModal").then(mod => mod.ImagePopupModal));
+const MetricsTracker = dynamic(() => import("@/components/MetricsTracker").then(mod => mod.MetricsTracker));
+const AntiDevtools = dynamic(() => import("@/components/AntiDevtools").then(mod => mod.AntiDevtools));
 
 export const viewport: Viewport = {
   width: "device-width",

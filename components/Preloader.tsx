@@ -23,7 +23,7 @@ export function Preloader() {
         
         <div className="relative flex items-center justify-center mb-6">
            <img 
-               src="/icon-optimized.png" 
+               src="/icon-optimized.webp" 
                alt="UTNHub Logo" 
                className="w-20 h-20 object-contain drop-shadow-md" 
            />
