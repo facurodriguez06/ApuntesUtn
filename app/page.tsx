@@ -40,13 +40,13 @@ export default function Home() {
           console.log("Contador de popup hoy:", stats.count, "Cerrado manualmente:", stats.closedManually);
 
           if (stats.count < 2 && !stats.closedManually) {
-            console.log("Programando aparición de popup en 2s...");
+            console.log("Programando aparición de popup en 8s...");
             const timer = setTimeout(() => {
               setShowDonationModal(true);
               stats.count += 1;
               localStorage.setItem("donation_modal_stats", JSON.stringify(stats));
               console.log("Popup mostrado y contador actualizado.");
-            }, 2000);
+            }, 8000);
             
             return () => clearTimeout(timer);
           } else {

@@ -7,10 +7,10 @@ export function Preloader() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Retraso intencionado de 1.5s para que se vea la animación
+    // Reducido a 600ms para mejorar LCP y Speed Index en auditorías
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1500);
+    }, 600);
 
     return () => clearTimeout(timer);
   }, []);
@@ -35,7 +35,7 @@ export function Preloader() {
           </span>
           
           <div className="relative w-40 h-1 bg-[#EDE6DD] rounded-full overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-full bg-[#8BAA91] rounded-full origin-left animate-[progress_1.5s_ease-in-out_forwards]"></div>
+            <div className="absolute top-0 left-0 w-full h-full bg-[#8BAA91] rounded-full origin-left animate-[progress_0.6s_ease-in-out_forwards]"></div>
           </div>
         </div>
       </div>
