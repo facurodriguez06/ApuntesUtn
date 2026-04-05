@@ -12,7 +12,8 @@ import {
   Send,
   Building2,
 } from "lucide-react";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { collection, addDoc } from "firebase/firestore";
 import { careersData, yearConfig, getSubjectsByCareerAndYear, getSubjectsByCareer } from "@/lib/data";
 import { db } from "@/lib/firebase/config";
@@ -24,6 +25,7 @@ type UploadApiResponse = {
 };
 
 export function UploadModule() {
+  const searchParams = useSearchParams();
   const [isDragging, setIsDragging] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
   const [title, setTitle] = useState("");
@@ -37,6 +39,17 @@ export function UploadModule() {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [error, setError] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (searchParams) {
+      const initCarrera = searchParams.get("carrera");
+      const initAnio = searchParams.get("anio");
+      const initMateria = searchParams.get("materia");
+      if (initCarrera) setCarrera(initCarrera);
+      if (initAnio) setAnio(initAnio);
+      if (initMateria) setMateria(initMateria);
+    }
+  }, [searchParams]);
 
   const sanitize = (input: string, maxLen = 120): string =>
     input.replace(/<[^>]*>/g, "").replace(/[<>'"]/g, "").trim().slice(0, maxLen);

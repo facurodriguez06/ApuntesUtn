@@ -1,4 +1,4 @@
-export type DocumentType = 'Resumen' | 'Examen Resuelto' | 'Trabajo Práctico' | 'Guía de Ejercicios';
+export type DocumentType = 'Resumen' | 'Examen' | 'Examen Resuelto' | 'Trabajo Práctico' | 'Guía de Ejercicios';
 
 export interface Note {
   id: string;

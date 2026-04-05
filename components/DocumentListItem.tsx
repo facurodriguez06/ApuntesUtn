@@ -8,7 +8,7 @@ import { resolveStorageUrl } from "@/lib/storage";
 
 const tagClass: Record<string, string> = {
   Resumen: "tag-resumen",
-  "Examen Resuelto": "tag-examen",
+  "Examen": "tag-examen",
   "Trabajo Práctico": "tag-tp",
   "Guía de Ejercicios": "tag-guia",
 };
@@ -25,9 +25,9 @@ const normalizeAuthorName = (value: string) =>
 
 const getBgClass = (type: string, isCreator: boolean) => {
   if (isCreator) return "bg-gradient-to-r from-[#FFFDF5] to-[#FFF9E6] border-[#EADAA6] hover:border-[#D4AF37] hover:shadow-[0_8px_24px_rgba(212,175,55,0.15)]";
-  switch (type) {
+  switch (type === "Examen Resuelto" ? "Examen" : type) {
     case "Resumen": return "bg-white border-[#E3DCD2] hover:border-[#8BAA91] hover:shadow-[0_8px_24px_rgba(139,170,145,0.12)]";
-    case "Examen Resuelto": return "bg-white border-[#E3DCD2] hover:border-[#D4856A] hover:shadow-[0_8px_24px_rgba(212,133,106,0.12)]";
+    case "Examen": return "bg-white border-[#E3DCD2] hover:border-[#D4856A] hover:shadow-[0_8px_24px_rgba(212,133,106,0.12)]";
     case "Trabajo Práctico": return "bg-white border-[#E3DCD2] hover:border-[#9B8BBF] hover:shadow-[0_8px_24px_rgba(155,139,191,0.12)]";
     case "Guía de Ejercicios": return "bg-white border-[#E3DCD2] hover:border-[#7BA7C2] hover:shadow-[0_8px_24px_rgba(123,167,194,0.12)]";
     default: return "bg-white border-[#E3DCD2] hover:border-[#8BAA91] hover:shadow-[0_8px_24px_rgba(139,170,145,0.12)]";
@@ -35,9 +35,9 @@ const getBgClass = (type: string, isCreator: boolean) => {
 };
 
 const getCreatorTagClass = (type: string) => {
-  switch (type) {
+  switch (type === "Examen Resuelto" ? "Examen" : type) {
     case "Resumen": return "bg-[#4A7A52] text-white border border-[#3A6040]";
-    case "Examen Resuelto": return "bg-[#D4856A] text-white border border-[#B36850]";
+    case "Examen": return "bg-[#D4856A] text-white border border-[#B36850]";
     case "Trabajo Práctico": return "bg-[#9B8BBF] text-white border border-[#7A6BA3]";
     case "Guía de Ejercicios": return "bg-[#7BA7C2] text-white border border-[#5A87A2]";
     default: return "bg-[#3D3229] text-white";
@@ -153,8 +153,8 @@ export function DocumentListItem({ note, customStyles = {}, index = 0 }: { note:
               </span>
             )}
             <span className="text-[11px] text-[#A89F95]">{new Date(note.uploadDate).toLocaleDateString("es-AR")}</span>
-            <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${isCreatorNote ? getCreatorTagClass(note.type) : (tagClass[note.type] || "tag-resumen")}`}>
-              {note.type}
+            <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${isCreatorNote ? getCreatorTagClass(note.type) : (tagClass[note.type === "Examen Resuelto" ? "Examen" : note.type] || "tag-resumen")}`}>
+              {note.type === "Examen Resuelto" ? "Examen" : note.type}
             </span>
             {note.fileSize && <span className="text-[11px] text-[#A89F95] font-medium">{note.fileSize}</span>}
           </div>

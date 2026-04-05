@@ -89,10 +89,14 @@ export default async function SubjectProfile({ params }: { params: Promise<{ car
     );
     const querySnapshot = await getDocs(notesQuery);
 
-    realNotes = querySnapshot.docs.map((docSnap) => ({
-      id: docSnap.id,
-      ...docSnap.data(),
-    })) as Note[];
+    realNotes = querySnapshot.docs.map((docSnap) => {
+      const data = docSnap.data();
+      return {
+        id: docSnap.id,
+        ...data,
+        type: data.type === "Examen Resuelto" ? "Examen" : data.type,
+      };
+    }) as Note[];
 
     // Ordenar primero por tipo de archivo, luego por popularidad, luego por título (alfanumérico)
     realNotes.sort((a, b) => {
@@ -169,7 +173,7 @@ export default async function SubjectProfile({ params }: { params: Promise<{ car
           </h2>
 
           <Link
-            href="/upload"
+            href={`/upload?carrera=${career.id}&materia=${subject.id}&anio=${subject.year}`}
             className="inline-flex items-center gap-1 text-sm font-bold text-[#8BAA91] hover:text-[#4A7A52] transition-colors hover:underline underline-offset-2"
           >
             <Plus className="w-3.5 h-3.5" /> Subir nuevo
@@ -303,7 +307,7 @@ export default async function SubjectProfile({ params }: { params: Promise<{ car
               })();
             })
           ) : (
-            <EmptyState />
+            <EmptyState careerId={career.id} subjectId={subject.id} year={subject.year} />
           )}
         </div>
       </div>

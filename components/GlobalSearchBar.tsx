@@ -14,7 +14,7 @@ const yearIcons: Record<string, React.ElementType> = { Sprout, BookOpen, Microsc
 
 const tagClass: Record<string, string> = {
   'Resumen': 'tag-resumen',
-  'Examen Resuelto': 'tag-examen',
+  'Examen': 'tag-examen',
   'Trabajo Práctico': 'tag-tp',
   'Guía de Ejercicios': 'tag-guia',
 };
@@ -54,7 +54,14 @@ export function GlobalSearchBar() {
           const notesRef = collection(db, "notes");
           const q = query(notesRef, where("status", "==", "approved"));
           const snapshot = await getDocs(q);
-          const notesList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          const notesList = snapshot.docs.map(doc => {
+            const data = doc.data();
+            return {
+              id: doc.id,
+              ...data,
+              type: data.type === "Examen Resuelto" ? "Examen" : data.type
+            };
+          });
           setNotes(notesList);
         } catch (error) {
           console.error("Error fetching notes:", error);

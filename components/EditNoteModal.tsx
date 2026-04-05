@@ -105,7 +105,7 @@ export function EditNoteModal({ isOpen, onClose, note, onSave }: EditNoteModalPr
             <CustomSelect
               value={type}
               onChange={(val) => setType(val as Note["type"])}
-              options={["Resumen", "Examen Resuelto", "Trabajo Práctico", "Guía de Ejercicios"].map(t => ({ value: t, label: t }))}
+              options={["Resumen", "Examen", "Trabajo Práctico", "Guía de Ejercicios"].map(t => ({ value: t, label: t }))}
             />
           </div>
           <div>
