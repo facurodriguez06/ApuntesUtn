@@ -15,21 +15,28 @@ import Link from 'next/link';
 
 export default function PlanesPage() {
   const [activeCareer, setActiveCareer] = useState(planesData.sistemas);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
+  const bgRef = useRef<HTMLDivElement>(null);
   
   // Array of available careers
   const careerOptions = Object.values(planesData);
 
   useEffect(() => {
+    let ticking = false;
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({
-        x: e.clientX,
-        y: e.clientY,
-      });
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          if (bgRef.current) {
+            bgRef.current.style.setProperty('--x', `${e.clientX}px`);
+            bgRef.current.style.setProperty('--y', `${e.clientY}px`);
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
     };
@@ -39,9 +46,10 @@ export default function PlanesPage() {
     <div className="flex flex-col min-h-screen relative overflow-hidden text-[#3D3229] w-full">
       {/* Dynamic Background Effect */}
       <div 
+        ref={bgRef}
         className="fixed inset-0 opacity-[0.25] pointer-events-none transition-colors duration-1000 z-0"
         style={{
-          background: `radial-gradient(circle 800px at ${mousePos.x}px ${mousePos.y}px, ${activeCareer.name === 'Ingeniería en Sistemas' ? 'rgba(139, 170, 145, 0.4)' : activeCareer.name === 'Ingeniería Civil' ? 'rgba(212, 133, 106, 0.3)' : activeCareer.name === 'Ingeniería Química' ? 'rgba(124, 194, 168, 0.3)' : 'rgba(160, 160, 160, 0.3)'}, transparent)`
+          background: `radial-gradient(circle 800px at var(--x, 50%) var(--y, 50%), ${activeCareer.name === 'Ingeniería en Sistemas' ? 'rgba(139, 170, 145, 0.4)' : activeCareer.name === 'Ingeniería Civil' ? 'rgba(212, 133, 106, 0.3)' : activeCareer.name === 'Ingeniería Química' ? 'rgba(124, 194, 168, 0.3)' : 'rgba(160, 160, 160, 0.3)'}, transparent)`
         }}
       />
       
