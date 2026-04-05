@@ -25,8 +25,8 @@ export function Header() {
       className={cn(
         "sticky top-0 z-50 w-full transition-all duration-300 py-3",
         scrolled 
-          ? "bg-white/80 shadow-sm shadow-[inset_0_-1px_0_0_rgba(237,230,221,0.8),0_4px_30px_-10px_rgba(0,0,0,0.05)]" 
-          : "bg-transparent shadow-[inset_0_-1px_0_0_rgba(237,230,221,0)]"
+          ? "bg-white shadow-sm border-b border-[#EDE6DD]"
+          : "bg-transparent"
       )}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
