@@ -31,8 +31,8 @@ export const metadata: Metadata = {
     siteName: "UTNHub",
   },
   icons: {
-    icon: "/icon.png",
-    apple: "/icon.png",
+    icon: "/favicon_rounded.png",
+    apple: "/favicon_roundedcon_rounded.png",
   },
 };
 
