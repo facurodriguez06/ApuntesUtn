@@ -314,15 +314,15 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                       onMouseEnter={() => setHoveredSubject(subject.id)}
                       onMouseLeave={() => setHoveredSubject(null)}
                       onClick={() => setSelectedSubject(subject)}
-                      style={{ animationDelay: `${index * 15}ms` }}
+                      style={{ animationDelay: `${index * 8}ms`, animationDuration: '250ms' }}
                       className={`
-                        relative p-4 rounded-2xl border transition-all duration-300 ease-out group min-h-[120px] flex flex-col overflow-hidden
+                        relative p-4 rounded-2xl border transition-all duration-200 ease-out group min-h-[120px] flex flex-col overflow-hidden
                         z-0 hover:z-20 animate-fade-in-up
                         ${cardStyle}
                         ${spanClass}
                       `}
                     >
-                      <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-current opacity-[0.03] rounded-full group-hover:scale-[2.5] transition-transform duration-700 ease-out z-0 pointer-events-none" />
+                      <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-current opacity-[0.03] rounded-full group-hover:scale-[2.5] transition-transform duration-300 ease-out z-0 pointer-events-none" />
                       <div className="flex items-start justify-between mb-2">
                         <div className="flex items-center gap-1.5">
                           <span className="relative z-10 text-xs font-mono font-medium text-[#A0A0A0] bg-[#F5F5F5] px-2 py-1 rounded-md block w-fit">
@@ -343,7 +343,7 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                             </span>
                           )}
                         </div>
-                        {getSubjectIcon(subject.name, `w-5 h-5 ${iconColor} group-hover:text-[#8BAA91] group-hover:scale-125 group-hover:-rotate-12 transition-all duration-500 ease-out shrink-0 relative z-10`)}
+                        {getSubjectIcon(subject.name, `w-5 h-5 ${iconColor} group-hover:text-[#8BAA91] group-hover:scale-125 group-hover:-rotate-12 transition-all duration-200 ease-out shrink-0 relative z-10`)}
                       </div>
                       
                       <div className="relative z-10 mt-auto flex flex-col gap-1.5">
