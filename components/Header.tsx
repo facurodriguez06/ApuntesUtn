@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { Upload, Menu, X, ChevronRight, Heart } from "lucide-react";
-import Image from "next/image";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { DonationModal } from "@/components/DonationModal";
@@ -36,11 +35,9 @@ export function Header() {
           {/* Logo Section */}
           <Link href="/" className="flex items-center gap-3.5 group" onClick={() => setMenuOpen(false)}>
             <div className="relative flex items-center justify-center w-11 h-11 transition-all duration-300 group-hover:scale-105 group-active:scale-95">
-              <Image 
-                src="/icon.png" 
+              <img 
+                src="/icon-optimized.png" 
                 alt="Logo UTNHub" 
-                width={44}
-                height={44}
                 className="w-full h-full object-contain drop-shadow-sm"
               />
             </div>
