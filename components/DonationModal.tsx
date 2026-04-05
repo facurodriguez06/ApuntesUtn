@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useToast } from "@/context/ToastContext";
 import { Heart, DollarSign, ArrowRight, Wallet, X, Star, Coffee, Zap, ShieldCheck } from "lucide-react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 const PRESET_AMOUNTS = [500, 1000, 5000];
@@ -102,7 +103,7 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
             
             <div className="relative z-10">
               <div className="inline-flex items-center justify-center w-20 h-20 rounded-[2rem] bg-white shadow-xl border border-white/50 mb-6 animate-bounce-slow">
-                <img src="/utn-logo.png" alt="UTN Logo" className="w-12 h-12 object-contain" />
+                <Image src="/utn-logo.png" alt="UTN Logo" width={48} height={48} className="w-12 h-12 object-contain" />
                 <div className="absolute -top-1 -right-1 bg-[#2C2825] p-2 rounded-xl shadow-lg">
                   <Zap className="w-3 h-3 text-amber-400 fill-amber-400" />
                 </div>

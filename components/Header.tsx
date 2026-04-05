@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Upload, Menu, X, ChevronRight, Heart } from "lucide-react";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { DonationModal } from "@/components/DonationModal";
@@ -35,9 +36,11 @@ export function Header() {
           {/* Logo Section */}
           <Link href="/" className="flex items-center gap-3.5 group" onClick={() => setMenuOpen(false)}>
             <div className="relative flex items-center justify-center w-11 h-11 transition-all duration-300 group-hover:scale-105 group-active:scale-95">
-              <img 
+              <Image 
                 src="/icon.png" 
                 alt="Logo UTNHub" 
+                width={44}
+                height={44}
                 className="w-full h-full object-contain drop-shadow-sm"
               />
             </div>
@@ -89,6 +92,7 @@ export function Header() {
 
           {/* Mobile Menu Toggle */}
           <button 
+            aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
             className="flex sm:hidden text-[#7A6E62] bg-white border border-[#EDE6DD] hover:text-[#3D3229] p-2 rounded-xl shadow-sm hover:bg-[#F5F0EA] transition-all active:scale-95"
             onClick={() => setMenuOpen(!menuOpen)}
           >
