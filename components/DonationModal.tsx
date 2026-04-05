@@ -78,7 +78,7 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
       onTouchMove={(e) => e.stopPropagation()}
     >
       {/* High-Impact Overlay (Sin acción de cierre para forzar el uso de la cruz) */}
-      <div className="absolute inset-0 bg-black/75 backdrop-blur-2xl animate-fade-in" />
+      <div className="absolute inset-0 bg-black/75 bg-black/90 animate-fade-in" />
 
       {/* Modal Container */}
       <div className={cn(

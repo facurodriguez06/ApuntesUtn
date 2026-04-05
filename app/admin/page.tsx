@@ -994,7 +994,7 @@ export default function AdminPage() {
           <section className="mb-10 animate-fade-in-up">
             <div className="bg-white rounded-[2.5rem] border border-[#f5c6c6] p-6 md:p-8 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] relative overflow-hidden">
               {confirmReset && (
-                <div className="absolute inset-0 z-20 bg-white/95 backdrop-blur-sm flex flex-col items-center justify-center p-6 text-center animate-fade-in">
+                <div className="absolute inset-0 z-20 bg-white/95 shadow-[0_0_10px_rgba(0,0,0,0.02)] flex flex-col items-center justify-center p-6 text-center animate-fade-in">
                   <ShieldAlert className="w-10 h-10 text-[#8E5A5A] mb-3 animate-pulse" />
                   <p className="font-bold text-[#3D3229] mb-1">¿Estás seguro de borrar todas las visitas?</p>
                   <p className="text-xs text-[#8E5A5A] mb-4">Esta acción no se puede deshacer y los contadores volverán a 0.</p>
@@ -1612,7 +1612,7 @@ export default function AdminPage() {
 
       {/* CUSTOM CONFIRMATION MODAL */}
       {confirmDeleteAdmin.isOpen && (
-        <div className="fixed inset-0 z-[10002] flex items-center justify-center p-4 bg-[#2C2825]/40 backdrop-blur-sm animate-fade-in">
+        <div className="fixed inset-0 z-[10002] flex items-center justify-center p-4 bg-[#2C2825]/40 shadow-[0_0_10px_rgba(0,0,0,0.02)] animate-fade-in">
           <div className="bg-white w-full max-w-sm rounded-[2rem] border-2 border-[#EDE6DD] p-8 shadow-2xl animate-fade-in-up">
             <div className="w-16 h-16 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6 border border-red-100">
               <ShieldAlert className="w-8 h-8" />

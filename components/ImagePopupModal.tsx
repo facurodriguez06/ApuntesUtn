@@ -51,7 +51,7 @@ export function ImagePopupModal() {
 
   return (
     <div 
-      className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in overscroll-none"
+      className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 shadow-[0_0_10px_rgba(0,0,0,0.02)] animate-fade-in overscroll-none"
       onWheel={(e) => e.stopPropagation()}
       onTouchMove={(e) => e.stopPropagation()}
     >

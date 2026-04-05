@@ -5,14 +5,20 @@ import { useEffect, useRef, useCallback } from "react";
 export function InteractiveBackground() {
   const spotlightRef = useRef<HTMLDivElement>(null);
 
+  let ticking = false;
   const handleMove = useCallback((e: MouseEvent | TouchEvent) => {
-    if (spotlightRef.current) {
-      // Determinar si es evento táctil o de mouse
-      const clientX = 'touches' in e ? e.touches[0].clientX : (e as MouseEvent).clientX;
-      const clientY = 'touches' in e ? e.touches[0].clientY : (e as MouseEvent).clientY;
-
-      spotlightRef.current.style.setProperty("--mx", `${clientX}px`);
-      spotlightRef.current.style.setProperty("--my", `${clientY}px`);
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        if (spotlightRef.current) {
+          const clientX = 'touches' in e ? e.touches[0].clientX : (e as MouseEvent).clientX;
+          const clientY = 'touches' in e ? e.touches[0].clientY : (e as MouseEvent).clientY;
+          
+          spotlightRef.current.style.setProperty("--mx", `${clientX}px`);
+          spotlightRef.current.style.setProperty("--my", `${clientY}px`);
+        }
+        ticking = false;
+      });
+      ticking = true;
     }
   }, []);
 

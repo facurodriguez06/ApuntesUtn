@@ -25,7 +25,7 @@ export function Header() {
       className={cn(
         "sticky top-0 z-50 w-full transition-all duration-300 py-3",
         scrolled 
-          ? "bg-white/80 backdrop-blur-xl shadow-[inset_0_-1px_0_0_rgba(237,230,221,0.8),0_4px_30px_-10px_rgba(0,0,0,0.05)]" 
+          ? "bg-white/80 shadow-sm shadow-[inset_0_-1px_0_0_rgba(237,230,221,0.8),0_4px_30px_-10px_rgba(0,0,0,0.05)]" 
           : "bg-transparent shadow-[inset_0_-1px_0_0_rgba(237,230,221,0)]"
       )}
     >
@@ -53,7 +53,7 @@ export function Header() {
           </Link>
           
           {/* Desktop Navigation */}
-          <nav className="hidden sm:flex items-center gap-2 p-1.5 bg-white/60 backdrop-blur-md rounded-2xl border border-[#EDE6DD]/80 shadow-sm shadow-[#EDE6DD]/30">
+          <nav className="hidden sm:flex items-center gap-2 p-1.5 bg-white/60 shadow-sm rounded-2xl border border-[#EDE6DD]/80 shadow-sm shadow-[#EDE6DD]/30">
             <Link 
               href="/" 
               className="relative text-[13px] font-bold text-[#7A6E62] hover:text-[#3D3229] px-4 py-2 rounded-xl transition-all duration-300 group hover:bg-[#F5F0EA]/50"
@@ -99,7 +99,7 @@ export function Header() {
 
         {/* Mobile Dropdown */}
         {menuOpen && (
-          <div className="sm:hidden absolute top-full left-0 w-full px-4 pt-2 pb-4 mt-2 bg-white/95 backdrop-blur-xl border-b border-[#EDE6DD] shadow-xl shadow-black/5 animate-fade-in-up">
+          <div className="sm:hidden absolute top-full left-0 w-full px-4 pt-2 pb-4 mt-2 bg-white/95 shadow-sm border-b border-[#EDE6DD] shadow-xl shadow-black/5 animate-fade-in-up">
             <div className="flex flex-col gap-2 bg-[#FFFBF7] p-2 rounded-2xl border border-[#EDE6DD]">
               <Link 
                 href="/" 

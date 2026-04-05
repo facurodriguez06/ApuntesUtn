@@ -102,7 +102,7 @@ export function GlobalSearchBar() {
       <div className="w-full max-w-lg mx-auto animate-fade-in-up">
         <button
           onClick={() => setIsOpen(true)}
-          className="relative flex items-center w-full h-12 rounded-2xl border border-[#EDE6DD] bg-white/80 backdrop-blur-sm overflow-hidden hover:border-[#C5DBC9] hover:shadow-md hover:shadow-[#8BAA91]/10 transition-all duration-300 cursor-text group"
+          className="relative flex items-center w-full h-12 rounded-2xl border border-[#EDE6DD] bg-white/80 shadow-[0_0_10px_rgba(0,0,0,0.02)] overflow-hidden hover:border-[#C5DBC9] hover:shadow-md hover:shadow-[#8BAA91]/10 transition-all duration-300 cursor-text group"
         >
           <div className="pl-4 pr-3 flex items-center text-[#A89F95] group-hover:text-[#8BAA91] transition-colors duration-300">
             <Search className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
@@ -125,7 +125,7 @@ export function GlobalSearchBar() {
 
       {isOpen && typeof document !== "undefined" && createPortal(
         <div
-          className="fixed inset-0 z-50 flex items-start justify-center pt-[10vh] sm:pt-[15vh] bg-black/20 backdrop-blur-sm px-4"
+          className="fixed inset-0 z-50 flex items-start justify-center pt-[10vh] sm:pt-[15vh] bg-black/20 shadow-[0_0_10px_rgba(0,0,0,0.02)] px-4"
           onClick={() => { setIsOpen(false); setSearchQuery(""); }}
         >
           <div

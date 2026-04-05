@@ -145,7 +145,7 @@ export default async function SubjectProfile({ params }: { params: Promise<{ car
           </Link>
         </div>
 
-        <div className="bg-white/80 backdrop-blur-xl rounded-3xl border border-[#EDE6DD] overflow-hidden mb-8 shadow-[0_8px_30px_rgba(61,50,41,0.04)]  z-10 relative">
+        <div className="bg-white/80 shadow-sm rounded-3xl border border-[#EDE6DD] overflow-hidden mb-8 shadow-[0_8px_30px_rgba(61,50,41,0.04)]  z-10 relative">
           <div className="h-1.5 w-full" style={{ background: `linear-gradient(to right, ${yc.accent}, ${yc.accent}88)` }} />
           <div className="p-5 sm:p-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -190,7 +190,7 @@ export default async function SubjectProfile({ params }: { params: Promise<{ car
                     <Fragment key={note.id}>
                       {showSeparator && (
                         <div className={`flex items-center gap-3 w-full mb-1 ${index === 0 ? "mt-0" : "mt-4"}`}>
-                          <span className="text-[10px] sm:text-[11px] font-black uppercase tracking-widest text-[#A89F95] px-3 py-1.5 bg-[#F5F0EA]/80 backdrop-blur-sm rounded-lg border border-[#EDE6DD]">
+                          <span className="text-[10px] sm:text-[11px] font-black uppercase tracking-widest text-[#A89F95] px-3 py-1.5 bg-[#F5F0EA]/80 shadow-[0_0_10px_rgba(0,0,0,0.02)] rounded-lg border border-[#EDE6DD]">
                             {note.type || "Otros"}
                           </span>
                           <div className="h-[1px] flex-1 bg-gradient-to-r from-[#EDE6DD] to-transparent" />

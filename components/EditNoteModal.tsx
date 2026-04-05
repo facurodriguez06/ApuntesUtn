@@ -63,7 +63,7 @@ export function EditNoteModal({ isOpen, onClose, note, onSave }: EditNoteModalPr
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 sm:p-6 overscroll-none"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 shadow-[0_0_10px_rgba(0,0,0,0.02)] p-4 sm:p-6 overscroll-none"
       onWheel={(e) => e.stopPropagation()}
       onTouchMove={(e) => e.stopPropagation()}
     >
