@@ -119,10 +119,10 @@ export function DocumentListItem({ note, customStyles = {}, index = 0 }: { note:
 
   return (
     <div
-      className={`group relative flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 border rounded-xl hover:-translate-y-[2px] transition-all duration-400 ${!customAuthorStyle ? getBgClass(note.type, isCreatorNote) : ''}`} style={{ ...(customAuthorStyle ? { backgroundColor: customAuthorStyle.color + '0a', borderColor: customAuthorStyle.color + '40' } : {}) }}
+      className={`group relative flex flex-col sm:flex-row items-stretch sm:items-center justify-between p-4 border rounded-xl hover:-translate-y-[2px] transition-all duration-400 ${!customAuthorStyle ? getBgClass(note.type, isCreatorNote) : ''}`} style={{ ...(customAuthorStyle ? { backgroundColor: customAuthorStyle.color + '0a', borderColor: customAuthorStyle.color + '40' } : {}) }}
 
     >
-      <div className="flex items-start gap-3 flex-1 mb-3 sm:mb-0 min-w-0">
+      <div className="flex items-start gap-3 w-full sm:w-auto sm:flex-1 mb-3 sm:mb-0 min-w-0">
         <div
           style={customAuthorStyle ? { backgroundColor: customAuthorStyle.color + "1A", borderColor: customAuthorStyle.color + "66" } : undefined} className={`mt-0.5 shrink-0 p-2.5 rounded-xl border group-hover:scale-110 group-hover:rotate-[-3deg] transition-transform duration-300 ${
             isCreatorNote ? "bg-[#FFF4CC] border-[#E2C15F]" : "bg-[#F5F0EA] border-[#EDE6DD]"
@@ -130,15 +130,15 @@ export function DocumentListItem({ note, customStyles = {}, index = 0 }: { note:
         >
           {getIcon()}
         </div>
-        <div className="min-w-0">
+        <div className="min-w-0 flex-1">
           <h4
-            style={customAuthorStyle ? { color: customAuthorStyle.color } : undefined} className={`font-bold text-sm transition-colors truncate ${
+            style={customAuthorStyle ? { color: customAuthorStyle.color } : undefined} className={`font-bold text-sm transition-colors break-words ${
               isCreatorNote ? "text-[#7A5A0A] group-hover:text-[#5E4608]" : "text-[#3D3229] group-hover:text-[#4A7A52]"
             }`}
           >
             {note.title}
           </h4>
-          <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1.5">
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-2 mt-1.5 w-full">
             <span
               style={customAuthorStyle ? { backgroundColor: customAuthorStyle.color + "22", color: customAuthorStyle.color } : undefined} className={`inline-flex items-center gap-1 text-xs font-semibold px-1.5 py-0.5 rounded-md ${
                 isCreatorNote ? "text-[#7A5A0A] bg-[#FFF0B3]" : "text-[#7A6E62] bg-[#F5F0EA]"
@@ -161,10 +161,10 @@ export function DocumentListItem({ note, customStyles = {}, index = 0 }: { note:
         </div>
       </div>
 
-      <div className={`flex items-center justify-end w-full sm:w-auto gap-2 border-t sm:border-t-0 pt-3 sm:pt-0 ${isCreatorNote ? "border-[#E7D39A]" : "border-[#EDE6DD]"}`}>
+      <div className={`flex flex-row items-center justify-end w-full sm:w-auto gap-2 border-t mt-3 pt-3 sm:mt-0 sm:pt-0 sm:border-transparent flex-wrap sm:flex-nowrap ${isCreatorNote ? "border-[#E7D39A]" : "border-[#EDE6DD]"}`}>
         <button
           onClick={handleVisualizar}
-          className={`group/btn inline-flex items-center justify-center rounded-lg px-3 py-2 text-sm font-semibold transition-all duration-300 active:scale-95 ${
+          className={`group/btn flex-1 sm:flex-none flex items-center justify-center rounded-lg px-3 py-2 text-sm font-semibold transition-all duration-300 active:scale-95 ${
             isCreatorNote
               ? "bg-[#FFF4CC] text-[#7A5A0A] hover:bg-[#FFE9A3] hover:text-[#5E4608] border border-[#E2C15F]/50"
               : "bg-white text-[#7A6E62] border border-[#EBE3D5] hover:bg-[#FDFBF7] hover:border-[#DED5C7] hover:text-[#3D3229] hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
@@ -176,7 +176,7 @@ export function DocumentListItem({ note, customStyles = {}, index = 0 }: { note:
 
         <button
           onClick={handleDownload}
-          className={`group/btn inline-flex items-center justify-center rounded-lg px-3.5 py-2 text-sm font-semibold border transition-all duration-300 active:scale-95 ${
+          className={`group/btn flex-1 sm:flex-none flex items-center justify-center rounded-lg px-3.5 py-2 text-sm font-semibold border transition-all duration-300 active:scale-95 ${
             downloaded
               ? "bg-[#E8F0EA] text-[#4A7A52] border-[#C5DBC9] shadow-inner"
               : isCreatorNote
