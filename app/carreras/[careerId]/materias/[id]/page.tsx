@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import { subjectsData, careersData, yearConfig, type Note } from "@/lib/data";
 import { DocumentListItem } from "@/components/DocumentListItem";
+import { BulkDownloadButton } from "@/components/BulkDownloadButton";
 import { EmptyState } from "@/components/EmptyState";
 import {
   ChevronRight,
@@ -165,19 +166,24 @@ export default async function SubjectProfile({ params }: { params: Promise<{ car
           </div>
         </div>
 
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-base font-extrabold text-[#3D3229] flex items-center gap-2">
-            <FileText className="w-4 h-4 text-[#8BAA91]" />
+        <div className="mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <h2 className="text-base font-extrabold text-[var(--text-primary)] flex items-center gap-2">
+            <FileText className="w-4 h-4 text-[var(--sage)]" />
             Apuntes
             <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full ${yc.bg} ${yc.text}`}>{notesCount}</span>
           </h2>
 
-          <Link
-            href={`/upload?carrera=${career.id}&materia=${subject.id}&anio=${subject.year}`}
-            className="inline-flex items-center gap-1 text-sm font-bold text-[#8BAA91] hover:text-[#4A7A52] transition-colors hover:underline underline-offset-2"
-          >
-            <Plus className="w-3.5 h-3.5" /> Subir nuevo
-          </Link>
+          <div className="flex flex-wrap items-center gap-3 self-start sm:self-auto">
+            {displayNotes.length > 0 && (
+              <BulkDownloadButton notes={displayNotes} label="Descargar todos" />
+            )}
+            <Link
+              href={`/upload?carrera=${career.id}&materia=${subject.id}&anio=${subject.year}`}
+              className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-sm font-semibold text-[var(--sage-text)] bg-gradient-to-b from-[var(--bg-card)] to-[var(--bg-warm)] shadow-sm border border-[var(--border-soft)] hover:border-[var(--text-muted)] hover:text-[var(--text-primary)] rounded-lg hover:from-[var(--bg-cream)] hover:to-[var(--bg-warm)] hover:shadow-md transition-all duration-300 active:scale-95 group/btn hover:-translate-y-0.5"
+            >
+              <Plus className="w-4 h-4 group-hover/btn:scale-110 transition-transform" /> Subir nuevo
+            </Link>
+          </div>
         </div>
 
         <div className="flex flex-col gap-4">
@@ -209,6 +215,11 @@ export default async function SubjectProfile({ params }: { params: Promise<{ car
                 const allSameAuthor = group.notes.length > 0 && group.notes.every((note) => normalizeAuthorName(note.author) === normalizeAuthorName(group.notes[0].author)) ? normalizeAuthorName(group.notes[0].author) : null;
                 const isCreatorFolder = normLabel === CREATOR_AUTHOR || allSameAuthor === CREATOR_AUTHOR;
                 const customStyleFolder = customStyles[normLabel] || (allSameAuthor ? customStyles[allSameAuthor] : null);
+
+                
+                let buttonHex = yc.accent;
+                if (isCreatorFolder) buttonHex = "#D4AF37";
+                else if (customStyleFolder) buttonHex = customStyleFolder.color;
 
                 let wrapperClass = "border-[#EDE6DD] bg-[#FCFAF8] open:bg-white";
                 let textClass = "text-[#4A433C]";
@@ -262,6 +273,9 @@ export default async function SubjectProfile({ params }: { params: Promise<{ car
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
+                        <div>
+                           <BulkDownloadButton notes={group.notes} label="Descargar" compact={true} customHex={buttonHex} />
+                        </div>
                         <span
                           className={`text-xs font-bold px-2.5 py-1 rounded-full ${badgeClass}`}
                           style={customStyleFolder && !isCreatorFolder ? { backgroundColor: customStyleFolder.color } : {}}
@@ -272,16 +286,16 @@ export default async function SubjectProfile({ params }: { params: Promise<{ car
                       </div>
                     </summary>
                     <div 
-                      className={`border-t px-3 pb-3 pt-3 ${innerBorderClass}`}
+                      className={`border-t px-3 pb-2 pt-0 ${innerBorderClass}`}
                       style={customStyleFolder && !isCreatorFolder ? { borderColor: customStyleFolder.color + "33" } : {}}
                     >
-                      <div className="flex flex-col gap-3">
+                      <div className="flex flex-col gap-2.5">
                         {group.notes.map((note, index) => {
                           const showSeparator = index === 0 || note.type !== group.notes[index - 1].type;
                           return (
                             <Fragment key={note.id}>
                               {showSeparator && (
-                                <div className={`animate-in fade-in fill-mode-forwards opacity-0 duration-500 delay-[200ms] flex items-center gap-3 w-full ${index === 0 ? "mb-1 mt-0" : "my-2"}`}>
+                                <div className={`animate-in fade-in fill-mode-forwards opacity-0 duration-500 delay-[200ms] flex items-center gap-3 w-full ${index === 0 ? "mt-0 -mb-1" : "my-2"}`}>
                                   <span 
                                     className="text-[10px] font-black uppercase tracking-wider text-[#A89F95] px-2 py-1 bg-[#F5F0EA] rounded-md"
                                     style={customStyleFolder && !isCreatorFolder ? { backgroundColor: customStyleFolder.color + "1A", color: customStyleFolder.color } : {}}
