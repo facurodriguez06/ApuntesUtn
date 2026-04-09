@@ -540,8 +540,207 @@ export const planesData = {
             "total_hours": 240,
             "regulares": [],
             "aprobadas": []
-      }
-]
+      },
+        {
+              id: 99056,
+              year: 3,
+              semester: "2° Cuatrimestre",
+              name: "Administración de Proyectos",
+              weekly_hours: 8,
+              total_hours: 0,
+              regulares: [16],
+              aprobadas: [8],
+              isElectiva: true
+            },
+        {
+              id: 99057,
+              year: 3,
+              semester: "2° Cuatrimestre",
+              name: "Computación Paralela",
+              weekly_hours: 8,
+              total_hours: 0,
+              regulares: [15],
+              aprobadas: [7,14],
+              isElectiva: true
+            },
+        {
+              id: 99058,
+              year: 4,
+              semester: "2° Cuatrimestre",
+              name: "Informática Industrial",
+              weekly_hours: 8,
+              total_hours: 0,
+              regulares: [19,27],
+              aprobadas: [14,16],
+              isElectiva: true
+            },
+        {
+              id: 99059,
+              year: 4,
+              semester: "2° Cuatrimestre",
+              name: "Arquitectura de Microservicios",
+              weekly_hours: 8,
+              total_hours: 0,
+              regulares: [13,14,19],
+              aprobadas: [6],
+              isElectiva: true
+            },
+        {
+              id: 99060,
+              year: 4,
+              semester: "2° Cuatrimestre",
+              name: "Base de Datos Avanzadas",
+              weekly_hours: 8,
+              total_hours: 0,
+              regulares: [15,19],
+              aprobadas: [6,7],
+              isElectiva: true
+            },
+        {
+              id: 99061,
+              year: 4,
+              semester: "2° Cuatrimestre",
+              name: "Desarrollo de Software Dirigido por Modelos",
+              weekly_hours: 6,
+              total_hours: 0,
+              regulares: [19],
+              aprobadas: [14,16],
+              isElectiva: true
+            },
+        {
+              id: 99062,
+              year: 4,
+              semester: "2° Cuatrimestre",
+              name: "Gobierno Digital e Innovación",
+              weekly_hours: 6,
+              total_hours: 0,
+              regulares: [16],
+              aprobadas: [8],
+              isElectiva: true
+            },
+        {
+              id: 99063,
+              year: 4,
+              semester: "Sin especificar",
+              name: "Diseño de Experiencia de Usuario (UX)",
+              weekly_hours: 6,
+              total_hours: 0,
+              regulares: [],
+              aprobadas: [],
+              isElectiva: true
+            },
+        {
+              id: 99064,
+              year: 5,
+              semester: "1° Cuatrimestre",
+              name: "Seguridad en Redes",
+              weekly_hours: 6,
+              total_hours: 0,
+              regulares: [],
+              aprobadas: [],
+              isElectiva: true
+            },
+        {
+              id: 99065,
+              year: 5,
+              semester: "2° Cuatrimestre",
+              name: "Redes Neuronales Profundas",
+              weekly_hours: 8,
+              total_hours: 0,
+              regulares: [4,31],
+              aprobadas: [6,22],
+              isElectiva: true
+            },
+        {
+              id: 99066,
+              year: 5,
+              semester: "2° Cuatrimestre",
+              name: "Administración de Servicios en Linux",
+              weekly_hours: 8,
+              total_hours: 0,
+              regulares: [15,26],
+              aprobadas: [21],
+              isElectiva: true
+            },
+        {
+              id: 99067,
+              year: 5,
+              semester: "2° Cuatrimestre",
+              name: "Evaluación e Innovación de Tecnología desde la perspectiva CTS",
+              weekly_hours: 6,
+              total_hours: 0,
+              regulares: [11,18],
+              aprobadas: [8],
+              isElectiva: true
+            },
+        {
+              id: 99068,
+              year: 5,
+              semester: "Sin especificar",
+              name: "Taller de Auditoría en Sistemas de Información",
+              weekly_hours: 6,
+              total_hours: 0,
+              regulares: [],
+              aprobadas: [],
+              isElectiva: true
+            },
+        {
+              id: 99069,
+              year: 5,
+              semester: "1° Cuatrimestre",
+              name: "Aprendizaje de Máquinas",
+              weekly_hours: 0,
+              total_hours: 0,
+              regulares: [],
+              aprobadas: [],
+              isElectiva: true
+            },
+        {
+              id: 99070,
+              year: 5,
+              semester: "1° Cuatrimestre",
+              name: "Programación Avanzada",
+              weekly_hours: 0,
+              total_hours: 0,
+              regulares: [],
+              aprobadas: [],
+              isElectiva: true
+            },
+        {
+              id: 99071,
+              year: 5,
+              semester: "2° Cuatrimestre",
+              name: "Taller de Programación Avanzada",
+              weekly_hours: 6,
+              total_hours: 0,
+              regulares: [19],
+              aprobadas: [13,14],
+              isElectiva: true
+            },
+        {
+              id: 99072,
+              year: 5,
+              semester: "2° Cuatrimestre",
+              name: "Interoperabilidad",
+              weekly_hours: 6,
+              total_hours: 0,
+              regulares: [23,26],
+              aprobadas: [19,21],
+              isElectiva: true
+            },
+        {
+              id: 99073,
+              year: 5,
+              semester: "2° Cuatrimestre",
+              name: "Formación de Emprendedores",
+              weekly_hours: 0,
+              total_hours: 0,
+              regulares: [],
+              aprobadas: [],
+              isElectiva: true,
+            rendir: [19]
+        }
+    ]
   },
   civil: {
     id: 'civil',
@@ -1288,9 +1487,199 @@ export const planesData = {
             "total_hours": 264,
             "regulares": [],
             "aprobadas": []
-      }
-
-
+      },
+        {
+              id: 99001,
+              year: 3,
+              semester: "1° Cuatrimestre",
+              name: "Geología Aplicada",
+              weekly_hours: 0,
+              total_hours: 0,
+              regulares: [12],
+              aprobadas: [4,6,7],
+              isElectiva: true,
+            rendir: [12]
+        },
+        {
+              id: 99002,
+              year: 4,
+              semester: "1° Cuatrimestre",
+              name: "Sustentabilidad del Recurso Hídrico",
+              weekly_hours: 0,
+              total_hours: 0,
+              regulares: [20,18],
+              aprobadas: [11],
+              isElectiva: true,
+            rendir: [11, 20, 18]
+        },
+        {
+              id: 99003,
+              year: 4,
+              semester: "2° Cuatrimestre",
+              name: "Ferrocarriles",
+              weekly_hours: 0,
+              total_hours: 0,
+              regulares: [37,18],
+              aprobadas: [11,12],
+              isElectiva: true,
+            rendir: [37, 18]
+        },
+        {
+              id: 99004,
+              year: 4,
+              semester: "2° Cuatrimestre",
+              name: "Tránsito y Transporte",
+              weekly_hours: 0,
+              total_hours: 0,
+              regulares: [37],
+              aprobadas: [14,11],
+              isElectiva: true,
+            rendir: [37]
+        },
+        {
+              id: 99005,
+              year: 4,
+              semester: "2° Cuatrimestre",
+              name: "Prefabricación",
+              weekly_hours: 0,
+              total_hours: 0,
+              regulares: [17,16],
+              aprobadas: [18,12],
+              isElectiva: true,
+            rendir: [17, 16]
+        },
+        {
+              id: 99006,
+              year: 4,
+              semester: "2° Cuatrimestre",
+              name: "Diseño Estructural",
+              weekly_hours: 0,
+              total_hours: 0,
+              regulares: [16,18,29],
+              aprobadas: [10,11],
+              isElectiva: true,
+            rendir: [16, 29]
+        },
+        {
+              id: 99007,
+              year: 5,
+              semester: "1° Cuatrimestre",
+              name: "Gestión Ingenieril",
+              weekly_hours: 0,
+              total_hours: 0,
+              regulares: [24,32],
+              aprobadas: [18],
+              isElectiva: true,
+            rendir: [24, 32]
+        },
+        {
+              id: 99008,
+              year: 5,
+              semester: "1° Cuatrimestre",
+              name: "Dinámica de Estructuras",
+              weekly_hours: 0,
+              total_hours: 0,
+              regulares: [29,21],
+              aprobadas: [9,16],
+              isElectiva: true,
+            rendir: [29, 21]
+        },
+        {
+              id: 99009,
+              year: 5,
+              semester: "1° Cuatrimestre",
+              name: "Análisis Estructural III",
+              weekly_hours: 0,
+              total_hours: 0,
+              regulares: [29,30],
+              aprobadas: [16,21],
+              isElectiva: true,
+            rendir: [29, 30]
+        },
+        {
+              id: 99010,
+              year: 5,
+              semester: "1° Cuatrimestre",
+              name: "Saneamiento y Medio Ambiente",
+              weekly_hours: 0,
+              total_hours: 0,
+              regulares: [31,32],
+              aprobadas: [11,20],
+              isElectiva: true,
+            rendir: [31]
+        },
+        {
+              id: 99011,
+              year: 5,
+              semester: "1° Cuatrimestre",
+              name: "Vialidad Especial",
+              weekly_hours: 0,
+              total_hours: 0,
+              regulares: [37],
+              aprobadas: [18],
+              isElectiva: true,
+            rendir: [37]
+        },
+        {
+              id: 99012,
+              year: 5,
+              semester: "1° Cuatrimestre",
+              name: "Caminos y Túneles de Montañas",
+              weekly_hours: 0,
+              total_hours: 0,
+              regulares: [37,31],
+              aprobadas: [17,19],
+              isElectiva: true,
+            rendir: [37, 31]
+        },
+        {
+              id: 99013,
+              year: 5,
+              semester: "2° Cuatrimestre",
+              name: "Obras Fluviales y Costeras",
+              weekly_hours: 0,
+              total_hours: 0,
+              regulares: [31],
+              aprobadas: [19,17,18],
+              isElectiva: true,
+            rendir: [20, 31]
+        },
+        {
+              id: 99014,
+              year: 5,
+              semester: "2° Cuatrimestre",
+              name: "Centrales y Máquinas Hidráulicas",
+              weekly_hours: 0,
+              total_hours: 0,
+              regulares: [20,22],
+              aprobadas: [19,16],
+              isElectiva: true,
+            rendir: [31, 22, 20]
+        },
+        {
+              id: 99015,
+              year: 5,
+              semester: "2° Cuatrimestre",
+              name: "Puentes",
+              weekly_hours: 0,
+              total_hours: 0,
+              regulares: [26,30],
+              aprobadas: [17,16],
+              isElectiva: true,
+            rendir: [26, 30]
+        },
+        {
+              id: 99016,
+              year: 5,
+              semester: "2° Cuatrimestre",
+              name: "Diseño Sustentable de Edificios",
+              weekly_hours: 0,
+              total_hours: 0,
+              regulares: [28,32],
+              aprobadas: [18],
+              isElectiva: true,
+            rendir: [28, 32]
+        }
     ]
   },
   quimica: {
@@ -1924,9 +2313,185 @@ export const planesData = {
             "total_hours": 288,
             "regulares": [],
             "aprobadas": []
-      }
-
-
+      },
+        {
+              id: 99041,
+              year: 3,
+              semester: "2° Cuatrimestre",
+              name: "Epistemología",
+              weekly_hours: 5,
+              total_hours: 0,
+              regulares: [],
+              aprobadas: [],
+              isElectiva: true
+            },
+        {
+              id: 99042,
+              year: 3,
+              semester: "2° Cuatrimestre",
+              name: "Metodología de la Investigación",
+              weekly_hours: 6,
+              total_hours: 0,
+              regulares: [],
+              aprobadas: [],
+              isElectiva: true
+            },
+        {
+              id: 99043,
+              year: 4,
+              semester: "1° Cuatrimestre",
+              name: "Utilitarios de Computación",
+              weekly_hours: 4,
+              total_hours: 0,
+              regulares: [21,22],
+              aprobadas: [11,18],
+              isElectiva: true,
+            rendir: [21, 22]
+        },
+        {
+              id: 99044,
+              year: 4,
+              semester: "2° Cuatrimestre",
+              name: "Gestión de RRHH",
+              weekly_hours: 6,
+              total_hours: 0,
+              regulares: [17,18,20,21,22,23,24,26],
+              aprobadas: [8,9,10,11,12,13,14,15,16],
+              isElectiva: true,
+            rendir: [17, 18, 20, 21, 22, 23, 24, 26]
+        },
+        {
+              id: 99045,
+              year: 4,
+              semester: "2° Cuatrimestre",
+              name: "Análisis del Ciclo de Vida (ACV)",
+              weekly_hours: 4,
+              total_hours: 0,
+              regulares: [17,22],
+              aprobadas: [9],
+              isElectiva: true,
+            rendir: [17, 22]
+        },
+        {
+              id: 99046,
+              year: 5,
+              semester: "Anual",
+              name: "Instalaciones de Maq. térmicas y fluidodinámicas",
+              weekly_hours: 8,
+              total_hours: 0,
+              regulares: [28,29,31],
+              aprobadas: [18],
+              isElectiva: true,
+            rendir: [28, 29, 31]
+        },
+        {
+              id: 99047,
+              year: 5,
+              semester: "Anual",
+              name: "Industrialización de Hidrocarburos",
+              weekly_hours: 6,
+              total_hours: 0,
+              regulares: [28,29,31,32],
+              aprobadas: [18,21,22],
+              isElectiva: true,
+            rendir: [28, 29, 31, 32]
+        },
+        {
+              id: 99048,
+              year: 5,
+              semester: "1° Cuatrimestre",
+              name: "Gestión Empresarial I",
+              weekly_hours: 4,
+              total_hours: 0,
+              regulares: [30,33],
+              aprobadas: [3,12],
+              isElectiva: true,
+            rendir: [30, 33]
+        },
+        {
+              id: 99049,
+              year: 5,
+              semester: "1° Cuatrimestre",
+              name: "Bioquímica de los Alimentos",
+              weekly_hours: 6,
+              total_hours: 0,
+              regulares: [21,24],
+              aprobadas: [11,14],
+              isElectiva: true,
+            rendir: [21, 24]
+        },
+        {
+              id: 99050,
+              year: 5,
+              semester: "1° Cuatrimestre",
+              name: "Ind. Alimentarias",
+              weekly_hours: 6,
+              total_hours: 0,
+              regulares: [20,28,29],
+              aprobadas: [],
+              isElectiva: true,
+            rendir: [20, 28, 29]
+        },
+        {
+              id: 99051,
+              year: 5,
+              semester: "1° Cuatrimestre",
+              name: "Ind. de Base Extractiva - Ext., Fracc., Ref.",
+              weekly_hours: 6,
+              total_hours: 0,
+              regulares: [28,31,32],
+              aprobadas: [28],
+              isElectiva: true,
+            rendir: [28, 31, 32]
+        },
+        {
+              id: 99052,
+              year: 5,
+              semester: "2° Cuatrimestre",
+              name: "Evaluación de Impacto Ambiental",
+              weekly_hours: 4,
+              total_hours: 0,
+              regulares: [22,23],
+              aprobadas: [6],
+              isElectiva: true,
+            rendir: [22, 23]
+        },
+        {
+              id: 99053,
+              year: 5,
+              semester: "2° Cuatrimestre",
+              name: "Gestión Empresarial II",
+              weekly_hours: 4,
+              total_hours: 0,
+              regulares: [33],
+              aprobadas: [3,12,21],
+              isElectiva: true,
+            rendir: [33]
+        },
+        {
+              id: 99054,
+              year: 5,
+              semester: "2° Cuatrimestre",
+              name: "Ing. Industrial de Recursos Naturales Regionales",
+              weekly_hours: 6,
+              total_hours: 0,
+              regulares: [17,20,28,29],
+              aprobadas: [],
+              isElectiva: true,
+            rendir: [17, 20, 28, 29]
+        },
+        {
+              id: 99055,
+              year: 5,
+              semester: "2° Cuatrimestre",
+              name: "Formación de Emprendedores",
+              weekly_hours: 4,
+              total_hours: 0,
+              regulares: [19],
+              aprobadas: [],
+              isElectiva: true,
+            rendir: [19]
+        }
     ]
   },
   electronica: {
@@ -2485,9 +3050,268 @@ export const planesData = {
             "total_hours": 192,
             "regulares": [],
             "aprobadas": []
-      }
-
-
+      },
+        {
+              id: 99021,
+              year: 5,
+              semester: "1° Cuatrimestre",
+              name: "Redes de Datos",
+              weekly_hours: 0,
+              total_hours: 6,
+              regulares: [],
+              aprobadas: [],
+              isElectiva: true,
+              docente: "Dr. Ing. Pérez Santiago",
+              horario: "17:30"
+            },
+        {
+              id: 99022,
+              year: 5,
+              semester: "1° Cuatrimestre",
+              name: "Electrónica Industrial",
+              weekly_hours: 0,
+              total_hours: 6,
+              regulares: [],
+              aprobadas: [],
+              isElectiva: true,
+              docente: "Ing. Allub Claudio",
+              horario: "17:30"
+            },
+        {
+              id: 99023,
+              year: 5,
+              semester: "1° Cuatrimestre",
+              name: "Sistemas de Comunicaciones II",
+              weekly_hours: 0,
+              total_hours: 6,
+              regulares: [],
+              aprobadas: [],
+              isElectiva: true,
+              docente: "Ing. Alejandro Correa",
+              horario: "18:10"
+            },
+        {
+              id: 99024,
+              year: 5,
+              semester: "1° Cuatrimestre",
+              name: "Bioelectrónica",
+              weekly_hours: 0,
+              total_hours: 6,
+              regulares: [],
+              aprobadas: [],
+              isElectiva: true,
+              docente: "Ing. Lombardo Germán",
+              horario: "18:20"
+            },
+        {
+              id: 99025,
+              year: 5,
+              semester: "1° Cuatrimestre",
+              name: "Introducción a los Sist. de Gestión Gerencial",
+              weekly_hours: 0,
+              total_hours: 4,
+              regulares: [],
+              aprobadas: [],
+              isElectiva: true,
+              docente: "Dr. Ing. Anzoise Esteban",
+              horario: "18:30"
+            },
+        {
+              id: 99026,
+              year: 5,
+              semester: "1° Cuatrimestre",
+              name: "Sistemas de TV",
+              weekly_hours: 0,
+              total_hours: 6,
+              regulares: [],
+              aprobadas: [],
+              isElectiva: true,
+              docente: "Ing. Boschi Cesar",
+              horario: "18:50"
+            },
+        {
+              id: 99027,
+              year: 5,
+              semester: "1° Cuatrimestre",
+              name: "Antenas y Propagación Electromagnética",
+              weekly_hours: 0,
+              total_hours: 6,
+              regulares: [],
+              aprobadas: [],
+              isElectiva: true,
+              docente: "Ing. Wiens Martín",
+              horario: "19:30"
+            },
+        {
+              id: 99028,
+              year: 5,
+              semester: "1° Cuatrimestre",
+              name: "Centro de Datos: Diseño y Administración",
+              weekly_hours: 0,
+              total_hours: 6,
+              regulares: [],
+              aprobadas: [],
+              isElectiva: true,
+              docente: "Ing. Abraham Jorge",
+              horario: "20:30"
+            },
+        {
+              id: 99029,
+              year: 5,
+              semester: "1° Cuatrimestre",
+              name: "Sistemas de Comunicaciones III",
+              weekly_hours: 0,
+              total_hours: 0,
+              regulares: [],
+              aprobadas: [],
+              isElectiva: true,
+              docente: "Colombo, Humberto",
+              horario: "21:15"
+            },
+        {
+              id: 99030,
+              year: 5,
+              semester: "1° Cuatrimestre",
+              name: "Protecciones Digitales y Telecontrol",
+              weekly_hours: 0,
+              total_hours: 0,
+              regulares: [],
+              aprobadas: [],
+              isElectiva: true,
+              docente: "Tobar, Sebastián",
+              horario: "20:00"
+            },
+        {
+              id: 99031,
+              year: 5,
+              semester: "2° Cuatrimestre",
+              name: "Redes de Comunicaciones Móviles",
+              weekly_hours: 0,
+              total_hours: 6,
+              regulares: [],
+              aprobadas: [],
+              isElectiva: true,
+              docente: "Ing. Manzur Nestor",
+              horario: "17:20"
+            },
+        {
+              id: 99032,
+              year: 5,
+              semester: "2° Cuatrimestre",
+              name: "Evaluación e Innovación de Tecnología desde la perspectiva CTS",
+              weekly_hours: 0,
+              total_hours: 4,
+              regulares: [],
+              aprobadas: [],
+              isElectiva: true,
+              docente: "Dr. Ing. Moralejo Raul",
+              horario: "17:50"
+            },
+        {
+              id: 99033,
+              year: 5,
+              semester: "2° Cuatrimestre",
+              name: "Formación de Emprendedores",
+              weekly_hours: 0,
+              total_hours: 4,
+              regulares: [],
+              aprobadas: [],
+              isElectiva: true,
+              docente: "Dr. Ing. Anzoise Esteban",
+              horario: "18:40",
+            rendir: [19]
+        },
+        {
+              id: 99034,
+              year: 5,
+              semester: "2° Cuatrimestre",
+              name: "Sistemas de Sonido",
+              weekly_hours: 0,
+              total_hours: 6,
+              regulares: [],
+              aprobadas: [],
+              isElectiva: true,
+              docente: "Ing. Boschi Cesar",
+              horario: "19:10"
+            },
+        {
+              id: 99035,
+              year: 5,
+              semester: "2° Cuatrimestre",
+              name: "Robótica",
+              weekly_hours: 0,
+              total_hours: 6,
+              regulares: [],
+              aprobadas: [],
+              isElectiva: true,
+              docente: "Dr. Ing. Lannutti Esteban",
+              horario: "19:20"
+            },
+        {
+              id: 99036,
+              year: 5,
+              semester: "2° Cuatrimestre",
+              name: "Electrónica Automotriz",
+              weekly_hours: 0,
+              total_hours: 6,
+              regulares: [],
+              aprobadas: [],
+              isElectiva: true,
+              docente: "Ing. Torres Dante",
+              horario: "19:40"
+            },
+        {
+              id: 99037,
+              year: 5,
+              semester: "2° Cuatrimestre",
+              name: "Control de Procesos",
+              weekly_hours: 0,
+              total_hours: 6,
+              regulares: [],
+              aprobadas: [],
+              isElectiva: true,
+              docente: "Ing. Mocayar Nelson",
+              horario: "20:20"
+            },
+        {
+              id: 99038,
+              year: 5,
+              semester: "2° Cuatrimestre",
+              name: "Teleinformática en I o T",
+              weekly_hours: 0,
+              total_hours: 0,
+              regulares: [],
+              aprobadas: [],
+              isElectiva: true,
+              docente: "Mercado Gustavo",
+              horario: "19:00"
+            },
+        {
+              id: 99039,
+              year: 5,
+              semester: "2° Cuatrimestre",
+              name: "Interoperabilidad",
+              weekly_hours: 0,
+              total_hours: 0,
+              regulares: [],
+              aprobadas: [],
+              isElectiva: true,
+              docente: "Diaz Bruno",
+              horario: "19:00"
+            },
+        {
+              id: 99040,
+              year: 5,
+              semester: "2° Cuatrimestre",
+              name: "Dis. y Admin. de Centro de Datos",
+              weekly_hours: 0,
+              total_hours: 0,
+              regulares: [],
+              aprobadas: [],
+              isElectiva: true,
+              docente: "Ing. Abraham Jorge",
+              horario: "16:45"
+            }
     ]
   },
   electromecanica: {
@@ -3127,8 +3951,51 @@ export const planesData = {
             "total_hours": 240,
             "regulares": [],
             "aprobadas": []
-      }
-
-]
+      },
+        {
+              id: 99017,
+              year: 3,
+              semester: "Anual",
+              name: "Hidrodinámica y Neumática",
+              weekly_hours: 0,
+              total_hours: 2,
+              regulares: [],
+              aprobadas: [],
+              isElectiva: true
+            },
+        {
+              id: 99018,
+              year: 5,
+              semester: "Anual",
+              name: "Mantenimiento Electromecánico",
+              weekly_hours: 0,
+              total_hours: 3,
+              regulares: [],
+              aprobadas: [],
+              isElectiva: true
+            },
+        {
+              id: 99019,
+              year: 5,
+              semester: "Anual",
+              name: "Cálculo y Control de Maq. Eléctrica",
+              weekly_hours: 0,
+              total_hours: 4,
+              regulares: [],
+              aprobadas: [],
+              isElectiva: true
+            },
+        {
+              id: 99020,
+              year: 5,
+              semester: "Anual",
+              name: "Máquinas y Equipos Industriales",
+              weekly_hours: 0,
+              total_hours: 4,
+              regulares: [],
+              aprobadas: [],
+              isElectiva: true
+            }
+    ]
   }
 };

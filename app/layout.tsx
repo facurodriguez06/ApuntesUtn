@@ -63,7 +63,7 @@ export default function RootLayout({
               </p>
             </div>
             
-            <footer className="relative z-10 py-8 border-t border-[#EDE6DD] mt-auto text-center overflow-hidden bg-white/30 shadow-[0_0_10px_rgba(0,0,0,0.02)] w-full">
+            <footer className="relative z-10 py-8 border-t border-[#EDE6DD] mt-auto text-center overflow-hidden bg-[#F5F0EA] shadow-[0_0_10px_rgba(0,0,0,0.02)] w-full">
               <div className="relative z-10 max-w-xl mx-auto px-4">
                 <div className="flex items-center justify-center gap-4 mb-4">
                   <p className="text-xs font-bold text-[#A89F95]">

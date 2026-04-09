@@ -19,6 +19,7 @@ export interface Note {
 }
 
 export interface Subject {
+  isElectiva?: boolean;
   id: string;
   name: string;
   year: number;
@@ -188,7 +189,47 @@ const sistemasSubs: Subject[] = [
     ele('sis-e-asl', 'Administración de servicios en Linux', 99, 'sistemas', [{careerId: 'sistemas', year: 99}]),
     ele('sis-e-cpa', 'Computación Paralela', 99, 'sistemas', [{careerId: 'sistemas', year: 99}]),
     ele('sis-e-cts', 'Evaluación e Innovación de Tecnología desde la perspectiva CTS', 99, 'sistemas', [{careerId: 'sistemas', year: 99}]),
-  ];
+  
+  // Electivas
+  ele('sis-ele-administracion-de-proyectos', 'Administración de Proyectos', 3, 'sistemas'),
+  ele('sis-ele-computacion-paralela', 'Computación Paralela', 3, 'sistemas'),
+  ele('sis-ele-informatica-industrial', 'Informática Industrial', 4, 'sistemas'),
+  ele('sis-ele-arquitectura-de-microservicios', 'Arquitectura de Microservicios', 4, 'sistemas'),
+  ele('sis-ele-base-de-datos-avanzadas', 'Base de Datos Avanzadas', 4, 'sistemas'),
+  ele('sis-ele-desarrollo-de-software-dirigido-por-modelos', 'Desarrollo de Software Dirigido por Modelos', 4, 'sistemas'),
+  ele('sis-ele-gobierno-digital-e-innovacion', 'Gobierno Digital e Innovación', 4, 'sistemas'),
+  ele('sis-ele-diseno-de-experiencia-de-usuario-ux', 'Diseño de Experiencia de Usuario (UX)', 4, 'sistemas'),
+  ele('sis-ele-seguridad-en-redes', 'Seguridad en Redes', 5, 'sistemas'),
+  ele('sis-ele-redes-neuronales-profundas', 'Redes Neuronales Profundas', 5, 'sistemas'),
+  ele('sis-ele-administracion-de-servicios-en-linux', 'Administración de Servicios en Linux', 5, 'sistemas'),
+  ele('sis-ele-evaluacion-e-innovacion-de-tecnologia-desde-la-perspectiva-cts', 'Evaluación e Innovación de Tecnología desde la perspectiva CTS', 5, 'sistemas'),
+  ele('sis-ele-taller-de-auditoria-en-sistemas-de-informacion', 'Taller de Auditoría en Sistemas de Información', 5, 'sistemas'),
+  ele('sis-ele-aprendizaje-de-maquinas', 'Aprendizaje de Máquinas', 5, 'sistemas'),
+  ele('sis-ele-programacion-avanzada', 'Programación Avanzada', 5, 'sistemas'),
+  ele('sis-ele-taller-de-programacion-avanzada', 'Taller de Programación Avanzada', 5, 'sistemas'),
+  ele('sis-ele-interoperabilidad', 'Interoperabilidad', 5, 'sistemas'),
+  ele('sis-ele-formacion-de-emprendedores', 'Formación de Emprendedores', 5, 'sistemas'),
+
+  // Electivas
+  ele('sis-ele-administracion-de-proyectos', 'Administración de Proyectos', 3, 'sistemas'),
+  ele('sis-ele-computacion-paralela', 'Computación Paralela', 3, 'sistemas'),
+  ele('sis-ele-informatica-industrial', 'Informática Industrial', 4, 'sistemas'),
+  ele('sis-ele-arquitectura-de-microservicios', 'Arquitectura de Microservicios', 4, 'sistemas'),
+  ele('sis-ele-base-de-datos-avanzadas', 'Base de Datos Avanzadas', 4, 'sistemas'),
+  ele('sis-ele-desarrollo-de-software-dirigido-por-modelos', 'Desarrollo de Software Dirigido por Modelos', 4, 'sistemas'),
+  ele('sis-ele-gobierno-digital-e-innovacion', 'Gobierno Digital e Innovación', 4, 'sistemas'),
+  ele('sis-ele-diseno-de-experiencia-de-usuario-ux', 'Diseño de Experiencia de Usuario (UX)', 4, 'sistemas'),
+  ele('sis-ele-seguridad-en-redes', 'Seguridad en Redes', 5, 'sistemas'),
+  ele('sis-ele-redes-neuronales-profundas', 'Redes Neuronales Profundas', 5, 'sistemas'),
+  ele('sis-ele-administracion-de-servicios-en-linux', 'Administración de Servicios en Linux', 5, 'sistemas'),
+  ele('sis-ele-evaluacion-e-innovacion-de-tecnologia-desde-la-perspectiva-cts', 'Evaluación e Innovación de Tecnología desde la perspectiva CTS', 5, 'sistemas'),
+  ele('sis-ele-taller-de-auditoria-en-sistemas-de-informacion', 'Taller de Auditoría en Sistemas de Información', 5, 'sistemas'),
+  ele('sis-ele-aprendizaje-de-maquinas', 'Aprendizaje de Máquinas', 5, 'sistemas'),
+  ele('sis-ele-programacion-avanzada', 'Programación Avanzada', 5, 'sistemas'),
+  ele('sis-ele-taller-de-programacion-avanzada', 'Taller de Programación Avanzada', 5, 'sistemas'),
+  ele('sis-ele-interoperabilidad', 'Interoperabilidad', 5, 'sistemas'),
+  ele('sis-ele-formacion-de-emprendedores', 'Formación de Emprendedores', 5, 'sistemas'),
+];
 
 // ============================================================
 // INGENIERÍA CIVIL
@@ -249,7 +290,43 @@ const civilSubs: Subject[] = [
     ele('civ-e-cmh', 'Centrales y Máquinas Hidráulicas', 99, 'civil', [{careerId: 'civil', year: 99}]),
     ele('civ-e-pue', 'Puentes', 99, 'civil', [{careerId: 'civil', year: 99}]),
     ele('civ-e-dse', 'Diseño Sustentable de Edificios', 99, 'civil', [{careerId: 'civil', year: 99}]),
-  ];
+  
+  // Electivas
+  ele('civ-ele-geologia-aplicada', 'Geología Aplicada', 3, 'civil'),
+  ele('civ-ele-sustentabilidad-del-recurso-hidrico', 'Sustentabilidad del Recurso Hídrico', 4, 'civil'),
+  ele('civ-ele-ferrocarriles', 'Ferrocarriles', 4, 'civil'),
+  ele('civ-ele-transito-y-transporte', 'Tránsito y Transporte', 4, 'civil'),
+  ele('civ-ele-prefabricacion', 'Prefabricación', 4, 'civil'),
+  ele('civ-ele-diseno-estructural', 'Diseño Estructural', 4, 'civil'),
+  ele('civ-ele-gestion-ingenieril', 'Gestión Ingenieril', 5, 'civil'),
+  ele('civ-ele-dinamica-de-estructuras', 'Dinámica de Estructuras', 5, 'civil'),
+  ele('civ-ele-analisis-estructural-iii', 'Análisis Estructural III', 5, 'civil'),
+  ele('civ-ele-saneamiento-y-medio-ambiente', 'Saneamiento y Medio Ambiente', 5, 'civil'),
+  ele('civ-ele-vialidad-especial', 'Vialidad Especial', 5, 'civil'),
+  ele('civ-ele-caminos-y-tuneles-de-montanas', 'Caminos y Túneles de Montañas', 5, 'civil'),
+  ele('civ-ele-obras-fluviales-y-costeras', 'Obras Fluviales y Costeras', 5, 'civil'),
+  ele('civ-ele-centrales-y-maquinas-hidraulicas', 'Centrales y Máquinas Hidráulicas', 5, 'civil'),
+  ele('civ-ele-puentes', 'Puentes', 5, 'civil'),
+  ele('civ-ele-diseno-sustentable-de-edificios', 'Diseño Sustentable de Edificios', 5, 'civil'),
+
+  // Electivas
+  ele('civ-ele-geologia-aplicada', 'Geología Aplicada', 3, 'civil'),
+  ele('civ-ele-sustentabilidad-del-recurso-hidrico', 'Sustentabilidad del Recurso Hídrico', 4, 'civil'),
+  ele('civ-ele-ferrocarriles', 'Ferrocarriles', 4, 'civil'),
+  ele('civ-ele-transito-y-transporte', 'Tránsito y Transporte', 4, 'civil'),
+  ele('civ-ele-prefabricacion', 'Prefabricación', 4, 'civil'),
+  ele('civ-ele-diseno-estructural', 'Diseño Estructural', 4, 'civil'),
+  ele('civ-ele-gestion-ingenieril', 'Gestión Ingenieril', 5, 'civil'),
+  ele('civ-ele-dinamica-de-estructuras', 'Dinámica de Estructuras', 5, 'civil'),
+  ele('civ-ele-analisis-estructural-iii', 'Análisis Estructural III', 5, 'civil'),
+  ele('civ-ele-saneamiento-y-medio-ambiente', 'Saneamiento y Medio Ambiente', 5, 'civil'),
+  ele('civ-ele-vialidad-especial', 'Vialidad Especial', 5, 'civil'),
+  ele('civ-ele-caminos-y-tuneles-de-montanas', 'Caminos y Túneles de Montañas', 5, 'civil'),
+  ele('civ-ele-obras-fluviales-y-costeras', 'Obras Fluviales y Costeras', 5, 'civil'),
+  ele('civ-ele-centrales-y-maquinas-hidraulicas', 'Centrales y Máquinas Hidráulicas', 5, 'civil'),
+  ele('civ-ele-puentes', 'Puentes', 5, 'civil'),
+  ele('civ-ele-diseno-sustentable-de-edificios', 'Diseño Sustentable de Edificios', 5, 'civil'),
+];
 
 // ============================================================
 // INGENIERÍA QUÍMICA
@@ -306,7 +383,41 @@ const quimicaSubs: Subject[] = [
     ele('qui-e-eia', 'Evaluación de Impacto Ambiental', 99, 'quimica', [{careerId: 'quimica', year: 99}]),
     ele('qui-e-ge2', 'Gestión Empresarial II', 99, 'quimica', [{careerId: 'quimica', year: 99}]),
     ele('qui-e-iir', 'Ingeniería Industrial de Recursos Naturales Regionales', 99, 'quimica', [{careerId: 'quimica', year: 99}]),
-  ];
+  
+  // Electivas
+  ele('qui-ele-epistemologia', 'Epistemología', 3, 'quimica'),
+  ele('qui-ele-metodologia-de-la-investigacion', 'Metodología de la Investigación', 3, 'quimica'),
+  ele('qui-ele-utilitarios-de-computacion', 'Utilitarios de Computación', 4, 'quimica'),
+  ele('qui-ele-gestion-de-rrhh', 'Gestión de RRHH', 4, 'quimica'),
+  ele('qui-ele-analisis-del-ciclo-de-vida-acv', 'Análisis del Ciclo de Vida (ACV)', 4, 'quimica'),
+  ele('qui-ele-instalaciones-de-maq-termicas-y-fluidodinamicas', 'Instalaciones de Maq. térmicas y fluidodinámicas', 5, 'quimica'),
+  ele('qui-ele-industrializacion-de-hidrocarburos', 'Industrialización de Hidrocarburos', 5, 'quimica'),
+  ele('qui-ele-gestion-empresarial-i', 'Gestión Empresarial I', 5, 'quimica'),
+  ele('qui-ele-bioquimica-de-los-alimentos', 'Bioquímica de los Alimentos', 5, 'quimica'),
+  ele('qui-ele-ind-alimentarias', 'Ind. Alimentarias', 5, 'quimica'),
+  ele('qui-ele-ind-de-base-extractiva-ext-fracc-ref', 'Ind. de Base Extractiva - Ext., Fracc., Ref.', 5, 'quimica'),
+  ele('qui-ele-evaluacion-de-impacto-ambiental', 'Evaluación de Impacto Ambiental', 5, 'quimica'),
+  ele('qui-ele-gestion-empresarial-ii', 'Gestión Empresarial II', 5, 'quimica'),
+  ele('qui-ele-ing-industrial-de-recursos-naturales-regionales', 'Ing. Industrial de Recursos Naturales Regionales', 5, 'quimica'),
+  ele('qui-ele-formacion-de-emprendedores', 'Formación de Emprendedores', 5, 'quimica'),
+
+  // Electivas
+  ele('qui-ele-epistemologia', 'Epistemología', 3, 'quimica'),
+  ele('qui-ele-metodologia-de-la-investigacion', 'Metodología de la Investigación', 3, 'quimica'),
+  ele('qui-ele-utilitarios-de-computacion', 'Utilitarios de Computación', 4, 'quimica'),
+  ele('qui-ele-gestion-de-rrhh', 'Gestión de RRHH', 4, 'quimica'),
+  ele('qui-ele-analisis-del-ciclo-de-vida-acv', 'Análisis del Ciclo de Vida (ACV)', 4, 'quimica'),
+  ele('qui-ele-instalaciones-de-maq-termicas-y-fluidodinamicas', 'Instalaciones de Maq. térmicas y fluidodinámicas', 5, 'quimica'),
+  ele('qui-ele-industrializacion-de-hidrocarburos', 'Industrialización de Hidrocarburos', 5, 'quimica'),
+  ele('qui-ele-gestion-empresarial-i', 'Gestión Empresarial I', 5, 'quimica'),
+  ele('qui-ele-bioquimica-de-los-alimentos', 'Bioquímica de los Alimentos', 5, 'quimica'),
+  ele('qui-ele-ind-alimentarias', 'Ind. Alimentarias', 5, 'quimica'),
+  ele('qui-ele-ind-de-base-extractiva-ext-fracc-ref', 'Ind. de Base Extractiva - Ext., Fracc., Ref.', 5, 'quimica'),
+  ele('qui-ele-evaluacion-de-impacto-ambiental', 'Evaluación de Impacto Ambiental', 5, 'quimica'),
+  ele('qui-ele-gestion-empresarial-ii', 'Gestión Empresarial II', 5, 'quimica'),
+  ele('qui-ele-ing-industrial-de-recursos-naturales-regionales', 'Ing. Industrial de Recursos Naturales Regionales', 5, 'quimica'),
+  ele('qui-ele-formacion-de-emprendedores', 'Formación de Emprendedores', 5, 'quimica'),
+];
 
 // ============================================================
 // INGENIERÍA ELECTRÓNICA
@@ -363,7 +474,49 @@ const electronicaSubs: Subject[] = [
     ele('ele-e-cdp', 'Control de Procesos', 99, 'electronica', [{careerId: 'electronica', year: 99}]),
     ele('ele-e-tiot', 'Teleinformática en IoT', 99, 'electronica', [{careerId: 'electronica', year: 99}]),
     ele('ele-e-iop', 'Interoperabilidad', 99, 'electronica', [{careerId: 'electronica', year: 99}]),
-  ];
+  
+  // Electivas
+  ele('ele-ele-redes-de-datos', 'Redes de Datos', 5, 'electronica'),
+  ele('ele-ele-electronica-industrial', 'Electrónica Industrial', 5, 'electronica'),
+  ele('ele-ele-sistemas-de-comunicaciones-ii', 'Sistemas de Comunicaciones II', 5, 'electronica'),
+  ele('ele-ele-bioelectronica', 'Bioelectrónica', 5, 'electronica'),
+  ele('ele-ele-introduccion-a-los-sist-de-gestion-gerencial', 'Introducción a los Sist. de Gestión Gerencial', 5, 'electronica'),
+  ele('ele-ele-sistemas-de-tv', 'Sistemas de TV', 5, 'electronica'),
+  ele('ele-ele-antenas-y-propagacion-electromagnetica', 'Antenas y Propagación Electromagnética', 5, 'electronica'),
+  ele('ele-ele-centro-de-datos-diseno-y-administracion', 'Centro de Datos: Diseño y Administración', 5, 'electronica'),
+  ele('ele-ele-sistemas-de-comunicaciones-iii', 'Sistemas de Comunicaciones III', 5, 'electronica'),
+  ele('ele-ele-protecciones-digitales-y-telecontrol', 'Protecciones Digitales y Telecontrol', 5, 'electronica'),
+  ele('ele-ele-redes-de-comunicaciones-moviles', 'Redes de Comunicaciones Móviles', 5, 'electronica'),
+  ele('ele-ele-evaluacion-e-innovacion-de-tecnologia-desde-la-perspectiva-cts', 'Evaluación e Innovación de Tecnología desde la perspectiva CTS', 5, 'electronica'),
+  ele('ele-ele-formacion-de-emprendedores', 'Formación de Emprendedores', 5, 'electronica'),
+  ele('ele-ele-sistemas-de-sonido', 'Sistemas de Sonido', 5, 'electronica'),
+  ele('ele-ele-robotica', 'Robótica', 5, 'electronica'),
+  ele('ele-ele-electronica-automotriz', 'Electrónica Automotriz', 5, 'electronica'),
+  ele('ele-ele-control-de-procesos', 'Control de Procesos', 5, 'electronica'),
+  ele('ele-ele-teleinformatica-en-i-o-t', 'Teleinformática en I o T', 5, 'electronica'),
+  ele('ele-ele-interoperabilidad', 'Interoperabilidad', 5, 'electronica'),
+
+  // Electivas
+  ele('ele-ele-redes-de-datos', 'Redes de Datos', 5, 'electronica'),
+  ele('ele-ele-electronica-industrial', 'Electrónica Industrial', 5, 'electronica'),
+  ele('ele-ele-sistemas-de-comunicaciones-ii', 'Sistemas de Comunicaciones II', 5, 'electronica'),
+  ele('ele-ele-bioelectronica', 'Bioelectrónica', 5, 'electronica'),
+  ele('ele-ele-introduccion-a-los-sist-de-gestion-gerencial', 'Introducción a los Sist. de Gestión Gerencial', 5, 'electronica'),
+  ele('ele-ele-sistemas-de-tv', 'Sistemas de TV', 5, 'electronica'),
+  ele('ele-ele-antenas-y-propagacion-electromagnetica', 'Antenas y Propagación Electromagnética', 5, 'electronica'),
+  ele('ele-ele-centro-de-datos-diseno-y-administracion', 'Centro de Datos: Diseño y Administración', 5, 'electronica'),
+  ele('ele-ele-sistemas-de-comunicaciones-iii', 'Sistemas de Comunicaciones III', 5, 'electronica'),
+  ele('ele-ele-protecciones-digitales-y-telecontrol', 'Protecciones Digitales y Telecontrol', 5, 'electronica'),
+  ele('ele-ele-redes-de-comunicaciones-moviles', 'Redes de Comunicaciones Móviles', 5, 'electronica'),
+  ele('ele-ele-evaluacion-e-innovacion-de-tecnologia-desde-la-perspectiva-cts', 'Evaluación e Innovación de Tecnología desde la perspectiva CTS', 5, 'electronica'),
+  ele('ele-ele-formacion-de-emprendedores', 'Formación de Emprendedores', 5, 'electronica'),
+  ele('ele-ele-sistemas-de-sonido', 'Sistemas de Sonido', 5, 'electronica'),
+  ele('ele-ele-robotica', 'Robótica', 5, 'electronica'),
+  ele('ele-ele-electronica-automotriz', 'Electrónica Automotriz', 5, 'electronica'),
+  ele('ele-ele-control-de-procesos', 'Control de Procesos', 5, 'electronica'),
+  ele('ele-ele-teleinformatica-en-i-o-t', 'Teleinformática en I o T', 5, 'electronica'),
+  ele('ele-ele-interoperabilidad', 'Interoperabilidad', 5, 'electronica'),
+];
 
 // ============================================================
 // INGENIERÍA ELECTROMECÁNICA
@@ -410,7 +563,19 @@ const electromecanicaSubs: Subject[] = [
     ele('elm-e-mel', 'Mantenimiento Electromecánico', 99, 'electromecanica', [{careerId: 'electromecanica', year: 99}]),
     ele('elm-e-ccm', 'Cálculo y Control de Maq. Eléctrica', 99, 'electromecanica', [{careerId: 'electromecanica', year: 99}]),
     ele('elm-e-mei', 'Máquinas y Equipos Industriales', 99, 'electromecanica', [{careerId: 'electromecanica', year: 99}]),
-  ];
+  
+  // Electivas
+  ele('ele-ele-hidrodinamica-y-neumatica', 'Hidrodinámica y Neumática', 3, 'electromecanica'),
+  ele('ele-ele-mantenimiento-electromecanico', 'Mantenimiento Electromecánico', 5, 'electromecanica'),
+  ele('ele-ele-calculo-y-control-de-maq-electrica', 'Cálculo y Control de Maq. Eléctrica', 5, 'electromecanica'),
+  ele('ele-ele-maquinas-y-equipos-industriales', 'Máquinas y Equipos Industriales', 5, 'electromecanica'),
+
+  // Electivas
+  ele('ele-ele-hidrodinamica-y-neumatica', 'Hidrodinámica y Neumática', 3, 'electromecanica'),
+  ele('ele-ele-mantenimiento-electromecanico', 'Mantenimiento Electromecánico', 5, 'electromecanica'),
+  ele('ele-ele-calculo-y-control-de-maq-electrica', 'Cálculo y Control de Maq. Eléctrica', 5, 'electromecanica'),
+  ele('ele-ele-maquinas-y-equipos-industriales', 'Máquinas y Equipos Industriales', 5, 'electromecanica'),
+];
 
 // ============================================================
 // MATERIAS BÁSICAS (comunes a todas las ingenierías)

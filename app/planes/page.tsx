@@ -13,13 +13,40 @@ import {
 import { planesData } from './data';
 import Link from 'next/link';
 
+export interface Subject {
+  isElectiva?: boolean;
+  docente?: string;
+  horario?: string;
+  weekly_hours?: number;
+  total_hours?: number;
+  id: number;
+  year: number;
+  semester?: string;
+  note?: string;
+  name: string;
+  regulares: number[];
+  aprobadas: number[];
+  rendir?: number[];
+}
+
+export interface Career {
+  id: string;
+  name: string;
+  shortName: string;
+  years: number;
+  icon: React.ReactElement;
+  color: string;
+  curriculum: Subject[];
+}
+
 export default function PlanesPage() {
-  const [activeCareer, setActiveCareer] = useState(planesData.sistemas);
+  const typedPlanesData: Record<string, Career> = planesData as any;
+  const [activeCareer, setActiveCareer] = useState<Career>(typedPlanesData.sistemas);
   const containerRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
   
   // Array of available careers
-  const careerOptions = Object.values(planesData);
+  const careerOptions = Object.values(typedPlanesData);
 
   useEffect(() => {
     let ticking = false;
@@ -106,27 +133,6 @@ export default function PlanesPage() {
 // CurriculumViewer & Child Components
 // ----------------------------------------------------------------------
 
-interface Subject {
-  id: number;
-  year: number;
-  semester?: string;
-  note?: string;
-  name: string;
-  regulares: number[];
-  aprobadas: number[];
-}
-
-interface Career {
-  id: string;
-  name: string;
-  shortName: string;
-  years: number;
-  icon: React.ReactNode;
-  color: string;
-  curriculum: Subject[];
-}
-
-// ----------------------------------------------------------------------
 // Icon Mapper Helper
 // ----------------------------------------------------------------------
 const getSubjectIcon = (name: string, className: string) => {
@@ -155,7 +161,7 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
 
   const [hoveredSubject, setHoveredSubject] = useState<number | null>(null);
   const [selectedSubject, setSelectedSubject] = useState<Subject | null>(null);
-  const [selectedYear, setSelectedYear] = useState<number>(1);
+  const [selectedYear, setSelectedYear] = useState<number | 'electivas'>(1);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -197,22 +203,30 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
   }, [selectedSubject]);
 
   // Group by year
-  const subjectsByYear = useMemo(() => {
-    const years: { [key: number]: Subject[] } = {};
+    const subjectsByYear = useMemo(() => {
+    const years: { [key: string]: Subject[] } = {};
     for (let i = 1; i <= career.years; i++) years[i] = [];
+    years['electivas'] = [];
     career.curriculum.forEach(s => {
-      if (years[s.year]) {
+      if (s.isElectiva) {
+        years['electivas'].push(s);
+      } else if (years[s.year]) {
         years[s.year].push(s);
       }
     });
     return years;
   }, [career]);
 
-  const yearsOptions = Array.from({ length: career.years }, (_, i) => i + 1);
+  const yearsOptions = [
+    ...Array.from({ length: career.years }, (_, i) => i + 1),
+    ...(subjectsByYear['electivas'] && subjectsByYear['electivas'].length > 0 ? ['electivas'] : [])
+  ];
 
-  const displayedYears = Object.entries(subjectsByYear).filter(([yearStr]) => Number(yearStr) === selectedYear);
+  const displayedYears = Object.entries(subjectsByYear).filter(([yearStr]) =>
+    yearStr === 'electivas' ? selectedYear === 'electivas' : Number(yearStr) === selectedYear
+  );
 
-  return (
+    return (
     <div className="flex flex-col lg:flex-row h-full w-full relative">
       {/* Main Grid View */}
       <div className="flex-grow overflow-x-auto p-4 sm:p-6 lg:p-8 custom-scrollbar">
@@ -234,7 +248,7 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
             <button
               onClick={() => {
                 import('@/lib/pdfGenerator').then((mod) => {
-                  mod.generateStudyPlanPDF(career, career.curriculum);
+                  mod.generateStudyPlanPDF(career, career.curriculum.filter(s => !s.isElectiva));
                 });
               }}
               className="flex items-center justify-center gap-2 bg-[#1A1A1A] hover:bg-[#3D3229] text-white px-4 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-[#1A1A1A]/20 transition-all duration-150 hover:-translate-y-1 group w-full sm:w-auto"
@@ -249,7 +263,7 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
             {yearsOptions.map(year => (
               <button
                 key={year}
-                onClick={() => setSelectedYear(year)}
+                onClick={() => setSelectedYear(year as number | 'electivas')}
                 className={`
                   relative px-4 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-150 whitespace-nowrap active:scale-95 flex-1 xl:flex-none text-center
                   ${selectedYear === year 
@@ -258,7 +272,7 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                   }
                 `}
               >
-                Año {year}
+                {year === 'electivas' ? 'Electivas' : `Año ${year}`}
               </button>
             ))}
           </div>
@@ -416,10 +430,26 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                     }
                   `}>
                     <Calendar className="w-3 h-3" />
-                    {selectedSubject.semester}
-                  </span>
-                )}
+                      {selectedSubject.semester}
+                    </span>
+                  )}
               </p>
+              {selectedSubject.docente && (
+                <p className="text-[#8BAA91] text-sm mt-3 flex items-center gap-2">
+                  <span className="font-bold border border-[#8BAA91]/30 px-1.5 py-0.5 rounded-md">Docente</span> {selectedSubject.docente}
+                </p>
+              )}
+              {selectedSubject.horario && (
+                <p className="text-[#8BAA91] text-sm mt-1.5 flex items-center gap-2">
+                  <span className="font-bold border border-[#8BAA91]/30 px-1.5 py-0.5 rounded-md">Horario</span> {selectedSubject.horario}
+                </p>
+              )}
+              {(selectedSubject.weekly_hours || selectedSubject.total_hours) ? (
+                <p className="text-[#8BAA91] text-sm mt-1.5 flex flex-wrap items-center gap-2">
+                  {selectedSubject.weekly_hours ? <span><span className="font-bold border border-[#8BAA91]/30 px-1.5 py-0.5 rounded-md">Carga</span> {selectedSubject.weekly_hours} hs/sem</span> : null}
+                  {selectedSubject.total_hours ? <span><span className="font-bold border border-[#8BAA91]/30 px-1.5 py-0.5 rounded-md">Total</span> {selectedSubject.total_hours} hs</span> : null}
+                </p>
+              ) : null}
             </div>
 
             <div className="space-y-6">
@@ -448,7 +478,7 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                                 onClick={() => {
                                   if (reqSub) {
                                     setSelectedSubject(reqSub);
-                                    setSelectedYear(reqSub.year);
+                                    setSelectedYear(reqSub.isElectiva ? 'electivas' : reqSub.year);
                                   }
                                 }}
                               >
@@ -475,11 +505,38 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                                 onClick={() => {
                                   if (reqSub) {
                                     setSelectedSubject(reqSub);
-                                    setSelectedYear(reqSub.year);
+                                    setSelectedYear(reqSub.isElectiva ? 'electivas' : reqSub.year);
                                   }
                                 }}
                               >
                                 <AlertTriangle className="w-4 h-4 text-[#D4856A] mt-0.5 shrink-0" />
+                                <span className="group-hover:underline underline-offset-2">{reqSub?.name}</span>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      </div>
+                    )}
+
+                    {selectedSubject.rendir && selectedSubject.rendir.length > 0 && (
+                      <div>
+                        <span className="text-xs font-semibold text-[#8B5CF6] mb-2 block mt-4">Para RENDIR (Aprobadas):</span>
+                        <ul className="space-y-1">
+                          {selectedSubject.rendir.map((reqId, index) => {
+                            const reqSub = career.curriculum.find(s => s.id === reqId);
+                            return (
+                              <li 
+                                key={reqId} 
+                                style={{ animationDelay: `${index * 50 + 300}ms` }}
+                                className="flex items-start gap-2 text-sm text-[#3D3229] hover:text-[#8B5CF6] hover:bg-[#F3E8FF] p-1.5 -ml-1.5 rounded-lg cursor-pointer transition-colors group"
+                                onClick={() => {
+                                  if (reqSub) {
+                                    setSelectedSubject(reqSub);
+                                    setSelectedYear(reqSub.isElectiva ? 'electivas' : reqSub.year);
+                                  }
+                                }}
+                              >
+                                <CheckCircle2 className="w-4 h-4 text-[#8B5CF6] mt-0.5 shrink-0" />
                                 <span className="group-hover:underline underline-offset-2">{reqSub?.name}</span>
                               </li>
                             );
@@ -515,7 +572,7 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                                     className="text-xs font-medium bg-[#FFF9F2] border border-[#E8F0EA] text-[#3D3229] px-2.5 py-1.5 rounded-lg hover:border-[#D4856A] hover:bg-[#D4856A]/10 transition-colors"
                                     onClick={() => {
                                       setSelectedSubject(unlockedSub);
-                                      setSelectedYear(unlockedSub.year);
+                                      setSelectedYear(unlockedSub.isElectiva ? 'electivas' : unlockedSub.year);
                                     }}>
                                 {unlockedSub.name}
                               </span>
@@ -534,7 +591,7 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                                     className="text-xs font-medium bg-[#F4FBFA] border border-[#E8F0EA] text-[#3D3229] px-2.5 py-1.5 rounded-lg hover:border-[#8BAA91] hover:bg-[#8BAA91]/10 transition-colors"
                                     onClick={() => {
                                       setSelectedSubject(unlockedSub);
-                                      setSelectedYear(unlockedSub.year);
+                                      setSelectedYear(unlockedSub.isElectiva ? 'electivas' : unlockedSub.year);
                                     }}>
                                 {unlockedSub.name}
                               </span>
@@ -597,10 +654,26 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                     }
                   `}>
                     <Calendar className="w-3 h-3" />
-                    {selectedSubject.semester}
-                  </span>
-                )}
-            </p>
+                      {selectedSubject.semester}
+                    </span>
+                  )}
+              </p>
+              {selectedSubject.docente && (
+                <p className="text-[#8BAA91] text-sm mt-3 flex items-center gap-2">
+                  <span className="font-bold border border-[#8BAA91]/30 px-1.5 py-0.5 rounded-md">Docente</span> {selectedSubject.docente}
+                </p>
+              )}
+              {selectedSubject.horario && (
+                <p className="text-[#8BAA91] text-sm mt-1.5 flex items-center gap-2">
+                  <span className="font-bold border border-[#8BAA91]/30 px-1.5 py-0.5 rounded-md">Horario</span> {selectedSubject.horario}
+                </p>
+              )}
+              {(selectedSubject.weekly_hours || selectedSubject.total_hours) ? (
+                <p className="text-[#8BAA91] text-sm mt-1.5 flex flex-wrap items-center gap-2">
+                  {selectedSubject.weekly_hours ? <span><span className="font-bold border border-[#8BAA91]/30 px-1.5 py-0.5 rounded-md">Carga</span> {selectedSubject.weekly_hours} hs/sem</span> : null}
+                  {selectedSubject.total_hours ? <span><span className="font-bold border border-[#8BAA91]/30 px-1.5 py-0.5 rounded-md">Total</span> {selectedSubject.total_hours} hs</span> : null}
+                </p>
+              ) : null}
           </div>
 
           <div className="space-y-6">
@@ -629,7 +702,7 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                               onClick={() => {
                                 if (reqSub) {
                                   setSelectedSubject(reqSub);
-                                  setSelectedYear(reqSub.year);
+                                  setSelectedYear(reqSub.isElectiva ? 'electivas' : reqSub.year);
                                 }
                               }}
                             >
@@ -656,11 +729,38 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                               onClick={() => {
                                 if (reqSub) {
                                   setSelectedSubject(reqSub);
-                                  setSelectedYear(reqSub.year);
+                                  setSelectedYear(reqSub.isElectiva ? 'electivas' : reqSub.year);
                                 }
                               }}
                             >
                               <AlertTriangle className="w-4 h-4 text-[#D4856A] mt-0.5 shrink-0" />
+                              <span className="group-hover:underline underline-offset-2">{reqSub?.name}</span>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  )}
+
+                  {selectedSubject.rendir && selectedSubject.rendir.length > 0 && (
+                    <div>
+                      <span className="text-xs font-semibold text-[#8B5CF6] mb-2 block mt-4">Para RENDIR (Aprobadas):</span>
+                      <ul className="space-y-1">
+                        {selectedSubject.rendir.map((reqId, index) => {
+                          const reqSub = career.curriculum.find(s => s.id === reqId);
+                          return (
+                            <li 
+                              key={reqId} 
+                              style={{ animationDelay: `${index * 50 + 300}ms` }}
+                              className="flex items-start gap-2 text-sm text-[#3D3229] hover:text-[#8B5CF6] hover:bg-[#F3E8FF] p-1.5 -ml-1.5 rounded-lg cursor-pointer transition-colors group"
+                              onClick={() => {
+                                if (reqSub) {
+                                  setSelectedSubject(reqSub);
+                                  setSelectedYear(reqSub.isElectiva ? 'electivas' : reqSub.year);
+                                }
+                              }}
+                            >
+                              <CheckCircle2 className="w-4 h-4 text-[#8B5CF6] mt-0.5 shrink-0" />
                               <span className="group-hover:underline underline-offset-2">{reqSub?.name}</span>
                             </li>
                           );
@@ -696,7 +796,7 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                                   className="text-xs font-medium bg-[#FFF9F2] border border-[#E8F0EA] text-[#3D3229] px-2.5 py-1.5 rounded-lg hover:border-[#D4856A] hover:bg-[#D4856A]/10 transition-colors"
                                   onClick={() => {
                                     setSelectedSubject(unlockedSub);
-                                    setSelectedYear(unlockedSub.year);
+                                    setSelectedYear(unlockedSub.isElectiva ? 'electivas' : unlockedSub.year);
                                   }}>
                               {unlockedSub.name}
                             </span>
@@ -715,7 +815,7 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                                   className="text-xs font-medium bg-[#F4FBFA] border border-[#E8F0EA] text-[#3D3229] px-2.5 py-1.5 rounded-lg hover:border-[#8BAA91] hover:bg-[#8BAA91]/10 transition-colors"
                                   onClick={() => {
                                     setSelectedSubject(unlockedSub);
-                                    setSelectedYear(unlockedSub.year);
+                                    setSelectedYear(unlockedSub.isElectiva ? 'electivas' : unlockedSub.year);
                                   }}>
                               {unlockedSub.name}
                             </span>
