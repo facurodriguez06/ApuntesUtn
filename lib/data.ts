@@ -209,26 +209,6 @@ const sistemasSubs: Subject[] = [
   ele('sis-ele-taller-de-programacion-avanzada', 'Taller de Programación Avanzada', 5, 'sistemas'),
   ele('sis-ele-interoperabilidad', 'Interoperabilidad', 5, 'sistemas'),
   ele('sis-ele-formacion-de-emprendedores', 'Formación de Emprendedores', 5, 'sistemas'),
-
-  // Electivas
-  ele('sis-ele-administracion-de-proyectos', 'Administración de Proyectos', 3, 'sistemas'),
-  ele('sis-ele-computacion-paralela', 'Computación Paralela', 3, 'sistemas'),
-  ele('sis-ele-informatica-industrial', 'Informática Industrial', 4, 'sistemas'),
-  ele('sis-ele-arquitectura-de-microservicios', 'Arquitectura de Microservicios', 4, 'sistemas'),
-  ele('sis-ele-base-de-datos-avanzadas', 'Base de Datos Avanzadas', 4, 'sistemas'),
-  ele('sis-ele-desarrollo-de-software-dirigido-por-modelos', 'Desarrollo de Software Dirigido por Modelos', 4, 'sistemas'),
-  ele('sis-ele-gobierno-digital-e-innovacion', 'Gobierno Digital e Innovación', 4, 'sistemas'),
-  ele('sis-ele-diseno-de-experiencia-de-usuario-ux', 'Diseño de Experiencia de Usuario (UX)', 4, 'sistemas'),
-  ele('sis-ele-seguridad-en-redes', 'Seguridad en Redes', 5, 'sistemas'),
-  ele('sis-ele-redes-neuronales-profundas', 'Redes Neuronales Profundas', 5, 'sistemas'),
-  ele('sis-ele-administracion-de-servicios-en-linux', 'Administración de Servicios en Linux', 5, 'sistemas'),
-  ele('sis-ele-evaluacion-e-innovacion-de-tecnologia-desde-la-perspectiva-cts', 'Evaluación e Innovación de Tecnología desde la perspectiva CTS', 5, 'sistemas'),
-  ele('sis-ele-taller-de-auditoria-en-sistemas-de-informacion', 'Taller de Auditoría en Sistemas de Información', 5, 'sistemas'),
-  ele('sis-ele-aprendizaje-de-maquinas', 'Aprendizaje de Máquinas', 5, 'sistemas'),
-  ele('sis-ele-programacion-avanzada', 'Programación Avanzada', 5, 'sistemas'),
-  ele('sis-ele-taller-de-programacion-avanzada', 'Taller de Programación Avanzada', 5, 'sistemas'),
-  ele('sis-ele-interoperabilidad', 'Interoperabilidad', 5, 'sistemas'),
-  ele('sis-ele-formacion-de-emprendedores', 'Formación de Emprendedores', 5, 'sistemas'),
 ];
 
 // ============================================================
