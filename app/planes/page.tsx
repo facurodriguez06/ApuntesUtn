@@ -338,13 +338,13 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                               relative z-10 text-[10px] font-bold px-2 py-1 rounded-md flex items-center gap-1 w-fit
                               ${subject.semester === 'Anual'
                                 ? 'bg-[#EDE9FE] text-[#7C3AED]'
-                                : subject.semester === '1º Cuatrimestre'
+                                : subject.semester.includes('1')
                                   ? 'bg-[#E8F5E9] text-[#388E3C]'
                                   : 'bg-[#FFF3E0] text-[#E65100]'
                               }
                             `}>
                               <Calendar className="w-3 h-3" />
-                              {subject.semester === 'Anual' ? 'Anual' : subject.semester === '1º Cuatrimestre' ? '1C' : '2C'}
+                              {subject.semester === 'Anual' ? 'Anual' : subject.semester.includes('1') ? '1C' : '2C'}
                             </span>
                           )}
                         </div>
@@ -422,9 +422,9 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                     text-xs font-bold px-2 py-0.5 rounded-md flex items-center gap-1
                     ${selectedSubject.semester === 'Anual'
                       ? 'bg-[#EDE9FE] text-[#7C3AED]'
-                      : selectedSubject.semester === '1º Cuatrimestre'
+                      : selectedSubject.semester.includes('1')
                         ? 'bg-[#E8F5E9] text-[#388E3C]'
-                        : selectedSubject.semester === '2º Cuatrimestre'
+                        : selectedSubject.semester.includes('2')
                           ? 'bg-[#FFF3E0] text-[#E65100]'
                           : 'bg-[#F5F0EA] text-[#7A6E62]'
                     }
@@ -646,9 +646,9 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
                     text-xs font-bold px-2 py-0.5 rounded-md flex items-center gap-1
                     ${selectedSubject.semester === 'Anual'
                       ? 'bg-[#EDE9FE] text-[#7C3AED]'
-                      : selectedSubject.semester === '1º Cuatrimestre'
+                      : selectedSubject.semester.includes('1')
                         ? 'bg-[#E8F5E9] text-[#388E3C]'
-                        : selectedSubject.semester === '2º Cuatrimestre'
+                        : selectedSubject.semester.includes('2')
                           ? 'bg-[#FFF3E0] text-[#E65100]'
                           : 'bg-[#F5F0EA] text-[#7A6E62]'
                     }
