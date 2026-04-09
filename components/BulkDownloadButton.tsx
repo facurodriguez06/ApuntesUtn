@@ -28,28 +28,40 @@ export function BulkDownloadButton({ notes, label = "Descargar todo", compact = 
       const zip = new JSZip();
       let hasFiles = false;
 
-      for (let i = 0; i < notes.length; i++) {
-        const note = notes[i];
-        if (!note.fileUrl) continue;
-        
+      // Fetch all files in parallel
+      const downloadPromises = notes.map(async (note, i) => {
+        if (!note.fileUrl) return null;
+
         const originalUrl = resolveStorageUrl(note.fileUrl);
         const proxyUrl = `/api/download?url=${encodeURIComponent(originalUrl)}`;
-        
+
         let filename = note.title ? note.title.replace(/[\\/:*?"<>|]/g, '_') : `documento-${i + 1}`;
-        const ext = note.fileType ? note.fileType.toLowerCase() : "pdf";
+        const ext = note.fileType ? note.fileType.toLowerCase() : "pdf";        
         if (!filename.toLowerCase().endsWith(`.${ext}`)) {
           filename += `.${ext}`;
         }
-        
+
         try {
           const response = await fetch(proxyUrl);
           if (!response.ok) throw new Error("Fetch failed");
           const blob = await response.blob();
-          zip.file(filename, blob);
-          hasFiles = true;
+          return { filename, blob, originalUrl, success: true };
         } catch (fetchErr) {
-          console.error("Error al obtener el archivo:", filename, fetchErr);
-          window.open(originalUrl, "_blank");
+          console.error("Error al obtener el archivo:", filename, fetchErr);    
+          return { filename, blob: null, originalUrl, success: false };
+        }
+      });
+
+      const results = await Promise.all(downloadPromises);
+
+      for (const result of results) {
+        if (!result) continue;
+        
+        if (result.success && result.blob) {
+          zip.file(result.filename, result.blob);
+          hasFiles = true;
+        } else {
+          window.open(result.originalUrl, "_blank");
         }
       }
 
