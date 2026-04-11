@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Upload, Menu, X, ChevronRight, Heart } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { DonationModal } from "@/components/DonationModal";
 
@@ -10,6 +10,26 @@ export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [showDonationModal, setShowDonationModal] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+
+  // Close mobile menu when clicking completely outside the header
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+      if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside, { passive: true });
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
+  }, [menuOpen]);
 
   useEffect(() => {
     // Check initial scroll position immediately on mount
@@ -22,7 +42,8 @@ export function Header() {
   }, []);
 
   return (
-    <header 
+    <header
+      ref={headerRef}
       className={cn(
         "sticky top-0 z-50 w-full transition-all duration-300 py-3",
         scrolled 
