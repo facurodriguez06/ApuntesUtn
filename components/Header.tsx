@@ -13,11 +13,12 @@ export function Header() {
 
   useEffect(() => {
     // Check initial scroll position immediately on mount
-    setScrolled(window.scrollY > 20);
+    const checkScrolled = () => setScrolled(window.scrollY > 0 || document.body.style.position === 'fixed');
     
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    checkScrolled();
+    
+    window.addEventListener("scroll", checkScrolled);
+    return () => window.removeEventListener("scroll", checkScrolled);
   }, []);
 
   return (

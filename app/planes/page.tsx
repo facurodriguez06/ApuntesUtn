@@ -12,6 +12,7 @@ import {
 
 import { planesData } from './data';
 import Link from 'next/link';
+import { useScrollLock } from '@/hooks/useScrollLock';
 
 export interface Subject {
   isElectiva?: boolean;
@@ -175,32 +176,17 @@ const CurriculumViewer = ({ career }: { career: Career }) => {
   }, [career.id]);
 
   // Bloquear el scroll de la página en celulares cuando el modal está abierto (Fix iOS)
+  // Utilizamos el hook global para tener un comportamiento estandarizado entre Android e iOS
+  // y prevenir problemas con el Header donde position=fixed resetearía el scrollY
+  const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
-    if (selectedSubject && window.innerWidth < 1024) {
-      const scrollY = window.scrollY;
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.width = '100%';
-      document.body.style.overflow = 'hidden';
-    } else {
-      const scrollY = document.body.style.top;
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      document.body.style.overflow = '';
-      if (scrollY) {
-        window.scrollTo(0, parseInt(scrollY || '0') * -1);
-      }
-    }
-    
-    // Cleanup al desmontar
-    return () => {
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      document.body.style.overflow = '';
-    };
-  }, [selectedSubject]);
+    setIsMobile(window.innerWidth < 1024);
+    const handleResize = () => setIsMobile(window.innerWidth < 1024);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useScrollLock(!!selectedSubject && isMobile);
 
   // Group by year
     const subjectsByYear = useMemo(() => {
