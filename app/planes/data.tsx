@@ -550,7 +550,10 @@ export const planesData = {
               total_hours: 0,
               regulares: [16],
               aprobadas: [8],
-              isElectiva: true
+              docente: "Colombo, Mónica y Lastra, Graciela",
+                horario: "Lunes 21:15 a 23:30 y viernes 19:00 a 22:45",
+                rendir: [8],
+                isElectiva: true
             },
         {
               id: 99057,
@@ -561,7 +564,10 @@ export const planesData = {
               total_hours: 0,
               regulares: [15],
               aprobadas: [7,14],
-              isElectiva: true
+              docente: "Bianchini, Germán y Caymes Scutari, Paola",
+                horario: "Martes y Viernes 14:30 a 17:30",
+                rendir: [14,7,15],
+                isElectiva: true
             },
         {
               id: 99058,
@@ -572,7 +578,10 @@ export const planesData = {
               total_hours: 0,
               regulares: [19,27],
               aprobadas: [14,16],
-              isElectiva: true
+              docente: "Nicotra, Lucas y Poquet, Gustavo",
+                horario: "Martes 14:30 a 19:00, Viernes 17:30 a 19:00",
+                rendir: [14,16],
+                isElectiva: true
             },
         {
               id: 99059,
@@ -581,9 +590,12 @@ export const planesData = {
               name: "Arquitectura de Microservicios",
               weekly_hours: 8,
               total_hours: 0,
-              regulares: [13,14,19],
-              aprobadas: [6],
-              isElectiva: true
+              regulares: [22],
+                aprobadas: [6],
+              docente: "Marsollier, Néstor y Ceccoli, Andres",
+                horario: "Lunes y Jueves de 19:00 a 22:00",
+                rendir: [6],
+                isElectiva: true
             },
         {
               id: 99060,
@@ -592,9 +604,12 @@ export const planesData = {
               name: "Base de Datos Avanzadas",
               weekly_hours: 8,
               total_hours: 0,
-              regulares: [15,19],
-              aprobadas: [6,7],
-              isElectiva: true
+              regulares: [],
+                aprobadas: [6],
+              docente: "Bloise, Leonardo y Rey, Daniel",
+                horario: "Martes 16:00 a 19:00, Miércoles 19:00 a 22:00",
+                rendir: [],
+                isElectiva: true
             },
         {
               id: 99061,
@@ -616,7 +631,10 @@ export const planesData = {
               total_hours: 0,
               regulares: [16],
               aprobadas: [8],
-              isElectiva: true
+              docente: "Rotella, Carina y Bosin, Marcela",
+                horario: "Lunes y Jueves 16:45 a 19:00",
+                rendir: [8],
+                isElectiva: true
             },
         {
               id: 99063,
@@ -625,9 +643,12 @@ export const planesData = {
               name: "Diseño de Experiencia de Usuario (UX)",
               weekly_hours: 6,
               total_hours: 0,
-              regulares: [],
-              aprobadas: [],
-              isElectiva: true
+              regulares: [23],
+              aprobadas: [16],
+              docente: "Rotella, Carina y Rotella, Andrea",
+                horario: "Sábado 8:30 a 13:00",
+                rendir: [16],
+                isElectiva: true
             },
         {
               id: 99064,
@@ -660,7 +681,10 @@ export const planesData = {
               total_hours: 0,
               regulares: [15,26],
               aprobadas: [21],
-              isElectiva: true
+              docente: "Faccio, Sergio y Edera, Gabriel",
+                horario: "Miércoles y jueves 19:00 a 22:00",
+                rendir: [21],
+                isElectiva: true
             },
         {
               id: 99067,
@@ -669,9 +693,12 @@ export const planesData = {
               name: "Evaluación e Innovación de Tecnología desde la perspectiva CTS",
               weekly_hours: 6,
               total_hours: 0,
-              regulares: [11,18],
-              aprobadas: [8],
-              isElectiva: true
+              regulares: [],
+                aprobadas: [],
+              docente: "Moralejo, Raúl y Manino, Gustavo",
+                horario: "Miércoles 14:30 a 19:00",
+                rendir: [],
+                isElectiva: true
             },
         {
               id: 99068,
