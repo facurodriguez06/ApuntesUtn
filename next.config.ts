@@ -22,11 +22,12 @@ const nextConfig: NextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval'", // needed for Next.js dev
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://apis.google.com https://www.gstatic.com https://*.firebaseapp.com",
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: blob: https://*.googleusercontent.com https://*.r2.dev https://res.cloudinary.com",
               "font-src 'self' https://fonts.gstatic.com",
-              "connect-src * 'self' data: blob: 'unsafe-inline' 'unsafe-eval'",
+              "connect-src * 'self' data: blob: 'unsafe-inline' 'unsafe-eval'", 
+              "frame-src 'self' https://*.firebaseapp.com",
               "frame-ancestors 'none'",
               "base-uri 'self'",
               "form-action 'self'",

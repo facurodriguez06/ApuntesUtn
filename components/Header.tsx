@@ -1,18 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { Upload, Menu, X, ChevronRight, Heart } from "lucide-react";
+import { Upload, Menu, X, ChevronRight, Heart, User, Settings, LogOut } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { DonationModal } from "@/components/DonationModal";
+import { useAuth } from "@/context/AuthContext";
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [showDonationModal, setShowDonationModal] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
+  const userMenuRef = useRef<HTMLDivElement>(null);
+  
+  const { user, logout } = useAuth();
 
-  // Close mobile menu when clicking completely outside the header
+  // Nombre a mostrar del usuario logueado
+  const displayName = user?.displayName || user?.email?.split("@")[0] || "Usuario";
+
+  // Cerrar el menú mobile al hacer click fuera del header
   useEffect(() => {
     if (!menuOpen) return;
 
@@ -30,6 +38,25 @@ export function Header() {
       document.removeEventListener("touchstart", handleClickOutside);
     };
   }, [menuOpen]);
+
+  // Cerrar el dropdown del usuario al hacer click fuera
+  useEffect(() => {
+    if (!userMenuOpen) return;
+
+    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(e.target as Node)) {
+        setUserMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside, { passive: true });
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
+  }, [userMenuOpen]);
 
   useEffect(() => {
     // Check initial scroll position immediately on mount
@@ -100,15 +127,72 @@ export function Header() {
             </button>
             <Link 
               href="/upload" 
-              className="group relative flex items-center gap-2 text-[13px] font-bold text-white bg-gradient-to-b from-[#8BAA91] to-[#6A8F70] shadow-[0_2px_15px_-3px_rgba(106,143,112,0.4)] hover:shadow-[0_4px_20px_-3px_rgba(106,143,112,0.6)] border border-[#597A5E] px-5 py-2 rounded-xl overflow-hidden active:scale-[0.97] transition-all duration-300 hover:-translate-y-[2px]"
+              className="group relative flex items-center gap-2 text-[13px] font-bold text-white bg-[#8BAA91] hover:bg-[#6A8F70] shadow-sm border border-[#597A5E] px-4 py-2 rounded-xl overflow-hidden active:scale-[0.97] transition-all duration-300"
             >
-              {/* Button Shine Effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out" />
-              <Upload className="w-3.5 h-3.5 text-[#E8F0EA] group-hover:text-white group-hover:-translate-y-[1px] transition-all relative z-10" strokeWidth={2.5} />
-              <span className="relative z-10 text-shadow-sm group-hover:translate-x-[1px] transition-transform">Subir apunte</span>
+              <Upload className="w-3.5 h-3.5" strokeWidth={2.5} />
+              <span>Subir apunte</span>
             </Link>
-          </nav>
+            
+            {/* Auth: Dropdown del usuario o botón de Ingresar */}
+            {user ? (
+              <div className="relative" ref={userMenuRef}>
+                <button
+                  onClick={() => setUserMenuOpen(!userMenuOpen)}
+                  className="relative flex items-center gap-2 text-[12px] font-bold text-[#3D3229] hover:bg-[#F5F0EA] px-3 py-2 rounded-xl transition-all duration-300 border border-[#EDE6DD] bg-white group"
+                  id="user-menu-button"
+                >
+                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#8BAA91] to-[#6A8F70] flex items-center justify-center text-white text-[10px] font-black uppercase shadow-sm">
+                    {displayName.charAt(0)}
+                  </div>
+                  <span className="hidden sm:block text-[11px] truncate max-w-[90px]">{displayName}</span>
+                  <svg className={`w-3 h-3 text-[#A89F95] transition-transform duration-200 ${userMenuOpen ? 'rotate-180' : ''}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
 
+                {/* Dropdown del usuario */}
+                {userMenuOpen && (
+                  <div className="absolute right-0 top-full mt-2 w-56 bg-white border border-[#EDE6DD] rounded-2xl shadow-xl shadow-black/8 animate-fade-in-up overflow-hidden z-[60]">
+                    {/* Info del usuario */}
+                    <div className="px-4 py-3 border-b border-[#EDE6DD] bg-[#FAFAF8]">
+                      <p className="text-[13px] font-bold text-[#3D3229] truncate">{displayName}</p>
+                      {user.email && (
+                        <p className="text-[11px] text-[#A89F95] font-medium truncate mt-0.5">{user.email}</p>
+                      )}
+                    </div>
+
+                    {/* Opciones del menú */}
+                    <div className="p-1.5">
+                      <Link
+                        href="/configuracion"
+                        onClick={() => setUserMenuOpen(false)}
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-bold text-[#7A6E62] hover:text-[#3D3229] hover:bg-[#F5F0EA] transition-all group"
+                        id="user-menu-settings"
+                      >
+                        <Settings className="w-4 h-4 text-[#A89F95] group-hover:text-[#8BAA91] group-hover:rotate-45 transition-all duration-300" />
+                        Configuración
+                      </Link>
+                      <button
+                        onClick={() => {
+                          setUserMenuOpen(false);
+                          logout();
+                        }}
+                        className="flex w-full items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-bold text-[#E57A7A] hover:text-[#C55A5A] hover:bg-[#FEF5F5] transition-all group"
+                        id="user-menu-logout"
+                      >
+                        <LogOut className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-200" />
+                        Cerrar sesión
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
+               <Link href="/auth" className="relative flex items-center justify-center gap-1.5 text-[12px] font-bold text-[#3D3229] hover:bg-[#F5F0EA] px-4 py-2 rounded-xl transition-all duration-300 border border-[#EDE6DD] bg-white group">
+                  <svg className="w-4 h-4 text-[#8BAA91]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
+                  <span>Ingresar</span>
+               </Link>
+            )}
+          </nav>
+          
           {/* Mobile Menu Toggle */}
           <button 
             aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
@@ -159,6 +243,57 @@ export function Header() {
                 </div>
                 <ChevronRight className="w-4 h-4 opacity-30" />
               </button>
+
+              {/* Sección de usuario en mobile */}
+              {user ? (
+                <>
+                  <div className="h-[1px] bg-[#EDE6DD] mx-2 my-1" />
+                  <div className="flex items-center gap-3 px-4 py-2">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#8BAA91] to-[#6A8F70] flex items-center justify-center text-white text-xs font-black uppercase shadow-sm">
+                      {displayName.charAt(0)}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-bold text-[#3D3229] truncate">{displayName}</p>
+                      {user.email && <p className="text-[11px] text-[#A89F95] truncate">{user.email}</p>}
+                    </div>
+                  </div>
+                  <Link
+                    href="/configuracion"
+                    className="flex items-center justify-between text-sm font-bold text-[#7A6E62] hover:text-[#3D3229] px-4 py-3 rounded-xl hover:bg-white transition-all"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    <div className="flex items-center gap-2">
+                      <Settings className="w-4 h-4" /> Configuración
+                    </div>
+                    <ChevronRight className="w-4 h-4 opacity-50" />
+                  </Link>
+                  <button
+                    onClick={() => {
+                      setMenuOpen(false);
+                      logout();
+                    }}
+                    className="flex w-full items-center justify-between text-sm font-bold text-[#E57A7A] bg-[#FEF5F5] px-4 py-3 rounded-xl transition-all"
+                  >
+                    <div className="flex items-center gap-2">
+                      <LogOut className="w-4 h-4" /> Cerrar sesión
+                    </div>
+                  </button>
+                </>
+              ) : (
+                <>
+                  <div className="h-[1px] bg-[#EDE6DD] mx-2 my-1" />
+                  <Link
+                    href="/auth"
+                    className="flex items-center justify-between text-sm font-bold text-[#3D3229] bg-white px-4 py-3 rounded-xl border border-[#EDE6DD] transition-all"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    <div className="flex items-center gap-2">
+                      <User className="w-4 h-4 text-[#8BAA91]" /> Ingresar
+                    </div>
+                    <ChevronRight className="w-4 h-4 opacity-50" />
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         )}

@@ -128,6 +128,18 @@ a *, button *, [role="button"] *, .cursor-pointer * {
   100% { transform: scale(1) rotate(0deg); opacity: 1; }
 }
 
+@keyframes stamp {
+  0% { transform: scale(2.2) rotate(-20deg); opacity: 0; }
+  40% { transform: scale(0.9) rotate(-11deg); opacity: 1; }
+  60% { transform: scale(1.08) rotate(-13deg); opacity: 1; }
+  80% { transform: scale(0.97) rotate(-12deg); opacity: 1; }
+  100% { transform: scale(1) rotate(-12deg); opacity: 1; }
+}
+
+.animate-stamp {
+  animation: stamp 0.5s cubic-bezier(0.22, 0.68, 0.36, 1.2) both;
+}
+
 .animate-fade-in-up {
   animation: fadeInUp 0.45s ease-out both;
 }

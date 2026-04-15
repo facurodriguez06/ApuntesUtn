@@ -12,13 +12,13 @@ export const planesData = {
   sistemas: {
     id: 'sistemas',
     name: 'Ingeniería en Sistemas',
-    shortName: 'Sistemas',
+    shortName: 'Sistemas', requiredElectiveHours: 40,
     years: 5,
     icon: React.createElement(Code2, { className: "w-8 h-8" }),
     color: 'from-[#8BAA91] to-[#7CC2A8]',
     curriculum: [
       {
-            "id": 1,
+            "id": "utn_am1",
             "year": 1,
             "semester": "1º Cuatrimestre",
             "name": "Análisis Matemático I",
@@ -28,7 +28,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 2,
+            "id": "utn_aga",
             "year": 1,
             "semester": "1º Cuatrimestre",
             "name": "Álgebra y Geometría Analítica",
@@ -38,7 +38,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 5,
+            "id": "sis_5",
             "year": 1,
             "semester": "1º Cuatrimestre",
             "name": "Lógica y Estructuras Discretas",
@@ -48,7 +48,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 6,
+            "id": "sis_6",
             "year": 1,
             "semester": "2º Cuatrimestre",
             "name": "Algoritmo y Estructura de Datos",
@@ -58,7 +58,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 7,
+            "id": "sis_7",
             "year": 1,
             "semester": "2º Cuatrimestre",
             "name": "Arquitectura de Computadoras",
@@ -68,7 +68,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 8,
+            "id": "sis_8",
             "year": 1,
             "semester": "2º Cuatrimestre",
             "name": "Sistemas y Procesos de Negocio",
@@ -78,7 +78,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 3,
+            "id": "utn_fis1",
             "year": 1,
             "semester": "2º Cuatrimestre",
             "name": "Física I",
@@ -88,7 +88,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 4,
+            "id": "utn_ing1",
             "year": 1,
             "semester": "2º Cuatrimestre",
             "name": "Inglés I",
@@ -98,46 +98,46 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 16,
+            "id": "sis_16",
             "year": 2,
             "semester": "Anual",
             "name": "Análisis de Sistemas de Información",
             "weekly_hours": 6,
             "total_hours": 144,
             "regulares": [
-                  6,
-                  8
+                  "sis_6",
+                  "sis_8"
             ],
             "aprobadas": []
       },
       {
-            "id": 9,
+            "id": "utn_am2",
             "year": 2,
             "semester": "1º Cuatrimestre",
             "name": "Análisis Matemático II",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  1,
-                  2
+                  "utn_am1",
+                  "utn_aga"
             ],
             "aprobadas": []
       },
       {
-            "id": 13,
+            "id": "sis_13",
             "year": 2,
             "semester": "1º Cuatrimestre",
             "name": "Sintaxis y Semántica de los Lenguajes",
             "weekly_hours": 4,
             "total_hours": 96,
             "regulares": [
-                  5,
-                  6
+                  "sis_5",
+                  "sis_6"
             ],
             "aprobadas": []
       },
       {
-            "id": 11,
+            "id": "utn_ing_soc",
             "year": 2,
             "semester": "1º Cuatrimestre",
             "name": "Ingeniería y Sociedad",
@@ -147,87 +147,87 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 12,
+            "id": "utn_ing2",
             "year": 2,
             "semester": "1º Cuatrimestre",
             "name": "Inglés II",
             "weekly_hours": 2,
             "total_hours": 48,
             "regulares": [
-                  4
+                  "utn_ing1"
             ],
             "aprobadas": []
       },
       {
-            "id": 10,
+            "id": "utn_fis2",
             "year": 2,
             "semester": "2º Cuatrimestre",
             "name": "Física II",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  1,
-                  3
+                  "utn_am1",
+                  "utn_fis1"
             ],
             "aprobadas": []
       },
       {
-            "id": 14,
+            "id": "sis_14",
             "year": 2,
             "semester": "2º Cuatrimestre",
             "name": "Paradigmas de Programación",
             "weekly_hours": 4,
             "total_hours": 96,
             "regulares": [
-                  5,
-                  6
+                  "sis_5",
+                  "sis_6"
             ],
             "aprobadas": []
       },
       {
-            "id": 15,
+            "id": "sis_15",
             "year": 2,
             "semester": "2º Cuatrimestre",
             "name": "Sistemas Operativos",
             "weekly_hours": 4,
             "total_hours": 96,
             "regulares": [
-                  7
+                  "sis_7"
             ],
             "aprobadas": []
       },
       {
-            "id": 23,
+            "id": "sis_23",
             "year": 3,
             "semester": "Anual",
             "name": "Diseño de Sistemas de Información",
             "weekly_hours": 6,
             "total_hours": 144,
             "regulares": [
-                  14,
-                  16
+                  "sis_14",
+                  "sis_16"
             ],
             "aprobadas": [
-                  4,
-                  6,
-                  8
+                  "utn_ing1",
+                  "sis_6",
+                  "sis_8"
             ]
       },
       {
-            "id": 17,
+            "id": "utn_prob",
             "year": 3,
             "semester": "1º Cuatrimestre",
             "name": "Probabilidad y Estadística",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  1,
-                  2
+                  "utn_am1",
+                  "utn_aga"
             ],
             "aprobadas": []
       },
       {
-            "id": 18,
+            "id": "utn_econo",
             "year": 3,
             "semester": "1º Cuatrimestre",
             "name": "Economía",
@@ -235,28 +235,28 @@ export const planesData = {
             "total_hours": 72,
             "regulares": [],
             "aprobadas": [
-                  1,
-                  2
+                  "utn_am1",
+                  "utn_aga"
             ]
       },
       {
-            "id": 19,
+            "id": "sis_19",
             "year": 3,
             "semester": "1º Cuatrimestre",
             "name": "Base de Datos",
             "weekly_hours": 4,
             "total_hours": 96,
             "regulares": [
-                  13,
-                  16
+                  "sis_13",
+                  "sis_16"
             ],
             "aprobadas": [
-                  5,
-                  6
+                  "sis_5",
+                  "sis_6"
             ]
       },
       {
-            "id": 21,
+            "id": "sis_21",
             "year": 3,
             "semester": "1º Cuatrimestre",
             "name": "Comunicación de Datos",
@@ -264,43 +264,43 @@ export const planesData = {
             "total_hours": 96,
             "regulares": [],
             "aprobadas": [
-                  3,
-                  7
+                  "utn_fis1",
+                  "sis_7"
             ]
       },
       {
-            "id": 20,
+            "id": "sis_20",
             "year": 3,
             "semester": "2º Cuatrimestre",
             "name": "Desarrollo de Software",
             "weekly_hours": 4,
             "total_hours": 96,
             "regulares": [
-                  14,
-                  16
+                  "sis_14",
+                  "sis_16"
             ],
             "aprobadas": [
-                  5,
-                  6
+                  "sis_5",
+                  "sis_6"
             ]
       },
       {
-            "id": 22,
+            "id": "sis_22",
             "year": 3,
             "semester": "2º Cuatrimestre",
             "name": "Análisis Numérico",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  9
+                  "utn_am2"
             ],
             "aprobadas": [
-                  1,
-                  2
+                  "utn_am1",
+                  "utn_aga"
             ]
       },
       {
-            "id": 993,
+            "id": "sis_993",
             "year": 3,
             "semester": "Electiva",
             "name": "Materias Electivas",
@@ -310,26 +310,26 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 37,
+            "id": "sis_37",
             "year": 4,
             "semester": "1º Cuatrimestre",
             "name": "Seminario Integrador (opcional)",
             "weekly_hours": 4,
             "total_hours": 96,
             "regulares": [
-                  15,
-                  19,
-                  20
+                  "sis_15",
+                  "sis_19",
+                  "sis_20"
             ],
             "aprobadas": [
-                  5,
-                  6,
-                  7,
-                  8
+                  "sis_5",
+                  "sis_6",
+                  "sis_7",
+                  "sis_8"
             ]
       },
       {
-            "id": 30,
+            "id": "sis_30",
             "year": 4,
             "semester": "Anual",
             "name": "Administración de Sistemas de Información",
@@ -337,43 +337,43 @@ export const planesData = {
             "total_hours": 144,
             "regulares": [
                   18,
-                  23
+                  "sis_23"
             ],
             "aprobadas": [
-                  16
+                  "sis_16"
             ]
       },
       {
-            "id": 25,
+            "id": "sis_25",
             "year": 4,
             "semester": "Anual",
             "name": "Ingeniería y Calidad de Software",
             "weekly_hours": 6,
             "total_hours": 72,
             "regulares": [
-                  19,
-                  20,
-                  23
+                  "sis_19",
+                  "sis_20",
+                  "sis_23"
             ],
             "aprobadas": [
-                  13,
-                  14
+                  "sis_13",
+                  "sis_14"
             ]
       },
       {
-            "id": 24,
+            "id": "utn_legis",
             "year": 4,
             "semester": "1º Cuatrimestre",
             "name": "Legislación",
             "weekly_hours": 2,
             "total_hours": 48,
             "regulares": [
-                  11
+                  "utn_ing_soc"
             ],
             "aprobadas": []
       },
       {
-            "id": 27,
+            "id": "sis_27",
             "year": 4,
             "semester": "1º Cuatrimestre",
             "name": "Investigación Operativa",
@@ -381,12 +381,12 @@ export const planesData = {
             "total_hours": 96,
             "regulares": [
                   17,
-                  22
+                  "sis_22"
             ],
             "aprobadas": []
       },
       {
-            "id": 28,
+            "id": "sis_28",
             "year": 4,
             "semester": "1º Cuatrimestre",
             "name": "Simulación",
@@ -396,39 +396,39 @@ export const planesData = {
                   17
             ],
             "aprobadas": [
-                  9
+                  "utn_am2"
             ]
       },
       {
-            "id": 26,
+            "id": "sis_26",
             "year": 4,
             "semester": "2º Cuatrimestre",
             "name": "Redes de Datos",
             "weekly_hours": 4,
             "total_hours": 96,
             "regulares": [
-                  15,
-                  21
+                  "sis_15",
+                  "sis_21"
             ],
             "aprobadas": []
       },
       {
-            "id": 29,
+            "id": "sis_29",
             "year": 4,
             "semester": "2º Cuatrimestre",
             "name": "Tecnología para la Automatización",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  10,
-                  22
+                  "utn_fis2",
+                  "sis_22"
             ],
             "aprobadas": [
-                  9
+                  "utn_am2"
             ]
       },
       {
-            "id": 994,
+            "id": "sis_994",
             "year": 4,
             "semester": "Electiva",
             "name": "Materias Electivas",
@@ -438,25 +438,25 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 36,
+            "id": "sis_36",
             "year": 5,
             "semester": "Anual",
             "name": "Proyecto Final",
             "weekly_hours": 6,
             "total_hours": 144,
             "regulares": [
-                  25,
-                  26,
-                  30
+                  "sis_25",
+                  "sis_26",
+                  "sis_30"
             ],
             "aprobadas": [
-                  12,
-                  20,
-                  23
+                  "utn_ing2",
+                  "sis_20",
+                  "sis_23"
             ]
       },
       {
-            "id": 33,
+            "id": "sis_33",
             "year": 5,
             "semester": "1º Cuatrimestre",
             "name": "Sistemas de Gestión",
@@ -464,14 +464,14 @@ export const planesData = {
             "total_hours": 96,
             "regulares": [
                   18,
-                  27
+                  "sis_27"
             ],
             "aprobadas": [
-                  23
+                  "sis_23"
             ]
       },
       {
-            "id": 34,
+            "id": "sis_34",
             "year": 5,
             "semester": "1º Cuatrimestre",
             "name": "Gestión Gerencial",
@@ -479,60 +479,60 @@ export const planesData = {
             "total_hours": 72,
             "regulares": [
                   24,
-                  30
+                  "sis_30"
             ],
             "aprobadas": [
                   18
             ]
       },
       {
-            "id": 35,
+            "id": "sis_35",
             "year": 5,
             "semester": "1º Cuatrimestre",
             "name": "Seguridad en los Sistemas de Información",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  26,
-                  30
+                  "sis_26",
+                  "sis_30"
             ],
             "aprobadas": [
-                  20,
-                  21
+                  "sis_20",
+                  "sis_21"
             ]
       },
       {
-            "id": 31,
+            "id": "sis_31",
             "year": 5,
             "semester": "2º Cuatrimestre",
             "name": "Inteligencia Artificial",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  28
+                  "sis_28"
             ],
             "aprobadas": [
                   17,
-                  22
+                  "sis_22"
             ]
       },
       {
-            "id": 32,
+            "id": "sis_32",
             "year": 5,
             "semester": "2º Cuatrimestre",
             "name": "Ciencia de Datos",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  28
+                  "sis_28"
             ],
             "aprobadas": [
                   17,
-                  19
+                  "sis_19"
             ]
       },
       {
-            "id": 995,
+            "id": "sis_995",
             "year": 5,
             "semester": "Electiva",
             "name": "Materias Electivas",
@@ -542,116 +542,116 @@ export const planesData = {
             "aprobadas": []
       },
         {
-              id: 99056,
+              "id": "sis_99056",
               year: 3,
               semester: "2° Cuatrimestre",
               name: "Administración de Proyectos",
               weekly_hours: 8,
               total_hours: 0,
-              regulares: [16],
-              aprobadas: [8],
+              regulares: ["sis_16"],
+              aprobadas: ["sis_8"],
               docente: "Colombo, Mónica y Lastra, Graciela",
                 horario: "Lunes 21:15 a 23:30 y viernes 19:00 a 22:45",
-                rendir: [8],
+                rendir: ["sis_8"],
                 isElectiva: true
             },
         {
-              id: 99057,
+              "id": "sis_99057",
               year: 3,
               semester: "2° Cuatrimestre",
               name: "Computación Paralela",
               weekly_hours: 8,
               total_hours: 0,
-              regulares: [15],
-              aprobadas: [7,14],
+              regulares: ["sis_15"],
+              aprobadas: ["sis_7","sis_14"],
               docente: "Bianchini, Germán y Caymes Scutari, Paola",
                 horario: "Martes y Viernes 14:30 a 17:30",
-                rendir: [14,7,15],
+                rendir: ["sis_14","sis_7","sis_15"],
                 isElectiva: true
             },
         {
-              id: 99058,
+              "id": "sis_99058",
               year: 4,
               semester: "2° Cuatrimestre",
               name: "Informática Industrial",
               weekly_hours: 8,
               total_hours: 0,
-              regulares: [19,27],
-              aprobadas: [14,16],
+              regulares: ["sis_19","sis_27"],
+              aprobadas: ["sis_14","sis_16"],
               docente: "Nicotra, Lucas y Poquet, Gustavo",
                 horario: "Martes 14:30 a 19:00, Viernes 17:30 a 19:00",
-                rendir: [14,16],
+                rendir: ["sis_14","sis_16"],
                 isElectiva: true
             },
         {
-              id: 99059,
+              "id": "sis_99059",
               year: 4,
               semester: "2° Cuatrimestre",
               name: "Arquitectura de Microservicios",
               weekly_hours: 8,
               total_hours: 0,
-              regulares: [22],
-                aprobadas: [6],
+              regulares: ["sis_22"],
+                aprobadas: ["sis_6"],
               docente: "Marsollier, Néstor y Ceccoli, Andres",
                 horario: "Lunes y Jueves de 19:00 a 22:00",
-                rendir: [6],
+                rendir: ["sis_6"],
                 isElectiva: true
             },
         {
-              id: 99060,
+              "id": "sis_99060",
               year: 4,
               semester: "2° Cuatrimestre",
               name: "Base de Datos Avanzadas",
               weekly_hours: 8,
               total_hours: 0,
               regulares: [],
-                aprobadas: [6],
+                aprobadas: ["sis_6"],
               docente: "Bloise, Leonardo y Rey, Daniel",
                 horario: "Martes 16:00 a 19:00, Miércoles 19:00 a 22:00",
                 rendir: [],
                 isElectiva: true
             },
         {
-              id: 99061,
+              "id": "sis_99061",
               year: 4,
               semester: "2° Cuatrimestre",
               name: "Desarrollo de Software Dirigido por Modelos",
               weekly_hours: 6,
               total_hours: 0,
-              regulares: [19],
-              aprobadas: [14,16],
+              regulares: ["sis_19"],
+              aprobadas: ["sis_14","sis_16"],
               isElectiva: true
             },
         {
-              id: 99062,
+              "id": "sis_99062",
               year: 4,
               semester: "2° Cuatrimestre",
               name: "Gobierno Digital e Innovación",
               weekly_hours: 6,
               total_hours: 0,
-              regulares: [16],
-              aprobadas: [8],
+              regulares: ["sis_16"],
+              aprobadas: ["sis_8"],
               docente: "Rotella, Carina y Bosin, Marcela",
                 horario: "Lunes y Jueves 16:45 a 19:00",
-                rendir: [8],
+                rendir: ["sis_8"],
                 isElectiva: true
             },
         {
-              id: 99063,
+              "id": "sis_99063",
               year: 4,
               semester: "Sin especificar",
               name: "Diseño de Experiencia de Usuario (UX)",
               weekly_hours: 6,
               total_hours: 0,
-              regulares: [23],
-              aprobadas: [16],
+              regulares: ["sis_23"],
+              aprobadas: ["sis_16"],
               docente: "Rotella, Carina y Rotella, Andrea",
                 horario: "Sábado 8:30 a 13:00",
-                rendir: [16],
+                rendir: ["sis_16"],
                 isElectiva: true
             },
         {
-              id: 99064,
+              "id": "sis_99064",
               year: 5,
               semester: "1° Cuatrimestre",
               name: "Seguridad en Redes",
@@ -662,32 +662,32 @@ export const planesData = {
               isElectiva: true
             },
         {
-              id: 99065,
+              "id": "sis_99065",
               year: 5,
               semester: "2° Cuatrimestre",
               name: "Redes Neuronales Profundas",
               weekly_hours: 8,
               total_hours: 0,
-              regulares: [4,31],
-              aprobadas: [6,22],
+              regulares: ["utn_am1","sis_31"],
+              aprobadas: ["sis_6","sis_22"],
               isElectiva: true
             },
         {
-              id: 99066,
+              "id": "sis_99066",
               year: 5,
               semester: "2° Cuatrimestre",
               name: "Administración de Servicios en Linux",
               weekly_hours: 8,
               total_hours: 0,
-              regulares: [15,26],
-              aprobadas: [21],
+              regulares: ["sis_15","sis_26"],
+              aprobadas: ["sis_21"],
               docente: "Faccio, Sergio y Edera, Gabriel",
                 horario: "Miércoles y jueves 19:00 a 22:00",
-                rendir: [21],
+                rendir: ["sis_21"],
                 isElectiva: true
             },
         {
-              id: 99067,
+              "id": "sis_99067",
               year: 5,
               semester: "2° Cuatrimestre",
               name: "Evaluación e Innovación de Tecnología desde la perspectiva CTS",
@@ -701,7 +701,7 @@ export const planesData = {
                 isElectiva: true
             },
         {
-              id: 99068,
+              "id": "sis_99068",
               year: 5,
               semester: "Sin especificar",
               name: "Taller de Auditoría en Sistemas de Información",
@@ -712,7 +712,7 @@ export const planesData = {
               isElectiva: true
             },
         {
-              id: 99069,
+              "id": "sis_99069",
               year: 5,
               semester: "1° Cuatrimestre",
               name: "Aprendizaje de Máquinas",
@@ -723,7 +723,7 @@ export const planesData = {
               isElectiva: true
             },
         {
-              id: 99070,
+              "id": "sis_99070",
               year: 5,
               semester: "1° Cuatrimestre",
               name: "Programación Avanzada",
@@ -734,29 +734,29 @@ export const planesData = {
               isElectiva: true
             },
         {
-              id: 99071,
+              "id": "sis_99071",
               year: 5,
               semester: "2° Cuatrimestre",
               name: "Taller de Programación Avanzada",
               weekly_hours: 6,
               total_hours: 0,
-              regulares: [19],
-              aprobadas: [13,14],
+              regulares: ["sis_19"],
+              aprobadas: ["sis_13","sis_14"],
               isElectiva: true
             },
         {
-              id: 99072,
+              "id": "sis_99072",
               year: 5,
               semester: "2° Cuatrimestre",
               name: "Interoperabilidad",
               weekly_hours: 6,
               total_hours: 0,
-              regulares: [23,26],
-              aprobadas: [19,21],
+              regulares: ["sis_23","sis_26"],
+              aprobadas: ["sis_19","sis_21"],
               isElectiva: true
             },
         {
-              id: 99073,
+              "id": "sis_99073",
               year: 5,
               semester: "2° Cuatrimestre",
               name: "Formación de Emprendedores",
@@ -765,7 +765,7 @@ export const planesData = {
               regulares: [],
               aprobadas: [],
               isElectiva: true,
-            rendir: [19]
+            rendir: ["sis_19"]
         }
     ]
   },
@@ -773,12 +773,13 @@ export const planesData = {
     id: 'civil',
     name: 'Ingeniería Civil',
     shortName: 'Civil',
+    requiredElectiveHours: 22,
     years: 6,
     icon: React.createElement(Building2, { className: "w-8 h-8" }),
     color: 'from-[#E8CFC3] to-[#D4856A]',
     curriculum: [
       {
-            "id": 4,
+            "id": "civ_4",
             "year": 1,
             "semester": "Anual",
             "name": "Ingeniería Civil I",
@@ -788,7 +789,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 5,
+            "id": "utn_sdr",
             "year": 1,
             "semester": "Anual",
             "name": "Sistemas de Representación",
@@ -798,7 +799,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 8,
+            "id": "civ_8",
             "year": 1,
             "semester": "Anual",
             "name": "Fundamentos de Informática",
@@ -808,7 +809,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 1,
+            "id": "utn_am1",
             "year": 1,
             "semester": "1º Cuatrimestre",
             "name": "Análisis Matemático I",
@@ -818,7 +819,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 2,
+            "id": "utn_aga",
             "year": 1,
             "semester": "1º Cuatrimestre",
             "name": "Álgebra y Geometría Analítica",
@@ -828,7 +829,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 3,
+            "id": "utn_ing_soc",
             "year": 1,
             "semester": "1º Cuatrimestre",
             "name": "Ingeniería y Sociedad",
@@ -838,7 +839,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 6,
+            "id": "utn_qui_gen",
             "year": 1,
             "semester": "2º Cuatrimestre",
             "name": "Química General",
@@ -848,7 +849,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 7,
+            "id": "utn_fis1",
             "year": 1,
             "semester": "2º Cuatrimestre",
             "name": "Física I",
@@ -858,655 +859,655 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 11,
+            "id": "civ_11",
             "year": 2,
             "semester": "Anual",
             "name": "Ingeniería Civil II",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  3,
-                  4,
+                  "utn_fis1",
+                  "civ_4",
                   5,
-                  8
+                  "civ_8"
             ],
             "aprobadas": []
       },
       {
-            "id": 9,
+            "id": "utn_am2",
             "year": 2,
             "semester": "Anual",
             "name": "Análisis Matemático II",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  1,
-                  2
+                  "utn_am1",
+                  "utn_aga"
             ],
             "aprobadas": []
       },
       {
-            "id": 12,
+            "id": "civ_12",
             "year": 2,
             "semester": "Anual",
             "name": "Tecnología de los Materiales",
             "weekly_hours": 4,
             "total_hours": 96,
             "regulares": [
-                  1,
+                  "utn_am1",
                   5,
                   6,
-                  7
+                  "utn_fis1"
             ],
             "aprobadas": []
       },
       {
-            "id": 10,
+            "id": "civ_10",
             "year": 2,
             "semester": "1º Cuatrimestre",
             "name": "Estabilidad",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  1,
-                  2,
+                  "utn_am1",
+                  "utn_aga",
                   5,
-                  7,
-                  8
+                  "utn_fis1",
+                  "civ_8"
             ],
             "aprobadas": []
       },
       {
-            "id": 13,
+            "id": "utn_fis2",
             "year": 2,
             "semester": "2º Cuatrimestre",
             "name": "Física II",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  1,
-                  7
+                  "utn_am1",
+                  "utn_fis1"
             ],
             "aprobadas": []
       },
       {
-            "id": 14,
+            "id": "utn_prob",
             "year": 2,
             "semester": "2º Cuatrimestre",
             "name": "Probabilidad y Estadística",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  1,
-                  2
+                  "utn_am1",
+                  "utn_aga"
             ],
             "aprobadas": []
       },
       {
-            "id": 15,
+            "id": "civ_15",
             "year": 2,
             "semester": "2º Cuatrimestre",
             "name": "Inglés I (Materia cuatrimestral de cualquier cuatrimestre. Puede rendir libre).",
             "weekly_hours": 2,
             "total_hours": 48,
             "regulares": [
-                  3
+                  "utn_fis1"
             ],
             "aprobadas": []
       },
       {
-            "id": 16,
+            "id": "civ_16",
             "year": 3,
             "semester": "Anual",
             "name": "Resistencia de Materiales",
             "weekly_hours": 4,
             "total_hours": 96,
             "regulares": [
-                  10
+                  "civ_10"
             ],
             "aprobadas": [
-                  1,
-                  2,
-                  7,
-                  8
+                  "utn_am1",
+                  "utn_aga",
+                  "utn_fis1",
+                  "civ_8"
             ]
       },
       {
-            "id": 18,
+            "id": "civ_18",
             "year": 3,
             "semester": "Anual",
             "name": "Tecnología de la Construcción",
             "weekly_hours": 6,
             "total_hours": 144,
             "regulares": [
-                  10,
-                  11,
-                  12,
-                  15
+                  "civ_10",
+                  "civ_11",
+                  "civ_12",
+                  "civ_15"
             ],
             "aprobadas": [
-                  1,
-                  2,
-                  4,
+                  "utn_am1",
+                  "utn_aga",
+                  "civ_4",
                   5,
                   6,
-                  7,
-                  8
+                  "utn_fis1",
+                  "civ_8"
             ]
       },
       {
-            "id": 20,
+            "id": "civ_20",
             "year": 3,
             "semester": "Anual",
             "name": "Hidráulica General y Aplicada",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  9,
-                  10,
-                  11,
+                  "utn_am2",
+                  "civ_10",
+                  "civ_11",
                   13,
                   14
             ],
             "aprobadas": [
-                  1,
-                  2,
+                  "utn_am1",
+                  "utn_aga",
                   5,
-                  7,
-                  8
+                  "utn_fis1",
+                  "civ_8"
             ]
       },
       {
-            "id": 17,
+            "id": "civ_17",
             "year": 3,
             "semester": "1º Cuatrimestre",
             "name": "Tecnología del Hormigón",
             "weekly_hours": 2,
             "total_hours": 48,
             "regulares": [
-                  12,
+                  "civ_12",
                   14,
-                  15
+                  "civ_15"
             ],
             "aprobadas": [
-                  1,
-                  2,
+                  "utn_am1",
+                  "utn_aga",
                   6,
-                  7
+                  "utn_fis1"
             ]
       },
       {
-            "id": 22,
+            "id": "civ_22",
             "year": 3,
             "semester": "1º Cuatrimestre",
             "name": "Instalaciones Eléctricas Acústicas",
             "weekly_hours": 2,
             "total_hours": 48,
             "regulares": [
-                  11,
-                  12,
+                  "civ_11",
+                  "civ_12",
                   13
             ],
             "aprobadas": [
-                  1,
-                  2,
-                  4,
+                  "utn_am1",
+                  "utn_aga",
+                  "civ_4",
                   5,
                   6,
-                  7
+                  "utn_fis1"
             ]
       },
       {
-            "id": 23,
+            "id": "civ_23",
             "year": 3,
             "semester": "1º Cuatrimestre",
             "name": "Instalaciones Termomecánicas",
             "weekly_hours": 2,
             "total_hours": 48,
             "regulares": [
-                  11,
-                  12,
+                  "civ_11",
+                  "civ_12",
                   13
             ],
             "aprobadas": [
-                  1,
-                  2,
-                  4,
+                  "utn_am1",
+                  "utn_aga",
+                  "civ_4",
                   5,
                   6,
-                  7
+                  "utn_fis1"
             ]
       },
       {
-            "id": 19,
+            "id": "civ_19",
             "year": 3,
             "semester": "2º Cuatrimestre",
             "name": "Geotopografía",
             "weekly_hours": 4,
             "total_hours": 96,
             "regulares": [
-                  9,
-                  11,
+                  "utn_am2",
+                  "civ_11",
                   13,
                   14
             ],
             "aprobadas": [
-                  1,
-                  2,
-                  4,
+                  "utn_am1",
+                  "utn_aga",
+                  "civ_4",
                   5,
-                  7
+                  "utn_fis1"
             ]
       },
       {
-            "id": 21,
+            "id": "civ_21",
             "year": 3,
             "semester": "2º Cuatrimestre",
             "name": "Cálculo Avanzado",
             "weekly_hours": 2,
             "total_hours": 48,
             "regulares": [
-                  9,
-                  10,
-                  12,
+                  "utn_am2",
+                  "civ_10",
+                  "civ_12",
                   14
             ],
             "aprobadas": [
-                  1,
-                  2,
+                  "utn_am1",
+                  "utn_aga",
                   5,
-                  7,
-                  8
+                  "utn_fis1",
+                  "civ_8"
             ]
       },
       {
-            "id": 24,
+            "id": "utn_econo",
             "year": 3,
             "semester": "2º Cuatrimestre",
             "name": "Economía",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  11,
+                  "civ_11",
                   14,
-                  15
+                  "civ_15"
             ],
             "aprobadas": [
-                  1,
-                  2,
-                  3,
-                  4,
-                  8
+                  "utn_am1",
+                  "utn_aga",
+                  "utn_fis1",
+                  "civ_4",
+                  "civ_8"
             ]
       },
       {
-            "id": 25,
+            "id": "civ_25",
             "year": 3,
             "semester": "2º Cuatrimestre",
             "name": "Inglés II (Materia cuatrimestral de cualquier cuatrimestre. Puede rendir libre).",
             "weekly_hours": 2,
             "total_hours": 48,
             "regulares": [
-                  15
+                  "civ_15"
             ],
             "aprobadas": [
-                  3,
-                  4
+                  "utn_fis1",
+                  "civ_4"
             ]
       },
       {
-            "id": 28,
+            "id": "civ_28",
             "year": 4,
             "semester": "Anual",
             "name": "Diseño Arquitectónico, Planeamiento y Urbanismo",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  18,
-                  19,
-                  22,
-                  23,
+                  "civ_18",
+                  "civ_19",
+                  "civ_22",
+                  "civ_23",
                   24,
-                  25
+                  "civ_25"
             ],
             "aprobadas": [
-                  10,
-                  11,
-                  12,
-                  15
+                  "civ_10",
+                  "civ_11",
+                  "civ_12",
+                  "civ_15"
             ]
       },
       {
-            "id": 31,
+            "id": "civ_31",
             "year": 4,
             "semester": "Anual",
             "name": "Hidrología y Obras Hidráulicas",
             "weekly_hours": 4,
             "total_hours": 96,
             "regulares": [
-                  16,
-                  18,
-                  19,
-                  20,
+                  "civ_16",
+                  "civ_18",
+                  "civ_19",
+                  "civ_20",
                   24,
-                  25
+                  "civ_25"
             ],
             "aprobadas": [
-                  9,
-                  10,
-                  11,
-                  12,
+                  "utn_am2",
+                  "civ_10",
+                  "civ_11",
+                  "civ_12",
                   13,
                   14
             ]
       },
       {
-            "id": 27,
+            "id": "civ_27",
             "year": 4,
             "semester": "1º Cuatrimestre",
             "name": "Instalaciones Sanitarias y Gas",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  18,
-                  19,
-                  20,
+                  "civ_18",
+                  "civ_19",
+                  "civ_20",
                   24
             ],
             "aprobadas": [
                   5,
                   6,
-                  7,
-                  8,
-                  12
+                  "utn_fis1",
+                  "civ_8",
+                  "civ_12"
             ]
       },
       {
-            "id": 29,
+            "id": "civ_29",
             "year": 4,
             "semester": "1º Cuatrimestre",
             "name": "Análisis Estructural I",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  16,
-                  17
+                  "civ_16",
+                  "civ_17"
             ],
             "aprobadas": [
-                  9,
-                  10,
-                  11,
+                  "utn_am2",
+                  "civ_10",
+                  "civ_11",
                   14
             ]
       },
       {
-            "id": 26,
+            "id": "civ_26",
             "year": 4,
             "semester": "2º Cuatrimestre",
             "name": "Geotecnia",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  16,
-                  17,
-                  18,
-                  19,
-                  20
+                  "civ_16",
+                  "civ_17",
+                  "civ_18",
+                  "civ_19",
+                  "civ_20"
             ],
             "aprobadas": [
-                  9,
-                  10,
-                  11,
-                  12,
+                  "utn_am2",
+                  "civ_10",
+                  "civ_11",
+                  "civ_12",
                   13,
                   14
             ]
       },
       {
-            "id": 30,
+            "id": "civ_30",
             "year": 4,
             "semester": "2º Cuatrimestre",
             "name": "Estructuras de Hormigón",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  16,
-                  17,
-                  18,
-                  19,
-                  25
+                  "civ_16",
+                  "civ_17",
+                  "civ_18",
+                  "civ_19",
+                  "civ_25"
             ],
             "aprobadas": [
-                  9,
-                  10,
-                  11,
-                  12,
+                  "utn_am2",
+                  "civ_10",
+                  "civ_11",
+                  "civ_12",
                   13,
                   14
             ]
       },
       {
-            "id": 32,
+            "id": "civ_32",
             "year": 4,
             "semester": "2º Cuatrimestre",
             "name": "Ingeniería Legal",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  9,
-                  11,
+                  "utn_am2",
+                  "civ_11",
                   14,
-                  15
+                  "civ_15"
             ],
             "aprobadas": [
-                  1,
-                  2,
-                  3,
-                  4,
-                  8
+                  "utn_am1",
+                  "utn_aga",
+                  "utn_fis1",
+                  "civ_4",
+                  "civ_8"
             ]
       },
       {
-            "id": 36,
+            "id": "civ_36",
             "year": 5,
             "semester": "Anual",
             "name": "Organización y Conducción de Obras",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  26,
-                  27,
-                  28,
-                  30,
-                  31
+                  "civ_26",
+                  "civ_27",
+                  "civ_28",
+                  "civ_30",
+                  "civ_31"
             ],
             "aprobadas": [
-                  17,
-                  18,
-                  19,
-                  20,
-                  22,
-                  23,
+                  "civ_17",
+                  "civ_18",
+                  "civ_19",
+                  "civ_20",
+                  "civ_22",
+                  "civ_23",
                   24,
-                  25
+                  "civ_25"
             ]
       },
       {
-            "id": 34,
+            "id": "civ_34",
             "year": 5,
             "semester": "1º Cuatrimestre",
             "name": "Cimentaciones",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  21,
-                  26,
-                  29,
-                  30,
-                  31
+                  "civ_21",
+                  "civ_26",
+                  "civ_29",
+                  "civ_30",
+                  "civ_31"
             ],
             "aprobadas": [
-                  16,
-                  17,
-                  18,
-                  19,
-                  20
+                  "civ_16",
+                  "civ_17",
+                  "civ_18",
+                  "civ_19",
+                  "civ_20"
             ]
       },
       {
-            "id": 35,
+            "id": "civ_35",
             "year": 5,
             "semester": "1º Cuatrimestre",
             "name": "Ingeniería Sanitaria",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  26,
-                  27,
-                  31
+                  "civ_26",
+                  "civ_27",
+                  "civ_31"
             ],
             "aprobadas": [
-                  17,
-                  18,
-                  19,
-                  20,
-                  25
+                  "civ_17",
+                  "civ_18",
+                  "civ_19",
+                  "civ_20",
+                  "civ_25"
             ]
       },
       {
-            "id": 37,
+            "id": "civ_37",
             "year": 5,
             "semester": "1º Cuatrimestre",
             "name": "Vías de Comunicación I",
             "weekly_hours": 4,
             "total_hours": 96,
             "regulares": [
-                  17,
-                  18,
-                  19
+                  "civ_17",
+                  "civ_18",
+                  "civ_19"
             ],
             "aprobadas": [
-                  9,
-                  10,
-                  11,
-                  12,
+                  "utn_am2",
+                  "civ_10",
+                  "civ_11",
+                  "civ_12",
                   14,
-                  15
+                  "civ_15"
             ]
       },
       {
-            "id": 40,
+            "id": "civ_40",
             "year": 5,
             "semester": "1º Cuatrimestre",
             "name": "Gestión Ambiental y Desarrollo Sustentable",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  26,
-                  28,
-                  31,
-                  32
+                  "civ_26",
+                  "civ_28",
+                  "civ_31",
+                  "civ_32"
             ],
             "aprobadas": [
-                  20,
+                  "civ_20",
                   24,
-                  25
+                  "civ_25"
             ]
       },
       {
-            "id": 33,
+            "id": "civ_33",
             "year": 5,
             "semester": "2º Cuatrimestre",
             "name": "Construcciones Metálicas y de Madera",
             "weekly_hours": 4,
             "total_hours": 96,
             "regulares": [
-                  21,
-                  29
+                  "civ_21",
+                  "civ_29"
             ],
             "aprobadas": [
-                  16,
-                  17,
-                  18,
-                  19
+                  "civ_16",
+                  "civ_17",
+                  "civ_18",
+                  "civ_19"
             ]
       },
       {
-            "id": 38,
+            "id": "civ_38",
             "year": 5,
             "semester": "2º Cuatrimestre",
             "name": "Análisis Estructural II",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  21,
-                  26,
-                  29,
-                  30,
-                  31
+                  "civ_21",
+                  "civ_26",
+                  "civ_29",
+                  "civ_30",
+                  "civ_31"
             ],
             "aprobadas": [
-                  16,
-                  17,
-                  18,
-                  19,
-                  25
+                  "civ_16",
+                  "civ_17",
+                  "civ_18",
+                  "civ_19",
+                  "civ_25"
             ]
       },
       {
-            "id": 39,
+            "id": "civ_39",
             "year": 5,
             "semester": "2º Cuatrimestre",
             "name": "Vías de Comunicación II",
             "weekly_hours": 4,
             "total_hours": 96,
             "regulares": [
-                  26,
-                  30,
-                  31,
-                  32,
-                  37
+                  "civ_26",
+                  "civ_30",
+                  "civ_31",
+                  "civ_32",
+                  "civ_37"
             ],
             "aprobadas": [
-                  16,
-                  17,
-                  18,
-                  19,
-                  20,
+                  "civ_16",
+                  "civ_17",
+                  "civ_18",
+                  "civ_19",
+                  "civ_20",
                   24
             ]
       },
       {
-            "id": 41,
+            "id": "civ_41",
             "year": 6,
             "semester": "1º Cuatrimestre",
             "name": "Proyecto Final",
             "weekly_hours": 8,
             "total_hours": 96,
             "regulares": [
-              26,
-              27,
-              28,
-              29,
-              30,
-              31,
-              32
+              "civ_26",
+              "civ_27",
+              "civ_28",
+              "civ_29",
+              "civ_30",
+              "civ_31",
+              "civ_32"
             ],
             "aprobadas": [
-              15,
-              16,
-              17,
-              18,
-              19,
-              20,
-              22,
-              23,
+              "civ_15",
+              "civ_16",
+              "civ_17",
+              "civ_18",
+              "civ_19",
+              "civ_20",
+              "civ_22",
+              "civ_23",
               24,
-              25
+              "civ_25"
             ]
           },
       {
-            "id": 999,
+            "id": "civ_999",
             "year": 6,
             "semester": "Electiva",
             "name": "Materias Electivas",
@@ -1516,196 +1517,196 @@ export const planesData = {
             "aprobadas": []
       },
         {
-              id: 99001,
+              "id": "civ_99001",
               year: 3,
               semester: "1° Cuatrimestre",
               name: "Geología Aplicada",
               weekly_hours: 0,
               total_hours: 0,
-              regulares: [12],
-              aprobadas: [4,6,7],
+              regulares: ["civ_12"],
+              aprobadas: ["civ_4","utn_qui_gen","utn_am1"],
               isElectiva: true,
-            rendir: [12]
+            rendir: ["civ_12"]
         },
         {
-              id: 99002,
+              "id": "civ_99002",
               year: 4,
               semester: "1° Cuatrimestre",
               name: "Sustentabilidad del Recurso Hídrico",
               weekly_hours: 0,
               total_hours: 0,
-              regulares: [20,18],
-              aprobadas: [11],
+              regulares: ["civ_20","civ_18"],
+              aprobadas: ["civ_11"],
               isElectiva: true,
-            rendir: [11, 20, 18]
+            rendir: ["civ_11", "civ_20", "civ_18"]
         },
         {
-              id: 99003,
+              "id": "civ_99003",
               year: 4,
               semester: "2° Cuatrimestre",
               name: "Ferrocarriles",
               weekly_hours: 0,
               total_hours: 0,
-              regulares: [37,18],
-              aprobadas: [11,12],
+              regulares: ["civ_37","civ_18"],
+              aprobadas: ["civ_11","civ_12"],
               isElectiva: true,
-            rendir: [37, 18]
+            rendir: ["civ_37", "civ_18"]
         },
         {
-              id: 99004,
+              "id": "civ_99004",
               year: 4,
               semester: "2° Cuatrimestre",
               name: "Tránsito y Transporte",
               weekly_hours: 0,
               total_hours: 0,
-              regulares: [37],
-              aprobadas: [14,11],
+              regulares: ["civ_37"],
+              aprobadas: ["utn_prob","civ_11"],
               isElectiva: true,
-            rendir: [37]
+            rendir: ["civ_37"]
         },
         {
-              id: 99005,
+              "id": "civ_99005",
               year: 4,
               semester: "2° Cuatrimestre",
               name: "Prefabricación",
               weekly_hours: 0,
               total_hours: 0,
-              regulares: [17,16],
-              aprobadas: [18,12],
+              regulares: ["civ_17","civ_16"],
+              aprobadas: ["civ_18","civ_12"],
               isElectiva: true,
-            rendir: [17, 16]
+            rendir: ["civ_17", "civ_16"]
         },
         {
-              id: 99006,
+              "id": "civ_99006",
               year: 4,
               semester: "2° Cuatrimestre",
               name: "Diseño Estructural",
               weekly_hours: 0,
               total_hours: 0,
-              regulares: [16,18,29],
-              aprobadas: [10,11],
+              regulares: ["civ_16","civ_18","civ_29"],
+              aprobadas: ["civ_10","civ_11"],
               isElectiva: true,
-            rendir: [16, 29]
+            rendir: ["civ_16", "civ_29"]
         },
         {
-              id: 99007,
+              "id": "civ_99007",
               year: 5,
               semester: "1° Cuatrimestre",
               name: "Gestión Ingenieril",
               weekly_hours: 0,
               total_hours: 0,
-              regulares: [24,32],
-              aprobadas: [18],
+              regulares: ["utn_econo","civ_32"],
+              aprobadas: ["civ_18"],
               isElectiva: true,
-            rendir: [24, 32]
+            rendir: ["utn_econo", "civ_32"]
         },
         {
-              id: 99008,
+              "id": "civ_99008",
               year: 5,
               semester: "1° Cuatrimestre",
               name: "Dinámica de Estructuras",
               weekly_hours: 0,
               total_hours: 0,
-              regulares: [29,21],
-              aprobadas: [9,16],
+              regulares: ["civ_29","civ_21"],
+              aprobadas: ["utn_aga","civ_16"],
               isElectiva: true,
-            rendir: [29, 21]
+            rendir: ["civ_29", "civ_21"]
         },
         {
-              id: 99009,
+              "id": "civ_99009",
               year: 5,
               semester: "1° Cuatrimestre",
               name: "Análisis Estructural III",
               weekly_hours: 0,
               total_hours: 0,
-              regulares: [29,30],
-              aprobadas: [16,21],
+              regulares: ["civ_29","civ_30"],
+              aprobadas: ["civ_16","civ_21"],
               isElectiva: true,
-            rendir: [29, 30]
+            rendir: ["civ_29", "civ_30"]
         },
         {
-              id: 99010,
+              "id": "civ_99010",
               year: 5,
               semester: "1° Cuatrimestre",
               name: "Saneamiento y Medio Ambiente",
               weekly_hours: 0,
               total_hours: 0,
-              regulares: [31,32],
-              aprobadas: [11,20],
+              regulares: ["civ_31","civ_32"],
+              aprobadas: ["civ_11","civ_20"],
               isElectiva: true,
-            rendir: [31]
+            rendir: ["civ_31"]
         },
         {
-              id: 99011,
+              "id": "civ_99011",
               year: 5,
               semester: "1° Cuatrimestre",
               name: "Vialidad Especial",
               weekly_hours: 0,
               total_hours: 0,
-              regulares: [37],
-              aprobadas: [18],
+              regulares: ["civ_37"],
+              aprobadas: ["civ_18"],
               isElectiva: true,
-            rendir: [37]
+            rendir: ["civ_37"]
         },
         {
-              id: 99012,
+              "id": "civ_99012",
               year: 5,
               semester: "1° Cuatrimestre",
               name: "Caminos y Túneles de Montañas",
               weekly_hours: 0,
               total_hours: 0,
-              regulares: [37,31],
-              aprobadas: [17,19],
+              regulares: ["civ_37","civ_31"],
+              aprobadas: ["civ_17","civ_19"],
               isElectiva: true,
-            rendir: [37, 31]
+            rendir: ["civ_37", "civ_31"]
         },
         {
-              id: 99013,
+              "id": "civ_99013",
               year: 5,
               semester: "2° Cuatrimestre",
               name: "Obras Fluviales y Costeras",
               weekly_hours: 0,
               total_hours: 0,
-              regulares: [31],
-              aprobadas: [19,17,18],
+              regulares: ["civ_31"],
+              aprobadas: ["civ_19","civ_17","civ_18"],
               isElectiva: true,
-            rendir: [20, 31]
+            rendir: ["civ_20", "civ_31"]
         },
         {
-              id: 99014,
+              "id": "civ_99014",
               year: 5,
               semester: "2° Cuatrimestre",
               name: "Centrales y Máquinas Hidráulicas",
               weekly_hours: 0,
               total_hours: 0,
-              regulares: [20,22],
-              aprobadas: [19,16],
+              regulares: ["civ_20","civ_22"],
+              aprobadas: ["civ_19","civ_16"],
               isElectiva: true,
-            rendir: [31, 22, 20]
+            rendir: ["civ_31", "civ_22", "civ_20"]
         },
         {
-              id: 99015,
+              "id": "civ_99015",
               year: 5,
               semester: "2° Cuatrimestre",
               name: "Puentes",
               weekly_hours: 0,
               total_hours: 0,
-              regulares: [26,30],
-              aprobadas: [17,16],
+              regulares: ["civ_26","civ_30"],
+              aprobadas: ["civ_17","civ_16"],
               isElectiva: true,
-            rendir: [26, 30]
+            rendir: ["civ_26", "civ_30"]
         },
         {
-              id: 99016,
+              "id": "civ_99016",
               year: 5,
               semester: "2° Cuatrimestre",
               name: "Diseño Sustentable de Edificios",
               weekly_hours: 0,
               total_hours: 0,
-              regulares: [28,32],
-              aprobadas: [18],
+              regulares: ["civ_28","civ_32"],
+              aprobadas: ["civ_18"],
               isElectiva: true,
-            rendir: [28, 32]
+            rendir: ["civ_28", "civ_32"]
         }
     ]
   },
@@ -1713,12 +1714,13 @@ export const planesData = {
     id: 'quimica',
     name: 'Ingeniería Química',
     shortName: 'Química',
+    requiredElectiveHours: 24,
     years: 5,
     icon: React.createElement(FlaskConical, { className: "w-8 h-8" }),
     color: 'from-[#F5E8E8] to-[#C28B8B]',
     curriculum: [
       {
-            "id": 1,
+            "id": "qui_1",
             "year": 1,
             "semester": "Anual",
             "name": "Introducción a la Ingeniería Química",
@@ -1728,7 +1730,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 7,
+            "id": "utn_sdr",
             "year": 1,
             "semester": "Anual",
             "name": "Sistemas de representación",
@@ -1738,7 +1740,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 2,
+            "id": "utn_ing_soc",
             "year": 1,
             "semester": "1º Cuatrimestre",
             "name": "Ingeniería y Sociedad",
@@ -1748,7 +1750,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 3,
+            "id": "utn_aga",
             "year": 1,
             "semester": "1º Cuatrimestre",
             "name": "Álgebra y Geometría Analítica",
@@ -1758,7 +1760,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 4,
+            "id": "utn_am1",
             "year": 1,
             "semester": "1º Cuatrimestre",
             "name": "Análisis Matemático I",
@@ -1768,7 +1770,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 5,
+            "id": "utn_fis1",
             "year": 1,
             "semester": "2º Cuatrimestre",
             "name": "Física I",
@@ -1778,7 +1780,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 6,
+            "id": "qui_6",
             "year": 1,
             "semester": "2º Cuatrimestre",
             "name": "Química",
@@ -1788,96 +1790,96 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 9,
+            "id": "qui_9",
             "year": 2,
             "semester": "Anual",
             "name": "Introducción a Equipos y Procesos",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  1,
-                  6
+                  "utn_am1",
+                  "qui_6"
             ],
             "aprobadas": []
       },
       {
-            "id": 14,
+            "id": "qui_14",
             "year": 2,
             "semester": "Anual",
             "name": "Química Orgánica",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  6
+                  "qui_6"
             ],
             "aprobadas": []
       },
       {
-            "id": 10,
+            "id": "utn_prob",
             "year": 2,
             "semester": "1º Cuatrimestre",
             "name": "Probabilidad y Estadística",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  3,
-                  4
+                  "utn_fis1",
+                  "utn_ing1"
             ],
             "aprobadas": []
       },
       {
-            "id": 11,
+            "id": "qui_11",
             "year": 2,
             "semester": "1º Cuatrimestre",
             "name": "Química Inorgánica",
             "weekly_hours": 4,
             "total_hours": 96,
             "regulares": [
-                  6
+                  "qui_6"
             ],
             "aprobadas": []
       },
       {
-            "id": 12,
+            "id": "utn_am2",
             "year": 2,
             "semester": "1º Cuatrimestre",
             "name": "Análisis Matemático II",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  3,
-                  4
+                  "utn_fis1",
+                  "utn_ing1"
             ],
             "aprobadas": []
       },
       {
-            "id": 13,
+            "id": "utn_fis2",
             "year": 2,
             "semester": "2º Cuatrimestre",
             "name": "Física II",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  4,
-                  5
+                  "utn_ing1",
+                  "utn_fis1"
             ],
             "aprobadas": []
       },
       {
-            "id": 15,
+            "id": "utn_legis",
             "year": 2,
             "semester": "2º Cuatrimestre",
             "name": "Legislación",
             "weekly_hours": 2,
             "total_hours": 48,
             "regulares": [
-                  1,
-                  2
+                  "utn_am1",
+                  "utn_aga"
             ],
             "aprobadas": []
       },
       {
-            "id": 8,
+            "id": "qui_8",
             "year": 2,
             "semester": "2º Cuatrimestre",
             "name": "Fundamentos de Informática",
@@ -1887,7 +1889,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 16,
+            "id": "qui_16",
             "year": 2,
             "semester": "2º Cuatrimestre",
             "name": "Inglés I (Nota: Consultar en Bedelía de Básicas por cursado en 1º Cuatrimestre)",
@@ -1897,332 +1899,332 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 17,
+            "id": "qui_17",
             "year": 3,
             "semester": "Anual",
             "name": "Balances de Masa y Energía",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  6,
+                  "qui_6",
                   7,
-                  8,
-                  9,
+                  "qui_8",
+                  "qui_9",
                   13
             ],
             "aprobadas": [
-                  1,
-                  3,
-                  4
+                  "utn_am1",
+                  "utn_fis1",
+                  "utn_ing1"
             ]
       },
       {
-            "id": 18,
+            "id": "qui_18",
             "year": 3,
             "semester": "1º Cuatrimestre",
             "name": "Termodinámica",
             "weekly_hours": 4,
             "total_hours": 96,
             "regulares": [
-                  11,
-                  12,
+                  "qui_11",
+                  "utn_ing2",
                   13
             ],
             "aprobadas": [
-                  4,
-                  6
+                  "utn_ing1",
+                  "qui_6"
             ]
       },
       {
-            "id": 19,
+            "id": "qui_19",
             "year": 3,
             "semester": "1º Cuatrimestre",
             "name": "Matemática Superior Aplicada",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  12
+                  "utn_ing2"
             ],
             "aprobadas": [
-                  3,
-                  4
+                  "utn_fis1",
+                  "utn_ing1"
             ]
       },
       {
-            "id": 23,
+            "id": "qui_23",
             "year": 3,
             "semester": "1º Cuatrimestre",
             "name": "Química Analítica",
             "weekly_hours": 4,
             "total_hours": 96,
             "regulares": [
-                  10,
-                  11,
-                  14
+                  "utn_fis2",
+                  "qui_11",
+                  "qui_14"
             ],
             "aprobadas": [
-                  2,
-                  6
+                  "utn_aga",
+                  "qui_6"
             ]
       },
       {
-            "id": 24,
+            "id": "qui_24",
             "year": 3,
             "semester": "1º Cuatrimestre",
             "name": "Microbiología y Química Biológica",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  11,
-                  14
+                  "qui_11",
+                  "qui_14"
             ],
             "aprobadas": [
-                  6
+                  "qui_6"
             ]
       },
       {
-            "id": 20,
+            "id": "qui_20",
             "year": 3,
             "semester": "2º Cuatrimestre",
             "name": "Ciencia de los Materiales",
             "weekly_hours": 2,
             "total_hours": 48,
             "regulares": [
-                  9,
-                  11,
-                  14
+                  "qui_9",
+                  "qui_11",
+                  "qui_14"
             ],
             "aprobadas": [
-                  1,
-                  6
+                  "utn_am1",
+                  "qui_6"
             ]
       },
       {
-            "id": 21,
+            "id": "qui_21",
             "year": 3,
             "semester": "2º Cuatrimestre",
             "name": "Fisicoquímica",
             "weekly_hours": 4,
             "total_hours": 96,
             "regulares": [
-                  9,
-                  12,
+                  "qui_9",
+                  "utn_ing2",
                   13
             ],
             "aprobadas": [
-                  3,
-                  4,
-                  6
+                  "utn_fis1",
+                  "utn_ing1",
+                  "qui_6"
             ]
       },
       {
-            "id": 22,
+            "id": "qui_22",
             "year": 3,
             "semester": "2º Cuatrimestre",
             "name": "Fenómenos de Transporte",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  9,
-                  12,
+                  "qui_9",
+                  "utn_ing2",
                   13
             ],
             "aprobadas": [
-                  3,
-                  4,
-                  6
+                  "utn_fis1",
+                  "utn_ing1",
+                  "qui_6"
             ]
       },
       {
-            "id": 25,
+            "id": "qui_25",
             "year": 3,
             "semester": "2º Cuatrimestre",
             "name": "Química Analítica Aplicada",
             "weekly_hours": 2,
             "total_hours": 48,
             "regulares": [
-                  9,
-                  11,
+                  "qui_9",
+                  "qui_11",
                   13,
-                  16
+                  "qui_16"
             ],
             "aprobadas": [
-                  1,
-                  2,
-                  6,
-                  16
+                  "utn_am1",
+                  "utn_aga",
+                  "qui_6",
+                  "qui_16"
             ]
       },
       {
-            "id": 26,
+            "id": "qui_26",
             "year": 3,
             "semester": "2º Cuatrimestre",
             "name": "Inglés II (Nota: Se cursará a partir del 1º cuatrimestre del 2024)",
             "weekly_hours": 2,
             "total_hours": 48,
             "regulares": [
-                  16
+                  "qui_16"
             ],
             "aprobadas": []
       },
       {
-            "id": 27,
+            "id": "qui_27",
             "year": 4,
             "semester": "Anual",
             "name": "Diseño, simulación, optimización y seguridad de procesos",
             "weekly_hours": 4,
             "total_hours": 96,
             "regulares": [
-                  17,
-                  19
+                  "qui_17",
+                  "qui_19"
             ],
             "aprobadas": [
                   7,
-                  8,
-                  9,
-                  12,
-                  26
+                  "qui_8",
+                  "qui_9",
+                  "utn_ing2",
+                  "qui_26"
             ]
       },
       {
-            "id": 28,
+            "id": "qui_28",
             "year": 4,
             "semester": "Anual",
             "name": "Operaciones Unitarias I",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  17,
-                  18,
-                  22
+                  "qui_17",
+                  "qui_18",
+                  "qui_22"
             ],
             "aprobadas": [
-                  9,
-                  12,
+                  "qui_9",
+                  "utn_ing2",
                   13
             ]
       },
       {
-            "id": 32,
+            "id": "qui_32",
             "year": 4,
             "semester": "Anual",
             "name": "Ingeniería de las Reacciones Químicas",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  17,
-                  18,
-                  21,
-                  22
+                  "qui_17",
+                  "qui_18",
+                  "qui_21",
+                  "qui_22"
             ],
             "aprobadas": [
-                  11,
-                  12,
-                  14
+                  "qui_11",
+                  "utn_ing2",
+                  "qui_14"
             ]
       },
       {
-            "id": 29,
+            "id": "qui_29",
             "year": 4,
             "semester": "1º Cuatrimestre",
             "name": "Tecnología de la Energía Térmica",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  17,
-                  18,
-                  21,
-                  22
+                  "qui_17",
+                  "qui_18",
+                  "qui_21",
+                  "qui_22"
             ],
             "aprobadas": [
-                  9,
-                  12,
+                  "qui_9",
+                  "utn_ing2",
                   13
             ]
       },
       {
-            "id": 30,
+            "id": "utn_econo",
             "year": 4,
             "semester": "1º Cuatrimestre",
             "name": "Economía",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  9
+                  "qui_9"
             ],
             "aprobadas": [
-                  2,
-                  3
+                  "utn_aga",
+                  "utn_fis1"
             ]
       },
       {
-            "id": 33,
+            "id": "qui_33",
             "year": 4,
             "semester": "1º Cuatrimestre",
             "name": "Calidad y Control Estadístico de Procesos",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  10
+                  "utn_fis2"
             ],
             "aprobadas": [
-                  4
+                  "utn_ing1"
             ]
       },
       {
-            "id": 31,
+            "id": "qui_31",
             "year": 4,
             "semester": "2º Cuatrimestre",
             "name": "Operaciones Unitarias II",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  18,
-                  21,
-                  22
+                  "qui_18",
+                  "qui_21",
+                  "qui_22"
             ],
             "aprobadas": [
-                  9,
-                  12,
+                  "qui_9",
+                  "utn_ing2",
                   13,
-                  14
+                  "qui_14"
             ]
       },
       {
-            "id": 34,
+            "id": "qui_34",
             "year": 4,
             "semester": "2º Cuatrimestre",
             "name": "Organización Industrial",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  10
+                  "utn_fis2"
             ],
             "aprobadas": [
-                  2,
-                  9,
+                  "utn_aga",
+                  "qui_9",
                   15
             ]
       },
       {
-            "id": 35,
+            "id": "qui_35",
             "year": 5,
             "semester": "Anual",
             "name": "Control Automático de Procesos",
             "weekly_hours": 4,
             "total_hours": 96,
             "regulares": [
-                  27,
-                  31
+                  "qui_27",
+                  "qui_31"
             ],
             "aprobadas": [
-                  17,
-                  19,
-                  23
+                  "qui_17",
+                  "qui_19",
+                  "qui_23"
             ]
       },
       {
-            "id": 41,
+            "id": "qui_41",
             "year": 5,
             "semester": "Anual",
             "name": "Proyecto Final",
@@ -2230,109 +2232,109 @@ export const planesData = {
             "weekly_hours": 4,
             "total_hours": 96,
             "regulares": [
-                  27,
-                  28,
-                  29,
-                  31,
-                  32,
-                  34
+                  "qui_27",
+                  "qui_28",
+                  "qui_29",
+                  "qui_31",
+                  "qui_32",
+                  "qui_34"
             ],
             "aprobadas": [
-                  17,
-                  21,
-                  22,
-                  25,
+                  "qui_17",
+                  "qui_21",
+                  "qui_22",
+                  "qui_25",
                   30
             ]
       },
       {
-            "id": 37,
+            "id": "qui_37",
             "year": 5,
             "semester": "Anual",
             "name": "Ingeniería Ambiental",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  25,
-                  28,
-                  31,
-                  32
+                  "qui_25",
+                  "qui_28",
+                  "qui_31",
+                  "qui_32"
             ],
             "aprobadas": [
                   15,
-                  17,
-                  23
+                  "qui_17",
+                  "qui_23"
             ]
       },
       {
-            "id": 36,
+            "id": "qui_36",
             "year": 5,
             "semester": "1º Cuatrimestre",
             "name": "Mecánica Industrial",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  9,
-                  21
+                  "qui_9",
+                  "qui_21"
             ],
             "aprobadas": [
-                  5,
-                  11,
-                  20
+                  "utn_fis1",
+                  "qui_11",
+                  "qui_20"
             ]
       },
       {
-            "id": 38,
+            "id": "qui_38",
             "year": 5,
             "semester": "2º Cuatrimestre",
             "name": "Procesos Biotecnológicos",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  17,
-                  21,
-                  22,
-                  24
+                  "qui_17",
+                  "qui_21",
+                  "qui_22",
+                  "qui_24"
             ],
             "aprobadas": [
-                  9,
-                  11,
-                  14
+                  "qui_9",
+                  "qui_11",
+                  "qui_14"
             ]
       },
       {
-            "id": 39,
+            "id": "qui_39",
             "year": 5,
             "semester": "2º Cuatrimestre",
             "name": "Higiene y Seguridad en el Trabajo",
             "weekly_hours": 2,
             "total_hours": 48,
             "regulares": [
-              11,
-              14,
-              17
+              "qui_11",
+              "qui_14",
+              "qui_17"
             ],
             "aprobadas": [
-              9
+              "qui_9"
             ]
           },
       {
-            "id": 40,
+            "id": "qui_40",
             "year": 5,
             "semester": "2º Cuatrimestre",
             "name": "Máquinas e Instalaciones Eléctricas",
             "weekly_hours": 2,
             "total_hours": 48,
             "regulares": [
-                  9,
+                  "qui_9",
                   13
             ],
             "aprobadas": [
-                  28
+                  "qui_28"
             ]
       },
       {
-            "id": 998,
+            "id": "qui_998",
             "year": 5,
             "semester": "Electiva",
             "name": "Materias Electivas",
@@ -2342,7 +2344,7 @@ export const planesData = {
             "aprobadas": []
       },
         {
-              id: 99041,
+              "id": "qui_99041",
               year: 3,
               semester: "2° Cuatrimestre",
               name: "Epistemología",
@@ -2353,7 +2355,7 @@ export const planesData = {
               isElectiva: true
             },
         {
-              id: 99042,
+              "id": "qui_99042",
               year: 3,
               semester: "2° Cuatrimestre",
               name: "Metodología de la Investigación",
@@ -2364,160 +2366,160 @@ export const planesData = {
               isElectiva: true
             },
         {
-              id: 99043,
+              "id": "qui_99043",
               year: 4,
               semester: "1° Cuatrimestre",
               name: "Utilitarios de Computación",
               weekly_hours: 4,
               total_hours: 0,
-              regulares: [21,22],
-              aprobadas: [11,18],
+              regulares: ["qui_21","qui_22"],
+              aprobadas: ["qui_11","qui_18"],
               isElectiva: true,
-            rendir: [21, 22]
+            rendir: ["qui_21", "qui_22"]
         },
         {
-              id: 99044,
+              "id": "qui_99044",
               year: 4,
               semester: "2° Cuatrimestre",
               name: "Gestión de RRHH",
               weekly_hours: 6,
               total_hours: 0,
-              regulares: [17,18,20,21,22,23,24,26],
-              aprobadas: [8,9,10,11,12,13,14,15,16],
+              regulares: ["qui_17","qui_18","qui_20","qui_21","qui_22","qui_23","qui_24","qui_26"],
+              aprobadas: ["qui_8","qui_9","utn_prob","qui_11","utn_aga","utn_aga","qui_14","utn_legis","qui_16"],
               isElectiva: true,
-            rendir: [17, 18, 20, 21, 22, 23, 24, 26]
+            rendir: ["qui_17", "qui_18", "qui_20", "qui_21", "qui_22", "qui_23", "qui_24", "qui_26"]
         },
         {
-              id: 99045,
+              "id": "qui_99045",
               year: 4,
               semester: "2° Cuatrimestre",
               name: "Análisis del Ciclo de Vida (ACV)",
               weekly_hours: 4,
               total_hours: 0,
-              regulares: [17,22],
-              aprobadas: [9],
+              regulares: ["qui_17","qui_22"],
+              aprobadas: ["qui_9"],
               isElectiva: true,
-            rendir: [17, 22]
+            rendir: ["qui_17", "qui_22"]
         },
         {
-              id: 99046,
+              "id": "qui_99046",
               year: 5,
               semester: "Anual",
               name: "Instalaciones de Maq. térmicas y fluidodinámicas",
               weekly_hours: 8,
               total_hours: 0,
-              regulares: [28,29,31],
-              aprobadas: [18],
+              regulares: ["qui_28","qui_29","qui_31"],
+              aprobadas: ["qui_18"],
               isElectiva: true,
-            rendir: [28, 29, 31]
+            rendir: ["qui_28", "qui_29", "qui_31"]
         },
         {
-              id: 99047,
+              "id": "qui_99047",
               year: 5,
               semester: "Anual",
               name: "Industrialización de Hidrocarburos",
               weekly_hours: 6,
               total_hours: 0,
-              regulares: [28,29,31,32],
-              aprobadas: [18,21,22],
+              regulares: ["qui_28","qui_29","qui_31","qui_32"],
+              aprobadas: ["qui_18","qui_21","qui_22"],
               isElectiva: true,
-            rendir: [28, 29, 31, 32]
+            rendir: ["qui_28", "qui_29", "qui_31", "qui_32"]
         },
         {
-              id: 99048,
+              "id": "qui_99048",
               year: 5,
               semester: "1° Cuatrimestre",
               name: "Gestión Empresarial I",
               weekly_hours: 4,
               total_hours: 0,
-              regulares: [30,33],
-              aprobadas: [3,12],
+              regulares: ["utn_econo","qui_33"],
+              aprobadas: ["utn_aga","utn_aga"],
               isElectiva: true,
-            rendir: [30, 33]
+            rendir: ["utn_econo", "qui_33"]
         },
         {
-              id: 99049,
+              "id": "qui_99049",
               year: 5,
               semester: "1° Cuatrimestre",
               name: "Bioquímica de los Alimentos",
               weekly_hours: 6,
               total_hours: 0,
-              regulares: [21,24],
-              aprobadas: [11,14],
+              regulares: ["qui_21","qui_24"],
+              aprobadas: ["qui_11","qui_14"],
               isElectiva: true,
-            rendir: [21, 24]
+            rendir: ["qui_21", "qui_24"]
         },
         {
-              id: 99050,
+              "id": "qui_99050",
               year: 5,
               semester: "1° Cuatrimestre",
               name: "Ind. Alimentarias",
               weekly_hours: 6,
               total_hours: 0,
-              regulares: [20,28,29],
+              regulares: ["qui_20","qui_28","qui_29"],
               aprobadas: [],
               isElectiva: true,
-            rendir: [20, 28, 29]
+            rendir: ["qui_20", "qui_28", "qui_29"]
         },
         {
-              id: 99051,
+              "id": "qui_99051",
               year: 5,
               semester: "1° Cuatrimestre",
               name: "Ind. de Base Extractiva - Ext., Fracc., Ref.",
               weekly_hours: 6,
               total_hours: 0,
-              regulares: [28,31,32],
-              aprobadas: [28],
+              regulares: ["qui_28","qui_31","qui_32"],
+              aprobadas: ["qui_28"],
               isElectiva: true,
-            rendir: [28, 31, 32]
+            rendir: ["qui_28", "qui_31", "qui_32"]
         },
         {
-              id: 99052,
+              "id": "qui_99052",
               year: 5,
               semester: "2° Cuatrimestre",
               name: "Evaluación de Impacto Ambiental",
               weekly_hours: 4,
               total_hours: 0,
-              regulares: [22,23],
-              aprobadas: [6],
+              regulares: ["qui_22","qui_23"],
+              aprobadas: ["qui_6"],
               isElectiva: true,
-            rendir: [22, 23]
+            rendir: ["qui_22", "qui_23"]
         },
         {
-              id: 99053,
+              "id": "qui_99053",
               year: 5,
               semester: "2° Cuatrimestre",
               name: "Gestión Empresarial II",
               weekly_hours: 4,
               total_hours: 0,
-              regulares: [33],
-              aprobadas: [3,12,21],
+              regulares: ["qui_33"],
+              aprobadas: ["utn_aga","utn_aga","qui_21"],
               isElectiva: true,
-            rendir: [33]
+            rendir: ["qui_33"]
         },
         {
-              id: 99054,
+              "id": "qui_99054",
               year: 5,
               semester: "2° Cuatrimestre",
               name: "Ing. Industrial de Recursos Naturales Regionales",
               weekly_hours: 6,
               total_hours: 0,
-              regulares: [17,20,28,29],
+              regulares: ["qui_17","qui_20","qui_28","qui_29"],
               aprobadas: [],
               isElectiva: true,
-            rendir: [17, 20, 28, 29]
+            rendir: ["qui_17", "qui_20", "qui_28", "qui_29"]
         },
         {
-              id: 99055,
+              "id": "qui_99055",
               year: 5,
               semester: "2° Cuatrimestre",
               name: "Formación de Emprendedores",
               weekly_hours: 4,
               total_hours: 0,
-              regulares: [19],
+              regulares: ["qui_19"],
               aprobadas: [],
               isElectiva: true,
-            rendir: [19]
+            rendir: ["qui_19"]
         }
     ]
   },
@@ -2525,12 +2527,13 @@ export const planesData = {
     id: 'electronica',
     name: 'Ingeniería Electrónica',
     shortName: 'Electrónica',
+    requiredElectiveHours: 6,
     years: 6,
     icon: React.createElement(Cpu, { className: "w-8 h-8" }),
     color: 'from-[#FFF0E5] to-[#E8A87C]',
     curriculum: [
       {
-            "id": 1,
+            "id": "ele_1",
             "year": 1,
             "semester": "Anual",
             "name": "Informática I",
@@ -2540,7 +2543,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 2,
+            "id": "utn_aga",
             "year": 1,
             "semester": "1º Cuatrimestre",
             "name": "Álgebra y Geometría Analítica",
@@ -2550,7 +2553,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 3,
+            "id": "utn_am1",
             "year": 1,
             "semester": "1º Cuatrimestre",
             "name": "Análisis Matemático I",
@@ -2560,7 +2563,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 4,
+            "id": "utn_ing_soc",
             "year": 1,
             "semester": "1º Cuatrimestre",
             "name": "Ingeniería y Sociedad",
@@ -2570,20 +2573,20 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 5,
+            "id": "utn_am2",
             "year": 1,
             "semester": "2º Cuatrimestre",
             "name": "Análisis Matemático II",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  2,
-                  3
+                  "utn_aga",
+                  "utn_fis1"
             ],
             "aprobadas": []
       },
       {
-            "id": 6,
+            "id": "utn_fis1",
             "year": 1,
             "semester": "2º Cuatrimestre",
             "name": "Física I",
@@ -2593,7 +2596,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 7,
+            "id": "ele_7",
             "year": 1,
             "semester": "2º Cuatrimestre",
             "name": "Diseño asistido por computadora",
@@ -2603,21 +2606,21 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 8,
+            "id": "ele_8",
             "year": 2,
             "semester": "Anual",
             "name": "Informática II",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  1,
-                  2,
-                  3
+                  "utn_am1",
+                  "utn_aga",
+                  "utn_fis1"
             ],
             "aprobadas": []
       },
       {
-            "id": 9,
+            "id": "ele_9",
             "year": 2,
             "semester": "Anual",
             "name": "Análisis de Señales y Sistemas",
@@ -2627,12 +2630,12 @@ export const planesData = {
                   5
             ],
             "aprobadas": [
-                  2,
-                  3
+                  "utn_aga",
+                  "utn_fis1"
             ]
       },
       {
-            "id": 10,
+            "id": "utn_qui_gen",
             "year": 2,
             "semester": "1º Cuatrimestre",
             "name": "Química General",
@@ -2642,49 +2645,49 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 11,
+            "id": "utn_fis2",
             "year": 2,
             "semester": "1º Cuatrimestre",
             "name": "Física II",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  3,
-                  6
+                  "utn_fis1",
+                  "utn_fis1"
             ],
             "aprobadas": []
       },
       {
-            "id": 12,
+            "id": "utn_prob",
             "year": 2,
             "semester": "2º Cuatrimestre",
             "name": "Probabilidad y Estadística",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  2,
-                  3
+                  "utn_aga",
+                  "utn_fis1"
             ],
             "aprobadas": []
       },
       {
-            "id": 13,
+            "id": "ele_13",
             "year": 2,
             "semester": "2º Cuatrimestre",
             "name": "Física Electrónica",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  11
+                  "utn_ing_soc"
             ],
             "aprobadas": [
-                  2,
-                  3,
-                  6
+                  "utn_aga",
+                  "utn_fis1",
+                  "utn_fis1"
             ]
       },
       {
-            "id": 14,
+            "id": "ele_14",
             "year": 2,
             "semester": "2º Cuatrimestre",
             "name": "Inglés I (Nota: Consultar en Bedelía de Básicas por cursado en 1º Cuatrimestre)",
@@ -2694,7 +2697,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 15,
+            "id": "ele_15",
             "year": 3,
             "semester": "Anual",
             "name": "Teoría de los Circuitos I",
@@ -2702,57 +2705,57 @@ export const planesData = {
             "total_hours": 144,
             "regulares": [
                   5,
-                  11
+                  "utn_ing_soc"
             ],
             "aprobadas": [
-                  3,
-                  6
+                  "utn_fis1",
+                  "utn_fis1"
             ]
       },
       {
-            "id": 16,
+            "id": "ele_16",
             "year": 3,
             "semester": "Anual",
             "name": "Técnicas Digitales I",
             "weekly_hours": 4,
             "total_hours": 96,
             "regulares": [
-                  1
+                  "utn_am1"
             ],
             "aprobadas": [
-                  2
+                  "utn_aga"
             ]
       },
       {
-            "id": 17,
+            "id": "ele_17",
             "year": 3,
             "semester": "1º Cuatrimestre",
             "name": "Dispositivos Electrónicos",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  1,
-                  3,
-                  10
+                  "utn_am1",
+                  "utn_fis1",
+                  "utn_fis2"
             ],
             "aprobadas": []
       },
       {
-            "id": 18,
+            "id": "utn_legis",
             "year": 3,
             "semester": "1º Cuatrimestre",
             "name": "Legislación",
             "weekly_hours": 2,
             "total_hours": 48,
             "regulares": [
-                  8
+                  "ele_8"
             ],
             "aprobadas": [
-                  4
+                  "utn_ing1"
             ]
       },
       {
-            "id": 21,
+            "id": "ele_21",
             "year": 3,
             "semester": "1º Cuatrimestre",
             "name": "Inglés II (Nota: Se cursará a partir del 1º cuatrimestre del 2024)",
@@ -2760,28 +2763,28 @@ export const planesData = {
             "total_hours": 48,
             "regulares": [],
             "aprobadas": [
-                  14
+                  "ele_14"
             ]
       },
       {
-            "id": 19,
+            "id": "ele_19",
             "year": 3,
             "semester": "2º Cuatrimestre",
             "name": "Electrónica Aplicada I",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  10,
-                  11
+                  "utn_fis2",
+                  "utn_ing_soc"
             ],
             "aprobadas": [
-                  1,
-                  3,
-                  6
+                  "utn_am1",
+                  "utn_fis1",
+                  "utn_fis1"
             ]
       },
       {
-            "id": 20,
+            "id": "ele_20",
             "year": 3,
             "semester": "2º Cuatrimestre",
             "name": "Medios de Enlace",
@@ -2789,122 +2792,122 @@ export const planesData = {
             "total_hours": 96,
             "regulares": [
                   5,
-                  11
+                  "utn_ing_soc"
             ],
             "aprobadas": [
-                  2,
-                  3,
-                  6
+                  "utn_aga",
+                  "utn_fis1",
+                  "utn_fis1"
             ]
       },
       {
-            "id": 22,
+            "id": "ele_22",
             "year": 4,
             "semester": "Anual",
             "name": "Técnicas Digitales II",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  8,
-                  16,
-                  19
+                  "ele_8",
+                  "ele_16",
+                  "ele_19"
             ],
             "aprobadas": [
-                  10,
-                  11
+                  "utn_fis2",
+                  "utn_ing_soc"
             ]
       },
       {
-            "id": 23,
+            "id": "ele_23",
             "year": 4,
             "semester": "Anual",
             "name": "Medidas Electrónicas I",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  9,
-                  15,
-                  16,
-                  19
+                  "ele_9",
+                  "ele_15",
+                  "ele_16",
+                  "ele_19"
             ],
             "aprobadas": [
                   5,
-                  10,
-                  11
+                  "utn_fis2",
+                  "utn_ing_soc"
             ]
       },
       {
-            "id": 24,
+            "id": "ele_24",
             "year": 4,
             "semester": "Anual",
             "name": "Teoría de los Circuitos II",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  9,
-                  15
+                  "ele_9",
+                  "ele_15"
             ],
             "aprobadas": [
                   5,
-                  11
+                  "utn_ing_soc"
             ]
       },
       {
-            "id": 25,
+            "id": "ele_25",
             "year": 4,
             "semester": "Anual",
             "name": "Máquinas e Instalaciones Eléctricas",
             "weekly_hours": 4,
             "total_hours": 96,
             "regulares": [
-                  9,
-                  15
+                  "ele_9",
+                  "ele_15"
             ],
             "aprobadas": [
                   5,
-                  11
+                  "utn_ing_soc"
             ]
       },
       {
-            "id": 26,
+            "id": "ele_26",
             "year": 4,
             "semester": "Anual",
             "name": "Sistemas de Comunicaciones",
             "weekly_hours": 4,
             "total_hours": 96,
             "regulares": [
-                  9,
-                  12,
-                  19,
-                  20
+                  "ele_9",
+                  "utn_ing2",
+                  "ele_19",
+                  "ele_20"
             ],
             "aprobadas": [
                   5,
-                  11
+                  "utn_ing_soc"
             ]
       },
       {
-            "id": 27,
+            "id": "ele_27",
             "year": 4,
             "semester": "Anual",
             "name": "Electrónica Aplicada II",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  9,
-                  13,
-                  15,
-                  17,
-                  19
+                  "ele_9",
+                  "ele_13",
+                  "ele_15",
+                  "ele_17",
+                  "ele_19"
             ],
             "aprobadas": [
                   5,
-                  11,
-                  14
+                  "utn_ing_soc",
+                  "ele_14"
             ]
       },
       {
-            "id": 28,
+            "id": "ele_28",
             "year": 4,
             "semester": "Anual",
             "name": "Seguridad, Higiene y Medio Ambiente",
@@ -2912,118 +2915,118 @@ export const planesData = {
             "total_hours": 48,
             "regulares": [],
             "aprobadas": [
-                  4,
-                  10
+                  "utn_ing1",
+                  "utn_fis2"
             ]
       },
       {
-            "id": 29,
+            "id": "ele_29",
             "year": 5,
             "semester": "Anual",
             "name": "Técnicas Digitales III",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  22
+                  "ele_22"
             ],
             "aprobadas": [
-                  8,
-                  16,
-                  19
+                  "ele_8",
+                  "ele_16",
+                  "ele_19"
             ]
       },
       {
-            "id": 30,
+            "id": "ele_30",
             "year": 5,
             "semester": "Anual",
             "name": "Medidas Electrónicas II",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  22,
-                  23,
-                  26,
-                  27
+                  "ele_22",
+                  "ele_23",
+                  "ele_26",
+                  "ele_27"
             ],
             "aprobadas": [
-                  7,
-                  13,
-                  15,
-                  16,
-                  19,
-                  21
+                  "ele_7",
+                  "ele_13",
+                  "ele_15",
+                  "ele_16",
+                  "ele_19",
+                  "ele_21"
             ]
       },
       {
-            "id": 31,
+            "id": "ele_31",
             "year": 5,
             "semester": "Anual",
             "name": "Sistemas de Control",
             "weekly_hours": 4,
             "total_hours": 96,
             "regulares": [
-                  24,
-                  25
+                  "ele_24",
+                  "ele_25"
             ],
             "aprobadas": [
-                  13,
-                  15
+                  "ele_13",
+                  "ele_15"
             ]
       },
       {
-            "id": 32,
+            "id": "ele_32",
             "year": 5,
             "semester": "Anual",
             "name": "Electrónica Aplicada III",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  24,
-                  26,
-                  27
+                  "ele_24",
+                  "ele_26",
+                  "ele_27"
             ],
             "aprobadas": [
-                  13,
-                  15,
-                  19
+                  "ele_13",
+                  "ele_15",
+                  "ele_19"
             ]
       },
       {
-            "id": 33,
+            "id": "ele_33",
             "year": 5,
             "semester": "Anual",
             "name": "Tecnología Electrónica",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  23
+                  "ele_23"
             ],
             "aprobadas": [
-                  13,
-                  16,
-                  19
+                  "ele_13",
+                  "ele_16",
+                  "ele_19"
             ]
       },
       {
-            "id": 34,
+            "id": "ele_34",
             "year": 5,
             "semester": "Anual",
             "name": "Electrónica de Potencia",
             "weekly_hours": 4,
             "total_hours": 96,
             "regulares": [
-              23,
-              25,
-              27
+              "ele_23",
+              "ele_25",
+              "ele_27"
             ],
             "aprobadas": [
-              13,
-              16,
-              19
+              "ele_13",
+              "ele_16",
+              "ele_19"
             ]
           },
       {
-            "id": 35,
+            "id": "ele_35",
             "year": 5,
             "semester": "Anual",
             "name": "Organización Industrial",
@@ -3035,21 +3038,21 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 36,
+            "id": "utn_econo",
             "year": 6,
             "semester": "1º Cuatrimestre",
             "name": "Economía",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  8
+                  "ele_8"
             ],
             "aprobadas": [
-                  4
+                  "utn_ing1"
             ]
       },
       {
-            "id": 37,
+            "id": "ele_37",
             "year": 6,
             "semester": "1º Cuatrimestre",
             "name": "Proyecto Final",
@@ -3057,19 +3060,19 @@ export const planesData = {
             "weekly_hours": 4,
             "total_hours": 96,
             "regulares": [
-                  29,
-                  30,
-                  32
+                  "ele_29",
+                  "ele_30",
+                  "ele_32"
             ],
             "aprobadas": [
-                  22,
-                  23,
-                  25,
-                  27
+                  "ele_22",
+                  "ele_23",
+                  "ele_25",
+                  "ele_27"
             ]
       },
       {
-            "id": 997,
+            "id": "ele_997",
             "year": 6,
             "semester": "Electiva",
             "name": "Materias Electivas",
@@ -3079,7 +3082,7 @@ export const planesData = {
             "aprobadas": []
       },
         {
-              id: 99021,
+              "id": "ele_99021",
               year: 5,
               semester: "1° Cuatrimestre",
               name: "Redes de Datos",
@@ -3092,7 +3095,7 @@ export const planesData = {
               horario: "17:30"
             },
         {
-              id: 99022,
+              "id": "ele_99022",
               year: 5,
               semester: "1° Cuatrimestre",
               name: "Electrónica Industrial",
@@ -3105,7 +3108,7 @@ export const planesData = {
               horario: "17:30"
             },
         {
-              id: 99023,
+              "id": "ele_99023",
               year: 5,
               semester: "1° Cuatrimestre",
               name: "Sistemas de Comunicaciones II",
@@ -3118,7 +3121,7 @@ export const planesData = {
               horario: "18:10"
             },
         {
-              id: 99024,
+              "id": "ele_99024",
               year: 5,
               semester: "1° Cuatrimestre",
               name: "Bioelectrónica",
@@ -3131,7 +3134,7 @@ export const planesData = {
               horario: "18:20"
             },
         {
-              id: 99025,
+              "id": "ele_99025",
               year: 5,
               semester: "1° Cuatrimestre",
               name: "Introducción a los Sist. de Gestión Gerencial",
@@ -3144,7 +3147,7 @@ export const planesData = {
               horario: "18:30"
             },
         {
-              id: 99026,
+              "id": "ele_99026",
               year: 5,
               semester: "1° Cuatrimestre",
               name: "Sistemas de TV",
@@ -3157,7 +3160,7 @@ export const planesData = {
               horario: "18:50"
             },
         {
-              id: 99027,
+              "id": "ele_99027",
               year: 5,
               semester: "1° Cuatrimestre",
               name: "Antenas y Propagación Electromagnética",
@@ -3170,7 +3173,7 @@ export const planesData = {
               horario: "19:30"
             },
         {
-              id: 99028,
+              "id": "ele_99028",
               year: 5,
               semester: "1° Cuatrimestre",
               name: "Centro de Datos: Diseño y Administración",
@@ -3183,7 +3186,7 @@ export const planesData = {
               horario: "20:30"
             },
         {
-              id: 99029,
+              "id": "ele_99029",
               year: 5,
               semester: "1° Cuatrimestre",
               name: "Sistemas de Comunicaciones III",
@@ -3196,7 +3199,7 @@ export const planesData = {
               horario: "21:15"
             },
         {
-              id: 99030,
+              "id": "ele_99030",
               year: 5,
               semester: "1° Cuatrimestre",
               name: "Protecciones Digitales y Telecontrol",
@@ -3209,7 +3212,7 @@ export const planesData = {
               horario: "20:00"
             },
         {
-              id: 99031,
+              "id": "ele_99031",
               year: 5,
               semester: "2° Cuatrimestre",
               name: "Redes de Comunicaciones Móviles",
@@ -3222,7 +3225,7 @@ export const planesData = {
               horario: "17:20"
             },
         {
-              id: 99032,
+              "id": "ele_99032",
               year: 5,
               semester: "2° Cuatrimestre",
               name: "Evaluación e Innovación de Tecnología desde la perspectiva CTS",
@@ -3235,7 +3238,7 @@ export const planesData = {
               horario: "17:50"
             },
         {
-              id: 99033,
+              "id": "ele_99033",
               year: 5,
               semester: "2° Cuatrimestre",
               name: "Formación de Emprendedores",
@@ -3246,10 +3249,10 @@ export const planesData = {
               isElectiva: true,
               docente: "Dr. Ing. Anzoise Esteban",
               horario: "18:40",
-            rendir: [19]
+            rendir: ["ele_19"]
         },
         {
-              id: 99034,
+              "id": "ele_99034",
               year: 5,
               semester: "2° Cuatrimestre",
               name: "Sistemas de Sonido",
@@ -3262,7 +3265,7 @@ export const planesData = {
               horario: "19:10"
             },
         {
-              id: 99035,
+              "id": "ele_99035",
               year: 5,
               semester: "2° Cuatrimestre",
               name: "Robótica",
@@ -3275,7 +3278,7 @@ export const planesData = {
               horario: "19:20"
             },
         {
-              id: 99036,
+              "id": "ele_99036",
               year: 5,
               semester: "2° Cuatrimestre",
               name: "Electrónica Automotriz",
@@ -3288,7 +3291,7 @@ export const planesData = {
               horario: "19:40"
             },
         {
-              id: 99037,
+              "id": "ele_99037",
               year: 5,
               semester: "2° Cuatrimestre",
               name: "Control de Procesos",
@@ -3301,7 +3304,7 @@ export const planesData = {
               horario: "20:20"
             },
         {
-              id: 99038,
+              "id": "ele_99038",
               year: 5,
               semester: "2° Cuatrimestre",
               name: "Teleinformática en I o T",
@@ -3314,7 +3317,7 @@ export const planesData = {
               horario: "19:00"
             },
         {
-              id: 99039,
+              "id": "ele_99039",
               year: 5,
               semester: "2° Cuatrimestre",
               name: "Interoperabilidad",
@@ -3327,7 +3330,7 @@ export const planesData = {
               horario: "19:00"
             },
         {
-              id: 99040,
+              "id": "ele_99040",
               year: 5,
               semester: "2° Cuatrimestre",
               name: "Dis. y Admin. de Centro de Datos",
@@ -3345,12 +3348,13 @@ export const planesData = {
     id: 'electromecanica',
     name: 'Ingeniería Electromecánica',
     shortName: 'Electromecánica',
+    requiredElectiveHours: 10,
     years: 5,
     icon: React.createElement(Zap, { className: "w-8 h-8" }),
     color: 'from-[#EFEBF5] to-[#B4A7D6]',
     curriculum: [
       {
-            "id": 1,
+            "id": "ele_1",
             "year": 1,
             "semester": "Anual",
             "name": "Ingeniería Electromecánica I",
@@ -3360,7 +3364,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 2,
+            "id": "utn_am1",
             "year": 1,
             "semester": "1º Cuatrimestre",
             "name": "Análisis Matemático I",
@@ -3370,7 +3374,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 3,
+            "id": "utn_aga",
             "year": 1,
             "semester": "1º Cuatrimestre",
             "name": "Álgebra y Geometría Analítica",
@@ -3380,7 +3384,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 4,
+            "id": "utn_sdr",
             "year": 1,
             "semester": "1º Cuatrimestre",
             "name": "Sistemas de Representación",
@@ -3390,7 +3394,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 5,
+            "id": "utn_qui_gen",
             "year": 1,
             "semester": "2º Cuatrimestre",
             "name": "Química General",
@@ -3400,7 +3404,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 6,
+            "id": "utn_fis1",
             "year": 1,
             "semester": "2º Cuatrimestre",
             "name": "Física I",
@@ -3410,7 +3414,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 7,
+            "id": "utn_sdr",
             "year": 1,
             "semester": "2º Cuatrimestre",
             "name": "Representación Gráfica",
@@ -3420,7 +3424,7 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 8,
+            "id": "utn_ing_soc",
             "year": 1,
             "semester": "2º Cuatrimestre",
             "name": "Ingeniería y Sociedad",
@@ -3430,35 +3434,35 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 9,
+            "id": "ele_9",
             "year": 2,
             "semester": "Anual",
             "name": "Ingeniería Electromecánica II",
             "weekly_hours": 2,
             "total_hours": 48,
             "regulares": [
-                  1,
-                  2,
-                  3
+                  "utn_am1",
+                  "utn_aga",
+                  "utn_fis1"
             ],
             "aprobadas": []
       },
       {
-            "id": 10,
+            "id": "ele_10",
             "year": 2,
             "semester": "Anual",
             "name": "Estabilidad",
             "weekly_hours": 6,
             "total_hours": 144,
             "regulares": [
-                  2,
-                  3,
-                  6
+                  "utn_aga",
+                  "utn_fis1",
+                  "utn_fis1"
             ],
             "aprobadas": []
       },
       {
-            "id": 11,
+            "id": "ele_11",
             "year": 2,
             "semester": "Anual",
             "name": "Conocimiento de Materiales",
@@ -3470,59 +3474,59 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 12,
+            "id": "utn_am2",
             "year": 2,
             "semester": "1º Cuatrimestre",
             "name": "Análisis Matemático II",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  2,
-                  3
+                  "utn_aga",
+                  "utn_fis1"
             ],
             "aprobadas": []
       },
       {
-            "id": 13,
+            "id": "utn_fis2",
             "year": 2,
             "semester": "1º Cuatrimestre",
             "name": "Física II",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  2,
-                  6
+                  "utn_aga",
+                  "utn_fis1"
             ],
             "aprobadas": []
       },
       {
-            "id": 14,
+            "id": "utn_prob",
             "year": 2,
             "semester": "2º Cuatrimestre",
             "name": "Probabilidad y Estadística",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  2,
-                  3
+                  "utn_aga",
+                  "utn_fis1"
             ],
             "aprobadas": []
       },
       {
-            "id": 15,
+            "id": "ele_15",
             "year": 2,
             "semester": "2º Cuatrimestre",
             "name": "Programación en Computación",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  2,
-                  3
+                  "utn_aga",
+                  "utn_fis1"
             ],
             "aprobadas": []
       },
       {
-            "id": 22,
+            "id": "utn_ing1",
             "year": 2,
             "semester": "2º Cuatrimestre",
             "name": "Inglés I",
@@ -3532,26 +3536,26 @@ export const planesData = {
             "aprobadas": []
       },
       {
-            "id": 16,
+            "id": "ele_16",
             "year": 3,
             "semester": "Anual",
             "name": "Ingeniería Electromecánica III",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  9,
-                  12,
+                  "ele_9",
+                  "utn_ing2",
                   13
             ],
             "aprobadas": [
-                  1,
-                  2,
-                  3,
-                  6
+                  "utn_am1",
+                  "utn_aga",
+                  "utn_fis1",
+                  "utn_fis1"
             ]
       },
       {
-            "id": 17,
+            "id": "ele_17",
             "year": 3,
             "semester": "Anual",
             "name": "Mecánica y Mecanismos",
@@ -3559,53 +3563,53 @@ export const planesData = {
             "total_hours": 96,
             "regulares": [
                   7,
-                  10,
-                  12
+                  "ele_10",
+                  "utn_ing2"
             ],
             "aprobadas": [
-                  2,
-                  3,
-                  4,
-                  6
+                  "utn_aga",
+                  "utn_fis1",
+                  "utn_ing1",
+                  "utn_fis1"
             ]
       },
       {
-            "id": 18,
+            "id": "ele_18",
             "year": 3,
             "semester": "Anual",
             "name": "Electrotecnia",
             "weekly_hours": 6,
             "total_hours": 144,
             "regulares": [
-                  12,
+                  "utn_ing2",
                   13
             ],
             "aprobadas": [
-                  2,
-                  3,
-                  6
+                  "utn_aga",
+                  "utn_fis1",
+                  "utn_fis1"
             ]
       },
       {
-            "id": 19,
+            "id": "ele_19",
             "year": 3,
             "semester": "Anual",
             "name": "Tecnología Mecánica",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  11,
+                  "ele_11",
                   13
             ],
             "aprobadas": [
-                  2,
+                  "utn_aga",
                   5,
-                  6,
+                  "utn_fis1",
                   7
             ]
       },
       {
-            "id": 20,
+            "id": "ele_20",
             "year": 3,
             "semester": "1º Cuatrimestre",
             "name": "Termodinámica Técnica",
@@ -3615,28 +3619,28 @@ export const planesData = {
                   13
             ],
             "aprobadas": [
-                  2,
-                  6
+                  "utn_aga",
+                  "utn_fis1"
             ]
       },
       {
-            "id": 21,
+            "id": "ele_21",
             "year": 3,
             "semester": "1º Cuatrimestre",
             "name": "Matemática para Ing. Electromecánica",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  2,
-                  6
+                  "utn_aga",
+                  "utn_fis1"
             ],
             "aprobadas": [
-                  2,
-                  3
+                  "utn_aga",
+                  "utn_fis1"
             ]
       },
       {
-            "id": 23,
+            "id": "ele_23",
             "year": 3,
             "semester": "2º Cuatrimestre",
             "name": "Higiene y Seguridad Industrial",
@@ -3646,12 +3650,12 @@ export const planesData = {
                   13
             ],
             "aprobadas": [
-                  2,
-                  6
+                  "utn_aga",
+                  "utn_fis1"
             ]
       },
       {
-            "id": 32,
+            "id": "utn_ing2",
             "year": 3,
             "semester": "2º Cuatrimestre",
             "name": "Inglés II",
@@ -3661,14 +3665,14 @@ export const planesData = {
                   13
             ],
             "aprobadas": [
-                  2,
+                  "utn_aga",
                   5,
-                  6,
+                  "utn_fis1",
                   8
             ]
       },
       {
-            "id": 24,
+            "id": "ele_24",
             "year": 4,
             "semester": "Anual",
             "name": "Elementos de Máquinas",
@@ -3676,22 +3680,22 @@ export const planesData = {
             "total_hours": 144,
             "regulares": [
                   13,
-                  16,
-                  17,
-                  19
+                  "ele_16",
+                  "ele_17",
+                  "ele_19"
             ],
             "aprobadas": [
-                  9,
-                  10,
-                  11,
-                  12,
+                  "ele_9",
+                  "ele_10",
+                  "ele_11",
+                  "utn_ing2",
                   13,
-                  15,
+                  "ele_15",
                   22
             ]
       },
       {
-            "id": 25,
+            "id": "ele_25",
             "year": 4,
             "semester": "Anual",
             "name": "Mecánica de los Fluidos y Máquinas Fluidodinámicas",
@@ -3699,278 +3703,278 @@ export const planesData = {
             "total_hours": 120,
             "regulares": [
                   13,
-                  17,
-                  20,
-                  21
+                  "ele_17",
+                  "ele_20",
+                  "ele_21"
             ],
             "aprobadas": [
-                  10,
-                  12,
-                  15
+                  "ele_10",
+                  "utn_ing2",
+                  "ele_15"
             ]
       },
       {
-            "id": 26,
+            "id": "ele_26",
             "year": 4,
             "semester": "Anual",
             "name": "Máquinas Térmicas",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  20,
-                  21
+                  "ele_20",
+                  "ele_21"
             ],
             "aprobadas": [
                   13
             ]
       },
       {
-            "id": 27,
+            "id": "ele_27",
             "year": 4,
             "semester": "Anual",
             "name": "Máquinas Eléctricas",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  18,
-                  21
+                  "ele_18",
+                  "ele_21"
             ],
             "aprobadas": [
-                  12,
+                  "utn_ing2",
                   13
             ]
       },
       {
-            "id": 28,
+            "id": "ele_28",
             "year": 4,
             "semester": "1º Cuatrimestre",
             "name": "Mediciones Eléctricas",
             "weekly_hours": 4,
             "total_hours": 96,
             "regulares": [
-                  18,
-                  21
+                  "ele_18",
+                  "ele_21"
             ],
             "aprobadas": [
-                  12,
+                  "utn_ing2",
                   13
             ]
       },
       {
-            "id": 29,
+            "id": "utn_legis",
             "year": 4,
             "semester": "1º Cuatrimestre",
             "name": "Legislación",
             "weekly_hours": 2,
             "total_hours": 48,
             "regulares": [
-                  9
+                  "ele_9"
             ],
             "aprobadas": [
                   8
             ]
       },
       {
-            "id": 30,
+            "id": "ele_30",
             "year": 4,
             "semester": "2º Cuatrimestre",
             "name": "Electrónica Industrial",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  18
+                  "ele_18"
             ],
             "aprobadas": [
-                  12,
+                  "utn_ing2",
                   13
             ]
       },
       {
-            "id": 31,
+            "id": "utn_econo",
             "year": 4,
             "semester": "2º Cuatrimestre",
             "name": "Economía",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  9
+                  "ele_9"
             ],
             "aprobadas": [
                   8
             ]
       },
       {
-            "id": 33,
+            "id": "ele_33",
             "year": 5,
             "semester": "Anual",
             "name": "Redes de Distribución e Instalaciones Eléctricas",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  27,
-                  28
+                  "ele_27",
+                  "ele_28"
             ],
             "aprobadas": [
-                  18,
-                  21
+                  "ele_18",
+                  "ele_21"
             ]
       },
       {
-            "id": 34,
+            "id": "ele_34",
             "year": 5,
             "semester": "Anual",
             "name": "Máquinas y Equipos de Transporte",
             "weekly_hours": 2,
             "total_hours": 48,
             "regulares": [
-                  24,
-                  25,
-                  30
+                  "ele_24",
+                  "ele_25",
+                  "ele_30"
             ],
             "aprobadas": [
-                  16,
-                  19,
-                  21,
+                  "ele_16",
+                  "ele_19",
+                  "ele_21",
                   22,
-                  23
+                  "ele_23"
             ]
       },
       {
-            "id": 35,
+            "id": "ele_35",
             "year": 5,
             "semester": "Anual",
             "name": "Gestión y Mantenimiento Electromecánico",
             "weekly_hours": 2,
             "total_hours": 48,
             "regulares": [
-                  25,
-                  27,
-                  30
+                  "ele_25",
+                  "ele_27",
+                  "ele_30"
             ],
             "aprobadas": [
-                  16,
-                  17,
-                  18,
-                  19,
-                  21,
-                  23
+                  "ele_16",
+                  "ele_17",
+                  "ele_18",
+                  "ele_19",
+                  "ele_21",
+                  "ele_23"
             ]
       },
       {
-            "id": 36,
+            "id": "ele_36",
             "year": 5,
             "semester": "1º Cuatrimestre",
             "name": "Instalaciones Térmicas y Mecánicas",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  25,
-                  26
+                  "ele_25",
+                  "ele_26"
             ],
             "aprobadas": [
-                  17,
-                  20,
-                  21
+                  "ele_17",
+                  "ele_20",
+                  "ele_21"
             ]
       },
       {
-            "id": 37,
+            "id": "ele_37",
             "year": 5,
             "semester": "1º Cuatrimestre",
             "name": "Automatización y Control Industrial",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  21,
-                  24,
-                  25,
-                  27,
-                  30
+                  "ele_21",
+                  "ele_24",
+                  "ele_25",
+                  "ele_27",
+                  "ele_30"
             ],
             "aprobadas": [
-                  17,
-                  18,
-                  20,
-                  23
+                  "ele_17",
+                  "ele_18",
+                  "ele_20",
+                  "ele_23"
             ]
       },
       {
-            "id": 38,
+            "id": "ele_38",
             "year": 5,
             "semester": "2º Cuatrimestre",
             "name": "Centrales y Sistemas de Transmisión",
             "weekly_hours": 5,
             "total_hours": 120,
             "regulares": [
-                  25,
-                  27,
-                  28,
-                  30
+                  "ele_25",
+                  "ele_27",
+                  "ele_28",
+                  "ele_30"
             ],
             "aprobadas": [
-                  17,
-                  18,
-                  20,
-                  21
+                  "ele_17",
+                  "ele_18",
+                  "ele_20",
+                  "ele_21"
             ]
       },
       {
-            "id": 39,
+            "id": "ele_39",
             "year": 5,
             "semester": "2º Cuatrimestre",
             "name": "Organización Industrial",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  26,
+                  "ele_26",
                   31
             ],
             "aprobadas": [
-                  9,
+                  "ele_9",
                   14
             ]
       },
       {
-            "id": 41,
+            "id": "ele_41",
             "year": 5,
             "semester": "2º Cuatrimestre",
             "name": "Oleohidráulica y Neumática",
             "weekly_hours": 2,
             "total_hours": 48,
             "regulares": [
-                  25
+                  "ele_25"
             ],
             "aprobadas": [
                   13,
-                  17,
-                  20
+                  "ele_17",
+                  "ele_20"
             ]
       },
       {
-            "id": 40,
+            "id": "ele_40",
             "year": 5,
             "semester": "2º Cuatrimestre",
             "name": "Proyecto Final",
             "weekly_hours": 3,
             "total_hours": 72,
             "regulares": [
-                  25,
-                  28,
-                  30,
+                  "ele_25",
+                  "ele_28",
+                  "ele_30",
                   32
             ],
             "aprobadas": [
-                  16,
-                  17,
-                  18,
-                  19,
-                  20,
-                  21,
-                  23
+                  "ele_16",
+                  "ele_17",
+                  "ele_18",
+                  "ele_19",
+                  "ele_20",
+                  "ele_21",
+                  "ele_23"
             ]
       },
       {
-            "id": 996,
+            "id": "ele_996",
             "year": 5,
             "semester": "Electiva",
             "name": "Materias Electivas",
@@ -3980,7 +3984,7 @@ export const planesData = {
             "aprobadas": []
       },
         {
-              id: 99017,
+              "id": "ele_99017",
               year: 3,
               semester: "Anual",
               name: "Hidrodinámica y Neumática",
@@ -3991,7 +3995,7 @@ export const planesData = {
               isElectiva: true
             },
         {
-              id: 99018,
+              "id": "ele_99018",
               year: 5,
               semester: "Anual",
               name: "Mantenimiento Electromecánico",
@@ -4002,7 +4006,7 @@ export const planesData = {
               isElectiva: true
             },
         {
-              id: 99019,
+              "id": "ele_99019",
               year: 5,
               semester: "Anual",
               name: "Cálculo y Control de Maq. Eléctrica",
@@ -4013,7 +4017,7 @@ export const planesData = {
               isElectiva: true
             },
         {
-              id: 99020,
+              "id": "ele_99020",
               year: 5,
               semester: "Anual",
               name: "Máquinas y Equipos Industriales",
