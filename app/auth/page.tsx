@@ -18,6 +18,11 @@ export default function AuthPage() {
   const [authError, setAuthError] = useState("");
   const [isFormLoading, setIsFormLoading] = useState(false);
 
+  // OTP Verification State
+  const [verificationStep, setVerificationStep] = useState(false);
+  const [otpCode, setOtpCode] = useState("");
+  const [verificationPayload, setVerificationPayload] = useState("");
+
   useEffect(() => {
     if (user && !loading) {
       router.push("/planes");
@@ -58,7 +63,21 @@ export default function AuthPage() {
       if (isLogin) {
         await loginWithEmail(email, password);
       } else {
-        await registerWithEmail(email, password, fullName.trim());
+        // Enviar OTP en lugar de registrar directamente
+        const res = await fetch("/api/auth/send-otp", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email })
+        });
+        const data = await res.json();
+        
+        if (!res.ok) {
+          throw new Error(data.error || "Ocurrió un error al enviar el código");
+        }
+        
+        // Entrar en fase de verificación
+        setVerificationPayload(data.verificationPayload);
+        setVerificationStep(true);
       }
     } catch (error: any) {
       console.error(error);
@@ -67,7 +86,44 @@ export default function AuthPage() {
       } else if (error.code === "auth/email-already-in-use") {
         setAuthError("Este correo ya está registrado.");
       } else {
-        setAuthError("Ocurrió un error inesperado.");
+        setAuthError(error.message || "Ocurrió un error inesperado.");
+      }
+    } finally {
+      setIsFormLoading(false);
+    }
+  };
+
+  const handleVerifyOtp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setAuthError("");
+
+    if (otpCode.length !== 6) {
+      setAuthError("El código debe tener exactamente 6 dígitos.");
+      return;
+    }
+
+    setIsFormLoading(true);
+    try {
+      const res = await fetch("/api/auth/verify-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, code: otpCode, verificationPayload })
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Código inválido");
+      }
+
+      // El código es correcto. ¡Registrar finalmente el usuario!
+      await registerWithEmail(email, password, fullName.trim());
+      
+    } catch (error: any) {
+      console.error(error);
+      if (error.code === "auth/email-already-in-use") {
+        setAuthError("Este correo ya ha sido registrado mientras verificabas.");
+      } else {
+        setAuthError(error.message || "Código incorrecto o expirado.");
       }
     } finally {
       setIsFormLoading(false);
@@ -102,10 +158,12 @@ export default function AuthPage() {
           </div>
 
           <h1 className="text-2xl font-extrabold text-[#3D3229] mb-2 tracking-tight">
-            {isLogin ? "Bienvenido de nuevo" : "Crea tu cuenta"}
+            {verificationStep ? "Revisa tu correo" : isLogin ? "Bienvenido de nuevo" : "Crea tu cuenta"}
           </h1>
           <p className="text-sm font-medium text-[#A89F95] mb-6 max-w-[280px]">
-            {isLogin 
+            {verificationStep 
+              ? `Hemos enviado un código seguro de 6 dígitos a ${email}.`
+              : isLogin 
               ? "Ingresa para guardar tu progreso académico en el plan interactivo." 
               : "Regístrate para llevar el control de tus materias fácilmente."}
           </p>
@@ -116,109 +174,145 @@ export default function AuthPage() {
             </div>
           )}
 
-          <form onSubmit={handleEmailAuth} className="w-full space-y-3 mb-6">
-            {!isLogin && (
+          {verificationStep ? (
+            <form onSubmit={handleVerifyOtp} className="w-full space-y-3 mb-6 animate-fade-in-up">
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-                  <UserRound className="h-4 w-4 text-[#A89F95]" />
-                </div>
                 <input
                   type="text"
-                  placeholder="Nombre completo"
-                  className="w-full pl-10 pr-4 py-3 bg-[#FAFAFA] border border-[#EDE6DD] rounded-xl text-sm outline-none transition-all focus:border-[#8BAA91] focus:ring-1 focus:ring-[#8BAA91]/30 placeholder:text-[#A89F95] text-[#3D3229] font-medium"
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                  required={!isLogin}
-                  autoComplete="name"
+                  maxLength={6}
+                  placeholder="Ej: 123456"
+                  className="w-full px-4 py-4 bg-[#FAFAFA] border border-[#EDE6DD] rounded-xl text-center text-2xl tracking-[1em] outline-none transition-all focus:border-[#8BAA91] focus:ring-2 focus:ring-[#8BAA91]/30 placeholder:text-[#A89F95]/40 text-[#3D3229] font-bold"
+                  value={otpCode}
+                  onChange={(e) => setOtpCode(e.target.value.replace(/[^0-9]/g, ""))}
+                  required
                 />
               </div>
-            )}
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-                <Mail className="h-4 w-4 text-[#A89F95]" />
-              </div>
-              <input
-                type="email"
-                placeholder="Correo electrónico"
-                className="w-full pl-10 pr-4 py-3 bg-[#FAFAFA] border border-[#EDE6DD] rounded-xl text-sm outline-none transition-all focus:border-[#8BAA91] focus:ring-1 focus:ring-[#8BAA91]/30 placeholder:text-[#A89F95] text-[#3D3229] font-medium"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-                <Lock className="h-4 w-4 text-[#A89F95]" />
-              </div>
-              <input
-                type="password"
-                placeholder="Contraseña"
-                className="w-full pl-10 pr-4 py-3 bg-[#FAFAFA] border border-[#EDE6DD] rounded-xl text-sm outline-none transition-all focus:border-[#8BAA91] focus:ring-1 focus:ring-[#8BAA91]/30 placeholder:text-[#A89F95] text-[#3D3229] font-medium"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                minLength={6}
-              />
-            </div>
 
-            {!isLogin && (
+              <button
+                type="submit"
+                disabled={isFormLoading || otpCode.length !== 6}
+                className="w-full bg-[#8BAA91] hover:bg-[#7CC2A8] text-white font-bold text-sm px-4 py-3.5 rounded-xl transition-all shadow-lg shadow-[#8BAA91]/20 active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed mt-4"
+              >
+                {isFormLoading ? "Verificando..." : "Verificar y Crear Cuenta"}
+              </button>
+
+              <button 
+                type="button"
+                onClick={() => { setVerificationStep(false); setAuthError(""); setOtpCode(""); }}
+                className="w-full text-sm text-[#A89F95] hover:text-[#3D3229] font-medium transition-colors mt-2"
+              >
+                Cancelar
+              </button>
+            </form>
+          ) : (
+            <form onSubmit={handleEmailAuth} className="w-full space-y-3 mb-6">
+              {!isLogin && (
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                    <UserRound className="h-4 w-4 text-[#A89F95]" />
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Nombre completo"
+                    className="w-full pl-10 pr-4 py-3 bg-[#FAFAFA] border border-[#EDE6DD] rounded-xl text-sm outline-none transition-all focus:border-[#8BAA91] focus:ring-1 focus:ring-[#8BAA91]/30 placeholder:text-[#A89F95] text-[#3D3229] font-medium"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    required={!isLogin}
+                    autoComplete="name"
+                  />
+                </div>
+              )}
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                  <Mail className="h-4 w-4 text-[#A89F95]" />
+                </div>
+                <input
+                  type="email"
+                  placeholder="Correo electrónico"
+                  className="w-full pl-10 pr-4 py-3 bg-[#FAFAFA] border border-[#EDE6DD] rounded-xl text-sm outline-none transition-all focus:border-[#8BAA91] focus:ring-1 focus:ring-[#8BAA91]/30 placeholder:text-[#A89F95] text-[#3D3229] font-medium"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+              
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
                   <Lock className="h-4 w-4 text-[#A89F95]" />
                 </div>
                 <input
                   type="password"
-                  placeholder="Confirmar contraseña"
+                  placeholder="Contraseña"
                   className="w-full pl-10 pr-4 py-3 bg-[#FAFAFA] border border-[#EDE6DD] rounded-xl text-sm outline-none transition-all focus:border-[#8BAA91] focus:ring-1 focus:ring-[#8BAA91]/30 placeholder:text-[#A89F95] text-[#3D3229] font-medium"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  required={!isLogin}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
                   minLength={6}
                 />
               </div>
-            )}
 
-            <button
-              type="submit"
-              disabled={isFormLoading}
-              className="w-full bg-[#1A1A1A] hover:bg-[#3D3229] text-white font-bold text-sm px-4 py-3.5 rounded-xl transition-all shadow-lg shadow-[#1A1A1A]/10 active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed mt-2"
-            >
-              {isFormLoading ? "Cargando..." : isLogin ? "Ingresar" : "Registrarme"}
-            </button>
-          </form>
+              {!isLogin && (
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                    <Lock className="h-4 w-4 text-[#A89F95]" />
+                  </div>
+                  <input
+                    type="password"
+                    placeholder="Confirmar contraseña"
+                    className="w-full pl-10 pr-4 py-3 bg-[#FAFAFA] border border-[#EDE6DD] rounded-xl text-sm outline-none transition-all focus:border-[#8BAA91] focus:ring-1 focus:ring-[#8BAA91]/30 placeholder:text-[#A89F95] text-[#3D3229] font-medium"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required={!isLogin}
+                    minLength={6}
+                  />
+                </div>
+              )}
 
-          <div className="w-full flex items-center justify-between mb-6">
-            <div className="flex-1 h-[1px] bg-[#EDE6DD]"></div>
-            <span className="px-3 text-[11px] font-bold text-[#A89F95] uppercase tracking-wider">o con</span>
-            <div className="flex-1 h-[1px] bg-[#EDE6DD]"></div>
-          </div>
+              <button
+                type="submit"
+                disabled={isFormLoading}
+                className="w-full bg-[#1A1A1A] hover:bg-[#3D3229] text-white font-bold text-sm px-4 py-3.5 rounded-xl transition-all shadow-lg shadow-[#1A1A1A]/10 active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed mt-2"
+              >
+                {isFormLoading ? "Cargando..." : isLogin ? "Ingresar" : "Registrarme"}
+              </button>
+            </form>
+          )}
 
-          <button
-            onClick={handleGoogleLogin}
-            type="button"
-            className="w-full flex items-center justify-center gap-3 bg-white hover:bg-[#FAFAFA] text-[#3D3229] border border-[#EDE6DD] font-bold text-sm px-4 py-3 rounded-xl transition-all shadow-sm active:scale-[0.98] group"
-          >
-            <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true" className="group-hover:scale-110 transition-transform">
-              <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
-              <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path>
-              <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path>
-              <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
-              <path fill="none" d="M0 0h48v48H0z"></path>
-            </svg>
-            Google
-          </button>
+          {!verificationStep && (
+            <>
+              <div className="w-full flex items-center justify-between mb-6">
+                <div className="flex-1 h-[1px] bg-[#EDE6DD]"></div>
+                <span className="px-3 text-[11px] font-bold text-[#A89F95] uppercase tracking-wider">o con</span>
+                <div className="flex-1 h-[1px] bg-[#EDE6DD]"></div>
+              </div>
 
-          <p className="mt-8 text-[13px] text-[#A89F95] font-medium">
-            {isLogin ? "¿No tienes cuenta?" : "¿Ya tienes cuenta?"}{" "}
-            <button 
-              type="button"
-              onClick={() => { setIsLogin(!isLogin); setAuthError(""); setFullName(""); setEmail(""); setPassword(""); setConfirmPassword(""); }}
-              className="text-[#8BAA91] hover:text-[#6A8F70] font-bold hover:underline underline-offset-2 transition-all cursor-pointer"
-            >
-              {isLogin ? "Regístrate ahora" : "Ingresa aquí"}
-            </button>
-          </p>
+              <button
+                onClick={handleGoogleLogin}
+                type="button"
+                className="w-full flex items-center justify-center gap-3 bg-white hover:bg-[#FAFAFA] text-[#3D3229] border border-[#EDE6DD] font-bold text-sm px-4 py-3 rounded-xl transition-all shadow-sm active:scale-[0.98] group"
+              >
+                <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true" className="group-hover:scale-110 transition-transform">
+                  <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
+                  <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path>
+                  <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path>
+                  <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
+                  <path fill="none" d="M0 0h48v48H0z"></path>
+                </svg>
+                Google
+              </button>
+
+              <p className="mt-8 text-[13px] text-[#A89F95] font-medium">
+                {isLogin ? "¿No tienes cuenta?" : "¿Ya tienes cuenta?"}{" "}
+                <button 
+                  type="button"
+                  onClick={() => { setIsLogin(!isLogin); setAuthError(""); setFullName(""); setEmail(""); setPassword(""); setConfirmPassword(""); }}
+                  className="text-[#8BAA91] hover:text-[#6A8F70] font-bold hover:underline underline-offset-2 transition-all cursor-pointer"
+                >
+                  {isLogin ? "Regístrate ahora" : "Ingresa aquí"}
+                </button>
+              </p>
+            </>
+          )}
         </div>
       </div>
     </div>
