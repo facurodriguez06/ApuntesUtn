@@ -147,8 +147,8 @@ export default function PlanesPage() {
   const careerOptions = Object.values(typedPlanesData);
 
   // States for Ratings
-  const [globalRatings, setGlobalRatings] = useState<Record<number, {diffAvg: number, utilAvg: number, count: number}>>({});
-  const [ratingModalSubject, setRatingModalSubject] = useState<{id: number, name: string} | null>(null);
+  const [globalRatings, setGlobalRatings] = useState<Record<string, {diffAvg: number, utilAvg: number, count: number}>>({});
+  const [ratingModalSubject, setRatingModalSubject] = useState<{id: string, name: string} | null>(null);
   const [ratingModalCareer, setRatingModalCareer] = useState<string>('');
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
   const router = useRouter();
@@ -156,10 +156,10 @@ export default function PlanesPage() {
   const fetchGlobalRatings = async () => {
     try {
       const querySnapshot = await getDocs(collection(db, 'subject_aggregates'));
-      const ratings: Record<number, any> = {};
+      const ratings: Record<string, any> = {};
       querySnapshot.forEach((doc) => {
         if (doc.id.startsWith(activeCareer.id + '_')) {
-          const subjectId = parseInt(doc.id.split('_')[1]);
+          const subjectId = doc.id.replace(activeCareer.id + '_', '');
           const data = doc.data();
           ratings[subjectId] = {
             diffAvg: data.totalDifficulty / data.count,

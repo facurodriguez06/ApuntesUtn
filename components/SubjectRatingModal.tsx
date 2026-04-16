@@ -12,7 +12,7 @@ import { useScrollLock } from '@/hooks/useScrollLock';
 interface SubjectRatingModalProps {
   isOpen: boolean;
   onClose: () => void;
-  subject: { id: number; name: string } | null;
+  subject: { id: string; name: string } | null;
   careerId: string;
   onRatingUpdated: () => void;
 }
