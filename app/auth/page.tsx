@@ -2,7 +2,7 @@
 
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { ArrowLeft, LogIn, Mail, Lock, UserRound } from "lucide-react";
 import Link from "next/link";
 
@@ -22,6 +22,7 @@ export default function AuthPage() {
   const [verificationStep, setVerificationStep] = useState(false);
   const [otpCode, setOtpCode] = useState("");
   const [verificationPayload, setVerificationPayload] = useState("");
+  const otpInputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   useEffect(() => {
     if (user && !loading) {
@@ -48,9 +49,18 @@ export default function AuthPage() {
       return;
     }
     
-    if (password.length < 6) {
-      setAuthError("La contraseña debe tener al menos 6 caracteres.");
-      return;
+    // Check password strength on registration
+    if (!isLogin) {
+      const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
+      if (!strongPasswordRegex.test(password)) {
+        setAuthError("La contraseña debe tener al menos 6 caracteres, incluyendo un número, una minúscula y una mayúscula.");
+        return;
+      }
+    } else {
+      if (password.length < 6) {
+        setAuthError("La contraseña debe tener al menos 6 caracteres.");
+        return;
+      }
     }
 
     if (!isLogin && password !== confirmPassword) {
@@ -80,7 +90,6 @@ export default function AuthPage() {
         setVerificationStep(true);
       }
     } catch (error: any) {
-      console.error(error);
       if (error.code === "auth/invalid-credential" || error.code === "auth/user-not-found" || error.code === "auth/wrong-password") {
         setAuthError("Correo o contraseña incorrectos.");
       } else if (error.code === "auth/email-already-in-use") {
@@ -119,9 +128,8 @@ export default function AuthPage() {
       await registerWithEmail(email, password, fullName.trim());
       
     } catch (error: any) {
-      console.error(error);
       if (error.code === "auth/email-already-in-use") {
-        setAuthError("Este correo ya ha sido registrado mientras verificabas.");
+        setAuthError("Este correo ya ha sido registrado.");
       } else {
         setAuthError(error.message || "Código incorrecto o expirado.");
       }
@@ -176,16 +184,44 @@ export default function AuthPage() {
 
           {verificationStep ? (
             <form onSubmit={handleVerifyOtp} className="w-full space-y-3 mb-6 animate-fade-in-up">
-              <div className="relative">
-                <input
-                  type="text"
-                  maxLength={6}
-                  placeholder="Ej: 123456"
-                  className="w-full px-4 py-4 bg-[#FAFAFA] border border-[#EDE6DD] rounded-xl text-center text-2xl tracking-[1em] outline-none transition-all focus:border-[#8BAA91] focus:ring-2 focus:ring-[#8BAA91]/30 placeholder:text-[#A89F95]/40 text-[#3D3229] font-bold"
-                  value={otpCode}
-                  onChange={(e) => setOtpCode(e.target.value.replace(/[^0-9]/g, ""))}
-                  required
-                />
+              <div className="flex justify-center gap-2 sm:gap-3">
+                {Array.from({ length: 6 }).map((_, index) => (
+                  <input
+                    key={index}
+                    ref={el => { otpInputRefs.current[index] = el; }}
+                    type="text"
+                    inputMode="numeric"
+                    autoComplete="one-time-code"
+                    className="w-12 h-14 sm:w-14 sm:h-16 bg-[#FAFAFA] border border-[#EDE6DD] rounded-xl text-center text-2xl outline-none transition-all focus:border-[#8BAA91] focus:ring-2 focus:ring-[#8BAA91]/30 text-[#3D3229] font-bold shadow-sm"
+                    value={otpCode[index] && otpCode[index] !== ' ' ? otpCode[index] : ""}
+                    onChange={(e) => {
+                      const val = e.target.value.replace(/[^0-9]/g, "").slice(-1);
+                      const newOtpArray = otpCode.padEnd(6, ' ').split('');
+                      newOtpArray[index] = val || ' ';
+                      setOtpCode(newOtpArray.join('').trimEnd());
+
+                      if (val && index < 5) {
+                        otpInputRefs.current[index + 1]?.focus();
+                      }
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Backspace" && (!otpCode[index] || otpCode[index] === ' ') && index > 0) {
+                        otpInputRefs.current[index - 1]?.focus();
+                      }
+                      if (e.key === "ArrowLeft" && index > 0) otpInputRefs.current[index - 1]?.focus();
+                      if (e.key === "ArrowRight" && index < 5) otpInputRefs.current[index + 1]?.focus();
+                    }}
+                    onPaste={(e) => {
+                      e.preventDefault();
+                      const pasted = e.clipboardData.getData("text").replace(/[^0-9]/g, "").slice(0, 6);
+                      if (pasted) {
+                         setOtpCode(pasted);
+                         otpInputRefs.current[Math.min(pasted.length, 5)]?.focus();
+                      }
+                    }}
+                    required
+                  />
+                ))}
               </div>
 
               <button
@@ -248,6 +284,7 @@ export default function AuthPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   minLength={6}
+                  autoComplete={isLogin ? "current-password" : "new-password"}
                 />
               </div>
 
@@ -264,6 +301,7 @@ export default function AuthPage() {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required={!isLogin}
                     minLength={6}
+                    autoComplete="new-password"
                   />
                 </div>
               )}

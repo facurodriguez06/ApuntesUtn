@@ -28,7 +28,7 @@ export async function POST(request: Request) {
     // Send email using Resend if enabled, else log it for local testing
     if (process.env.RESEND_API_KEY) {
        await resend.emails.send({
-          from: 'onboarding@resend.dev', // Use default resend onboarding email for testing limit
+          from: 'UTNHub <noreply@utnhub.com>', // User's custom verified domain!
           to: email,
           subject: 'UTNHub - Código de verificación',
           html: `
