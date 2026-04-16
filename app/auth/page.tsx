@@ -150,10 +150,10 @@ export default function AuthPage() {
     <div className="min-h-[85vh] flex flex-col items-center justify-center p-4 relative z-10 w-full mb-20">
       <Link
         href="/"
-        className="flex items-center gap-2 text-sm font-bold text-[#7A6E62] hover:text-[#3D3229] transition-colors mb-6 self-center"
+        className="absolute top-6 left-6 flex items-center gap-1 text-sm text-[#A89F95] hover:text-[#3D3229] transition-colors active:scale-95"
       >
         <ArrowLeft className="w-4 h-4" />
-        Volver al inicio
+        <span className="font-medium">Inicio</span>
       </Link>
 
       <div className="w-full max-w-[420px] bg-white border border-[#EDE6DD] rounded-3xl p-8 shadow-xl shadow-[#EDE6DD]/50 animate-fade-in-up relative overflow-hidden">
