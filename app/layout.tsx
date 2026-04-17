@@ -83,11 +83,11 @@ export default function RootLayout({
                     </svg>
                   </a>
                   <a
-                    href="https://www.instagram.com/alfadigital.ar/"
+                    href="https://www.instagram.com/utnhub/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[#A89F95] hover:text-[#3D3229] transition-all transform hover:scale-110"
-                    aria-label="Instagram Alfa Digital"
+                    aria-label="Instagram UTNHub"
                   >
                     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                       <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
