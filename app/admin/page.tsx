@@ -19,6 +19,7 @@ import {
   UserCheck,
   Crown,
   Calendar,
+  ArrowUpDown,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { resolveStorageUrl } from "@/lib/storage";
@@ -45,14 +46,37 @@ const normalizeFolderName = (value: string) =>
 
 const getFolderLabel = (note: Note) => normalizeFolderName(note.folderName ?? "");
 
-const mapSnapshotToNotes = (snapshot: { docs: Array<{ id: string; data: () => object }> }) =>
-  (snapshot.docs
-    .map((docSnap) => ({
-      id: docSnap.id,
-      ...docSnap.data(),
-    })) as Note[]).sort(
-    (a, b) => new Date(b.uploadDate).getTime() - new Date(a.uploadDate).getTime()
-  );
+const mapSnapshotToNotes = (snapshot: { docs: Array<{ id: string; data: () => object }> }, order: string = "newest") => {
+  const notes = snapshot.docs.map((docSnap) => ({
+    id: docSnap.id,
+    ...docSnap.data(),
+  })) as Note[];
+
+  return notes.sort((a, b) => {
+    const priorityDiff = (b.priority || 0) - (a.priority || 0);
+    if (priorityDiff !== 0) return priorityDiff;
+
+    switch (order) {
+      case "oldest":
+        return (a.uploadDate || "").localeCompare(b.uploadDate || "");
+      case "score": {
+        const scoreA = (a.upvotes || 0) - (a.downvotes || 0);
+        const scoreB = (b.upvotes || 0) - (b.downvotes || 0);
+        if (scoreB !== scoreA) return scoreB - scoreA;
+        return (b.uploadDate || "").localeCompare(a.uploadDate || "");
+      }
+      case "alphabetical":
+        return (a.title || "").localeCompare(b.title || "", "es-AR", { numeric: true });
+      case "newest":
+      default: {
+        const dateDiff = (b.uploadDate || "").localeCompare(a.uploadDate || "");
+        if (dateDiff !== 0) return dateDiff;
+        // Default tie-breaker
+        return (a.title || "").localeCompare(b.title || "", "es-AR", { numeric: true });
+      }
+    }
+  });
+};
 
 function NoteCard({
   note,
@@ -259,6 +283,7 @@ export default function AdminPage() {
   const [newAuthorName, setNewAuthorName] = useState("");
   const [newAuthorColor, setNewAuthorColor] = useState("#4A7A52");
   const [newAuthorLabel, setNewAuthorLabel] = useState("Amigo");
+  const [noteSortingOrder, setNoteSortingOrder] = useState("newest");
 
   // Custom confirmation state
   const [confirmDeleteAdmin, setConfirmDeleteAdmin] = useState<{ isOpen: boolean; adminMail: string }>({
@@ -283,7 +308,7 @@ export default function AdminPage() {
     const unsubscribePending = onSnapshot(
       pendingQuery,
       (snapshot) => {
-        setPendingNotes(mapSnapshotToNotes(snapshot));
+        setPendingNotes(mapSnapshotToNotes(snapshot, noteSortingOrder));
       },
       (error) => {
         console.error("Error fetching notes:", error);
@@ -293,7 +318,7 @@ export default function AdminPage() {
     const unsubscribeApproved = onSnapshot(
       approvedQuery,
       (snapshot) => {
-        setApprovedNotes(mapSnapshotToNotes(snapshot));
+        setApprovedNotes(mapSnapshotToNotes(snapshot, noteSortingOrder));
       },
       (error) => {
         console.error("Error fetching approved notes:", error);
@@ -313,6 +338,7 @@ export default function AdminPage() {
           setImagePopupUrl(docSnap.data().imagePopupUrl ?? "");
           setImagePopupLink(docSnap.data().imagePopupLink ?? "");
           setAuthorStyles(docSnap.data().authorStyles || {});
+          setNoteSortingOrder(docSnap.data().noteSortingOrder || "newest");
         }
       }
     );
@@ -593,6 +619,22 @@ export default function AdminPage() {
     } catch (err) {
       console.error(err);
       showToast("Error al guardar anuncio.", "error");
+    } finally {
+      setIsUpdatingSettings(false);
+    }
+  };
+
+  const saveSortingSettings = async (order: string) => {
+    setIsUpdatingSettings(true);
+    setNoteSortingOrder(order);
+    try {
+      await setDoc(doc(db, "settings", "global"), {
+        noteSortingOrder: order,
+      }, { merge: true });
+      showToast(`Orden actualizado: ${order === 'newest' ? 'Más nuevos' : order === 'oldest' ? 'Más antiguos' : order === 'score' ? 'Mejores puntuados' : 'Alfabético'}`, "success");
+    } catch (err) {
+      console.error(err);
+      showToast("Error al guardar el orden.", "error");
     } finally {
       setIsUpdatingSettings(false);
     }
@@ -1132,8 +1174,41 @@ export default function AdminPage() {
         </div>
       </section>
 
+      {/* Ordenamiento de Apuntes Section */}
+      <section className="mb-10 animate-fade-in-up">
+        <div className="bg-white rounded-[2.5rem] border border-[#EDE6DD] p-6 md:p-8 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)]">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div className="max-w-xl">
+              <h2 className="text-xl font-black text-[#3D3229] mb-2 flex items-center gap-2">
+                <span className="p-2 rounded-lg bg-[#E5EFF5] text-[#4A6E82]">
+                  <ArrowUpDown className="w-5 h-5" />
+                </span>
+                Ordenamiento de Apuntes
+              </h2>
+              <p className="text-[#7A6E62] text-sm leading-relaxed">
+                Elegí cómo querés que se muestren los apuntes por defecto en todas las materias.
+              </p>
+            </div>
 
-      
+            <div className="flex w-full md:w-auto relative group">
+              <select
+                value={noteSortingOrder}
+                onChange={(e) => saveSortingSettings(e.target.value)}
+                disabled={isUpdatingSettings}
+                className="w-full md:w-64 bg-[#F9F7F4] border border-[#EDE6DD] group-hover:border-[#C4A87D] text-[#3D3229] rounded-2xl px-4 py-3 pr-10 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-[#C4A87D]/20 focus:border-[#C4A87D] transition-all disabled:opacity-50 appearance-none cursor-pointer"
+              >
+                <option value="newest">Más recientes primero</option>
+                <option value="oldest">Más antiguos primero</option>
+                <option value="score">Mejor puntuados primero</option>
+                <option value="alphabetical">Orden alfabético</option>
+              </select>
+              <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-[#A89F95] group-hover:text-[#8B7355] transition-colors">
+                <ChevronDown className="w-4 h-4" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       </div>
       )}
