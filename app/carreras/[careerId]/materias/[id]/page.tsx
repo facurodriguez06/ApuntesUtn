@@ -39,6 +39,14 @@ type DisplayItem =
   | { type: "note"; note: Note; date: string }
   | { type: "folder"; label: string; notes: Note[]; date: string; key: string };
 
+const typeOrder: Record<string, number> = {
+  "Resumen": 1,
+  "Trabajo Práctico": 2,
+  "Guía de Ejercicios": 3,
+  "Examen": 4,
+};
+const getTypeWeight = (type: string) => typeOrder[type] || 5;
+
 const buildDisplayList = (notes: Note[], order: string = "newest"): DisplayItem[] => {
   const items: DisplayItem[] = [];
   const folderGroups = new Map<string, Note[]>();
@@ -174,7 +182,7 @@ function FolderItem({
             return (
               <Fragment key={note.id}>
                 {showSeparator && (
-                  <div className={`animate-in fade-in fill-mode-forwards opacity-0 duration-500 delay-[200ms] flex items-center gap-3 w-full ${index === 0 ? "mt-0 -mb-1" : "my-2"}`}>
+                  <div className={`flex items-center gap-3 w-full ${index === 0 ? "mt-4 mb-2" : "mt-6 mb-2"}`}>
                     <span 
                       className="text-[10px] font-black uppercase tracking-wider text-[#A89F95] px-2 py-1 bg-[#F5F0EA] rounded-md"
                       style={customStyleFolder && !isCreatorFolder ? { backgroundColor: customStyleFolder.color + "1A", color: customStyleFolder.color } : {}}
@@ -231,6 +239,9 @@ export default async function SubjectProfile({ params }: { params: Promise<{ car
     }) as Note[];
 
     realNotes.sort((a, b) => {
+      const typeDiff = getTypeWeight(a.type) - getTypeWeight(b.type);
+      if (typeDiff !== 0) return typeDiff;
+
       const priorityDiff = (b.priority || 0) - (a.priority || 0);
       if (priorityDiff !== 0) return priorityDiff;
 
