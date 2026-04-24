@@ -16,6 +16,7 @@ export interface Note {
   subjectId?: string;
   year?: number;
   folderName?: string | null;
+  priority?: number;
 }
 
 export interface Subject {

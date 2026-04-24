@@ -24,6 +24,7 @@ export function GlobalSearchBar() {
   const [searchQuery, setSearchQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const [notes, setNotes] = useState<any[]>([]);
+  const [noteSortingOrder, setNoteSortingOrder] = useState("newest");
 
   // Bloquea el scroll del fondo cuando el modal de búsqueda está abierto
   useScrollLock(isOpen);
@@ -67,8 +68,21 @@ export function GlobalSearchBar() {
           console.error("Error fetching notes:", error);
         }
       };
-      // Solo hacer el fetch si todavía no las cargamos o las querés actualizar.
+
+      const fetchSettings = async () => {
+        try {
+          const { doc, getDoc } = await import("firebase/firestore");
+          const settingsSnap = await getDoc(doc(db, "settings", "global"));
+          if (settingsSnap.exists()) {
+            setNoteSortingOrder(settingsSnap.data().noteSortingOrder || "newest");
+          }
+        } catch (error) {
+          console.error("Error fetching settings:", error);
+        }
+      };
+
       fetchNotes();
+      fetchSettings();
     }
   }, [isOpen]);
 
@@ -86,6 +100,16 @@ export function GlobalSearchBar() {
       
     const notMatches = notes
       .filter(n => n.title?.toLowerCase().includes(q) || n.author?.toLowerCase().includes(q))
+      .sort((a, b) => {
+        if (noteSortingOrder === "oldest") return (a.uploadDate || "").localeCompare(b.uploadDate || "");
+        if (noteSortingOrder === "score") {
+          const scoreA = (a.upvotes || 0) - (a.downvotes || 0);
+          const scoreB = (b.upvotes || 0) - (b.downvotes || 0);
+          return scoreB - scoreA;
+        }
+        if (noteSortingOrder === "alphabetical") return (a.title || "").localeCompare(b.title || "", "es-AR", { numeric: true });
+        return (b.uploadDate || "").localeCompare(a.uploadDate || "");
+      })
       .slice(0, 5)
       .map(note => {
         const subject = subjectsData.find(s => s.id === note.subjectId) || subjectsData[0];
