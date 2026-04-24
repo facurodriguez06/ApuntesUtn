@@ -54,25 +54,26 @@ const SubjectStatusRibbon = ({
 }) => {
   const toneClasses =
     tone === 'approved'
-      ? 'bg-gradient-to-r from-[#43a047] to-[#388E3C] shadow-[#388E3C]/30'
-      : 'bg-gradient-to-r from-[#ff9800] to-[#e65100] shadow-[#e65100]/30';
+      ? 'bg-gradient-to-r from-[#6B8A72] via-[#8BAA91] to-[#4A7A52] shadow-[0_16px_32px_-18px_rgba(74,122,82,0.85)]'
+      : 'bg-gradient-to-r from-[#C4A87D] via-[#D4856A] to-[#A9634C] shadow-[0_16px_32px_-18px_rgba(180,111,86,0.85)]';
 
   return (
-    <div className="absolute inset-0 z-30 flex items-center justify-center pointer-events-none transition-opacity duration-300 opacity-100 group-hover:opacity-0 drop-shadow-xl overflow-hidden">
+    <div className="absolute inset-0 z-30 flex items-center justify-center pointer-events-none transition-opacity duration-300 opacity-100 group-hover:opacity-0 drop-shadow-[0_14px_18px_rgba(61,50,41,0.12)] overflow-hidden">
       <div
         className="absolute left-1/2 top-1/2 flex w-[146%] -translate-x-1/2 -translate-y-1/2 items-center justify-center select-none animate-stamp"
       >
         <div
-          className={`flex w-full items-center justify-center rounded-[1.35rem] border-t-2 border-b-4 border-white/80 px-4 text-center font-black uppercase whitespace-nowrap text-white drop-shadow-xl ${toneClasses}`}
+          className={`relative flex w-full items-center justify-center overflow-hidden rounded-[1.35rem] border-t-2 border-b-4 border-white/75 px-4 text-center font-black uppercase whitespace-nowrap text-[#FFFBF7] ring-1 ring-white/45 ${toneClasses}`}
           style={{
             fontSize: 'clamp(0.72rem, 5.6cqw, 1.75rem)',
             paddingTop: 'clamp(0.35rem, 1cqw, 0.6rem)',
             paddingBottom: 'clamp(0.35rem, 1cqw, 0.6rem)',
-            letterSpacing: 'clamp(0.08em, 0.38cqw, 0.11em)',
-            textShadow: '0 2px 8px rgba(0,0,0,0.18)',
+            letterSpacing: '0',
+            textShadow: '0 2px 10px rgba(61,50,41,0.28)',
           }}
         >
-          {label}
+          <span className="absolute inset-0 bg-[linear-gradient(100deg,rgba(255,255,255,0.26)_0%,rgba(255,255,255,0.08)_44%,rgba(255,255,255,0)_100%)]" />
+          <span className="relative z-10">{label}</span>
         </div>
       </div>
     </div>
@@ -572,11 +573,11 @@ const CurriculumViewer = ({ career, globalRatings, setRatingModalSubject, setRat
                     }
 
                     if (isApproved) {
-                      cardStyle = "bg-[#E8F5E9] border-[#388E3C]/40 shadow-sm relative overflow-hidden opacity-70 hover:opacity-100 transition-opacity";
-                      iconColor = "text-[#388E3C]";
+                      cardStyle = "bg-[#F4FBFA] border-[#8BAA91]/55 shadow-sm relative overflow-hidden opacity-75 hover:opacity-100 transition-opacity";
+                      iconColor = "text-[#6B8A72]";
                     } else if (isRegular) {
-                      cardStyle = "bg-[#FFF3E0] border-[#E65100]/40 shadow-sm relative overflow-hidden opacity-70 hover:opacity-100 transition-opacity";
-                      iconColor = "text-[#E65100]";
+                      cardStyle = "bg-[#FFF9F2] border-[#D4856A]/40 shadow-sm relative overflow-hidden opacity-75 hover:opacity-100 transition-opacity";
+                      iconColor = "text-[#A9634C]";
                     } else if (user && subject.name !== "Materias Electivas") {
                       if (canTake) {
                         cardStyle = "bg-[#F4FBFA] border-[#8BAA91] border-2 shadow-md hover:-translate-y-1 transition-all relative overflow-hidden";
