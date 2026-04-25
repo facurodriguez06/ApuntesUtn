@@ -1,10 +1,15 @@
 "use client";
 
 import { Note } from "@/lib/data";
-import { FileText, File, FileArchive, Download, Check, User, Eye, Crown } from "lucide-react";
+import { FileText, File, FileArchive, Download, Check, User, Eye, Crown, Star } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/context/ToastContext";
+import { useAuth } from "@/context/AuthContext";
 import { resolveStorageUrl } from "@/lib/storage";
+import { RatingModal } from "./RatingModal";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "@/lib/firebase/config";
+import { cn } from "@/lib/utils";
 
 const tagClass: Record<string, string> = {
   Resumen: "tag-resumen",
@@ -47,9 +52,43 @@ const getCreatorTagClass = (type: string) => {
 export type CustomStyle = { color: string; label: string };
 export function DocumentListItem({ note, customStyles = {}, index = 0 }: { note: Note; customStyles?: Record<string, CustomStyle>; index?: number }) {
   const { showToast } = useToast();
+  const { user } = useAuth();
   const [downloaded, setDownloaded] = useState(false);
+  const [isRatingModalOpen, setIsRatingModalOpen] = useState(false);
+  const [localRatings, setLocalRatings] = useState(note.ratings || []);
   const isCreatorNote = normalizeAuthorName(note.author ?? "") === CREATOR_AUTHOR;
   const customAuthorStyle = customStyles?.[normalizeAuthorName(note.author ?? "")];
+
+  const handleRate = async (value: number) => {
+    if (!user) return;
+    try {
+      const noteRef = doc(db, "notes", note.id);
+      const noteDoc = await getDoc(noteRef);
+      if (noteDoc.exists()) {
+        const currentRatings = noteDoc.data().ratings || [];
+        const otherRatings = currentRatings.filter((r: any) => r.uid !== user.uid);
+        
+        const newRating = {
+          uid: user.uid,
+          userName: user.displayName || user.email?.split("@")[0] || "Usuario",
+          value
+        };
+
+        const updatedRatings = [...otherRatings, newRating];
+        await updateDoc(noteRef, { ratings: updatedRatings });
+        
+        setLocalRatings(updatedRatings);
+        showToast("¡Gracias por tu valoración!", "success");
+      }
+    } catch (e) {
+      console.error(e);
+      showToast("Error al valorar el apunte", "error");
+    }
+  };
+
+  const averageRating = localRatings.length > 0 
+    ? localRatings.reduce((acc, r) => acc + r.value, 0) / localRatings.length 
+    : 0;
 
   const handleVisualizar = () => {
     if (note.fileUrl) {
@@ -163,6 +202,19 @@ export function DocumentListItem({ note, customStyles = {}, index = 0 }: { note:
 
       <div className={`flex flex-row items-center justify-end w-full sm:w-auto gap-2 border-t mt-3 pt-3 sm:mt-0 sm:pt-0 sm:border-transparent flex-wrap sm:flex-nowrap ${isCreatorNote ? "border-[#E7D39A]" : "border-[#EDE6DD]"}`}>
         <button
+          onClick={() => setIsRatingModalOpen(true)}
+          className={`group/btn flex-1 sm:flex-none flex items-center justify-center rounded-lg px-3 py-2 text-sm font-semibold transition-all duration-300 active:scale-95 ${
+            isCreatorNote
+              ? "bg-[#FFF4CC] text-[#7A5A0A] hover:bg-[#FFE9A3] hover:text-[#5E4608] border border-[#E2C15F]/50"
+              : "bg-white text-[#7A6E62] border border-[#EBE3D5] hover:bg-[#FDFBF7] hover:border-[#DED5C7] hover:text-[#3D3229] hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
+          }`}
+          title="Valorar"
+        >
+          <Star className={cn("w-3.5 h-3.5 mr-1.5 group-hover/btn:scale-110 transition-transform duration-300", averageRating > 0 ? "fill-[#D4AF37] text-[#D4AF37]" : "text-[#D5CAC0]")} /> 
+          {averageRating > 0 ? averageRating.toFixed(1) : "Valorar"}
+        </button>
+
+        <button
           onClick={handleVisualizar}
           className={`group/btn flex-1 sm:flex-none flex items-center justify-center rounded-lg px-3 py-2 text-sm font-semibold transition-all duration-300 active:scale-95 ${
             isCreatorNote
@@ -195,6 +247,14 @@ export function DocumentListItem({ note, customStyles = {}, index = 0 }: { note:
           )}
         </button>
       </div>
+
+      <RatingModal
+        isOpen={isRatingModalOpen}
+        onClose={() => setIsRatingModalOpen(false)}
+        ratings={localRatings}
+        onRate={handleRate}
+        noteTitle={note.title}
+      />
     </div>
   );
 }

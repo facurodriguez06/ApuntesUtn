@@ -18,6 +18,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { careersData, yearConfig, getSubjectsByCareerAndYear, getSubjectsByCareer } from "@/lib/data";
 import { db } from "@/lib/firebase/config";
 import { CustomSelect } from "./CustomSelect";
+import { useAuth } from "@/context/AuthContext";
 
 type UploadApiResponse = {
   url?: string;
@@ -28,6 +29,7 @@ export function UploadModule() {
   const searchParams = useSearchParams();
   const [isDragging, setIsDragging] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
+  const { user } = useAuth();
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [carrera, setCarrera] = useState("");
@@ -50,6 +52,15 @@ export function UploadModule() {
       if (initMateria) setMateria(initMateria);
     }
   }, [searchParams]);
+
+  useEffect(() => {
+    if (user && !author) {
+      const defaultName = user.displayName || (user.email ? user.email.split('@')[0] : "");
+      if (defaultName) {
+        setAuthor(defaultName);
+      }
+    }
+  }, [user]);
 
   const sanitize = (input: string, maxLen = 120): string =>
     input.replace(/<[^>]*>/g, "").replace(/[<>'"]/g, "").trim().slice(0, maxLen);

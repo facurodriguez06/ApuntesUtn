@@ -39,6 +39,10 @@
 
 /* Custom cursors */
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   position: relative;
   background: var(--bg-warm);

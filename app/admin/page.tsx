@@ -253,6 +253,7 @@ export default function AdminPage() {
 
   const [pendingNotes, setPendingNotes] = useState<Note[]>([]);
   const [approvedNotes, setApprovedNotes] = useState<Note[]>([]);
+  const [searchAuthor, setSearchAuthor] = useState("");
   const [folderInputs, setFolderInputs] = useState<Record<string, string>>({});
   const [selectedPendingNotes, setSelectedPendingNotes] = useState<string[]>([]);
   const [bulkFolderInput, setBulkFolderInput] = useState("");
@@ -510,7 +511,7 @@ export default function AdminPage() {
   };
 
   const handleSelectAllPending = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checked) setSelectedPendingNotes(pendingNotes.map(n => n.id));
+    if (e.target.checked) setSelectedPendingNotes(filteredPendingNotes.map(n => n.id));
     else setSelectedPendingNotes([]);
   };
 
@@ -524,6 +525,9 @@ export default function AdminPage() {
     });
     showToast("Carpeta aplicada a los seleccionados", "info");
   };
+
+  const filteredPendingNotes = pendingNotes.filter(n => n.author?.toLowerCase().includes(searchAuthor.toLowerCase()));
+  const filteredApprovedNotes = approvedNotes.filter(n => n.author?.toLowerCase().includes(searchAuthor.toLowerCase()));
 
   const handleBulkApprove = async () => {
     const toApprove = pendingNotes.filter(n => selectedPendingNotes.includes(n.id));
@@ -1497,18 +1501,27 @@ export default function AdminPage() {
 
       {activeTab === 'apuntes' && (
       <div className="animate-fade-in">
+      <div className="mb-6 flex items-center bg-white p-2 rounded-2xl border border-[#EDE6DD] shadow-sm max-w-md">
+        <input 
+          type="text" 
+          placeholder="Buscar por nombre de autor..." 
+          value={searchAuthor}
+          onChange={(e) => setSearchAuthor(e.target.value)}
+          className="w-full px-4 py-2 outline-none text-[#3D3229] placeholder:text-[#A89F95] bg-transparent"
+        />
+      </div>
       <section className="mb-8">
 
         <h2 className="text-xl font-bold text-[#4A433C] mb-4 ml-1 flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-[#C4A87D]"></span>
-          Bandeja de Pendientes ({pendingNotes.length})
+          Bandeja de Pendientes ({filteredPendingNotes.length})
         </h2>
 
         <div className="bg-white rounded-3xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-[#EDE6DD] min-h-[300px]">
-          {pendingNotes.length === 0 ? (
+          {filteredPendingNotes.length === 0 ? (
             <EmptySection
               title="¡Todo al día!"
-              description="No hay apuntes pendientes de moderación en este momento."
+              description={searchAuthor ? "No hay apuntes pendientes que coincidan con la búsqueda." : "No hay apuntes pendientes de moderación en este momento."}
               icon={<Check className="w-10 h-10 text-[#A8B8A0]" />}
             />
           ) : (
@@ -1517,7 +1530,7 @@ export default function AdminPage() {
                 <div className="flex items-center gap-3">
                   <input
                     type="checkbox"
-                    checked={selectedPendingNotes.length > 0 && selectedPendingNotes.length === pendingNotes.length}
+                    checked={selectedPendingNotes.length > 0 && selectedPendingNotes.length === filteredPendingNotes.length}
                     onChange={handleSelectAllPending}
                     className="w-5 h-5 cursor-pointer accent-[#4A7A52] rounded"
                     title="Seleccionar todos"
@@ -1552,7 +1565,7 @@ export default function AdminPage() {
                 )}
               </div>
               <div className="grid grid-cols-1 gap-4">
-              {pendingNotes.map((note) => {
+              {filteredPendingNotes.map((note) => {
                 const folderSuggestions = getFolderSuggestions(note);
                 const datalistId = `folders-${note.id}`;
                 const authorFolder = normalizeFolderName(note.author ?? "");
@@ -1655,21 +1668,21 @@ export default function AdminPage() {
       <section>
         <h2 className="text-xl font-bold text-[#4A433C] mb-4 ml-1 flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-[#8BAA91]"></span>
-          Apuntes Aprobados ({approvedNotes.length})
+          Apuntes Aprobados ({filteredApprovedNotes.length})
         </h2>
 
         <div className="bg-white rounded-3xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-[#EDE6DD] min-h-[300px]">
-          {approvedNotes.length === 0 ? (
+          {filteredApprovedNotes.length === 0 ? (
             <EmptySection
               title="Sin aprobados para revisar"
-              description="Cuando apruebes apuntes, también vas a poder eliminarlos y ver en qué carpeta quedaron."
+              description={searchAuthor ? "No hay apuntes aprobados que coincidan con la búsqueda." : "Cuando apruebes apuntes, también vas a poder eliminarlos y ver en qué carpeta quedaron."}
               icon={<FileText className="w-10 h-10 text-[#A8B8A0]" />}
             />
           ) : (
             
               <div className="flex flex-col gap-8">
                 {Object.entries(
-                  approvedNotes.reduce((acc, note) => {
+                  filteredApprovedNotes.reduce((acc, note) => {
                     const subjectName = subjectsData.find(s => s.id === note.subjectId)?.name || note.subjectId || "General";
                     if (!acc[subjectName]) acc[subjectName] = [];
                     acc[subjectName].push(note);

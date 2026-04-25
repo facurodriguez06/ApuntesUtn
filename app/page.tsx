@@ -8,6 +8,7 @@ import { CareerCard } from "@/components/CareerCard";
 import { LiveNotesCount } from "@/components/LiveNotesCount";
 import { DonationSection } from "@/components/DonationSection";
 import { DonationModal } from "@/components/DonationModal";
+import { RankingSection } from "@/components/RankingSection";
 import { careersData, subjectsData } from "@/lib/data";
 import { BookOpen, Layers, School, Sparkles, GraduationCap, Hexagon, Coffee } from "lucide-react";
 
@@ -117,8 +118,11 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Ranking Section */}
+        <RankingSection />
+
         {/* Careers Grid */}
-        <section>
+        <section id="carreras">
           <h2 className="text-xl font-extrabold text-[#3D3229] mb-6">Elegí tu carrera</h2>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 stagger-children items-stretch">

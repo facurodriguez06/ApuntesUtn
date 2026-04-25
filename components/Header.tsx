@@ -17,6 +17,18 @@ export function Header() {
   
   const { user, logout } = useAuth();
 
+  const handleExploreClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (window.location.pathname === "/") {
+      e.preventDefault();
+      const section = document.getElementById("carreras");
+      if (section) {
+        const y = section.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
+      setMenuOpen(false);
+    }
+  };
+
   // Nombre a mostrar del usuario logueado
   const displayName = user?.displayName || user?.email?.split("@")[0] || "Usuario";
 
@@ -72,10 +84,10 @@ export function Header() {
     <header
       ref={headerRef}
       className={cn(
-        "sticky top-0 z-50 w-full transition-all duration-300 py-3",
+        "sticky top-0 z-50 w-full transition-all duration-300 py-3 border-b",
         scrolled 
-          ? "bg-white shadow-sm border-b border-[#EDE6DD]"
-          : "bg-transparent"
+          ? "bg-white shadow-sm border-[#EDE6DD]"
+          : "bg-transparent border-transparent"
       )}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -104,7 +116,8 @@ export function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden sm:flex items-center gap-2 p-1.5 bg-white/60 shadow-sm rounded-2xl border border-[#EDE6DD]/80 shadow-sm shadow-[#EDE6DD]/30">
             <Link 
-              href="/" 
+              href="/#carreras" 
+              onClick={handleExploreClick}
               className="relative text-[13px] font-bold text-[#7A6E62] hover:text-[#3D3229] px-4 py-2 rounded-xl transition-all duration-300 group hover:bg-[#F5F0EA]/50"
             >
               Explorar
@@ -208,9 +221,9 @@ export function Header() {
           <div className="sm:hidden absolute top-full left-0 w-full px-4 pt-2 pb-4 mt-2 bg-white/95 shadow-sm border-b border-[#EDE6DD] shadow-xl shadow-black/5 animate-fade-in-up">
             <div className="flex flex-col gap-2 bg-[#FFFBF7] p-2 rounded-2xl border border-[#EDE6DD]">
               <Link 
-                href="/" 
+                href="/#carreras" 
                 className="flex items-center justify-between text-sm font-bold text-[#7A6E62] hover:text-[#3D3229] px-4 py-3 rounded-xl hover:bg-white transition-all"
-                onClick={() => setMenuOpen(false)}
+                onClick={handleExploreClick}
               >
                 Explorar materias <ChevronRight className="w-4 h-4 opacity-50" />
               </Link>

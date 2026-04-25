@@ -1,5 +1,11 @@
 export type DocumentType = 'Resumen' | 'Examen' | 'Examen Resuelto' | 'Trabajo Práctico' | 'Guía de Ejercicios';
 
+export interface NoteRating {
+  uid: string;
+  userName: string;
+  value: number;
+}
+
 export interface Note {
   id: string;
   title: string;
@@ -12,6 +18,7 @@ export interface Note {
   fileUrl?: string;
   upvotes?: number;
   downvotes?: number;
+  ratings?: NoteRating[];
   careerId?: string;
   subjectId?: string;
   year?: number;
