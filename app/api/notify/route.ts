@@ -14,7 +14,7 @@ export async function POST(request: Request) {
     }
 
     // Determine the base URL (e.g. for localhost vs production)
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://utnhub.com/admin';
 
     const message = {
       content: `📝 **Nuevo apunte pendiente de aprobación**\n\n**Título:** ${title}\n**Autor:** ${author}\n**Materia:** ${subject}\n**Tipo:** ${type}\n\n👉 [Ir al panel de admin para revisar](${baseUrl}/admin)`
