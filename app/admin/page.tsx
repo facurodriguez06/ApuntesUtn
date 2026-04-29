@@ -728,6 +728,11 @@ export default function AdminPage() {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    if (file.size > 10 * 1024 * 1024) {
+      showToast("La imagen del anuncio no puede superar los 10 MB", "error");
+      return;
+    }
+
     setIsUploadingImage(true);
     try {
       const formData = new FormData();
