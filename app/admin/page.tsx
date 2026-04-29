@@ -746,7 +746,7 @@ export default function AdminPage() {
 
       if (!res.ok) {
         const errData = await res.json().catch(() => null);
-        throw new Error(errData?.error || "Error al subir imagen");
+        throw new Error(errData?.error || `Fallo al subir: Error ${res.status} ${res.statusText}`);
       }
 
       const data = await res.json();
