@@ -744,14 +744,17 @@ export default function AdminPage() {
         body: formData,
       });
 
-      if (!res.ok) throw new Error("Error al subir imagen");
+      if (!res.ok) {
+        const errData = await res.json().catch(() => null);
+        throw new Error(errData?.error || "Error al subir imagen");
+      }
 
       const data = await res.json();
       setImagePopupUrl(data.url);
       showToast("Imagen subida con éxito", "success");
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      showToast("Error al subir imagen", "error");
+      showToast(error.message || "Error al subir imagen", "error");
     } finally {
       setIsUploadingImage(false);
     }
