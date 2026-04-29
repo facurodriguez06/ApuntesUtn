@@ -271,6 +271,64 @@ function SubjectGroup({
   );
 }
 
+const compressImage = async (file: File, maxSizeMB: number = 4): Promise<File> => {
+  if (file.size <= maxSizeMB * 1024 * 1024) return file;
+  
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event) => {
+      const img = new Image();
+      img.src = event.target?.result as string;
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        let { width, height } = img;
+        
+        const maxDim = 2048;
+        if (width > maxDim || height > maxDim) {
+          if (width > height) {
+            height = Math.round((height * maxDim) / width);
+            width = maxDim;
+          } else {
+            width = Math.round((width * maxDim) / height);
+            height = maxDim;
+          }
+        }
+        
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return resolve(file);
+        
+        ctx.drawImage(img, 0, 0, width, height);
+        
+        let quality = 0.8;
+        const targetSize = maxSizeMB * 1024 * 1024;
+        
+        const tryCompress = () => {
+          canvas.toBlob((blob) => {
+            if (!blob) return resolve(file);
+            
+            if (blob.size > targetSize && quality > 0.4) {
+              quality -= 0.1;
+              tryCompress();
+            } else {
+              const compressedFile = new File([blob], file.name, {
+                type: 'image/jpeg',
+                lastModified: Date.now(),
+              });
+              resolve(compressedFile);
+            }
+          }, "image/jpeg", quality);
+        };
+        tryCompress();
+      };
+      img.onerror = () => resolve(file);
+    };
+    reader.onerror = () => resolve(file);
+  });
+};
+
 export default function AdminPage() {
   const { user, loading } = useAuth();
   const ownerRegistrationAttempted = useRef<string | null>(null);
@@ -735,8 +793,10 @@ export default function AdminPage() {
 
     setIsUploadingImage(true);
     try {
+      const processedFile = await compressImage(file, 4); // Comprimir a max 4MB para pasar Vercel
+
       const formData = new FormData();
-      formData.append("file", file);
+      formData.append("file", processedFile);
       formData.append("type", "image");
 
       const res = await fetch("/api/upload", {
